@@ -2,7 +2,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
-use Palasthotel\WordPress\BlockX\Blocks\_Block;
+use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 
 class Templates extends _Component {
 
@@ -12,23 +12,23 @@ class Templates extends _Component {
 	private $sub_dirs = null;
 
 	/**
-	 * @param _Block $block
+	 * @param _BlockType $block
 	 *
 	 * @param bool $editor
 	 *
 	 * @return false|string
 	 */
-	function get_block_template_path(_Block $block, bool $editor){
+	function get_block_template_path(_BlockType $block, bool $editor){
 		return $this->get_template_path($this->get_block_template_name($block, $editor));
 	}
 
 	/**
-	 * @param _Block $block
+	 * @param _BlockType $block
 	 * @param bool $editor
 	 *
 	 * @return string
 	 */
-	function get_block_template_name(_Block $block, bool $editor){
+	function get_block_template_name(_BlockType $block, bool $editor){
 		return str_replace("/","--",$block->id()).
 		       ($editor ? "--editor":"").
 		       ".php";

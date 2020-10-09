@@ -1,5 +1,5 @@
 import widgets from "./widgets";
-import {Button, PanelRow} from "@wordpress/components";
+import {Button} from "@wordpress/components";
 import {useEffect} from "@wordpress/element";
 
 const ContentStructure = ({definition, content, setContent, autoSetDefaults = false})=>{
@@ -29,13 +29,12 @@ const ContentStructure = ({definition, content, setContent, autoSetDefaults = fa
         {definition.map(item=>{
             if(typeof widgets[item.type] !== typeof undefined){
                 const Widget = widgets[item.type];
-                return <PanelRow key={item.key}>
-                    <Widget
-                        definition={item}
-                        value={content[item.key] || item.defaultValue}
-                        onChange={(value) => setValue(item.key, value)}
-                    />
-                </PanelRow>
+                return <Widget
+                    key={item.key}
+                    definition={item}
+                    value={content[item.key] || item.defaultValue}
+                    onChange={(value) => setValue(item.key, value)}
+                />
             }
             return <p key={item.key}>Type <b>{item.type}</b> not implemented</p>
         })}

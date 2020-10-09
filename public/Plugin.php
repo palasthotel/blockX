@@ -34,6 +34,7 @@ class Plugin {
 
 	const BLOCK_POSTS = "blockx/posts";
 
+	const ACTION_COLLECT = "blockx_collect";
 	const FILTER_ADD_TEMPLATES_PATHS = "blockx_add_templates_paths";
 
 	const THEME_FOLDER = "plugin-parts";

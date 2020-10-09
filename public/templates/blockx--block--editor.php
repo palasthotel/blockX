@@ -1,13 +1,12 @@
 <?php
 
-use Palasthotel\WordPress\BlockX\Blocks\_Block;
+use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 
 /**
- * @var _Block $this
+ * @var _BlockType $this
  * @var array $content
  */
 
-echo "<h1>{$this->id()} Editor</h1>";
 echo "<pre>";
 print_r($content);
 echo "</pre>";

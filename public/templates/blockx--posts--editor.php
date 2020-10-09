@@ -9,8 +9,10 @@ use Palasthotel\WordPress\BlockX\Blocks\Posts;
 
 $query = new WP_Query($content->args);
 
+echo "<ul>";
 while($query->have_posts()){
 	$query->the_post();
-	echo "<h1>".get_the_title()."</h1>";
+	echo "<li>".get_the_title()."</li>";
 }
+echo "</ul>";
 wp_reset_postdata();

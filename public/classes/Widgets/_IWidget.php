@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-interface _IItem {
+interface _IWidget {
 	public function key(): string;
 	public function label(): string;
 	public function type(): string;

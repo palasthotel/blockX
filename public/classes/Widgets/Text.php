@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-class Text extends _Item {
+class Text extends _Widget {
 
 	const TYPE = "text";
 

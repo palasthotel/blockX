@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-abstract class _Item implements _IItem {
+abstract class _Widget implements _IWidget {
 
 	private $key;
 	private $label;

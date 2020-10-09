@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-class Checkbox extends _Item {
+class Checkbox extends _Widget {
 
 	const TYPE = "checkbox";
 

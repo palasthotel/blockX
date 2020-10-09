@@ -3,14 +3,17 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
+use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Widgets\ContentStructure;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
 use Palasthotel\WordPress\BlockX\Widgets\Select;
 use Palasthotel\WordPress\BlockX\Blocks;
 use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\TaxQuery;
+use stdClass;
 
-class Posts extends _Block {
+class Posts extends _BlockType {
 
 	public function id(): string {
 		return Plugin::BLOCK_POSTS;
@@ -36,26 +39,52 @@ class Posts extends _Block {
 	}
 
 	public function contentStructure(): ContentStructure {
+
+		$postTypeOptions = [];
+		$postTypeOptions[] = new Option("any", __("Any", Plugin::DOMAIN));
+		foreach ($this->plugin->assets->getPostTypes() as $postType){
+			$postTypeOptions[] = new Option($postType["key"], $postType["label"]);
+		}
+
+		$taxonomyOptions = [];
+		foreach ($this->plugin->assets->getTaxonomies() as $taxonomy){
+			$taxonomyOptions[] = new Option($taxonomy["name"], $taxonomy["label"]);
+		}
+
 		return new ContentStructure([
+
 			new Number("number_of_posts", "Number of Posts", 5),
 			new Number("offset", "Offset", 0),
+
+			Select::build("post_type", "Post Type", "post")
+			      ->setOptions($postTypeOptions),
+
+			TaxQuery::build("tax_query", __("Tax Query", Plugin::DOMAIN))
+			        ->useTaxonomies($taxonomyOptions),
+
+			new Number("offset2", "Offset", 0),
+
 			new ListOf("taxonomies", "Taxonomies", [
-				new Select("taxonomy", "Taxonomy"),
+				new Number("offset", "Offset", 0),
 			])
 			// post type
 			// date?
 		]);
 	}
 
-	public function prepare( array $content ) {
-		parent::prepare( $content );
-
+	/**
+	 * @param stdClass $content
+	 *
+	 * @return stdClass
+	 */
+	public function prepare( stdClass $content ) {
 		// build all query args
-		$this->content->args = [
-			"posts_per_page" => isset($content["number_of_posts"]) ? intval($content["number_of_posts"]): 5,
-			"post_type" => "any",
+		$content->args = [
+			"posts_per_page" => isset($content->number_of_posts) ? intval($content->number_of_posts): 5,
+			"offset" => isset($content->offset) ? intval($content->offset): 0,
+			"post_type" => isset($content->post_type) ? sanitize_text_field($content->post_type): "any",
 		];
-
+		return $content;
 	}
 
 }

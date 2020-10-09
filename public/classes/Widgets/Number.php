@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-class Number extends _Item {
+class Number extends _Widget {
 
 	const TYPE = "number";
 

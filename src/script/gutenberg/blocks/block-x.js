@@ -17,11 +17,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
         },
         edit: (props) => {
             const {isSelected, className,  setAttributes, attributes} = props;
-            console.log(attributes)
-            const setContent = (content)=>{
-                console.log("set", content)
-                setAttributes({content})
-            }
+            const setContent = (content)=> setAttributes({content})
             return <>
                 <InspectorControls>
                     <PanelBody>

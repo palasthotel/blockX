@@ -5,7 +5,7 @@ namespace Palasthotel\WordPress\BlockX\Blocks;
 
 use Palasthotel\WordPress\BlockX\Widgets\ContentStructure;
 
-interface _IBlock {
+interface _IBlockType {
 
 	public function id(): string;
 	public function category(): string;

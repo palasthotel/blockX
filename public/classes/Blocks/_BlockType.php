@@ -8,22 +8,16 @@ use Palasthotel\WordPress\BlockX\_Component;
 use Palasthotel\WordPress\BlockX\Plugin;
 use stdClass;
 
-abstract class _Block extends _Component implements _IBlock {
+abstract class _BlockType extends _Component implements _IBlockType {
 
 	/**
-	 * @var stdClass
+	 * @return bool
 	 */
-	var $content;
-
-	public function __construct( $plugin ) {
-		parent::__construct( $plugin );
-		$this->content = new stdClass();
-	}
-
 	function isEditor(){
 		return defined( 'REST_REQUEST' ) && REST_REQUEST == true;
 	}
 
+	function enqueueEditorAssets(){}
 	function enqueueAssets(){}
 
 	public function registerBlock(){
@@ -48,10 +42,12 @@ abstract class _Block extends _Component implements _IBlock {
 	/**
 	 * prepare contents before output gets build
 	 *
-	 * @param array $content
+	 * @param stdClass $content
+	 *
+	 * @return stdClass
 	 */
-	function prepare( array $content){
-		$this->content = (object) $content;
+	function prepare( stdClass $content){
+		return $content;
 	}
 
 	/**
@@ -61,10 +57,10 @@ abstract class _Block extends _Component implements _IBlock {
 	 * @return string
 	 */
 	function build(array $attributes, string $editorContent){
-		$this->prepare(isset($attributes["content"]) ? $attributes["content"] : []);
+
+		$content = $this->prepare(isset($attributes["content"]) ? (object) $attributes["content"] : new stdClass());
 
 		ob_start();
-		$content = $this->content;
 		include Plugin::instance()->templates->get_block_template_path($this, $this->isEditor());
 		$content = $editorContent.ob_get_contents();
 		ob_end_clean();

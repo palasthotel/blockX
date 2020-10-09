@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-class ListOf extends _Item {
+class ListOf extends _Widget {
 
 	const TYPE = "list_of";
 
@@ -18,7 +18,7 @@ class ListOf extends _Item {
 	 *
 	 * @param string $key
 	 * @param string $label
-	 * @param _Item[] $contentStructure
+	 * @param _Widget[] $contentStructure
 	 * @param array $defaultValue
 	 */
 	public function __construct( string $key, string $label, array $contentStructure, array $defaultValue = [] ) {

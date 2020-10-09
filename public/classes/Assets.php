@@ -4,12 +4,12 @@
 namespace Palasthotel\WordPress\BlockX;
 
 
-use Palasthotel\WordPress\BlockX\Blocks\_Block;
+use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 
 class Assets extends _Component {
 
 	/**
-	 * @param _Block[] $blocks
+	 * @param _BlockType[] $blocks
 	 */
 	function enqueueGutenberg( array $blocks ){
 		$info = include $this->plugin->path . "/js/gutenberg/blockx.asset.php";
@@ -47,9 +47,9 @@ class Assets extends _Component {
 	 */
 	public function getPostTypes(){
 		$post_types = array();
-		$input      = get_post_types( array(), 'objects' );
+		$input      = get_post_types( array('public' => true, 'show_ui' => true), 'objects' );
 		foreach ( $input as $post_type => $info ) {
-			$post_types[] = array( 'key' => $post_type, 'text' => $info->label );
+			$post_types[] = array( 'key' => $post_type, 'label' => $info->label );
 		}
 		return $post_types;
 	}

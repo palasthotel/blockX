@@ -6,14 +6,14 @@ namespace Palasthotel\WordPress\BlockX\Widgets;
 
 class ContentStructure {
 	/**
-	 * @var _Item[]
+	 * @var _Widget[]
 	 */
 	private $items;
 
 	/**
 	 * ContentStructure constructor.
 	 *
-	 * @param _Item[] $items
+	 * @param _Widget[] $items
 	 */
 	public function __construct( array $items) {
 		$this->items = $items;
