@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Palasthotel\WordPress\BlockX\ContentStructure;
+namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
 abstract class _Item implements _IItem {

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Palasthotel\WordPress\BlockX\Gutenberg;
+namespace Palasthotel\WordPress\BlockX\Blocks;
 
-use Palasthotel\WordPress\BlockX\ContentStructure\ContentStructure;
+use Palasthotel\WordPress\BlockX\Widgets\ContentStructure;
 
 interface _IBlock {
 

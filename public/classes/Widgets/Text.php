@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Palasthotel\WordPress\BlockX\ContentStructure;
+namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
 class Text extends _Item {

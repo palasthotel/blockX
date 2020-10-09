@@ -7,6 +7,19 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Palasthotel\\WordPress\\BlockX\\Assets' => $baseDir . '/classes/Assets.php',
-    'Palasthotel\\WordPress\\BlockX\\Gutenberg\\PostsBlock' => $baseDir . '/classes/Gutenberg/PostsBlock.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\Posts' => $baseDir . '/classes/Blocks/Posts.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\_Block' => $baseDir . '/classes/Blocks/_Block.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\_IBlock' => $baseDir . '/classes/Blocks/_IBlock.php',
+    'Palasthotel\\WordPress\\BlockX\\Gutenberg' => $baseDir . '/classes/Gutenberg.php',
+    'Palasthotel\\WordPress\\BlockX\\Templates' => $baseDir . '/classes/Templates.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\Checkbox' => $baseDir . '/classes/Widgets/Checkbox.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\ContentStructure' => $baseDir . '/classes/Widgets/ContentStructure.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\ListOf' => $baseDir . '/classes/Widgets/ListOf.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\Number' => $baseDir . '/classes/Widgets/Number.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\Select' => $baseDir . '/classes/Widgets/Select.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxQuery' => $baseDir . '/classes/Widgets/TaxQuery.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\Text' => $baseDir . '/classes/Widgets/Text.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\_IItem' => $baseDir . '/classes/Widgets/_IItem.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\_Item' => $baseDir . '/classes/Widgets/_Item.php',
     'Palasthotel\\WordPress\\BlockX\\_Component' => $baseDir . '/classes/_Component.php',
 );

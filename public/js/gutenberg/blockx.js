@@ -210,7 +210,7 @@ try {
       category: category,
       attributes: {
         content: {
-          type: 'array',
+          type: 'object',
           default: {}
         }
       },
@@ -219,6 +219,7 @@ try {
             className = props.className,
             setAttributes = props.setAttributes,
             attributes = props.attributes;
+        console.log(attributes);
 
         var setContent = function setContent(content) {
           console.log("set", content);

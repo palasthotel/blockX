@@ -24,6 +24,7 @@ namespace Palasthotel\WordPress\BlockX;
  * @property string url
  * @property Assets assets
  * @property Gutenberg gutenberg
+ * @property Templates templates
  */
 class Plugin {
 
@@ -33,6 +34,10 @@ class Plugin {
 
 	const BLOCK_POSTS = "blockx/posts";
 
+	const FILTER_ADD_TEMPLATES_PATHS = "blockx_add_templates_paths";
+
+	const THEME_FOLDER = "plugin-parts";
+
 	private function __construct(){
 		require_once dirname(__FILE__)."/vendor/autoload.php";
 
@@ -40,6 +45,7 @@ class Plugin {
 		$this->url = plugin_dir_url(__FILE__);
 
 		$this->assets = new Assets($this);
+		$this->templates = new Templates($this);
 		$this->gutenberg = new Gutenberg($this);
 
 	}

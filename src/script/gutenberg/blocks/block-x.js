@@ -4,8 +4,6 @@ import ServerSideRender from '@wordpress/server-side-render';
 import {PanelBody} from "@wordpress/components";
 import ContentStructure from "../components/content-structure";
 
-
-
 for( const {id, title, category, registerBlockTypeArgs, contentStructure} of BlockX.blocks){
     registerBlockType( id, {
         ...registerBlockTypeArgs,
@@ -13,12 +11,13 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
         category,
         attributes: {
             content:{
-                type: 'array',
+                type: 'object',
                 default: {},
             }
         },
         edit: (props) => {
             const {isSelected, className,  setAttributes, attributes} = props;
+            console.log(attributes)
             const setContent = (content)=>{
                 console.log("set", content)
                 setAttributes({content})

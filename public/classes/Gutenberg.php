@@ -4,8 +4,8 @@
 namespace Palasthotel\WordPress\BlockX;
 
 
-use Palasthotel\WordPress\BlockX\Gutenberg\_Block;
-use Palasthotel\WordPress\BlockX\Gutenberg\PostsBlock;
+use Palasthotel\WordPress\BlockX\Blocks\_Block;
+use Palasthotel\WordPress\BlockX\Blocks\Posts;
 
 class Gutenberg extends _Component {
 
@@ -36,7 +36,7 @@ class Gutenberg extends _Component {
 	}
 
 	public function collectBlocks(){
-		$this->blocks[] = new PostsBlock($this->plugin);
+		$this->blocks[] = new Posts($this->plugin);
 		// TODO: action to collect other blocks
 	}
 

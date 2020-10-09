@@ -22,7 +22,20 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
 
     public static $classMap = array (
         'Palasthotel\\WordPress\\BlockX\\Assets' => __DIR__ . '/../..' . '/classes/Assets.php',
-        'Palasthotel\\WordPress\\BlockX\\Gutenberg\\PostsBlock' => __DIR__ . '/../..' . '/classes/Gutenberg/PostsBlock.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\Posts' => __DIR__ . '/../..' . '/classes/Blocks/Posts.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\_Block' => __DIR__ . '/../..' . '/classes/Blocks/_Block.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\_IBlock' => __DIR__ . '/../..' . '/classes/Blocks/_IBlock.php',
+        'Palasthotel\\WordPress\\BlockX\\Gutenberg' => __DIR__ . '/../..' . '/classes/Gutenberg.php',
+        'Palasthotel\\WordPress\\BlockX\\Templates' => __DIR__ . '/../..' . '/classes/Templates.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\Checkbox' => __DIR__ . '/../..' . '/classes/Widgets/Checkbox.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\ContentStructure' => __DIR__ . '/../..' . '/classes/Widgets/ContentStructure.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\ListOf' => __DIR__ . '/../..' . '/classes/Widgets/ListOf.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\Number' => __DIR__ . '/../..' . '/classes/Widgets/Number.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\Select' => __DIR__ . '/../..' . '/classes/Widgets/Select.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxQuery' => __DIR__ . '/../..' . '/classes/Widgets/TaxQuery.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\Text' => __DIR__ . '/../..' . '/classes/Widgets/Text.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\_IItem' => __DIR__ . '/../..' . '/classes/Widgets/_IItem.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\_Item' => __DIR__ . '/../..' . '/classes/Widgets/_Item.php',
         'Palasthotel\\WordPress\\BlockX\\_Component' => __DIR__ . '/../..' . '/classes/_Component.php',
     );
 

@@ -4,7 +4,7 @@
 namespace Palasthotel\WordPress\BlockX;
 
 
-use Palasthotel\WordPress\BlockX\Gutenberg\_Block;
+use Palasthotel\WordPress\BlockX\Blocks\_Block;
 
 class Assets extends _Component {
 
