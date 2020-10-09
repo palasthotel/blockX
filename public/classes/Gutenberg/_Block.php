@@ -8,6 +8,10 @@ use Palasthotel\WordPress\BlockX\_Component;
 
 abstract class _Block extends _Component implements _IBlock {
 
+	function isEditor(){
+		return defined( 'REST_REQUEST' ) && REST_REQUEST == true;
+	}
+
 	function enqueueAssets(){}
 
 	public function registerBlock(){
@@ -17,7 +21,7 @@ abstract class _Block extends _Component implements _IBlock {
 					'type' => 'object',
 				),
 			),
-			'render_callback' => array( $this, 'render' )
+			'render_callback' => array( $this, 'build' )
 		) );
 	}
 
@@ -29,7 +33,13 @@ abstract class _Block extends _Component implements _IBlock {
 		return [];
 	}
 
-	function render(){
+	/**
+	 * @param array $attributes
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	function build($attributes, $content){
 		// TODO: use templates
 		return "not implemented";
 	}

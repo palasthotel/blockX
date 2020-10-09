@@ -8,7 +8,7 @@ class Select extends _Item {
 
 	const TYPE = "select";
 
-	public function __construct( string $key, string $title ) {
-		parent::__construct( $key, $title, static::TYPE );
+	public function __construct( string $key, string $label, string $defaultValue = "" ) {
+		parent::__construct( $key, $label, static::TYPE, $defaultValue );
 	}
 }

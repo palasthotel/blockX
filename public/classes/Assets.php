@@ -24,14 +24,13 @@ class Assets extends _Component {
 			Plugin::HANDLE_JS_GUTENBERG,
 			"BlockX",
 			[
-
 				"blocks" => array_map(function($block){
 					return [
 						"id" => $block->id(),
 						"category" => $block->category(),
 						"title" => $block->title(),
 						"registerBlockTypeArgs" => $block->registerBlockTypeArgs(),
-						"contentStructure" => $block->contentStructure(),
+						"contentStructure" => $block->contentStructure()->toArray(),
 					];
 				}, $blocks),
 

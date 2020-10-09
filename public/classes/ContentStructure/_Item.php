@@ -7,30 +7,44 @@ namespace Palasthotel\WordPress\BlockX\ContentStructure;
 abstract class _Item implements _IItem {
 
 	private $key;
-	private $title;
+	private $label;
 	private $type;
+	private $defaultValue;
 
-	public function __construct(string $key, string $title, string $type) {
-		$this->key = $key;
-		$this->title = $title;
-		$this->type = $type;
+	/**
+	 * _Item constructor.
+	 *
+	 * @param string $key
+	 * @param string $label
+	 * @param string $type
+	 * @param mixed $defaultValue
+	 */
+	public function __construct(string $key, string $label, string $type, $defaultValue) {
+		$this->key          = $key;
+		$this->label        = $label;
+		$this->type         = $type;
+		$this->defaultValue = $defaultValue;
 	}
 
 	public function key(): string {
 		return $this->key;
 	}
-	public function title(): string {
-		return $this->title;
+	public function label(): string {
+		return $this->label;
 	}
 	public function type(): string {
 		return $this->type;
+	}
+	public function defaultValue(){
+		return $this->defaultValue;
 	}
 
 	public function toArray(){
 		return [
 			"key" => $this->key(),
-			"title" => $this->title(),
+			"label" => $this->label(),
 			"type" => $this->type(),
+			"defaultValue" => $this->defaultValue(),
 		];
 	}
 }

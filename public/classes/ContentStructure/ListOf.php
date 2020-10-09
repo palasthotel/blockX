@@ -17,11 +17,12 @@ class ListOf extends _Item {
 	 * ListOf constructor.
 	 *
 	 * @param string $key
-	 * @param string $title
+	 * @param string $label
 	 * @param _Item[] $contentStructure
+	 * @param array $defaultValue
 	 */
-	public function __construct( string $key, string $title, array $contentStructure ) {
-		parent::__construct( $key, $title, static::TYPE );
+	public function __construct( string $key, string $label, array $contentStructure, array $defaultValue = [] ) {
+		parent::__construct( $key, $label, static::TYPE, $defaultValue);
 		$this->contentStructure = new ContentStructure($contentStructure);
 	}
 

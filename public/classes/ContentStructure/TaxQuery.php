@@ -4,11 +4,11 @@
 namespace Palasthotel\WordPress\BlockX\ContentStructure;
 
 
-class Text extends _Item {
+class TaxQuery extends _Item {
 
-	const TYPE = "text";
+	const TYPE = "tax_query";
 
-	public function __construct( string $key, string $label, string $defaultValue ) {
+	public function __construct( string $key, string $label, $defaultValue = [] ) {
 		parent::__construct( $key, $label, static::TYPE, $defaultValue );
 	}
 }

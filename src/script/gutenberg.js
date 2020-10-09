@@ -1,2 +1,2 @@
 
-import './gutenberg/blocks/posts-block.js'
+import './gutenberg/blocks/block-x.js'
