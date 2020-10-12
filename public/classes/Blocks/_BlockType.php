@@ -3,12 +3,10 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
-
-use Palasthotel\WordPress\BlockX\_Component;
 use Palasthotel\WordPress\BlockX\Plugin;
 use stdClass;
 
-abstract class _BlockType extends _Component implements _IBlockType {
+abstract class _BlockType implements _IBlockType {
 
 	/**
 	 * @return bool

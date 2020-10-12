@@ -40,14 +40,16 @@ class Posts extends _BlockType {
 
 	public function contentStructure(): ContentStructure {
 
+		$plugin = Plugin::instance();
+
 		$postTypeOptions = [];
 		$postTypeOptions[] = new Option("any", __("Any", Plugin::DOMAIN));
-		foreach ($this->plugin->assets->getPostTypes() as $postType){
+		foreach ($plugin->assets->getPostTypes() as $postType){
 			$postTypeOptions[] = new Option($postType["key"], $postType["label"]);
 		}
 
 		$taxonomyOptions = [];
-		foreach ($this->plugin->assets->getTaxonomies() as $taxonomy){
+		foreach ($plugin->assets->getTaxonomies() as $taxonomy){
 			$taxonomyOptions[] = new Option($taxonomy["name"], $taxonomy["label"]);
 		}
 
@@ -78,6 +80,7 @@ class Posts extends _BlockType {
 	 * @return stdClass
 	 */
 	public function prepare( stdClass $content ) {
+		$content = parent::prepare($content);
 		// build all query args
 		$content->args = [
 			"posts_per_page" => isset($content->number_of_posts) ? intval($content->number_of_posts): 5,
