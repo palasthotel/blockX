@@ -26,6 +26,10 @@ class ListOf extends _Widget {
 		$this->contentStructure = new ContentStructure($contentStructure);
 	}
 
+	public static function build(string $key, string $label, array $contentStructure, array $defaultValue = []){
+		return new static($key, $label, $contentStructure, $defaultValue);
+	}
+
 	/**
 	 * @return ContentStructure
 	 */

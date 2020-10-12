@@ -8,7 +8,8 @@ class Text extends _Widget {
 
 	const TYPE = "text";
 
-	public function __construct( string $key, string $label, string $defaultValue ) {
-		parent::__construct( $key, $label, static::TYPE, $defaultValue );
+	public static function build( string $key, string $label, string $defaultValue = "" ) {
+		return new static($key, $label, static::TYPE, $defaultValue);
 	}
+
 }

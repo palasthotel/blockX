@@ -8,7 +8,7 @@ class Checkbox extends _Widget {
 
 	const TYPE = "checkbox";
 
-	public function __construct( string $key, string $label, bool $defaultValue = false ) {
-		parent::__construct( $key, $label, static::TYPE, $defaultValue );
+	public static function build(string $key, string $label, bool $defaultValue = false ){
+		return new static($key, $label, static::TYPE, $defaultValue);
 	}
 }

@@ -15,10 +15,6 @@ class TaxQuery extends _Widget {
 	 */
 	private $taxonomies = [];
 
-	public function __construct( string $key, string $label, array $defaultValue = [] ) {
-		parent::__construct( $key, $label, static::TYPE, $defaultValue );
-	}
-
 	/**
 	 * @param string $key
 	 * @param string $label
@@ -27,7 +23,7 @@ class TaxQuery extends _Widget {
 	 * @return TaxQuery
 	 */
 	public static function build(string $key, string $label, array $defaultValue = []){
-		return new static($key, $label, $defaultValue);
+		return new static($key, $label, static::TYPE, $defaultValue);
 	}
 
 	/**

@@ -23,7 +23,7 @@ abstract class _Widget implements _IWidget {
 		$this->key          = $key;
 		$this->label        = $label;
 		$this->type         = $type;
-		$this->defaultValue = $defaultValue;
+		$this->setDefaultValue($defaultValue);
 	}
 
 	public function key(): string {
@@ -35,8 +35,19 @@ abstract class _Widget implements _IWidget {
 	public function type(): string {
 		return $this->type;
 	}
+
 	public function defaultValue(){
 		return $this->defaultValue;
+	}
+
+	/**
+	 * @param $defaultValue
+	 *
+	 * @return $this
+	 */
+	public function setDefaultValue($defaultValue){
+		$this->defaultValue = $defaultValue;
+		return $this;
 	}
 
 	public function toArray(){

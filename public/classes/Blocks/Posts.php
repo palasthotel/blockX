@@ -4,12 +4,11 @@
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
 use Palasthotel\WordPress\BlockX\Model\Option;
+use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\ContentStructure;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
 use Palasthotel\WordPress\BlockX\Widgets\Select;
-use Palasthotel\WordPress\BlockX\Blocks;
-use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\TaxQuery;
 use stdClass;
 
@@ -55,8 +54,8 @@ class Posts extends _BlockType {
 
 		return new ContentStructure([
 
-			new Number("number_of_posts", "Number of Posts", 5),
-			new Number("offset", "Offset", 0),
+			Number::build("number_of_posts", "Number of Posts", 5),
+			Number::build("offset", "Offset", 0),
 
 			Select::build("post_type", "Post Type", "post")
 			      ->setOptions($postTypeOptions),
@@ -64,10 +63,10 @@ class Posts extends _BlockType {
 			TaxQuery::build("tax_query", __("Tax Query", Plugin::DOMAIN))
 			        ->useTaxonomies($taxonomyOptions),
 
-			new Number("offset2", "Offset", 0),
+			Number::build("offset2", "Offset", 0),
 
-			new ListOf("taxonomies", "Taxonomies", [
-				new Number("offset", "Offset", 0),
+			ListOf::build("taxonomies", "Taxonomies", [
+				Number::build("offset", "Offset", 0),
 			])
 			// post type
 			// date?
