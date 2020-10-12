@@ -84,6 +84,17 @@ class Posts extends _BlockType {
 			"offset" => isset($content->offset) ? intval($content->offset): 0,
 			"post_type" => isset($content->post_type) ? sanitize_text_field($content->post_type): "any",
 		];
+		if(isset($content->tax_query) && is_array($content->tax_query)){
+			$relation = $content->tax_query["relation"];
+			$taxonomies = $content->tax_query["taxonomies"];
+			if(is_array($taxonomies)){
+				foreach ($taxonomies as $item){
+					if(!isset($item["taxonomy"]) || !isset($item["termIds"]) || !is_array($item["termIds"])) continue;
+					$taxonomy = $item["taxonomy"];
+					$termIds = $item["termIds"];
+				}
+			}
+		}
 		return $content;
 	}
 

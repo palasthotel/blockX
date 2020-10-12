@@ -1,21 +1,80 @@
-import {Button, SelectControl, TextControl, ToggleControl} from "@wordpress/components";
+import {Button, SelectControl, ToggleControl, FormTokenField} from "@wordpress/components";
+import { useEffect } from "@wordpress/element";
+import { useFetchTaxonomyTerms } from "../../hooks/useTaxonomy";
+
+const findTermByName = (name, terms) => terms.find(_t=>_t.name === name);
+const findTermBySlug = (slug, terms) => terms.find(_t => _t.slug === slug);
+const findTermById = (id, terms) => terms.find(_t => _t.id === id);
+const findTerm = (s, terms) =>findTermById(s, terms) || findTermBySlug(s, terms) || findTermByName(s, terms);
 
 const ConditionControl = ({taxonomies, value, onChange}) => {
-    const {taxonomy = "", terms = ""} = value;
+    const {taxonomy = taxonomies[0], termIds = [], operator = "OR"} = value;
+    const taxonomyTerms = useFetchTaxonomyTerms(taxonomy)
+
+    // ------------------------------------------------
+    // auto select default taxonomy effect
+    // ------------------------------------------------
+    useEffect(()=>{
+        if(!taxonomies.map(tax=>tax.value).includes(taxonomy)){
+            onChange({
+                ...value,
+                taxonomy: taxonomies[0].value,
+            })
+        }
+    }, [taxonomy, taxonomies])
+
+    // ------------------------------------------------
+    // taxonomy token field changed
+    // ------------------------------------------------
+    const handleChangeTerms = (_terms)=>{
+        const newTerms = _terms.map(t=>{
+            const search = typeof t === typeof "" ? t : t.value;
+            const _term = findTerm(search, taxonomyTerms);
+            return _term ? _term.id : search;
+        })
+        //console.debug(terms, "=> change to => ",_terms, "results in", {taxonomy, terms:newTerms})
+        onChange({
+            ...value,
+            termIds:newTerms
+        })
+    }
+
     return <>
         <div>
             <SelectControl
                 label="Taxonomy"
                 options={taxonomies}
                 value={taxonomy}
-                onChange={(taxonomy)=>onChange({taxonomy,terms})}
+                onChange={(taxonomy)=>onChange({
+                    ...value,
+                    taxonomy
+                })}
             />
         </div>
         <div>
-            <TextControl
-                label="Terms"
-                value={terms}
-                onChange={(terms)=>onChange({taxonomy, terms})}
+            <FormTokenField
+                value={termIds.map(t=>{
+                    const taxonomyTerm = findTerm(t, taxonomyTerms)
+                    return {
+                        value: taxonomyTerm ? taxonomyTerm.name : t,
+                        status: taxonomyTerm ? 'success' : 'error'
+                    }
+                })}
+                suggestions={taxonomyTerms.map(t=>(t.name))}
+                onChange={handleChangeTerms}
+            />
+        </div>
+        <div>
+            <SelectControl 
+                label="Operator"
+                value={operator}
+                options={['IN', 'NOT IN', 'AND' ].map(i=>({label:i,value:i}))}
+                onChange={(_operator)=>{
+                    onChange({
+                        ...value,
+                        operator: _operator,
+                    })
+                }}
             />
         </div>
     </>
@@ -39,20 +98,19 @@ const ConditionWrapper = ({children})=>{
 
 const ConditionGroup = ({taxonomies, value, onChange})=>{
 
-    const {conditions = [], relation = "OR"} = value;
+    const {taxonomies: tax = [], relation = "OR"} = value;
 
     return <div>
         <div>
-            {conditions.map((condition, i)=>{
-                return <ConditionWrapper>
+            {tax.map((_tax, i)=>{
+                return <ConditionWrapper key={i}>
                     <ConditionControl
-                        key={i}
                         taxonomies={taxonomies}
-                        value={condition}
-                        onChange={(_condition)=>{
+                        value={_tax}
+                        onChange={(changedTax)=>{
                             onChange({
-                                relation,
-                                conditions: conditions.map((c, j)=> i === j ? _condition : c)
+                                ...value,
+                                taxonomies: tax.map((c, j)=> i === j ? changedTax : c)
                             })
                         }}
                     />
@@ -61,8 +119,8 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                         isSmall
                         onClick={()=>{
                             onChange({
-                                relation,
-                                conditions: conditions
+                                ...value,
+                                taxonomies: tax
                                     .map((c,j)=> j === i ? null : c)
                                     .filter(c=>c!=null)
                             })
@@ -72,7 +130,7 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                     </Button>
                 </ConditionWrapper>
             })}
-            {conditions.length > 1 ?
+            {tax.length > 1 ?
                 <div
                 style={{
                     marginTop: 10,
@@ -100,8 +158,8 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
             onClick={()=>{
             onChange({
                 relation,
-                conditions: [
-                    ...conditions,
+                taxonomies: [
+                    ...tax,
                     {}
                 ]
             })
@@ -120,7 +178,6 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
 
 
 const TaxQueryWidget = ({definition, value, onChange})=> {
-
     return <>
         <h2>{definition.label}</h2>
         <ConditionGroup 
