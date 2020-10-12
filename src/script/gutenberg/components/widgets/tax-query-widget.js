@@ -1,6 +1,7 @@
-import {Button, SelectControl, ToggleControl, FormTokenField} from "@wordpress/components";
+import { Button, SelectControl, ToggleControl, FormTokenField, BaseControl } from "@wordpress/components";
 import { useEffect } from "@wordpress/element";
-import { useFetchTaxonomyTerms } from "../../hooks/useTaxonomy";
+import { useFetchTaxonomyTerms } from "../../hooks/useTaxonomy.js";
+import { useTranslationWidgetTaxQuery } from '../../hooks/useTranslation.js'
 
 const findTermByName = (name, terms) => terms.find(_t=>_t.name === name);
 const findTermBySlug = (slug, terms) => terms.find(_t => _t.slug === slug);
@@ -9,7 +10,12 @@ const findTerm = (s, terms) =>findTermById(s, terms) || findTermBySlug(s, terms)
 
 const ConditionControl = ({taxonomies, value, onChange}) => {
     const {taxonomy = taxonomies[0], termIds = [], operator = "OR"} = value;
-    const taxonomyTerms = useFetchTaxonomyTerms(taxonomy)
+    const {
+        label_taxonomy,
+        label_add_terms,
+        label_operator,
+    } = useTranslationWidgetTaxQuery();
+    const taxonomyTerms = useFetchTaxonomyTerms(taxonomy);
 
     // ------------------------------------------------
     // auto select default taxonomy effect
@@ -42,7 +48,7 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
     return <>
         <div>
             <SelectControl
-                label="Taxonomy"
+                label={label_taxonomy}
                 options={taxonomies}
                 value={taxonomy}
                 onChange={(taxonomy)=>onChange({
@@ -53,12 +59,11 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
         </div>
         <div>
             <FormTokenField
+                label={label_add_terms}
                 value={termIds.map(t=>{
                     const taxonomyTerm = findTerm(t, taxonomyTerms)
-                    return {
-                        value: taxonomyTerm ? taxonomyTerm.name : t,
-                        status: taxonomyTerm ? 'success' : 'error'
-                    }
+                    return taxonomyTerm ? taxonomyTerm.name : t;
+                    
                 })}
                 suggestions={taxonomyTerms.map(t=>(t.name))}
                 onChange={handleChangeTerms}
@@ -66,7 +71,7 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
         </div>
         <div>
             <SelectControl 
-                label="Operator"
+                label={label_operator}
                 value={operator}
                 options={['IN', 'NOT IN', 'AND' ].map(i=>({label:i,value:i}))}
                 onChange={(_operator)=>{
@@ -98,6 +103,13 @@ const ConditionWrapper = ({children})=>{
 
 const ConditionGroup = ({taxonomies, value, onChange})=>{
 
+    const {
+        toggle_AND_description,
+        toggle_OR_description,
+        btn_add_taxonomy,
+        btn_delete_taxonomy,
+    } = useTranslationWidgetTaxQuery()
+
     const {taxonomies: tax = [], relation = "OR"} = value;
 
     return <div>
@@ -126,7 +138,7 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                             })
                         }}
                     >
-                        Delete
+                        {btn_delete_taxonomy}
                     </Button>
                 </ConditionWrapper>
             })}
@@ -138,7 +150,7 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                 >
                     <ToggleControl 
                         label={relation}
-                        help={relation === "AND" ? "All taxonomy queries.": "One of these taxonomy queries."}
+                        help={relation === "AND" ? toggle_AND_description: toggle_OR_description}
                         checked={relation === "AND"}
                         onChange={(checked)=>{
                             onChange({
@@ -165,27 +177,27 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
             })
             }}
             style={{
-                marginBottom: 20,
                 width: "100%",
                 textAlign:"center",
                 display: "inline-block"
             }}
         >
-            Add taxonomy
+            {btn_add_taxonomy}
         </Button>
     </div>
 }
 
 
 const TaxQueryWidget = ({definition, value, onChange})=> {
-    return <>
-        <h2>{definition.label}</h2>
+    return <BaseControl 
+        label={definition.label}
+    >
         <ConditionGroup 
             taxonomies={definition.taxonomies}
             value={value}
             onChange={onChange}
         />
-    </>
+    </BaseControl>
 }
 
 export default TaxQueryWidget;

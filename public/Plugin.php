@@ -9,7 +9,7 @@
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
  * Tested up to: 5.5.1
- * Text Domain:       blockx
+ * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @copyright Copyright (c) 2020, Palasthotel
  * @package Palasthotel\WordPress\BlockX
@@ -40,10 +40,20 @@ class Plugin {
 	const THEME_FOLDER = "plugin-parts";
 
 	private function __construct(){
-		require_once dirname(__FILE__)."/vendor/autoload.php";
+
+		/**
+		 * load translations
+		 */
+		load_plugin_textdomain(
+			static::DOMAIN,
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		);
 
 		$this->path = plugin_dir_path(__FILE__);
 		$this->url = plugin_dir_url(__FILE__);
+
+		require_once dirname(__FILE__)."/vendor/autoload.php";
 
 		$this->assets = new Assets($this);
 		$this->templates = new Templates($this);

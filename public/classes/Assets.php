@@ -24,6 +24,17 @@ class Assets extends _Component {
 			Plugin::HANDLE_JS_GUTENBERG,
 			"BlockX",
 			[
+				"i18n" => [
+					"widget_tax_query" => [
+						"btn_add_taxonomy" => _x("Add taxonomy", "tax query widget", Plugin::DOMAIN),
+						"btn_delete_taxonomy" => _x("Delete", "tax query widget", Plugin::DOMAIN),
+						"label_taxonomy" => _x("Taxonomy", "tax query widget", Plugin::DOMAIN),
+						"label_add_terms" => _x("Add terms", "tax query widget", Plugin::DOMAIN),
+						"label_operator" => _x("Operator", "tax query widget", Plugin::DOMAIN),
+						"toggle_AND_description" => _x("All taxonomy conditions.", "tax query widget", Plugin::DOMAIN),
+						"toggle_OR_description" => _x("One of the taxonomy conditions.", "tax query widget", Plugin::DOMAIN),
+					]
+				],
 				"blocks" => array_map(function($block){
 					return [
 						"id" => $block->id(),
