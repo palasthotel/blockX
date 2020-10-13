@@ -44,20 +44,31 @@ class Debug extends _BlockType {
 		return new ContentStructure([
 
 			// ------------------------------------
-			// simple
+			// simple values
 			// ------------------------------------
 			Text::build("text", "Text", "Default text"),
 			Number::build("number", "Number", 42),
+
+			// ------------------------------------
+			// boolean values
+			// ------------------------------------
 			Toggle::build("checkbox", "On or off", true),
+
+			Toggle::build("checkbox_with_help", "On or off", true)
+			      ->help("Additional information about this"),
+
 			Toggle::build(
-				"checkbox_with_help",
+				"checkbox_with_states",
 				StateLabel::build("On", "Off"),
 				true)
-			      ->setHelp(StateLabel::build(
+			      ->help(StateLabel::build(
 			      	"This thing is on and will be true in content object",
 			        "This thing is off and will be false in content object"
 			        )),
 
+			// ------------------------------------
+			// select from a list of options
+			// ------------------------------------
 			Select::build("select", "Select", [
 				Option::build("option1", "Option 1"),
 				Option::build("option2", "Option 2"),
@@ -72,7 +83,7 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			TaxonomyTerm::build("taxonomy_term", "Select single tax term", "category"),
 			TaxonomyTerm::build("taxonomy_terms", "Multiple tax Terms", "category")->multiple(true),
-			TaxQuery::build("tax_query", "Tax Query", Gutenberg::getTaxonomyOptions()),
+			TaxQuery::build("tax_query", "Tax Query", Plugin::instance()->assets->getTaxonomies()),
 
 			// ------------------------------------
 			// advanced

@@ -75,7 +75,7 @@ class Gutenberg extends _Component {
 	public static function getTaxonomyOptions(): array{
 		$taxonomyOptions = [];
 		foreach (Plugin::instance()->assets->getTaxonomies() as $taxonomy){
-			$taxonomyOptions[] = Option::build($taxonomy["name"], $taxonomy["label"]);
+			$taxonomyOptions[] = Option::build($taxonomy->name, $taxonomy->label);
 		}
 		return $taxonomyOptions;
 	}
@@ -87,7 +87,7 @@ class Gutenberg extends _Component {
 		$postTypeOptions = [];
 		$postTypeOptions[] = Option::build("any", __("Any", Plugin::DOMAIN));
 		foreach (Plugin::instance()->assets->getPostTypes() as $postType){
-			$postTypeOptions[] = Option::build($postType["key"], $postType["label"]);
+			$postTypeOptions[] = Option::build($postType->name, $postType->label);
 		}
 		return $postTypeOptions;
 	}

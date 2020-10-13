@@ -44,7 +44,7 @@ abstract class _BlockType implements _IBlockType {
 	 *
 	 * @return stdClass
 	 */
-	function prepare( stdClass $content){
+	function prepare( stdClass $content): stdClass{
 
 		foreach ($this->contentStructure()->getItems() as $widget){
 			$key = $widget->key();

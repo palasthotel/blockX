@@ -34,7 +34,8 @@ class Plugin {
 	// ----------------------------------------------------
 	// core blockx
 	// ----------------------------------------------------
-	const BLOCK_POSTS = "blockx/posts";
+	const BLOCKS_NAMESPACE = "blockx";
+	const BLOCK_NAME_POSTS = "posts";
 
 	// ----------------------------------------------------
 	// hooks

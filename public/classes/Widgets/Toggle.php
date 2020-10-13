@@ -16,17 +16,16 @@ class Toggle extends _Widget {
 	private $stateLabel;
 
 	/**
-	 * @var StateLabel|null
+	 * @var string|StateLabel|null
 	 */
 	private $help;
 
-	public function __construct( string $key, $label, $defaultValue ) {
+	public function __construct( string $key, $label, $defaultValue = false ) {
 		parent::__construct( $key, $label instanceof StateLabel ? $label->off : $label, static::TYPE, $defaultValue );
 		if($label instanceof StateLabel){
 			$this->stateLabel = $label;
 		}
 	}
-
 
 	/**
 	 * @param string $key
@@ -40,11 +39,11 @@ class Toggle extends _Widget {
 	}
 
 	/**
-	 * @param StateLabel $help
+	 * @param string|StateLabel $help
 	 *
 	 * @return $this
 	 */
-	public function setHelp(StateLabel $help){
+	public function help($help){
 		$this->help  = $help;
 		return $this;
 	}
@@ -54,8 +53,10 @@ class Toggle extends _Widget {
 		if( !empty($this->stateLabel)){
 			$arr["label"] = $this->stateLabel->toArray();
 		}
-		if( !empty($this->help)){
+		if($this->help instanceof StateLabel){
 			$arr["help"] = $this->help->toArray();
+		} else if( !empty($this->help) ){
+			$arr["help"] = $this->help;
 		}
 		return $arr;
 	}

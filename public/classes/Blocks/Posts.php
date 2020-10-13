@@ -16,7 +16,7 @@ use stdClass;
 class Posts extends _BlockType {
 
 	public function id(): BlockId {
-		return BlockId::build("blockx", "posts");
+		return BlockId::build(Plugin::BLOCKS_NAMESPACE, Plugin::BLOCK_NAME_POSTS);
 	}
 
 	public function title(): string {
@@ -50,7 +50,7 @@ class Posts extends _BlockType {
 			TaxQuery::build(
 				"tax_query",
 				__("Tax Query", Plugin::DOMAIN),
-				Gutenberg::getTaxonomyOptions()
+				Plugin::instance()->assets->getTaxonomies()
 			),
 
 			Number::build("offset2", "Offset", 0),
@@ -68,7 +68,7 @@ class Posts extends _BlockType {
 	 *
 	 * @return stdClass
 	 */
-	public function prepare( stdClass $content ) {
+	public function prepare( stdClass $content ): stdClass {
 		$content = parent::prepare($content);
 		// build all query args
 		$content->args = [

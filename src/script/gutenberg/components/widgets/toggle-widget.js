@@ -1,16 +1,18 @@
 import { ToggleControl} from "@wordpress/components";
 
+const getStateLabel = (label, isOn)=>{
+    return typeof label === typeof {} ? (isOn ? label.on : label.off) : typeof label === typeof "" ? label : null;
+}
+
 const ToggleWidget = ({definition, value, onChange})=> {
     const {
         label,
         help,
     } = definition;
-    const _label = typeof label === typeof {} ? (value ? label.on : label.off) : label;
-    const _help = help ? (value ? help.on : help.off) : null;
     
     return <ToggleControl
-        label={_label}
-        help={_help}
+        label={getStateLabel(label, value)}
+        help={getStateLabel(help, value)}
         checked={value}
         onChange={onChange}
     />

@@ -5,6 +5,8 @@ namespace Palasthotel\WordPress\BlockX;
 
 
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
+use WP_Post_Type;
+use WP_Taxonomy;
 
 class Assets extends _Component {
 
@@ -46,43 +48,25 @@ class Assets extends _Component {
 						"contentStructure" => $block->contentStructure()->toArray(),
 					];
 				}, $blocks),
-
-				// TODO: get from wp-json api
-				"taxonomies" => $this->getTaxonomies(),
-				"post_types" => $this->getPostTypes(),
 			]
 		);
 
 	}
 
 	/**
-	 * @return array
+	 * @return WP_Post_Type[]
 	 */
 	public function getPostTypes(){
-		$post_types = array();
-		$input      = get_post_types( array('public' => true, 'show_ui' => true), 'objects' );
-		foreach ( $input as $post_type => $info ) {
-			$post_types[] = array( 'key' => $post_type, 'label' => $info->label );
-		}
-		return $post_types;
+		return get_post_types( array('public' => true, 'show_ui' => true), 'objects' );
 	}
 
 	/**
-	 * @return array
+	 * @return WP_Taxonomy[]
 	 */
 	public function getTaxonomies(){
-		$taxonomies = [];
-		$taxs  = get_taxonomies(array(
+		return get_taxonomies(array(
 			'public' => true,
 		), 'objects');
-		foreach ($taxs as $tax) {
-			$taxonomies[] = array(
-				"label" => $tax->label,
-				"description" => $tax->description,
-				"name" => $tax->name,
-			);
-		}
-		return $taxonomies;
 	}
 
 }
