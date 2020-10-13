@@ -1,11 +1,17 @@
 import {SelectControl} from "@wordpress/components";
 
 const SelectWidget = ({definition, value, onChange})=> {
+
+    const {
+        label,
+        options,
+    } = definition;
+
     return <SelectControl
-        label={definition.label}
+        label={label}
         value={value}
         onChange={onChange}
-        options={definition.options}
+        options={options}
     />
 }
 

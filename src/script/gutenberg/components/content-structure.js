@@ -3,40 +3,27 @@ import {Button} from "@wordpress/components";
 import {useEffect, useState} from "@wordpress/element";
 import { useTranslation } from "../hooks/useTranslation";
 
-const ContentStructure = ({definition, content, setContent, autoSetDefaults = false})=>{
+const ContentStructure = ({definition, content, setContent})=>{
 
     const {
         btn_apply_changes
     } = useTranslation();
     const [state, setState] = useState({});
 
-    useEffect(()=>{
-        if(autoSetDefaults && Object.keys(content).length < definition.length){
-            const newContent = {};
-            for (const {defaultValue, key} of definition) {
-
-                if(typeof content[key] === typeof undefined){
-                    newContent[key] = defaultValue;
-                } else {
-                    newContent[key] = content[key];
-                }
-            }
-            setContent(newContent)
-        }
-    }, [definition])
-
     const setValue = (key, value) => setState(_state => ({
         ..._state,
         [key]: value,
     }))
 
-    const handleApplyChangesClick = ()=>{
+    const applyChanges = ()=>{
         setContent({
             ...content,
             ...state,
         })
         setState({});
     }
+
+    const handleApplyChangesClick = ()=> applyChanges()
 
     return <>
         {definition.map(item=>{
@@ -51,7 +38,17 @@ const ContentStructure = ({definition, content, setContent, autoSetDefaults = fa
                     key={item.key}
                     definition={item}
                     value={value}
-                    onChange={(value) => setValue(item.key, value)}
+                    onChange={(value, applyImmediately = false) => {
+                        if(applyImmediately){
+                            setContent({
+                                ...content,
+                                [item.key]: value,
+                            })
+                        } else {
+                            setValue(item.key, value)
+                        }
+                        
+                    }}
                 />
             }
             return <p key={item.key}>Type <b>{item.type}</b> not implemented</p>

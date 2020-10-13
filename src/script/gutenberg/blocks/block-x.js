@@ -5,6 +5,22 @@ import {PanelBody} from "@wordpress/components";
 import ContentStructure from "../components/content-structure";
 
 for( const {id, title, category, registerBlockTypeArgs, contentStructure} of BlockX.blocks){
+
+    // ------------------------------
+    // build default values
+    // ------------------------------
+    const defaultValues = {};
+    for (const {defaultValue, key, options} of contentStructure) {
+        if(typeof defaultValue !== typeof undefined){
+            defaultValues[key] = defaultValue;
+        } else if(typeof options === typeof [] && options.length > 0 && typeof options[0].value === typeof ""){
+            defaultValues[key] = options[0].value;
+        }
+    }
+
+    // ------------------------------
+    // register block type
+    // ------------------------------
     registerBlockType( id, {
         ...registerBlockTypeArgs,
         title,
@@ -12,12 +28,16 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
         attributes: {
             content:{
                 type: 'object',
-                default: {},
+                default: defaultValues,
             }
         },
         edit: (props) => {
             const {isSelected, className,  setAttributes, attributes} = props;
-            const setContent = (content)=> setAttributes({content})
+            const setContent = (content)=> {
+                console.log("set attributes", content)
+                setAttributes({content})
+            }
+
             return <>
                 <InspectorControls>
                     <PanelBody>
@@ -25,7 +45,6 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                             definition={contentStructure}
                             content={attributes.content}
                             setContent={setContent}
-                            autoSetDefaults={true}
                         />
                     </PanelBody>
                 </InspectorControls>
