@@ -30,6 +30,7 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
         'Palasthotel\\WordPress\\BlockX\\Gutenberg' => __DIR__ . '/../..' . '/classes/Gutenberg.php',
         'Palasthotel\\WordPress\\BlockX\\Model\\BlockId' => __DIR__ . '/../..' . '/classes/Model/BlockId.php',
         'Palasthotel\\WordPress\\BlockX\\Model\\ContentStructure' => __DIR__ . '/../..' . '/classes/Model/ContentStructure.php',
+        'Palasthotel\\WordPress\\BlockX\\Model\\Dependencies' => __DIR__ . '/../..' . '/classes/Model/Dependencies.php',
         'Palasthotel\\WordPress\\BlockX\\Model\\Option' => __DIR__ . '/../..' . '/classes/Model/Option.php',
         'Palasthotel\\WordPress\\BlockX\\Model\\StateLabel' => __DIR__ . '/../..' . '/classes/Model/StateLabel.php',
         'Palasthotel\\WordPress\\BlockX\\Templates' => __DIR__ . '/../..' . '/classes/Templates.php',

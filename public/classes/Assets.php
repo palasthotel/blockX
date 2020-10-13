@@ -5,6 +5,7 @@ namespace Palasthotel\WordPress\BlockX;
 
 
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
+use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use WP_Post_Type;
 use WP_Taxonomy;
 
@@ -13,12 +14,12 @@ class Assets extends _Component {
 	/**
 	 * @param _BlockType[] $blocks
 	 */
-	function enqueueGutenberg( array $blocks ){
+	function enqueueGutenberg( array $blocks, Dependencies $dependencies){
 		$info = include $this->plugin->path . "/js/gutenberg/blockx.asset.php";
 		wp_enqueue_script(
 			Plugin::HANDLE_JS_GUTENBERG,
 			$this->plugin->url . "/js/gutenberg/blockx.js",
-			$info["dependencies"],
+			array_merge($info["dependencies"], $dependencies->get()),
 			$info["version"]
 		);
 

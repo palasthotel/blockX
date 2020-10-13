@@ -3,6 +3,7 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
+use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Plugin;
 use stdClass;
 
@@ -15,7 +16,7 @@ abstract class _BlockType implements _IBlockType {
 		return defined( 'REST_REQUEST' ) && REST_REQUEST == true;
 	}
 
-	function enqueueEditorAssets(){}
+	function enqueueEditorAssets(Dependencies $dependencies){}
 	function enqueueAssets(){}
 
 	public function registerBlock(){

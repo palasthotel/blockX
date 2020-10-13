@@ -7,8 +7,12 @@ use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Blocks\Debug;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
 use Palasthotel\WordPress\BlockX\Blocks\RSS;
+use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Model\Option;
 
+/**
+ * @property Dependencies jsDependencies
+ */
 class Gutenberg extends _Component {
 
 	/**
@@ -17,6 +21,8 @@ class Gutenberg extends _Component {
 	private $blocks = [];
 
 	public function onCreate() {
+
+		$this->jsDependencies = new Dependencies();
 
 		// ---------------------------
 		// initialize stuff
@@ -48,11 +54,11 @@ class Gutenberg extends _Component {
 		// enqueue assets
 		// ---------------------------
 		add_action( 'enqueue_block_editor_assets', function () {
-			// backend only
-			$this->plugin->assets->enqueueGutenberg($this->blocks);
 			foreach ($this->blocks as $block){
-				$block->enqueueEditorAssets();
+				$block->enqueueEditorAssets($this->jsDependencies);
 			}
+			// backend only
+			$this->plugin->assets->enqueueGutenberg($this->blocks, $this->jsDependencies);
 		} );
 		add_action( 'enqueue_block_assets', function () {
 			// frontend and backend

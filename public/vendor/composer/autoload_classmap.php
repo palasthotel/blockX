@@ -15,6 +15,7 @@ return array(
     'Palasthotel\\WordPress\\BlockX\\Gutenberg' => $baseDir . '/classes/Gutenberg.php',
     'Palasthotel\\WordPress\\BlockX\\Model\\BlockId' => $baseDir . '/classes/Model/BlockId.php',
     'Palasthotel\\WordPress\\BlockX\\Model\\ContentStructure' => $baseDir . '/classes/Model/ContentStructure.php',
+    'Palasthotel\\WordPress\\BlockX\\Model\\Dependencies' => $baseDir . '/classes/Model/Dependencies.php',
     'Palasthotel\\WordPress\\BlockX\\Model\\Option' => $baseDir . '/classes/Model/Option.php',
     'Palasthotel\\WordPress\\BlockX\\Model\\StateLabel' => $baseDir . '/classes/Model/StateLabel.php',
     'Palasthotel\\WordPress\\BlockX\\Templates' => $baseDir . '/classes/Templates.php',
