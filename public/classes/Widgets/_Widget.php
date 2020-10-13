@@ -51,11 +51,16 @@ abstract class _Widget implements _IWidget {
 	}
 
 	public function toArray(){
-		return [
+		$args = [
 			"key" => $this->key(),
 			"label" => $this->label(),
 			"type" => $this->type(),
-			"defaultValue" => $this->defaultValue(),
 		];
+
+		if($this->defaultValue() !== null){
+			$args["defaultValue"] = $this->defaultValue();
+		}
+
+		return $args;
 	}
 }

@@ -10,7 +10,7 @@ class TaxonomyTerm extends _Widget {
 	private $taxonomy;
 	private $multiple;
 
-	public function __construct( string $key, string $label, string $taxonomies, $defaultValue ) {
+	public function __construct( string $key, string $label, string $taxonomies, $defaultValue = null ) {
 		parent::__construct( $key, $label, static::TYPE, $defaultValue );
 		$this->taxonomy = $taxonomies;
 		$this->multiple = false;
@@ -24,7 +24,7 @@ class TaxonomyTerm extends _Widget {
 	 *
 	 * @return $this
 	 */
-	public static function build(string $key, string $label, string $taxonomy, $defaultValue = 0){
+	public static function build(string $key, string $label, string $taxonomy, $defaultValue = null){
 		return new static($key, $label, $taxonomy, $defaultValue);
 	}
 

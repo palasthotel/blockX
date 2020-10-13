@@ -1,19 +1,23 @@
 import {SelectControl} from "@wordpress/components";
-import { useFetchTaxonomyTerms } from "../../hooks/useTaxonomy";
-import { buildOption } from "../../utils/select";
+import { useFetchTaxonomyTermsAsOptionsWithDefaultAny } from "../../hooks/useTaxonomy";
 
 const TaxonomyTerm = ({definition, value, onChange})=> {
+
+    const {
+        label,
+        taxonomy,
+    } = definition;
     
-    const taxonomyTerms = useFetchTaxonomyTerms(definition.taxonomy);
+    const taxonomyTermOptions = useFetchTaxonomyTermsAsOptionsWithDefaultAny(taxonomy);
 
     // mutliple with checkbox control!
     // https://developer.wordpress.org/block-editor/components/checkbox-control/
 
     return <SelectControl
-        label={definition.label}
+        label={label}
         value={value}
         onChange={onChange}
-        options={taxonomyTerms.map(t=>buildOption( t.id, t.name))}
+        options={taxonomyTermOptions}
     />
 }
 

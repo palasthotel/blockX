@@ -38,17 +38,7 @@ const ContentStructure = ({definition, content, setContent})=>{
                     key={item.key}
                     definition={item}
                     value={value}
-                    onChange={(value, applyImmediately = false) => {
-                        if(applyImmediately){
-                            setContent({
-                                ...content,
-                                [item.key]: value,
-                            })
-                        } else {
-                            setValue(item.key, value)
-                        }
-                        
-                    }}
+                    onChange={(value) => setValue(item.key, value)}
                 />
             }
             return <p key={item.key}>Type <b>{item.type}</b> not implemented</p>

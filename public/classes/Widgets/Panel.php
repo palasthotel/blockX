@@ -4,6 +4,8 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
+use Palasthotel\WordPress\BlockX\Model\ContentStructure;
+
 class Panel extends _Widget {
 
 	const TYPE = "panel";
