@@ -6,6 +6,7 @@ namespace Palasthotel\WordPress\BlockX;
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Blocks\Debug;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
+use Palasthotel\WordPress\BlockX\Blocks\RSS;
 use Palasthotel\WordPress\BlockX\Model\Option;
 
 class Gutenberg extends _Component {
@@ -37,6 +38,7 @@ class Gutenberg extends _Component {
 			 * @var Gutenberg $gutenberg
 			 */
 			$gutenberg->addBlockType(new Posts());
+			//$gutenberg->addBlockType(new RSS());
 			if(WP_DEBUG){
 				$gutenberg->addBlockType(new Debug());
 			}

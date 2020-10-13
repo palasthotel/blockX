@@ -36,6 +36,7 @@ class Plugin {
 	// ----------------------------------------------------
 	const BLOCKS_NAMESPACE = "blockx";
 	const BLOCK_NAME_POSTS = "posts";
+	const BLOCK_NAME_RSS = "rss";
 
 	// ----------------------------------------------------
 	// hooks
