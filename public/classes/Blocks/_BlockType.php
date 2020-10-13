@@ -19,14 +19,14 @@ abstract class _BlockType implements _IBlockType {
 	function enqueueAssets(){}
 
 	public function registerBlock(){
-		register_block_type( $this->id(), array(
+		register_block_type( (string) $this->id(), array(
 			'attributes'      => array(
 				'content' => array(
 					'type' => 'object',
 				),
 			),
 			'render_callback' => array( $this, 'build' )
-		) );
+		));
 	}
 
 	/**

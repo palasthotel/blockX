@@ -3,11 +3,12 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
-use Palasthotel\WordPress\BlockX\Widgets\ContentStructure;
+use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 
 interface _IBlockType {
 
-	public function id(): string;
+	public function id(): BlockId;
 	public function category(): string;
 	public function title(): string;
 	public function contentStructure(): ContentStructure;

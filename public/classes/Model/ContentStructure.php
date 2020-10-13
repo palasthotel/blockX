@@ -1,8 +1,9 @@
 <?php
 
 
-namespace Palasthotel\WordPress\BlockX\Widgets;
+namespace Palasthotel\WordPress\BlockX\Model;
 
+use Palasthotel\WordPress\BlockX\Widgets\_Widget;
 
 class ContentStructure {
 	/**

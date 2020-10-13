@@ -3,6 +3,7 @@
 
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
+use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 
 class ListOf extends _Widget {
 

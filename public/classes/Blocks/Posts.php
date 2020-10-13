@@ -3,9 +3,10 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
+use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Plugin;
-use Palasthotel\WordPress\BlockX\Widgets\ContentStructure;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
 use Palasthotel\WordPress\BlockX\Widgets\Select;
@@ -14,8 +15,8 @@ use stdClass;
 
 class Posts extends _BlockType {
 
-	public function id(): string {
-		return Plugin::BLOCK_POSTS;
+	public function id(): BlockId {
+		return BlockId::build("blockx", "posts");
 	}
 
 	public function title(): string {

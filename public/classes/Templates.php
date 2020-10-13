@@ -19,7 +19,11 @@ class Templates extends _Component {
 	 * @return false|string
 	 */
 	function get_block_template_path(_BlockType $block, bool $editor){
-		return $this->get_template_path($this->get_block_template_name($block, $editor));
+		$path = $this->get_template_path($this->get_block_template_name($block, $editor));
+		return false !== $path ? $path :
+			$this->get_template_path(
+				$editor ? Plugin::BLOCK_FALLBACK_EDITOR_TEMPLATE: Plugin::BLOCK_FALLBACK_TEMPLATE
+			);
 	}
 
 	/**
@@ -29,9 +33,10 @@ class Templates extends _Component {
 	 * @return string
 	 */
 	function get_block_template_name(_BlockType $block, bool $editor){
-		return str_replace("/","--",$block->id()).
-		       ($editor ? "--editor":"").
-		       ".php";
+		$id = $block->id();
+		$template = $editor ? Plugin::BLOCK_EDITOR_TEMPLATE : Plugin::BLOCK_TEMPLATE;
+		$namespaced = str_replace(Plugin::TEMPLATE_PLACEHOLDER_NAMESPACE, $id->namespace, $template);
+		return str_replace(Plugin::TEMPLATE_PLACEHOLDER_NAME, $id->name, $namespaced);
 	}
 
 	/**

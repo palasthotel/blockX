@@ -29,16 +29,33 @@ namespace Palasthotel\WordPress\BlockX;
 class Plugin {
 
 	const DOMAIN = "blockx";
-
 	const HANDLE_JS_GUTENBERG = "blockx";
 
+	// ----------------------------------------------------
+	// core blockx
+	// ----------------------------------------------------
 	const BLOCK_POSTS = "blockx/posts";
 
+	// ----------------------------------------------------
+	// hooks
+	// ----------------------------------------------------
 	const ACTION_COLLECT = "blockx_collect";
 	const FILTER_ADD_TEMPLATES_PATHS = "blockx_add_templates_paths";
 
+	// ----------------------------------------------------
+	// templates
+	// ----------------------------------------------------
 	const THEME_FOLDER = "plugin-parts";
+	const BLOCK_FALLBACK_TEMPLATE = "blockx.php";
+	const BLOCK_FALLBACK_EDITOR_TEMPLATE = "blockx__editor.php";
+	const TEMPLATE_PLACEHOLDER_NAMESPACE = "%namespace%";
+	const TEMPLATE_PLACEHOLDER_NAME = "%name%";
+	const BLOCK_TEMPLATE = "blockx__%namespace%--%name%.php";
+	const BLOCK_EDITOR_TEMPLATE = "blockx__%namespace%--%name%__editor.php";
 
+	// ----------------------------------------------------
+	// initialize plugin features
+	// ----------------------------------------------------
 	private function __construct(){
 
 		/**
@@ -61,6 +78,9 @@ class Plugin {
 
 	}
 
+	// ----------------------------------------------------
+	// singleton instance
+	// ----------------------------------------------------
 	/**
 	 * @var null|Plugin
 	 */

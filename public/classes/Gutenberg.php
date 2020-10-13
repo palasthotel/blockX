@@ -34,7 +34,7 @@ class Gutenberg extends _Component {
 			/**
 			 * @var Gutenberg $gutenberg
 			 */
-			$gutenberg->addBlockType(new Posts($this->plugin));
+			$gutenberg->addBlockType(new Posts());
 		});
 
 		// ---------------------------

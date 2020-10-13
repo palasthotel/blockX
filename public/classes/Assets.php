@@ -37,7 +37,7 @@ class Assets extends _Component {
 				],
 				"blocks" => array_map(function($block){
 					return [
-						"id" => $block->id(),
+						"id" => (string) $block->id(),
 						"category" => $block->category(),
 						"title" => $block->title(),
 						"registerBlockTypeArgs" => $block->registerBlockTypeArgs(),
