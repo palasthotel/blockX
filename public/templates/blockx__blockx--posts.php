@@ -1,11 +1,11 @@
 <?php
 
-use Palasthotel\WordPress\BlockX\Blocks\Posts;
-
 /**
  * @var Posts $this
  * @var array $content
  */
+
+use Palasthotel\WordPress\BlockX\Blocks\Posts;
 
 $query = new WP_Query($content->args);
 

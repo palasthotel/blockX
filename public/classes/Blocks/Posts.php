@@ -7,7 +7,6 @@ use Palasthotel\WordPress\BlockX\Gutenberg;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Plugin;
-use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
 use Palasthotel\WordPress\BlockX\Widgets\Select;
 use Palasthotel\WordPress\BlockX\Widgets\TaxQuery;
@@ -53,13 +52,6 @@ class Posts extends _BlockType {
 				Plugin::instance()->assets->getTaxonomies()
 			),
 
-			Number::build("offset2", "Offset", 0),
-
-			ListOf::build("taxonomies", "Taxonomies", [
-				Number::build("offset", "Offset", 0),
-			])
-			// post type
-			// date?
 		]);
 	}
 
@@ -76,18 +68,33 @@ class Posts extends _BlockType {
 			"offset" => isset($content->offset) ? intval($content->offset): 0,
 			"post_type" => isset($content->post_type) ? sanitize_text_field($content->post_type): "any",
 		];
-		if(isset($content->tax_query) && is_array($content->tax_query)){
-			$relation = $content->tax_query["relation"];
-			$taxonomies = $content->tax_query["taxonomies"];
-			if(is_array($taxonomies)){
-				foreach ($taxonomies as $item){
-					if(!isset($item["taxonomy"]) || !isset($item["termIds"]) || !is_array($item["termIds"])) continue;
-					$taxonomy = $item["taxonomy"];
-					$termIds = $item["termIds"];
-				}
+
+		$taxQuery = $this->buildTaxQuery($content);
+		if($taxQuery){
+			$content->args["tax_query"] = $taxQuery;
+		}
+
+		return $content;
+	}
+
+	private function buildTaxQuery($content){
+		if(!isset($content->tax_query) || !is_array($content->tax_query)) return false;
+		$args = $content->tax_query;
+
+		if(!isset($args["relation"]) || !isset($args["taxonomies"])) return false;
+		if(!is_array($args["taxonomies"])) return false;
+		$relation = $args["relation"];
+		$taxonomies = $args["taxonomies"];
+		if(is_array($taxonomies)){
+			foreach ($taxonomies as $item){
+				if(!isset($item["taxonomy"]) || !isset($item["termIds"]) || !is_array($item["termIds"])) continue;
+				$taxonomy = $item["taxonomy"];
+				$termIds = $item["termIds"];
 			}
 		}
-		return $content;
+
+		return false;
+
 	}
 
 }
