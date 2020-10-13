@@ -31,4 +31,8 @@ class ContentStructure {
 		return $cs;
 	}
 
+	public function getItems() {
+		return $this->items;
+	}
+
 }

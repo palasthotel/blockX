@@ -34,7 +34,7 @@ class Debug extends _BlockType {
 
 	public function registerBlockTypeArgs(): array {
 		$args = parent::registerBlockTypeArgs();
-		$args["description"] = __("This block is just for debugging", Plugin::DOMAIN);
+		$args["description"] = __("This block is just for debugging.", Plugin::DOMAIN);
 		$args["icon"] = 'games';
 		return $args;
 	}

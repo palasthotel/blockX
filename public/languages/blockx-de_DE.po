@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2020-10-13 10:44+0200\n"
-"PO-Revision-Date: 2020-10-13 10:45+0200\n"
+"POT-Creation-Date: 2020-10-13 11:39+0200\n"
+"PO-Revision-Date: 2020-10-13 11:39+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -70,7 +70,9 @@ msgid "Debug"
 msgstr "Debug"
 
 #: classes/Blocks/Debug.php:37
-msgid "This block is just for debugging"
+#, fuzzy
+#| msgid "This block is just for debugging"
+msgid "This block is just for debugging."
 msgstr "Dieser Block wird nur für debuggingzwecke verwendet."
 
 #: classes/Blocks/Posts.php:23
@@ -91,13 +93,13 @@ msgstr "Beliebig"
 
 #: templates/blockx.php:10
 #, php-format
-msgid "No template found for block %s"
-msgstr ""
+msgid "No template found for block '%s'."
+msgstr "Kein template für den Block ‚%s‘ gefunden."
 
 #: templates/blockx__editor.php:11
 #, php-format
-msgid "No editor template found for block %s"
-msgstr ""
+msgid "No editor template found for block '%s'."
+msgstr "Kein Editor-Template für den Block ‚%s‘ gefunden."
 
 #. Plugin Name of the plugin/theme
 msgid "BlockX"
