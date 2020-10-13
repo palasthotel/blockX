@@ -13,27 +13,31 @@ class TaxQuery extends _Widget {
 	/**
 	 * @var string[]
 	 */
-	private $taxonomies = [];
+	private $taxonomies;
+
+	/**
+	 * TaxQuery constructor.
+	 *
+	 * @param string $key
+	 * @param string $label
+	 * @param Option[] $taxonomies
+	 * @param array $defaultValue
+	 */
+	public function __construct( string $key, string $label, $taxonomies, $defaultValue = [] ) {
+		parent::__construct( $key, $label, static::TYPE, $defaultValue );
+		$this->taxonomies = $taxonomies;
+	}
 
 	/**
 	 * @param string $key
 	 * @param string $label
+	 * @param Option[] $taxonomies
 	 * @param array $defaultValue
 	 *
 	 * @return TaxQuery
 	 */
-	public static function build(string $key, string $label, array $defaultValue = []){
-		return new static($key, $label, static::TYPE, $defaultValue);
-	}
-
-	/**
-	 * @param Option[] $taxonomies
-	 *
-	 * @return TaxQuery
-	 */
-	public function useTaxonomies(array $taxonomies){
-		$this->taxonomies = $taxonomies;
-		return $this;
+	public static function build(string $key, string $label, array $taxonomies, array $defaultValue = []){
+		return new static($key, $label, $taxonomies, $defaultValue);
 	}
 
 	public function toArray() {

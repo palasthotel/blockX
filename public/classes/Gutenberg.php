@@ -4,7 +4,9 @@
 namespace Palasthotel\WordPress\BlockX;
 
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
+use Palasthotel\WordPress\BlockX\Blocks\Debug;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
+use Palasthotel\WordPress\BlockX\Model\Option;
 
 class Gutenberg extends _Component {
 
@@ -35,6 +37,9 @@ class Gutenberg extends _Component {
 			 * @var Gutenberg $gutenberg
 			 */
 			$gutenberg->addBlockType(new Posts());
+			if(WP_DEBUG){
+				$gutenberg->addBlockType(new Debug());
+			}
 		});
 
 		// ---------------------------
@@ -62,6 +67,29 @@ class Gutenberg extends _Component {
 	 */
 	public function addBlockType( _BlockType $block){
 		$this->blocks[] = $block;
+	}
+
+	/**
+	 * @return Option[]
+	 */
+	public static function getTaxonomyOptions(): array{
+		$taxonomyOptions = [];
+		foreach (Plugin::instance()->assets->getTaxonomies() as $taxonomy){
+			$taxonomyOptions[] = Option::build($taxonomy["name"], $taxonomy["label"]);
+		}
+		return $taxonomyOptions;
+	}
+
+	/**
+	 * @return Option[]
+	 */
+	public static function getPostTypeOptions(): array{
+		$postTypeOptions = [];
+		$postTypeOptions[] = Option::build("any", __("Any", Plugin::DOMAIN));
+		foreach (Plugin::instance()->assets->getPostTypes() as $postType){
+			$postTypeOptions[] = Option::build($postType["key"], $postType["label"]);
+		}
+		return $postTypeOptions;
 	}
 
 }

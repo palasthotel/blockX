@@ -25,6 +25,7 @@ class Assets extends _Component {
 			"BlockX",
 			[
 				"i18n" => [
+					"btn_apply_changes" => __("Apply changes", Plugin::DOMAIN),
 					"widget_tax_query" => [
 						"btn_add_taxonomy" => _x("Add taxonomy", "tax query widget", Plugin::DOMAIN),
 						"btn_delete_taxonomy" => _x("Delete", "tax query widget", Plugin::DOMAIN),

@@ -2,6 +2,7 @@ import { Button, SelectControl, ToggleControl, FormTokenField, BaseControl } fro
 import { useEffect } from "@wordpress/element";
 import { useFetchTaxonomyTerms } from "../../hooks/useTaxonomy.js";
 import { useTranslationWidgetTaxQuery } from '../../hooks/useTranslation.js'
+import { buildOption } from "../../utils/select.js";
 
 const findTermByName = (name, terms) => terms.find(_t=>_t.name === name);
 const findTermBySlug = (slug, terms) => terms.find(_t => _t.slug === slug);
@@ -73,7 +74,7 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
             <SelectControl 
                 label={label_operator}
                 value={operator}
-                options={['IN', 'NOT IN', 'AND' ].map(i=>({label:i,value:i}))}
+                options={['IN', 'NOT IN', 'AND' ].map(i=> buildOption(i,i))}
                 onChange={(_operator)=>{
                     onChange({
                         ...value,

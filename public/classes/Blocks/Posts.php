@@ -3,9 +3,9 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
+use Palasthotel\WordPress\BlockX\Gutenberg;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
-use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
@@ -40,29 +40,18 @@ class Posts extends _BlockType {
 
 	public function contentStructure(): ContentStructure {
 
-		$plugin = Plugin::instance();
-
-		$postTypeOptions = [];
-		$postTypeOptions[] = new Option("any", __("Any", Plugin::DOMAIN));
-		foreach ($plugin->assets->getPostTypes() as $postType){
-			$postTypeOptions[] = new Option($postType["key"], $postType["label"]);
-		}
-
-		$taxonomyOptions = [];
-		foreach ($plugin->assets->getTaxonomies() as $taxonomy){
-			$taxonomyOptions[] = new Option($taxonomy["name"], $taxonomy["label"]);
-		}
-
 		return new ContentStructure([
 
 			Number::build("number_of_posts", "Number of Posts", 5),
 			Number::build("offset", "Offset", 0),
 
-			Select::build("post_type", "Post Type", "post")
-			      ->setOptions($postTypeOptions),
+			Select::build("post_type", "Post Type", Gutenberg::getPostTypeOptions(), "post"),
 
-			TaxQuery::build("tax_query", __("Tax Query", Plugin::DOMAIN))
-			        ->useTaxonomies($taxonomyOptions),
+			TaxQuery::build(
+				"tax_query",
+				__("Tax Query", Plugin::DOMAIN),
+				Gutenberg::getTaxonomyOptions()
+			),
 
 			Number::build("offset2", "Offset", 0),
 

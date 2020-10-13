@@ -1,12 +1,17 @@
 import widgets from "./widgets";
 import {Button} from "@wordpress/components";
-import {useEffect} from "@wordpress/element";
+import {useEffect, useState} from "@wordpress/element";
+import { useTranslation } from "../hooks/useTranslation";
 
 const ContentStructure = ({definition, content, setContent, autoSetDefaults = false})=>{
 
+    const {
+        btn_apply_changes
+    } = useTranslation();
+    const [state, setState] = useState({});
+
     useEffect(()=>{
         if(autoSetDefaults && Object.keys(content).length < definition.length){
-            console.log("auto set default values")
             const newContent = {};
             for (const {defaultValue, key} of definition) {
 
@@ -20,25 +25,44 @@ const ContentStructure = ({definition, content, setContent, autoSetDefaults = fa
         }
     }, [definition])
 
-    const setValue = (key, value) => setContent({
-        ...content,
+    const setValue = (key, value) => setState(_state => ({
+        ..._state,
         [key]: value,
-    })
+    }))
+
+    const handleApplyChangesClick = ()=>{
+        setContent({
+            ...content,
+            ...state,
+        })
+        setState({});
+    }
 
     return <>
         {definition.map(item=>{
             if(typeof widgets[item.type] !== typeof undefined){
                 const Widget = widgets[item.type];
+
+                const value = typeof state[item.key] !== typeof undefined ? state[item.key] : 
+                                typeof content[item.key] !== typeof undefined ? content[item.key] 
+                                : item.defaultValue
+
                 return <Widget
                     key={item.key}
                     definition={item}
-                    value={content[item.key] || item.defaultValue}
+                    value={value}
                     onChange={(value) => setValue(item.key, value)}
                 />
             }
             return <p key={item.key}>Type <b>{item.type}</b> not implemented</p>
         })}
-        <Button isSecondary>Apply changes</Button>
+        <Button 
+            isSecondary
+            disabled={Object.keys(state).length === 0}
+            onClick={handleApplyChangesClick}
+        >
+            {btn_apply_changes}
+        </Button>
     </>;
 }
 

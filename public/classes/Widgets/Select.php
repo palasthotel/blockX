@@ -10,20 +10,31 @@ class Select extends _Widget {
 
 	const TYPE = "select";
 
-	private $options = [];
+	private $options;
 
-	public static function build(string $key, string $label, string $defaultValue = ""){
-		return new static($key, $label, static::TYPE, $defaultValue );
+	/**
+	 * Select constructor.
+	 *
+	 * @param string $key
+	 * @param string $label
+	 * @param Option[] $options
+	 * @param string $defaultValue
+	 */
+	public function __construct( string $key, string $label, array $options, $defaultValue ) {
+		parent::__construct( $key, $label, static::TYPE, $defaultValue );
+		$this->options = $options;
 	}
 
 	/**
+	 * @param string $key
+	 * @param string $label
 	 * @param Option[] $options
+	 * @param string $defaultValue
 	 *
-	 * @return Select
+	 * @return static
 	 */
-	public function setOptions(array $options){
-		$this->options = $options;
-		return $this;
+	public static function build(string $key, string $label, array $options, string $defaultValue = ""){
+		return new static($key, $label, $options, $defaultValue );
 	}
 
 	public function toArray() {
