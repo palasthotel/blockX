@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2020-10-13 08:07+0200\n"
-"PO-Revision-Date: 2020-10-13 08:07+0200\n"
+"POT-Creation-Date: 2020-10-13 10:44+0200\n"
+"PO-Revision-Date: 2020-10-13 10:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -26,40 +26,52 @@ msgstr ""
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: classes/Assets.php:30
+#: classes/Assets.php:29
+msgid "– Any –"
+msgstr "– Beliebig –"
+
+#: classes/Assets.php:31
 msgctxt "tax query widget"
 msgid "Add taxonomy"
 msgstr "Taxonomie hinzufügen"
 
-#: classes/Assets.php:31
+#: classes/Assets.php:32
 msgctxt "tax query widget"
 msgid "Delete"
 msgstr "Löschen"
 
-#: classes/Assets.php:32
+#: classes/Assets.php:33
 msgctxt "tax query widget"
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: classes/Assets.php:33
+#: classes/Assets.php:34
 msgctxt "tax query widget"
 msgid "Add terms"
 msgstr "Begriffe hinzufügen"
 
-#: classes/Assets.php:34
+#: classes/Assets.php:35
 msgctxt "tax query widget"
 msgid "Operator"
 msgstr "Operator"
 
-#: classes/Assets.php:35
+#: classes/Assets.php:36
 msgctxt "tax query widget"
 msgid "All taxonomy conditions."
 msgstr "Alle Taxonomiebedingungen."
 
-#: classes/Assets.php:36
+#: classes/Assets.php:37
 msgctxt "tax query widget"
 msgid "One of the taxonomy conditions."
 msgstr "Eine der Taxonomiebedingungen."
+
+#: classes/Blocks/Debug.php:28
+msgid "Debug"
+msgstr "Debug"
+
+#: classes/Blocks/Debug.php:37
+msgid "This block is just for debugging"
+msgstr "Dieser Block wird nur für debuggingzwecke verwendet."
 
 #: classes/Blocks/Posts.php:23
 msgid "Posts"
@@ -69,13 +81,13 @@ msgstr "Beiträge"
 msgid "List of posts"
 msgstr "Beitragsliste"
 
-#: classes/Blocks/Posts.php:46
-msgid "Any"
-msgstr "Beliebig"
-
-#: classes/Blocks/Posts.php:64
+#: classes/Blocks/Posts.php:52
 msgid "Tax Query"
 msgstr "Taxonomyabfrage"
+
+#: classes/Gutenberg.php:88
+msgid "Any"
+msgstr "Beliebig"
 
 #: templates/blockx.php:10
 #, php-format
