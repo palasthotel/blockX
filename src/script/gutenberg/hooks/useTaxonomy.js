@@ -5,7 +5,7 @@ import { useTranslation } from './useTranslation';
 export const useFetchTaxonomyTerms = (taxonomy)=>{
     return useSelect(select=> select('core').getEntityRecords('taxonomy', taxonomy, {
             per_page: -1,
-        }) || [])
+        }) || [], [taxonomy])
 }
 
 export const useFetchTaxonomyTermsAsOptionsWithDefaultAny = (taxonomy)=>{

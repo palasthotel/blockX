@@ -4,7 +4,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import {PanelBody} from "@wordpress/components";
 import ContentStructure from "../components/content-structure";
 
-const BlockXPreviews = window.BlockXPreviews || {};
+const BlockXComponents = window.BlockXComponents || {};
 
 for( const {id, title, category, registerBlockTypeArgs, contentStructure} of BlockX.blocks){
 
@@ -40,7 +40,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                 setAttributes({content})
             }
             
-            const Preview = BlockXPreviews[id] || ServerSideRender;
+            const Preview = BlockXComponents[id] || ServerSideRender;
 
             return <>
                 <InspectorControls>

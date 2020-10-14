@@ -1,6 +1,6 @@
 
-window.BlockXPreviews = {
-    ...(window.BlockXPreviews || {}),
+window.BlockXComponents = {
+    ...(window.BlockXComponents || {}),
     ["blockx/rss"]: ({id, content})=>{
 
         const {
