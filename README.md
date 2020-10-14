@@ -95,19 +95,6 @@ add_action('blockx_collect', function(Gutenberg $gutenberg){
 
 Your brand new block will now be available in Gutenberg.
 
-## Templates
-
-Every Block needs two templates to render pretty content in the editor and in frontend. Naming conventions are `blockx__%namespace%--%block-name%.php` and `blockx__%namespace%--%block-name%__editor.php`. So for our block example this would be `blockx__my-namespace--my-block.php` and `blockx__my-namespace--my-block__editor.php`.
-
-Tempaltes can be overwritten in theme path `your-theme/plugin-parts/*` or any first level subfolder like `your-theme/plugins-parts/my-blockx/*`. You can also add new template paths that will be scanned on the templates search. To add a plugin template folder simply use the filter `blockx_add_templates_paths` like so:
-
-```php
-add_filter('blockx_add_templates_paths', function($paths){
-  $paths[] = "/my/absolute/path/to/my-plugin/templates/";
-  return $paths;
-})
-```
-
 ## Widgets
 
 In the namespace `Palasthotel\WordPress\BlockX\Widgets` there are some classes that should be used to build the array for the ContentStructure classes constructor call.
@@ -197,6 +184,58 @@ For much more complex taxonomy conditions this widget provides a way to build ta
 );
 ```
 
+## Templates
+
+Every Block needs two templates to render pretty content in the editor and in frontend. Naming conventions are `blockx__%namespace%--%block-name%.php` and `blockx__%namespace%--%block-name%__editor.php`. So for our block example this would be `blockx__my-namespace--my-block.php` and `blockx__my-namespace--my-block__editor.php`.
+
+Tempaltes can be overwritten in theme path `your-theme/plugin-parts/*` or any first level subfolder like `your-theme/plugins-parts/my-blockx/*`. You can also add new template paths that will be scanned on the templates search. To add a plugin template folder simply use the filter `blockx_add_templates_paths` like so:
+
+```php
+add_filter('blockx_add_templates_paths', function($paths){
+  $paths[] = "/my/absolute/path/to/my-plugin/templates/";
+  return $paths;
+})
+```
+
+###  React Editor Template
+
+There is another way to provide content rendering of BlockX in Gutenberg Editor. This is a little more tricky than the php editor template variant but it might help preventing server performance issues and can help build better and faster user experiance.
+
+Use the `enqueueEditorAssets` function to provide custom javascript files..
+
+```php
+// MyBlock.php
+...
+class MyBlock extends _BlockType{
+  	...
+    public function enqueueEditorAssets( Dependencies $depenencies ){
+      wp_enqueue_script(
+        "my-blockx-components-script", 
+        plugin_dir_url(__FILE__)."/my-blockx-components.js"
+      );
+      $dependencies->addHandle("my-blockx-components-script");
+    }
+  	...
+}
+```
+
+The `my-blockx-components.js` file will be enqueue as a dependency of `blockx.js`.  
+
+```jsx
+// my-blockx-components.js
+window.BlockXComponents = {
+    ...(window.BlockXComponents || {}),
+    ["my-namespace/my-block"]: ({id, content})=> <MyBlockEditorCompontent {...content} />,
+};
+```
+
+If the `BlockXComponents` object holds a component for the block id this will be used in Gutenberg content view instead of server side rendering.
+
+**Important:**
+
+- This is JSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
+- Best practice is to use the `@wordpress/scripts` npm package to transpile React comoponents
+
 ## Usage
 
 After building the skeleton of the block data will be collected and used like the following example:
@@ -264,11 +303,35 @@ Now the block will provide input widgets and parpare the `$content` data that wi
  echo "<strong>Offset:</strong> $content->offset";
 ... // some more data info
  echo "</div>";
-	?>
-</div>
 ```
 
 It is possible to render WP_Query data in the editor template. But beware of peformance issues.
+
+---
+
+Alternatively use React Component editor rendering.
+
+ ```jsx
+// my-blockx-components.js
+const MyBlockEditorComponent = ({headline, number_of_posts, offset})=>{
+  return <>
+  	<hr>{headline}</hr>
+  	<div>
+    	<strong>Number of posts:</strong> {number_of_posts}<br/>
+    	<strong>Offset:</strong> {offset}
+  	</div>
+  </>
+}
+window.BlockXComponents = {
+    ...(window.BlockXComponents || {}),
+    ["my-namespace/my-block"]: ({id, content})=> <MyBlockEditorCompontent {...content} />,
+};
+ ```
+
+It is possible to use wp.data and the REST API to query for posts and display an even better preview. This has better performance than the php server side rendering version but can nevertheless also lead to server performance issues.
+
+---
+
 
  ```php
  // blockx__my-namespace--my-block.php
@@ -291,5 +354,4 @@ wp_reset_postdata();
 - More Widgets
   - Media
   - custom autocomplete
-- JavaScript rendering for editor template instead of ServerSideRendering
 - Edit content in place and with markup
