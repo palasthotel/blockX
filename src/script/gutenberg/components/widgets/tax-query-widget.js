@@ -112,6 +112,8 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
     } = useTranslationWidgetTaxQuery()
 
     const {taxonomies: tax = [], relation = "OR"} = value;
+    
+    const handleChange = (_value)=> onChange(_value.taxonomies.length >= 1 ? _value : undefined);
 
     return <div>
         <div>
@@ -121,7 +123,7 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                         taxonomies={taxonomies}
                         value={_tax}
                         onChange={(changedTax)=>{
-                            onChange({
+                            handleChange({
                                 ...value,
                                 taxonomies: tax.map((c, j)=> i === j ? changedTax : c)
                             })
@@ -131,7 +133,7 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                         isDestructive
                         isSmall
                         onClick={()=>{
-                            onChange({
+                            handleChange({
                                 ...value,
                                 taxonomies: tax
                                     .map((c,j)=> j === i ? null : c)
@@ -154,7 +156,7 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
                         help={relation === "AND" ? toggle_AND_description: toggle_OR_description}
                         checked={relation === "AND"}
                         onChange={(checked)=>{
-                            onChange({
+                            handleChange({
                                 ...value,
                                 relation: checked ? "AND" : "OR",
                             })
@@ -169,13 +171,13 @@ const ConditionGroup = ({taxonomies, value, onChange})=>{
             isSecondary
             isSmall
             onClick={()=>{
-            onChange({
-                relation,
-                taxonomies: [
-                    ...tax,
-                    {}
-                ]
-            })
+                handleChange({
+                    relation,
+                    taxonomies: [
+                        ...tax,
+                        {}
+                    ]
+                })
             }}
             style={{
                 width: "100%",
