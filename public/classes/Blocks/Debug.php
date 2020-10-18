@@ -9,6 +9,7 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Toggle;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
@@ -88,7 +89,10 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			// advanced
 			// ------------------------------------
-			Number::build("offset2", "Offset", 0),
+			Panel::build("Collapsible content", new ContentStructure([
+				Number::build("offset2", "Offset 2", 0),
+			])),
+
 
 			ListOf::build("list", "List of things", [
 				Number::build("offset", "Offset", 0),

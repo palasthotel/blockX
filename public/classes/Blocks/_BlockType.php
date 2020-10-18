@@ -5,6 +5,7 @@ namespace Palasthotel\WordPress\BlockX\Blocks;
 
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use stdClass;
 
 abstract class _BlockType implements _IBlockType {
@@ -48,11 +49,24 @@ abstract class _BlockType implements _IBlockType {
 	function prepare( stdClass $content): stdClass{
 
 		foreach ($this->contentStructure()->getItems() as $widget){
+
+			if($widget instanceof Panel){
+				foreach($widget->getItems() as $_widget) {
+					$key = $_widget->key();
+					$defaultValue = $_widget->defaultValue();
+					if(!isset($content->{$key})){
+						$content->{$key} = $defaultValue;
+					}
+				}
+				continue;
+			}
+
 			$key = $widget->key();
 			$defaultValue = $widget->defaultValue();
 			if(!isset($content->{$key})){
 				$content->{$key} = $defaultValue;
 			}
+
 		}
 
 		return $content;
