@@ -1,8 +1,7 @@
 import { registerBlockType } from '@wordpress/blocks'
 import {InspectorControls} from '@wordpress/block-editor'
 import ServerSideRender from '@wordpress/server-side-render';
-import {PanelBody} from "@wordpress/components";
-import ContentStructure from "../components/content-structure";
+import Panels from '../components/panels';
 
 const BlockXComponents = window.BlockXComponents || {};
 
@@ -44,13 +43,11 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
 
             return <>
                 <InspectorControls>
-                    <PanelBody>
-                        <ContentStructure
-                            definition={contentStructure}
-                            content={attributes.content}
-                            setContent={setContent}
-                        />
-                    </PanelBody>
+                    <Panels
+                        definition={contentStructure}
+                        content={attributes.content}
+                        setContent={setContent}
+                    />
                 </InspectorControls>
                 <div className={className}>
                     <Preview

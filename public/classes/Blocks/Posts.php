@@ -8,6 +8,7 @@ use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
+use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Select;
 use Palasthotel\WordPress\BlockX\Widgets\TaxQuery;
 use stdClass;
@@ -43,14 +44,15 @@ class Posts extends _BlockType {
 
 			Number::build("number_of_posts", "Number of Posts", 5),
 			Number::build("offset", "Offset", 0),
-
 			Select::build("post_type", "Post Type", Gutenberg::getPostTypeOptions(), "post"),
 
-			TaxQuery::build(
-				"tax_query",
-				__("Tax Query", Plugin::DOMAIN),
-				Plugin::instance()->assets->getTaxonomies()
-			),
+			Panel::build("Tax Query", new ContentStructure([
+				TaxQuery::build(
+					"tax_query",
+					"",
+					Plugin::instance()->assets->getTaxonomies()
+				),
+			]))->opened(false),
 
 		]);
 	}
@@ -85,13 +87,14 @@ class Posts extends _BlockType {
 		if(!is_array($args["taxonomies"])) return false;
 		$relation = $args["relation"];
 		$taxonomies = $args["taxonomies"];
-		if(is_array($taxonomies)){
-			foreach ($taxonomies as $item){
-				if(!isset($item["taxonomy"]) || !isset($item["termIds"]) || !is_array($item["termIds"])) continue;
-				$taxonomy = $item["taxonomy"];
-				$termIds = $item["termIds"];
-			}
+		if(count($taxonomies) == 0) return false;
+
+		foreach ($taxonomies as $item){
+			if(!isset($item["taxonomy"]) || !isset($item["termIds"]) || !is_array($item["termIds"])) continue;
+			$taxonomy = $item["taxonomy"];
+			$termIds = $item["termIds"];
 		}
+
 
 		return false;
 
