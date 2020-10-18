@@ -184,6 +184,21 @@ For much more complex taxonomy conditions this widget provides a way to build ta
 );
 ```
 
+### Panel
+
+Gutenberg uses collapsible panels to group configuration sections. It's possible to use this ui pattern with the Panel Widget type.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Panel::build(
+  string $label, 
+  $contentStructure: ContentStructure
+)->opened(bool $isOpened)
+```
+
+**Important:**
+
+- Panels can only be used as first level ContentStructure Items. It's not possible to use a Panel in a Panel or in other Widgets that open a new level of content structure.
+
 ## Templates
 
 Every Block needs two templates to render pretty content in the editor and in frontend. Naming conventions are `blockx__%namespace%--%block-name%.php` and `blockx__%namespace%--%block-name%__editor.php`. So for our block example this would be `blockx__my-namespace--my-block.php` and `blockx__my-namespace--my-block__editor.php`.
