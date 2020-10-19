@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: BlockX
- * Plugin URI: http://www.palasthotel.de
+ * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
  * Version: 0.1.0
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
