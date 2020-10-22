@@ -1,5 +1,6 @@
 
 import NumberWidget from './number-widget.js'
+import PostWidget from './post-widget.js';
 import SelectWidget from './select-widget.js';
 import TaxQueryWidget from './tax-query-widget.js';
 import TaxonomyTerm from './taxonomy-term.js';
@@ -13,6 +14,7 @@ const widgets = {
     select: SelectWidget,
     taxonomy_term: TaxonomyTerm,
     tax_query: TaxQueryWidget,
+    post: PostWidget,
 }
 
 export default widgets;
