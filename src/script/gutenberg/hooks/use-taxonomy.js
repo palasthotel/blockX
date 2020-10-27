@@ -1,6 +1,6 @@
 import { useSelect } from '@wordpress/data';
 import { buildOption } from '../utils/select';
-import { useTranslation } from './useTranslation';
+import { useTranslation } from './use-translation';
 
 export const useFetchTaxonomyTerms = (taxonomy)=>{
     return useSelect(select=> select('core').getEntityRecords('taxonomy', taxonomy, {

@@ -1,7 +1,7 @@
 import { Button, SelectControl, ToggleControl, FormTokenField, BaseControl } from "@wordpress/components";
 import { useEffect } from "@wordpress/element";
-import { useFetchTaxonomyTerms } from "../../hooks/useTaxonomy.js";
-import { useTranslationWidgetTaxQuery } from '../../hooks/useTranslation.js'
+import { useFetchTaxonomyTerms } from "../../hooks/use-taxonomy.js";
+import { useTranslationWidgetTaxQuery } from '../../hooks/use-translation.js'
 import { buildOption } from "../../utils/select.js";
 
 const findTermByName = (name, terms) => terms.find(_t=>_t.name === name);

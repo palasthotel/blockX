@@ -1,7 +1,7 @@
 import widgets from "./widgets";
 import {Button, PanelBody} from "@wordpress/components";
 import {useState} from "@wordpress/element";
-import { useTranslation } from "../hooks/useTranslation";
+import { useTranslation } from "../hooks/use-translation";
 import ContentStructure from "./content-structure";
 
 const Panels = ({definition, content, setContent})=>{

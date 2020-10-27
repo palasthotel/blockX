@@ -1,5 +1,5 @@
 import {SelectControl} from "@wordpress/components";
-import { useFetchTaxonomyTermsAsOptionsWithDefaultAny } from "../../hooks/useTaxonomy";
+import { useFetchTaxonomyTermsAsOptionsWithDefaultAny } from "../../hooks/use-taxonomy";
 
 const TaxonomyTerm = ({definition, value, onChange})=> {
 

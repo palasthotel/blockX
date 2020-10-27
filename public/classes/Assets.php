@@ -51,7 +51,14 @@ class Assets extends _Component {
 				}, $blocks),
 			]
 		);
-
+		if(file_exists($this->plugin->path."/js/gutenberg/blockx.css")){
+			wp_enqueue_style(
+				Plugin::HANDLE_CSS_GUTENBERG,
+				$this->plugin->url."/js/gutenberg/blockx.css",
+				[],
+				filemtime($this->plugin->path."/js/gutenberg/blockx.css")
+			);
+		}
 	}
 
 	/**

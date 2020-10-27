@@ -25,11 +25,13 @@ namespace Palasthotel\WordPress\BlockX;
  * @property Assets assets
  * @property Gutenberg gutenberg
  * @property Templates templates
+ * @property REST rest
  */
 class Plugin {
 
 	const DOMAIN = "blockx";
 	const HANDLE_JS_GUTENBERG = "blockx";
+	const HANDLE_CSS_GUTENBERG = "blockx";
 
 	// ----------------------------------------------------
 	// core blockx
@@ -74,6 +76,7 @@ class Plugin {
 
 		require_once dirname(__FILE__)."/vendor/autoload.php";
 
+		$this->rest = new REST($this);
 		$this->assets = new Assets($this);
 		$this->templates = new Templates($this);
 		$this->gutenberg = new Gutenberg($this);
