@@ -26,6 +26,7 @@ namespace Palasthotel\WordPress\BlockX;
  * @property Gutenberg gutenberg
  * @property Templates templates
  * @property REST rest
+ * @property Post post
  */
 class Plugin {
 
@@ -80,6 +81,7 @@ class Plugin {
 		$this->assets = new Assets($this);
 		$this->templates = new Templates($this);
 		$this->gutenberg = new Gutenberg($this);
+		$this->post = new Post($this);
 
 	}
 

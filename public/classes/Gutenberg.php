@@ -78,6 +78,13 @@ class Gutenberg extends _Component {
 	}
 
 	/**
+	 * @return _BlockType[]
+	 */
+	public function getBlockTypes(): array {
+		return $this->blocks;
+	}
+
+	/**
 	 * @return Option[]
 	 */
 	public static function getTaxonomyOptions(): array{
@@ -99,5 +106,7 @@ class Gutenberg extends _Component {
 		}
 		return $postTypeOptions;
 	}
+
+
 
 }

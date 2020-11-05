@@ -3,10 +3,12 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
+use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use stdClass;
+use WP_Post;
 
 abstract class _BlockType implements _IBlockType {
 
@@ -89,5 +91,24 @@ abstract class _BlockType implements _IBlockType {
 
 		return $content;
 	}
+
+	/**
+	 * is called on save_post action even if no instance of this block type is in content
+	 * @param int $post_id
+	 */
+	function onSavePost(int $post_id){}
+
+	/**
+	 * is called on save_post action for every block instance in post content
+	 *
+	 * @param int $post_id
+	 * @param BlockInstance $block
+	 */
+	function onSaveInstance(int $post_id, BlockInstance $block){}
+
+	/**
+	 * @param WP_Post $post
+	 */
+	function onDeletePost( WP_Post $post){}
 
 }
