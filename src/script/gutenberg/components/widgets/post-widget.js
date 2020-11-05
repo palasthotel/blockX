@@ -2,7 +2,7 @@ import {BaseControl, Icon, Popover, TextControl} from "@wordpress/components";
 import { useState } from "@wordpress/element";
 import { useEscapeKey } from "../../hooks/use-utils.js";
 import { useFetchPosts, usePost } from "../../hooks/use-posts";
-import './post-widget.scss'
+import './post-widget.css'
 
 const PostSearchResult = ({ID, post_title, onClick})=>{
     return <div 
@@ -13,12 +13,12 @@ const PostSearchResult = ({ID, post_title, onClick})=>{
     </div>
 }
 
-const SearchPost = ({label, post_types, onFound})=>{
+const SearchPost = ({label, post_types, post_status, onFound})=>{
 
     const [state, setState] = useState("")
     const [isVisible, setIsVisible] = useState(false)
 
-    const {posts, isLoading} = useFetchPosts(state, post_types)
+    const {posts, isLoading} = useFetchPosts(state, post_types, post_status)
 
     useEscapeKey(()=>{
         setIsVisible(false)
@@ -80,6 +80,7 @@ const PostWidget = ({definition, value, onChange})=> {
         return <SearchPost
             label={definition.label}
             post_types={definition.post_types} 
+            post_status={definition.post_status}
             onFound={onChange}
         />
     }

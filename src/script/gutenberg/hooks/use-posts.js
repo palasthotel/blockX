@@ -59,17 +59,17 @@ const postsQueryFetcher = async (queryParams) => {
     return posts;
 }
 
-const buildQueryParams = (search, post_types) => {
+const buildQueryParams = (search, post_types, post_status) => {
     if(search.length === 0) return '';
-    return `s=${search}&post_type=${post_types.join(',')}`
+    return `s=${search}&post_type=${post_types.join(',')}&post_status=${post_status.join(',')}`;
 }
 
-export const useFetchPosts = (s, post_types)=>{
+export const useFetchPosts = (s, post_types, post_status)=>{
     
-    const debounced = useDebounce(s, 600)
-    const queryParams = buildQueryParams(debounced, post_types)
+    const debounced = useDebounce(s, 600);
+    const queryParams = buildQueryParams(debounced, post_types, post_status);
 
-    const {data, error} = useSWR(queryParams, postsQueryFetcher)
+    const {data, error} = useSWR(queryParams, postsQueryFetcher);
     return {
         posts: data || [],
         isLoading: !error && !data,

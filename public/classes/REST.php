@@ -45,6 +45,16 @@ class REST  extends _Component {
 						},
 						'default' => 'post',
 					),
+					"post_status" => array(
+						'type' => 'string',
+						'validate_callback' => function ( $value, $request, $param ) {
+							return is_string( $value ) && strlen( $value );
+						},
+						'sanitize_callback' => function ( $value ) {
+							return sanitize_text_field( $value );
+						},
+						'default' => 'publish',
+					),
 				]
 			)
 		);
@@ -53,6 +63,7 @@ class REST  extends _Component {
 	public function get_items(WP_REST_Request $request){
 		$s = $request->get_param("s");
 		$post_type = explode(",",$request->get_param("post_type"));
+		$post_status = explode(",", $request->get_param("post_status"));
 		return array_map(function($post){
 			return [
 				"ID" => $post->ID,
@@ -61,6 +72,7 @@ class REST  extends _Component {
 		},get_posts([
 			"s" => $s,
 			"post_type" => $post_type,
+			"post_status" => $post_status,
 		]));
 	}
 
