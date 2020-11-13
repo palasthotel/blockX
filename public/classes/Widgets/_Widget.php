@@ -67,6 +67,14 @@ abstract class _Widget implements _IWidget {
 	}
 
 	/**
+	 * make sure it is typesafe
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function prepareValue($value){return $value;}
+
+	/**
 	 * @param int $post_id
 	 */
 	public function onSavePost(int $post_id){}

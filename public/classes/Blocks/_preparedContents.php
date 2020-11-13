@@ -24,6 +24,7 @@ class PostsContent extends stdClass {}
 
 /**
  * Class AuthorsContent
+ * @property boolean $include_embedded_posts
  * @property string[] $author_ids
  * @property WP_User[] $authors
  */

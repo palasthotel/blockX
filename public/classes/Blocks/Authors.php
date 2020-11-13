@@ -38,10 +38,13 @@ class Authors extends _BlockType {
 		$related_post_ids = Plugin::instance()->database->getEmbeddedPostIds(get_the_ID());
 
 		$ids[] = get_post_field("post_author");
-		foreach ($related_post_ids as $post_id){
-			$ids[] = get_post_field("post_author", $post_id);
-		}
 
+		if($content->include_embedded_posts){
+			foreach ($related_post_ids as $post_id){
+				$ids[] = get_post_field("post_author", $post_id);
+			}
+		}
+		
 		$content->author_ids = $ids;
 		$content->authors = array_map(function($user_id) {
 			return get_user_by('ID', $user_id);

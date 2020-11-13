@@ -60,4 +60,8 @@ class Toggle extends _Widget {
 		}
 		return $arr;
 	}
+
+	public function prepareValue( $value ) {
+		return is_bool($value) ? $value : "true" === $value;
+	}
 }

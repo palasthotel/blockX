@@ -57,6 +57,8 @@ abstract class _BlockType implements _IBlockType {
 					$defaultValue = $_widget->defaultValue();
 					if(!isset($content->{$key})){
 						$content->{$key} = $defaultValue;
+					} else {
+						$content->{$key} = $_widget->prepareValue($content->{$key});
 					}
 				}
 				continue;
@@ -66,6 +68,8 @@ abstract class _BlockType implements _IBlockType {
 			$defaultValue = $widget->defaultValue();
 			if(!isset($content->{$key})){
 				$content->{$key} = $defaultValue;
+			} else {
+				$content->{$key} = $widget->prepareValue($content->{$key});
 			}
 
 		}
