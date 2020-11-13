@@ -63,6 +63,10 @@ class Posts extends _BlockType {
 	 * @return stdClass
 	 */
 	public function prepare( stdClass $content ): stdClass {
+
+		/**
+		 * @var PostsContent $content
+		 */
 		$content = parent::prepare($content);
 		// build all query args
 		$content->args = [
@@ -79,7 +83,13 @@ class Posts extends _BlockType {
 		return $content;
 	}
 
-	private function buildTaxQuery($content){
+	/**
+	 * @param PostsContent $content
+	 *
+	 * @return false
+	 */
+	private function buildTaxQuery(PostsContent $content){
+
 		if(!isset($content->tax_query) || !is_array($content->tax_query)) return false;
 		$args = $content->tax_query;
 

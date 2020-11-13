@@ -13,6 +13,7 @@ class Assets extends _Component {
 
 	/**
 	 * @param _BlockType[] $blocks
+	 * @param Dependencies $dependencies
 	 */
 	function enqueueGutenberg( array $blocks, Dependencies $dependencies){
 		$info = include $this->plugin->path . "/js/gutenberg/blockx.asset.php";

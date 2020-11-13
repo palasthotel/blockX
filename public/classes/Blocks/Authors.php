@@ -3,8 +3,6 @@
 
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
-
-use Palasthotel\WordPress\BlockX\Database;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Plugin;

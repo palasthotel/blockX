@@ -1,10 +1,11 @@
 <?php
 
-namespace Palasthotel\WordPress\BlockX;
+namespace Palasthotel\WordPress\BlockX\Blocks;
 
-use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
+use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\Post;
 use stdClass;
 
 class PostEmbed extends _BlockType {
@@ -23,11 +24,15 @@ class PostEmbed extends _BlockType {
 
 	public function contentStructure(): ContentStructure {
 		return new ContentStructure([
-			Widgets\Post::build("post_id", "Post")->postStatus(["publish"])
+			Post::build("post_id", "Post")->postStatus(["publish"])
 		]);
 	}
 
 	public function prepare( stdClass $content ): stdClass {
+
+		/**
+		 * @var PostEmbedContent $content
+		 */
 		$content =  parent::prepare( $content );
 		if( null == $content->post_id || empty( $content->post_id ) ) {
 			$content->post = null;

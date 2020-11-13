@@ -6,8 +6,8 @@ namespace Palasthotel\WordPress\BlockX;
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Blocks\Authors;
 use Palasthotel\WordPress\BlockX\Blocks\Debug;
+use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
-use Palasthotel\WordPress\BlockX\Blocks\RSS;
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Model\Option;
 
