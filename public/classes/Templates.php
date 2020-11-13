@@ -19,11 +19,29 @@ class Templates extends _Component {
 	 * @return false|string
 	 */
 	function get_block_template_path(_BlockType $block, bool $editor){
-		$path = $this->get_template_path($this->get_block_template_name($block, $editor));
-		return false !== $path ? $path :
-			$this->get_template_path(
-				$editor ? Plugin::BLOCK_FALLBACK_EDITOR_TEMPLATE: Plugin::BLOCK_FALLBACK_TEMPLATE
-			);
+		$class = get_class($block);
+		while(false !== $class){
+
+			try {
+				$test = new \ReflectionClass( $class );
+			} catch ( \ReflectionException $e ) {
+				return false;
+			}
+			if($test->isAbstract()){
+				return false;
+			}
+
+			$type = new $class();
+			$path = $this->get_template_path($this->get_block_template_name($type, $editor));
+			if(is_string($path) && !empty($path)) return $path;
+
+			// check next parent class
+			$class = get_parent_class($type);
+		}
+
+		return $this->get_template_path(
+			$editor ? Plugin::BLOCK_FALLBACK_EDITOR_TEMPLATE: Plugin::BLOCK_FALLBACK_TEMPLATE
+		);
 	}
 
 	/**

@@ -22,8 +22,13 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
 
     public static $classMap = array (
         'Palasthotel\\WordPress\\BlockX\\Assets' => __DIR__ . '/../..' . '/classes/Assets.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\Authors' => __DIR__ . '/../..' . '/classes/Blocks/Authors.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\AuthorsContent' => __DIR__ . '/../..' . '/classes/Blocks/_preparedContents.php',
         'Palasthotel\\WordPress\\BlockX\\Blocks\\Debug' => __DIR__ . '/../..' . '/classes/Blocks/Debug.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\PostEmbed' => __DIR__ . '/../..' . '/classes/Blocks/PostEmbed.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\PostEmbedContent' => __DIR__ . '/../..' . '/classes/Blocks/_preparedContents.php',
         'Palasthotel\\WordPress\\BlockX\\Blocks\\Posts' => __DIR__ . '/../..' . '/classes/Blocks/Posts.php',
+        'Palasthotel\\WordPress\\BlockX\\Blocks\\PostsContent' => __DIR__ . '/../..' . '/classes/Blocks/_preparedContents.php',
         'Palasthotel\\WordPress\\BlockX\\Blocks\\RSS' => __DIR__ . '/../..' . '/classes/Blocks/RSS.php',
         'Palasthotel\\WordPress\\BlockX\\Blocks\\_BlockType' => __DIR__ . '/../..' . '/classes/Blocks/_BlockType.php',
         'Palasthotel\\WordPress\\BlockX\\Blocks\\_IBlockType' => __DIR__ . '/../..' . '/classes/Blocks/_IBlockType.php',
@@ -35,7 +40,6 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
         'Palasthotel\\WordPress\\BlockX\\Model\\Dependencies' => __DIR__ . '/../..' . '/classes/Model/Dependencies.php',
         'Palasthotel\\WordPress\\BlockX\\Model\\Option' => __DIR__ . '/../..' . '/classes/Model/Option.php',
         'Palasthotel\\WordPress\\BlockX\\Model\\StateLabel' => __DIR__ . '/../..' . '/classes/Model/StateLabel.php',
-        'Palasthotel\\WordPress\\BlockX\\PostEmbed' => __DIR__ . '/../..' . '/classes/Blocks/PostEmbed.php',
         'Palasthotel\\WordPress\\BlockX\\PostHooks' => __DIR__ . '/../..' . '/classes/PostHooks.php',
         'Palasthotel\\WordPress\\BlockX\\REST' => __DIR__ . '/../..' . '/classes/REST.php',
         'Palasthotel\\WordPress\\BlockX\\Templates' => __DIR__ . '/../..' . '/classes/Templates.php',

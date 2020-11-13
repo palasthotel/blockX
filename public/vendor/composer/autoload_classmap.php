@@ -7,8 +7,13 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Palasthotel\\WordPress\\BlockX\\Assets' => $baseDir . '/classes/Assets.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\Authors' => $baseDir . '/classes/Blocks/Authors.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\AuthorsContent' => $baseDir . '/classes/Blocks/_preparedContents.php',
     'Palasthotel\\WordPress\\BlockX\\Blocks\\Debug' => $baseDir . '/classes/Blocks/Debug.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\PostEmbed' => $baseDir . '/classes/Blocks/PostEmbed.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\PostEmbedContent' => $baseDir . '/classes/Blocks/_preparedContents.php',
     'Palasthotel\\WordPress\\BlockX\\Blocks\\Posts' => $baseDir . '/classes/Blocks/Posts.php',
+    'Palasthotel\\WordPress\\BlockX\\Blocks\\PostsContent' => $baseDir . '/classes/Blocks/_preparedContents.php',
     'Palasthotel\\WordPress\\BlockX\\Blocks\\RSS' => $baseDir . '/classes/Blocks/RSS.php',
     'Palasthotel\\WordPress\\BlockX\\Blocks\\_BlockType' => $baseDir . '/classes/Blocks/_BlockType.php',
     'Palasthotel\\WordPress\\BlockX\\Blocks\\_IBlockType' => $baseDir . '/classes/Blocks/_IBlockType.php',
@@ -20,7 +25,6 @@ return array(
     'Palasthotel\\WordPress\\BlockX\\Model\\Dependencies' => $baseDir . '/classes/Model/Dependencies.php',
     'Palasthotel\\WordPress\\BlockX\\Model\\Option' => $baseDir . '/classes/Model/Option.php',
     'Palasthotel\\WordPress\\BlockX\\Model\\StateLabel' => $baseDir . '/classes/Model/StateLabel.php',
-    'Palasthotel\\WordPress\\BlockX\\PostEmbed' => $baseDir . '/classes/Blocks/PostEmbed.php',
     'Palasthotel\\WordPress\\BlockX\\PostHooks' => $baseDir . '/classes/PostHooks.php',
     'Palasthotel\\WordPress\\BlockX\\REST' => $baseDir . '/classes/REST.php',
     'Palasthotel\\WordPress\\BlockX\\Templates' => $baseDir . '/classes/Templates.php',

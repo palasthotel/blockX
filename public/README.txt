@@ -24,7 +24,7 @@ Easy developer friendly way to add new gutenberg blocks to your wordpress.
 
 == Frequently Asked Questions ==
 
-= How can I add my own block-x? =
+= How can I add my own blockX? =
 
 You can find all you need to know here: https://github.com/palasthotel/blockX/blob/master/README.md
 
@@ -35,6 +35,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Changelog ==
 
 = 1.0.1 =
+* Feature: Template inheritance
 * New Block: Post Embed
 * New Block: Authors
 * New Widget: Post - Relate a post

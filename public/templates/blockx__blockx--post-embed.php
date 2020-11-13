@@ -1,16 +1,14 @@
 <?php
 
 /**
- * @var Posts $this
- * @var array $content
+ * @var PostEmbed $this
+ * @var PostEmbedContent $content
  */
 
-use Palasthotel\WordPress\BlockX\Blocks\Posts;
+use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
+use Palasthotel\WordPress\BlockX\Blocks\PostEmbedContent;
 
-$query = new WP_Query($content->args);
-
-while($query->have_posts()){
-	$query->the_post();
-	echo "<h1>".get_the_title()."</h1>";
+if($content->post instanceof WP_Post){
+	$post = $content->post;
+	echo "<p>$post->post_title</p>";
 }
-wp_reset_postdata();
