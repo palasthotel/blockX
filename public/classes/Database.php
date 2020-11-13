@@ -17,13 +17,13 @@ class Database {
 	}
 
 	/**
-	 * @param int $embeddedInPostId
+	 * @param int $inPostId
 	 *
 	 * @return int[]
 	 */
-	public function getRelatedPostIds( int $embeddedInPostId ) {
+	public function getEmbeddedPostIds( int $inPostId ) {
 		return $this->wpdb->get_col(
-			$this->wpdb->prepare( "SELECT post_id FROM $this->table WHERE embedded_in_post_id = %d", $embeddedInPostId )
+			$this->wpdb->prepare( "SELECT post_id FROM $this->table WHERE embedded_in_post_id = %d", $inPostId )
 		);
 	}
 

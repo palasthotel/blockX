@@ -35,7 +35,7 @@ class Authors extends _BlockType {
 		 * @var AuthorsContent $content
 		 */
 		$content =  parent::prepare( $content );
-		$related_post_ids = Plugin::instance()->database->getRelatedPostIds(get_the_ID());
+		$related_post_ids = Plugin::instance()->database->getEmbeddedPostIds(get_the_ID());
 
 		$ids[] = get_post_field("post_author");
 		foreach ($related_post_ids as $post_id){
