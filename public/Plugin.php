@@ -4,11 +4,11 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 5.5.1
+ * Tested up to: 5.5.3
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @copyright Copyright (c) 2020, Palasthotel
@@ -18,7 +18,6 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
-
 /**
  * @property string path
  * @property string url
@@ -26,7 +25,8 @@ namespace Palasthotel\WordPress\BlockX;
  * @property Gutenberg gutenberg
  * @property Templates templates
  * @property REST rest
- * @property Post post
+ * @property PostHooks $postHooks
+ * @property Database database
  */
 class Plugin {
 
@@ -39,6 +39,8 @@ class Plugin {
 	// ----------------------------------------------------
 	const BLOCKS_NAMESPACE = "blockx";
 	const BLOCK_NAME_POSTS = "posts";
+	const BLOCK_NAME_POST_EMBED = "post-embed";
+	const BLOCK_NAME_AUTHORS = "authors";
 	const BLOCK_NAME_RSS = "rss";
 
 	// ----------------------------------------------------
@@ -77,13 +79,35 @@ class Plugin {
 
 		require_once dirname(__FILE__)."/vendor/autoload.php";
 
-		$this->rest = new REST($this);
-		$this->assets = new Assets($this);
+		$this->database  = new Database();
+		$this->rest      = new REST($this);
+		$this->assets    = new Assets($this);
 		$this->templates = new Templates($this);
 		$this->gutenberg = new Gutenberg($this);
-		$this->post = new Post($this);
+		$this->postHooks = new PostHooks($this);
+
+		// for regeneration of permalinks after plugin activation/deactivation
+		register_activation_hook( __FILE__, array( $this, "activation" ) );
+		register_deactivation_hook( __FILE__, array( $this, "deactivation" ) );
+
+		if(WP_DEBUG){
+			$this->database->createTable();
+		}
 
 	}
+
+	/**
+	 * on plugin activation
+	 */
+	function activation() {
+		$this->database->createTable();
+	}
+
+	/**
+	 * on plugin deactivation
+	 */
+	function deactivation() {}
+
 
 	// ----------------------------------------------------
 	// singleton instance

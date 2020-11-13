@@ -4,6 +4,8 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
+use Palasthotel\WordPress\BlockX\Model\BlockInstance;
+
 abstract class _Widget implements _IWidget {
 
 	private $key;
@@ -63,4 +65,20 @@ abstract class _Widget implements _IWidget {
 
 		return $args;
 	}
+
+	/**
+	 * @param int $post_id
+	 */
+	public function onSavePost(int $post_id){}
+
+	/**
+	 * @param int $post_id
+	 * @param mixed $value
+	 */
+	public function onSaveInstance(int $post_id, $value ){}
+
+	/**
+	 * @param int $post_id
+	 */
+	public function onDeletePost(int $post_id){	}
 }

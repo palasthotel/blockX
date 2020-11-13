@@ -3,8 +3,8 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 5.5.1
-Stable tag: 1.0.0
+Tested up to: 5.5.3
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -34,6 +34,12 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.0.1 =
+* New Block: Post Embed
+* New Block: Authors
+* New Widget: Post - Relate a post
+* New overridable methods for block types on post_save and post_delete
+* New overridable methods for widgets on post_save and post_delete
 
 = 1.0.0 =
 * First release

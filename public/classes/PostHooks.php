@@ -5,11 +5,11 @@ namespace Palasthotel\WordPress\BlockX;
 use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use WP_Post;
 
-class Post extends _Component {
+class PostHooks extends _Component {
 
 	public function onCreate() {
 		add_action( 'save_post', [ $this, 'save_post' ], 10, 2 );
-		add_action( 'delete_post', [ $this, 'delete_post' ], 10, 2 );
+		add_action( 'delete_post', [ $this, 'delete_post' ] );
 	}
 
 	/**
@@ -17,7 +17,6 @@ class Post extends _Component {
 	 * @param WP_Post $post
 	 */
 	public function save_post( int $post_id, WP_Post $post ) {
-
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
@@ -57,20 +56,20 @@ class Post extends _Component {
 		foreach ( $blocks as $block ) {
 			$blockName = $block['blockName'];
 			if ( isset( $map[ $blockName ] ) ) {
+				$type = $map[ $blockName ];
 				$instance = new BlockInstance( $block );
-				$map[ $blockName ]->onSaveInstance( $post_id, $instance );
+				$type->onSaveInstance( $post_id, $instance );
 			}
 		}
 	}
 
 	/**
 	 * @param int $post_id
-	 * @param WP_Post $post
 	 */
-	public function delete_post( int $post_id, WP_Post $post ) {
+	public function delete_post( int $post_id ) {
 		$types = $this->plugin->gutenberg->getBlockTypes();
 		foreach ( $types as $type ) {
-			$type->onDeletePost( $post );
+			$type->onDeletePost( $post_id );
 		}
 	}
 

@@ -8,7 +8,6 @@ use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use stdClass;
-use WP_Post;
 
 abstract class _BlockType implements _IBlockType {
 
@@ -96,7 +95,11 @@ abstract class _BlockType implements _IBlockType {
 	 * is called on save_post action even if no instance of this block type is in content
 	 * @param int $post_id
 	 */
-	function onSavePost(int $post_id){}
+	function onSavePost(int $post_id){
+		foreach ($this->contentStructure()->getItems() as $widget){
+			$widget->onSavePost($post_id);
+		}
+	}
 
 	/**
 	 * is called on save_post action for every block instance in post content
@@ -104,11 +107,20 @@ abstract class _BlockType implements _IBlockType {
 	 * @param int $post_id
 	 * @param BlockInstance $block
 	 */
-	function onSaveInstance(int $post_id, BlockInstance $block){}
+	function onSaveInstance(int $post_id, BlockInstance $block){
+		foreach ($this->contentStructure()->getItems() as $widget){
+			$value = isset($block->content->{$widget->key()}) ? $block->content->{$widget->key()} : null;
+			$widget->onSaveInstance($post_id, $value);
+		}
+	}
 
 	/**
-	 * @param WP_Post $post
+	 * @param int $post_id
 	 */
-	function onDeletePost( WP_Post $post){}
+	function onDeletePost( int $post_id){
+		foreach ($this->contentStructure()->getItems() as $widget){
+			$widget->onDeletePost($post_id);
+		}
+	}
 
 }

@@ -4,6 +4,8 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
+use Palasthotel\WordPress\BlockX\Plugin;
+
 class Post extends _Widget {
 
 	const TYPE = "post";
@@ -39,6 +41,21 @@ class Post extends _Widget {
 		$arr["post_types"] = $this->postTypes;
 		$arr["post_status"] = $this->postStatus;
 		return $arr;
+	}
+
+	public function onSavePost( int $post_id ) {
+		parent::onSavePost( $post_id );
+		Plugin::instance()->database->deleteRelations($post_id);
+	}
+
+	public function onSaveInstance( int $post_id, $value ) {
+		parent::onSaveInstance( $post_id, $value );
+		Plugin::instance()->database->addRelation($post_id, $value);
+	}
+
+	public function onDeletePost( int $post_id ) {
+		parent::onDeletePost( $post_id );
+		Plugin::instance()->database->deleteRelations($post_id);
 	}
 
 }
