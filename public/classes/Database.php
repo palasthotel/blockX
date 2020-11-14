@@ -17,23 +17,23 @@ class Database {
 	}
 
 	/**
-	 * @param int $inPostId
+	 * @param int|string $inPostId
 	 *
 	 * @return int[]
 	 */
-	public function getEmbeddedPostIds( int $inPostId ) {
+	public function getEmbeddedPostIds( $inPostId ) {
 		return $this->wpdb->get_col(
 			$this->wpdb->prepare( "SELECT post_id FROM $this->table WHERE embedded_in_post_id = %d", $inPostId )
 		);
 	}
 
 	/**
-	 * @param int $embeddedInPostId
-	 * @param int $postId
+	 * @param int|string $embeddedInPostId
+	 * @param int|string $postId
 	 *
 	 * @return bool|int
 	 */
-	function addRelation( int $embeddedInPostId, int $postId ) {
+	function addRelation( $embeddedInPostId, $postId ) {
 		return $this->wpdb->replace(
 			$this->table,
 			[
@@ -48,11 +48,11 @@ class Database {
 	}
 
 	/**
-	 * @param int $embeddedInPostId
+	 * @param int|string $embeddedInPostId
 	 *
 	 * @return bool|int
 	 */
-	function deleteRelations( int $embeddedInPostId ) {
+	function deleteRelations( $embeddedInPostId ) {
 		return $this->wpdb->delete(
 			$this->table,
 			[

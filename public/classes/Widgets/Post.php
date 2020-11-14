@@ -43,17 +43,19 @@ class Post extends _Widget {
 		return $arr;
 	}
 
-	public function onSavePost( int $post_id ) {
+	public function onSavePost( $post_id ) {
 		parent::onSavePost( $post_id );
 		Plugin::instance()->database->deleteRelations($post_id);
 	}
 
-	public function onSaveInstance( int $post_id, $value ) {
+	public function onSaveInstance( $post_id, $value ) {
 		parent::onSaveInstance( $post_id, $value );
-		Plugin::instance()->database->addRelation($post_id, $value);
+		// save if value is set
+		// do not delete if value is not set because there could be other instances with the same reference
+		if(!empty($value)) Plugin::instance()->database->addRelation($post_id, $value);
 	}
 
-	public function onDeletePost( int $post_id ) {
+	public function onDeletePost( $post_id ) {
 		parent::onDeletePost( $post_id );
 		Plugin::instance()->database->deleteRelations($post_id);
 	}

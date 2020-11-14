@@ -11,7 +11,7 @@ namespace Palasthotel\WordPress\BlockX\Model;
 class BlockInstance {
 
 	public function __construct(array $block) {
-		$this->content = (object) $block["attrs"]["content"];
+		$this->content = isset($block["attrs"]["content"]) ? (object) $block["attrs"]["content"]: new \stdClass();
 		$this->raw = $block;
 	}
 
