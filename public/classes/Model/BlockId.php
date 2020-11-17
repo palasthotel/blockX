@@ -18,6 +18,10 @@ class BlockId {
 		return new static($namespace, $name);
 	}
 
+	public function equals($id){
+		return (string)$this === $id;
+	}
+
 	public function __toString() {
 		return $this->namespace."/".$this->name;
 	}

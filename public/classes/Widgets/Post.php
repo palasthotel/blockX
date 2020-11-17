@@ -11,6 +11,7 @@ class Post extends _Widget {
 	const TYPE = "post";
 	private $postTypes = ["post"];
 	private $postStatus = ["publish"];
+	private $useContext = false;
 
 	public static function build(string $key, string $label, ?int $defaultValue = null){
 		return new Post($key, $label, static::TYPE, $defaultValue);
@@ -36,10 +37,22 @@ class Post extends _Widget {
 		return $this;
 	}
 
+	/**
+	 * Listen to changes of other widgets of contentStructure
+	 * @param bool $activate
+	 *
+	 * @return $this
+	 */
+	public function useContext(bool $activate){
+		$this->useContext = $activate;
+		return $this;
+	}
+
 	public function toArray() {
 		$arr = parent::toArray();
 		$arr["post_types"] = $this->postTypes;
 		$arr["post_status"] = $this->postStatus;
+		$arr["use_context"] = $this->useContext;
 		return $arr;
 	}
 

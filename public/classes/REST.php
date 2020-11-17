@@ -3,6 +3,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use WP_REST_Request;
 use WP_REST_Server;
 
@@ -19,7 +20,7 @@ class REST  extends _Component {
 			static::NAMESPACE,
 			'/query',
 			array(
-				'methods'             => WP_REST_Server::READABLE,
+				'methods'             => "POST",
 				'callback'            => array( $this, 'get_items' ),
 				'permission_callback' => function ( WP_REST_Request $request ) {
 					return current_user_can( 'edit_posts' );
@@ -55,6 +56,12 @@ class REST  extends _Component {
 						},
 						'default' => 'publish',
 					),
+					"block_instance" => array(
+						'validate_callback' => function ( $value, $request, $param ) {
+							return !isset($value) || is_array( $value );
+						},
+						'default' => [],
+					),
 				]
 			)
 		);
@@ -62,18 +69,23 @@ class REST  extends _Component {
 
 	public function get_items(WP_REST_Request $request){
 		$s = $request->get_param("s");
+
 		$post_type = explode(",",$request->get_param("post_type"));
 		$post_status = explode(",", $request->get_param("post_status"));
+		$block_instance = $request->get_param("block_instance");
+
+		$args = apply_filters(Plugin::FILTER_REST_POSTS_QUERY_ARGS, [
+			"s" => $s,
+			"post_type" => $post_type,
+			"post_status" => $post_status,
+		], $block_instance);
+
 		return array_map(function($post){
 			return [
 				"ID" => $post->ID,
 				"post_title" => $post->post_title,
 			];
-		},get_posts([
-			"s" => $s,
-			"post_type" => $post_type,
-			"post_status" => $post_status,
-		]));
+		},get_posts($args));
 	}
 
 }
