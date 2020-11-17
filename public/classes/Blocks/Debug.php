@@ -10,6 +10,7 @@ use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
+use Palasthotel\WordPress\BlockX\Widgets\Readonly;
 use Palasthotel\WordPress\BlockX\Widgets\Toggle;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
@@ -49,6 +50,8 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			Text::build( "text", "Text", "Default text" ),
 			Number::build( "number", "Number", 42 ),
+
+			Readonly::build("readonly", "Readonly", "not writable"),
 
 			// ------------------------------------
 			// boolean values
