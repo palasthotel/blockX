@@ -76,7 +76,7 @@ export const useFetchPosts = (s, post_types, post_status, use_context)=>{
     const {blockId, dirtyState} = useBlock();
     const debounced = useDebounce(s, 600);
 
-    const context = use_context ? {blockId, dirtyState} : {blockId};
+    const context = use_context ? {blockId, content: dirtyState} : {blockId};
     const queryParams = buildQueryParams(debounced, post_types, post_status, {...context});
 
     const query = JSON.stringify(queryParams);
