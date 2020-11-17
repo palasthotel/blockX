@@ -1,4 +1,4 @@
-import {BaseControl, Icon, Popover, TextControl} from "@wordpress/components";
+import {BaseControl, Icon, Popover, Spinner, TextControl} from "@wordpress/components";
 import { useState } from "@wordpress/element";
 import { useEscapeKey } from "../../hooks/use-utils.js";
 import { useFetchPosts, usePost } from "../../hooks/use-posts";
@@ -6,33 +6,38 @@ import './post-widget.css'
 
 const PostSearchResult = ({ID, post_title, onClick})=>{
     return <div 
-        className="ptm-post"
+        className="blockx-post"
         onClick={onClick}
         >
         {post_title}
     </div>
 }
 
-const SearchPost = ({label, post_types, post_status, onFound})=>{
+const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
 
     const [state, setState] = useState("")
     const [isVisible, setIsVisible] = useState(false)
 
-    const {posts, isLoading} = useFetchPosts(state, post_types, post_status)
+    const {posts, isLoading} = useFetchPosts(state, post_types, post_status, use_context)
 
     useEscapeKey(()=>{
         setIsVisible(false)
     }, [isVisible], isVisible)
 
-    return <BaseControl>
-        <TextControl
-            label={label}
-            value={state}
-            onChange={(value)=>{
-                setIsVisible(value.length > 0)
-                setState(value);
-            }}
-        />
+    return <BaseControl className="blockx--search-post">
+        <div className="blockx--search-posts__input-wrapper">
+            <TextControl
+                label={label}
+                value={state}
+                onChange={(value)=>{
+                    setIsVisible(value.length > 0)
+                    setState(value);
+                }}
+            />
+            {isLoading && (<span 
+                className="blockx--search-post__spinner-wrapper"
+            ><Spinner/></span>)}
+        </div>
         
         { isVisible && posts.length > 0 ? (
             <Popover 
@@ -61,26 +66,28 @@ const LockedPost = ({label,post_id, onUnlock})=>{
     console.log("LockedPost", post_title)
 
     return <BaseControl
-        className="ptm--locked-post"
+        className="blockx--locked-post"
     >
         <TextControl
             label={label}
             value={post_title}
             readOnly={true}
         />
-        <span className="ptm--locked-post__icon" onClick={onUnlock} >
+        <span className="blockx--locked-post__icon" onClick={onUnlock} >
             <Icon icon="no" />
         </span>
     </BaseControl>
 }
 
-const PostWidget = ({definition, value, onChange})=> {
+const PostWidget = ({definition, value, onChange, instance})=> {
 
     if(!value){
         return <SearchPost
             label={definition.label}
             post_types={definition.post_types} 
             post_status={definition.post_status}
+            use_context={definition.use_context}
+            instance={instance}
             onFound={onChange}
         />
     }

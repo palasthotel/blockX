@@ -1,7 +1,9 @@
 import { registerBlockType } from '@wordpress/blocks'
 import {InspectorControls} from '@wordpress/block-editor'
 import ServerSideRender from '@wordpress/server-side-render';
+import {useState} from "@wordpress/element";
 import Panels from '../components/panels';
+import BlockContext from '../components/BlockContext';
 
 const BlockXComponents = window.BlockXComponents || {};
 
@@ -34,28 +36,58 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
         },
         edit: (props) => {
             const {isSelected, className,  setAttributes, attributes} = props;
+
+            // for local state changes 
+            const [localChangeState, setLocalChangeState] = useState({});
+            const changeLocalState = (key, value) => setLocalChangeState(_state => ({
+                ...localChangeState,
+                [key]: value,
+            }))
+
+             // apply local changes to contents
             const setContent = (content)=> {
-                console.log("set attributes", content)
                 setAttributes({content})
+                setLocalChangeState({})
             }
             
             const Preview = BlockXComponents[id] || ServerSideRender;
 
             return <>
+
                 <InspectorControls>
-                    <Panels
-                        definition={contentStructure}
+                    <BlockContext 
+                        blockId={id} 
+                        contentStructure={contentStructure}
+                        defaultValues={defaultValues}
                         content={attributes.content}
-                        setContent={setContent}
-                    />
+                        changeLocalState={changeLocalState}
+                        localChanges={localChangeState}
+                    >
+                        <Panels
+                            definition={contentStructure}
+                            content={attributes.content}
+                            setContent={setContent}
+                        />
+                    </BlockContext>
                 </InspectorControls>
+
                 <div className={className}>
-                    <Preview
-                        block={id}
-                        attributes={attributes} // for ssr
-                        content={attributes.content} // for js preview
-                    />
+                    <BlockContext 
+                        blockId={id} 
+                        contentStructure={contentStructure}
+                        defaultValues={defaultValues}
+                        content={attributes.content}
+                        changeLocalState={changeLocalState}
+                        localChanges={localChangeState}
+                    >
+                        <Preview
+                            block={id}
+                            attributes={attributes} // for ssr
+                            content={attributes.content} // for js preview
+                        />
+                    </BlockContext>
                 </div>
+
             </>
         },
     });

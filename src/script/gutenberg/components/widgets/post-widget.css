@@ -1,14 +1,14 @@
-.ptm-post{
+.blockx-post{
     padding: 10px;
 }
-.ptm-post:hover{
+.blockx-post:hover{
     background: #efefef;
     cursor: pointer;
 }
-.ptm--locked-post{
+.blockx--locked-post{
     position: relative;
 }
-.ptm--locked-post__icon{
+.blockx--locked-post__icon{
     position: absolute;
     right: 0px;
     bottom: 1px;
@@ -17,6 +17,15 @@
     background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
     
 }
-.ptm--locked-post__icon:hover{
+.blockx--locked-post__icon:hover{
     cursor: pointer;
+}
+
+.blockx--search-posts__input-wrapper{
+    position: relative;
+}
+.blockx--search-post__spinner-wrapper{
+    position: absolute;
+    bottom: 2px;
+    right: -6px;
 }

@@ -1,8 +1,8 @@
 import widgets from "./widgets";
 import {Button, PanelBody} from "@wordpress/components";
-import {useState} from "@wordpress/element";
 import { useTranslation } from "../hooks/use-translation";
 import ContentStructure from "./content-structure";
+import { useBlock } from "../hooks/use-context";
 
 const Panels = ({definition, content, setContent})=>{
 
@@ -10,20 +10,13 @@ const Panels = ({definition, content, setContent})=>{
         btn_apply_changes
     } = useTranslation();
 
-    const [state, _setState] = useState({});
-
-    const setState = (key, value) => _setState(_state => ({
-        ..._state,
-        [key]: value,
-    }))
+    const {localChanges, changeLocalState} = useBlock()
 
     const applyChanges = ()=>{
-        console.log("apply", state, "to", content)
         setContent({
             ...content,
-            ...state,
+            ...localChanges,
         })
-        _setState({});
     }
 
     const handleApplyChangesClick = ()=> applyChanges()
@@ -56,15 +49,14 @@ const Panels = ({definition, content, setContent})=>{
             title={panel.label}
             initialOpen={panel.opened}
         >
-            <ContentStructure 
+            <ContentStructure
                 items={panel.contentStructure}
                 value={{
                     ...content,
-                    ...state
+                    ...localChanges
                 }}
                 onChange={(key, value)=>{
-                    console.log(key, value)
-                    setState(key, value)
+                    changeLocalState(key, value)
                 }}
             />
         </PanelBody>
@@ -72,7 +64,7 @@ const Panels = ({definition, content, setContent})=>{
         <PanelBody>
             <Button 
                 isSecondary
-                disabled={Object.keys(state).length === 0}
+                disabled={Object.keys(localChanges).length === 0}
                 onClick={handleApplyChangesClick}
             >
                 {btn_apply_changes}

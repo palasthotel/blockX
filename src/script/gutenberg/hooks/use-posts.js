@@ -1,5 +1,6 @@
 import apiFetch from "@wordpress/api-fetch";
 import useSWR from 'swr'
+import { useBlock } from "./use-context.js";
 import {useDebounce} from './use-utils.js'
 
 //----------------------------------------
@@ -24,12 +25,8 @@ const postFetcher = async (ID)=>{
     return post;    
 }
 export const usePost = (ID)=>{
-    // if(typeof ID === typeof "" && ID.length === 0) return {
-    //     isLoading: false,
-    // };
 
     // fetch!
-    console.log("useSWR", ID)
     const {data, error} = useSWR(ID, postFetcher)
     return {
         post: data || {},
@@ -41,17 +38,22 @@ export const usePost = (ID)=>{
 // query for posts
 //----------------------------------------
 const postsQueryCache = {};
-const postsQueryFetcher = async (queryParams) => {
+const postsQueryFetcher = (data) => async () => {
     // do not execute empty search
-    if(queryParams.length === 0) return [];
+    if(data.length === 0) return [];
 
     // build url path
-    const path = `/blockx/v1/query?${queryParams}`
-    if(typeof postsQueryCache[path] === typeof []) return postsQueryCache[path];
+    const path = `/blockx/v1/query`
+    const cacheKey = JSON.stringify(data);
+    if(typeof postsQueryCache[cacheKey] === typeof []) return postsQueryCache[cacheKey];
 
     // execute query and cache results
-    const posts = await apiFetch({path})
-    postsQueryCache[path] = posts;
+    const posts = await apiFetch({
+        method: 'POST',
+        path,
+        data,
+    })
+    postsQueryCache[cacheKey] = posts;
     for(const post of posts){
         postsCache[post.ID] = post;
     }
@@ -59,17 +61,26 @@ const postsQueryFetcher = async (queryParams) => {
     return posts;
 }
 
-const buildQueryParams = (search, post_types, post_status) => {
-    if(search.length === 0) return '';
-    return `s=${search}&post_type=${post_types.join(',')}&post_status=${post_status.join(',')}`;
+const buildQueryParams = (search, post_types, post_status, instance) => {
+    if(search.length === 0) return [];
+    return {
+        s: search,
+        post_type: post_types.join(','),
+        post_status: post_status.join(','),
+        block_instance: instance,
+    }
 }
 
-export const useFetchPosts = (s, post_types, post_status)=>{
+export const useFetchPosts = (s, post_types, post_status, use_context)=>{
     
+    const {blockId, dirtyState} = useBlock();
     const debounced = useDebounce(s, 600);
-    const queryParams = buildQueryParams(debounced, post_types, post_status);
 
-    const {data, error} = useSWR(queryParams, postsQueryFetcher);
+    const context = use_context ? {blockId, dirtyState} : {blockId};
+    const queryParams = buildQueryParams(debounced, post_types, post_status, {...context});
+
+    const query = JSON.stringify(queryParams);
+    const {data, error} = useSWR(query, postsQueryFetcher(queryParams));
     return {
         posts: data || [],
         isLoading: !error && !data,
