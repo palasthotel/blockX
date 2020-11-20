@@ -8,6 +8,7 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Toggle;
 use stdClass;
+use WP_User;
 
 class Authors extends _BlockType {
 
@@ -35,21 +36,29 @@ class Authors extends _BlockType {
 		 * @var AuthorsContent $content
 		 */
 		$content =  parent::prepare( $content );
-		$related_post_ids = Plugin::instance()->database->getEmbeddedPostIds(get_the_ID());
+		$content->authors = static::getAutors(get_the_ID(), $content);
+		return $content;
+	}
 
+	/**
+	 * @param $post_id
+	 * @param $content
+	 *
+	 * @return WP_User[]
+	 */
+	public static function getAutors($post_id, $content){
+		$ids = [];
 		$ids[] = get_post_field("post_author");
 
 		if($content->include_embedded_posts){
+			$related_post_ids = Plugin::instance()->database->getEmbeddedPostIds($post_id);
 			foreach ($related_post_ids as $post_id){
 				$ids[] = get_post_field("post_author", $post_id);
 			}
 		}
-		
-		$content->author_ids = $ids;
-		$content->authors = array_map(function($user_id) {
+
+		return array_map(function($user_id) {
 			return get_user_by('ID', $user_id);
 		}, array_unique($ids));
-
-		return $content;
 	}
 }
