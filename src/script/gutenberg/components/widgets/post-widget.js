@@ -40,17 +40,22 @@ const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
             ><Spinner/></span>)}
         </div>
         
-        { isVisible && posts.length > 0 ? (
+        { isVisible ? (
             <Popover 
                 focusOnMount={false}
                 position="bottom center"
             >
-                {posts.map(post=> <PostSearchResult 
-                        key={post.ID}
-                        {...post} 
-                        onClick={()=>onFound(post.ID)} 
-                    />
-                )}
+                {posts.length > 0 ? 
+                    posts.map(post=> <PostSearchResult 
+                            key={post.ID}
+                            {...post} 
+                            onClick={()=>onFound(post.ID)} 
+                        />
+                    )
+                    :
+                    <p className="blockx--search-post__no-results">No posts found.</p>
+                }
+                
             </Popover>
         ) : null}
     </BaseControl>

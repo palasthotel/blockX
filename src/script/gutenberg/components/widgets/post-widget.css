@@ -8,6 +8,10 @@
 .blockx--locked-post{
     position: relative;
 }
+.blockx--search-post__no-results{
+    padding: 10px;
+    font-style: italic;
+}
 .blockx--locked-post__icon{
     position: absolute;
     right: 0px;
