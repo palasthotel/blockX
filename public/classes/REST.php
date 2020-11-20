@@ -30,7 +30,7 @@ class REST  extends _Component {
 						'required' => true,
 						'type' => 'string',
 						'validate_callback' => function ( $value, $request, $param ) {
-							return is_string( $value ) && strlen( $value );
+							return is_string( $value );
 						},
 						'sanitize_callback' => function ( $value ) {
 							return sanitize_text_field( $value );
@@ -80,12 +80,14 @@ class REST  extends _Component {
 			"post_status" => $post_status,
 		], $block_instance);
 
+		$posts = get_posts($args);
+
 		return array_map(function($post){
 			return [
 				"ID" => $post->ID,
 				"post_title" => $post->post_title,
 			];
-		},get_posts($args));
+		}, $posts);
 	}
 
 }

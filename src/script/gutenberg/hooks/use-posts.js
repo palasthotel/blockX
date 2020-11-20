@@ -62,7 +62,6 @@ const postsQueryFetcher = (data) => async () => {
 }
 
 const buildQueryParams = (search, post_types, post_status, instance) => {
-    if(search.length === 0) return [];
     return {
         s: search,
         post_type: post_types.join(','),

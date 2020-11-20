@@ -30,9 +30,10 @@ const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
                 label={label}
                 value={state}
                 onChange={(value)=>{
-                    setIsVisible(value.length > 0)
+                    setIsVisible(true)
                     setState(value);
                 }}
+                onFocus={()=>setIsVisible(true)}
             />
             {isLoading && (<span 
                 className="blockx--search-post__spinner-wrapper"
@@ -62,8 +63,6 @@ const LockedPost = ({label,post_id, onUnlock})=>{
     const {
         post_title = post_id
     } = post;
-
-    console.log("LockedPost", post_title)
 
     return <BaseControl
         className="blockx--locked-post"
