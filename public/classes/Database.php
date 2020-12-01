@@ -17,6 +17,8 @@ class Database {
 	}
 
 	/**
+	 * get all post ids that are embedded in this post id
+	 *
 	 * @param int|string $inPostId
 	 *
 	 * @return int[]
@@ -24,6 +26,18 @@ class Database {
 	public function getEmbeddedPostIds( $inPostId ) {
 		return $this->wpdb->get_col(
 			$this->wpdb->prepare( "SELECT post_id FROM $this->table WHERE embedded_in_post_id = %d", $inPostId )
+		);
+	}
+
+	/**
+	 * get all post ids where this post id is embedded in
+	 * @param int|string $embeddedPostId
+	 *
+	 * @return array
+	 */
+	public function getEmbeddedInPostIds( $embeddedPostId){
+		return $this->wpdb->get_col(
+			$this->wpdb->prepare( "SELECT embedded_in_post_id FROM $this->table WHERE post_id = %d", $embeddedPostId )
 		);
 	}
 
