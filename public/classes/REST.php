@@ -81,6 +81,7 @@ class REST  extends _Component {
 		], $block_instance);
 
 		$posts = get_posts($args);
+		$posts = apply_filters(Plugin::FILTER_REST_POSTS, $posts, $request, $block_instance);
 
 		return array_map(function($post){
 			return [
