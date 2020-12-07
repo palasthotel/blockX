@@ -1,6 +1,9 @@
 .blockx-post{
     padding: 10px;
 }
+.blockx-post + .blockx-post{
+    border-top: 1px solid #eee;
+}
 .blockx-post:hover{
     background: #efefef;
     cursor: pointer;

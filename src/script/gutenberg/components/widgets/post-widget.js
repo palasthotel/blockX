@@ -9,7 +9,8 @@ const PostSearchResult = ({ID, post_title, onClick})=>{
         className="blockx-post"
         onClick={onClick}
         >
-        {post_title}
+        {post_title}<br />
+        <i className="description">ID: {ID}</i>
     </div>
 }
 
