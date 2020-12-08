@@ -9,4 +9,4 @@ setInterval(()=>{
         return;
     }
     wp.data.dispatch(STORE_NAME).fetchSSR();
-}, 3000)
+}, 300)
