@@ -1,9 +1,9 @@
 import { registerBlockType } from '@wordpress/blocks'
 import {InspectorControls} from '@wordpress/block-editor'
-import ServerSideRender from '@wordpress/server-side-render';
 import {useState} from "@wordpress/element";
 import Panels from '../components/panels';
 import BlockContext from '../components/BlockContext';
+import ServerSideRenderQueue from '../components/ServerSideRenderQueue';
 
 const BlockXComponents = window.BlockXComponents || {};
 
@@ -50,7 +50,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                 setLocalChangeState({})
             }
             
-            const Preview = BlockXComponents[id] || ServerSideRender;
+            const Preview = BlockXComponents[id] || ServerSideRenderQueue;
 
             return <>
 

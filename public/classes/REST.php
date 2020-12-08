@@ -3,6 +3,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use WP_REST_Request;
 use WP_REST_Server;
@@ -18,10 +19,29 @@ class REST  extends _Component {
 	public function init_rest_api(){
 		register_rest_route(
 			static::NAMESPACE,
+			'/ssr',
+			array(
+				'methods'             => "POST",
+				'callback'            => array( $this, 'ssr' ),
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return current_user_can( 'edit_posts' );
+				},
+				'args'                => [
+					"blocks" => array(
+						'validate_callback' => function ( $value, $request, $param ) {
+							return !isset($value) || is_array( $value );
+						},
+						'default' => [],
+					),
+				]
+			)
+		);
+		register_rest_route(
+			static::NAMESPACE,
 			'/query',
 			array(
 				'methods'             => "POST",
-				'callback'            => array( $this, 'get_items' ),
+				'callback'            => array( $this, 'query' ),
 				'permission_callback' => function ( WP_REST_Request $request ) {
 					return current_user_can( 'edit_posts' );
 				},
@@ -67,7 +87,26 @@ class REST  extends _Component {
 		);
 	}
 
-	public function get_items(WP_REST_Request $request){
+	public function ssr(WP_REST_Request $request){
+		$blocks = $request->get_param("blocks");
+
+		$res = [];
+
+		foreach ($blocks as $hash => $obj){
+			$id = $obj["id"];
+			$content = $obj["content"];
+			$blockType = $this->plugin->gutenberg->getBlockType($id);
+			if(false === $blockType){
+				$res[$hash] = false;
+				continue;
+			}
+			$res[$hash] = $blockType->build(["content"=>$content], "");
+		}
+
+		return $res;
+	}
+
+	public function query(WP_REST_Request $request){
 		$s = $request->get_param("s");
 
 		$post_type = explode(",",$request->get_param("post_type"));

@@ -1,0 +1,9 @@
+
+.blockx--ssr__wrapper{
+    position: relative;
+}
+.blockx--ssr__wrapper .loader{
+    position: absolute;
+    top: 0; 
+    right: 0;
+}

@@ -88,6 +88,19 @@ class Gutenberg extends _Component {
 	}
 
 	/**
+	 * @param $id
+	 *
+	 * @return false|_BlockType
+	 */
+	public function getBlockType($id){
+		$blocks = $this->getBlockTypes();
+		$results = array_values(array_filter($blocks, function($blockType) use ( $id ) {
+			return $blockType->id()->equals($id);
+		}));
+		return count($results) === 1 ? $results[0]: false;
+	}
+
+	/**
 	 * @return Option[]
 	 */
 	public static function getTaxonomyOptions(): array{
