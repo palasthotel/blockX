@@ -29,9 +29,16 @@ abstract class _Widget implements _IWidget {
 	public function key(): string {
 		return $this->key;
 	}
+
 	public function label(): string {
 		return $this->label;
 	}
+
+	public function setLabel(string $label): _Widget {
+		$this->label = $label;
+		return $this;
+	}
+
 	public function type(): string {
 		return $this->type;
 	}
