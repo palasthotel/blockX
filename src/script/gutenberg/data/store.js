@@ -59,10 +59,11 @@ const DEFAULT_STATE = {
 // ---------------------------------------------
 // api actions
 // ---------------------------------------------
-const SSR_FETCH = (blocks)=>({
+const SSR_FETCH = (post_id, blocks)=>({
     type: 'SSR_FETCH',
     path: `/blockx/v1/ssr`,
     data: { 
+        post_id,
         blocks 
     }
 });
@@ -93,7 +94,7 @@ const actions = {
         return actionAddToQueue(getHash(blockId, blockContent), block);
     },
 
-    * fetchSSR(){
+    * fetchSSR(post_id){
 
         // check queue
         const queue = store.getState().queue;
@@ -103,7 +104,7 @@ const actions = {
 
         // fetch blocks from queue
         yield actionIsRequesting(true);
-        const result = yield SSR_FETCH(queue);
+        const result = yield SSR_FETCH(post_id, queue);
         yield actionSetBlocks(result);
         
         // remove fetched blocks from queue
@@ -192,6 +193,7 @@ const store = registerStore( STORE_NAME, {
     // ----------------------------------------------------------------
     controls: {
         SSR_FETCH(action){
+            console.debug("fetch", action);
             return apiFetch({path:action.path, data:action.data, method: "POST"})
         },
     },

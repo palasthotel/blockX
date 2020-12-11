@@ -3,10 +3,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
-use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
-use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use WP_REST_Request;
-use WP_REST_Server;
 
 class REST  extends _Component {
 
@@ -33,6 +30,11 @@ class REST  extends _Component {
 						},
 						'default' => [],
 					),
+					"post_id" => array(
+						'sanitize_callback' => function($value, $request, $param){
+							return intval($value);
+						},
+					)
 				]
 			)
 		);
@@ -89,6 +91,17 @@ class REST  extends _Component {
 
 	public function ssr(WP_REST_Request $request){
 		$blocks = $request->get_param("blocks");
+		$post_id = $request->get_param("post_id");
+
+		// setup post context if exists
+		$query = new \WP_Query([
+			"p" => $post_id,
+			"post_type" => "any",
+			"post_status" => ["draft", "future", "publish"],
+		]);
+		if($query->have_posts()){
+			$query->the_post();
+		}
 
 		$res = [];
 
@@ -102,6 +115,8 @@ class REST  extends _Component {
 			}
 			$res[$hash] = $blockType->build(["content"=>$content], "");
 		}
+
+		wp_reset_postdata();
 
 		return $res;
 	}
