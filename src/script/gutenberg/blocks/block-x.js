@@ -4,8 +4,14 @@ import {useState} from "@wordpress/element";
 import Panels from '../components/panels';
 import BlockContext from '../components/BlockContext';
 import ServerSideRenderQueue from '../components/ServerSideRenderQueue';
+import {useBlock} from '../hooks/use-context.js';
 
-const BlockXComponents = window.BlockXComponents || {};
+const BlockXComponents = window.BlockXComponents = {
+    ...(window.BlockXComponents || {}),
+    // expose so others can use it
+    ServerSideRenderQueue,
+    useBlock,
+};
 
 for( const {id, title, category, registerBlockTypeArgs, contentStructure} of BlockX.blocks){
 
@@ -60,6 +66,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
                         content={attributes.content}
+                        setContent={setContent}
                         changeLocalState={changeLocalState}
                         localChanges={localChangeState}
                     >
@@ -77,6 +84,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
                         content={attributes.content}
+                        setContent={setContent}
                         changeLocalState={changeLocalState}
                         localChanges={localChangeState}
                     >

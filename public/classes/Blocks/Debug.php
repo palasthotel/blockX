@@ -8,6 +8,7 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\Hidden;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
 use Palasthotel\WordPress\BlockX\Widgets\Readonly;
@@ -52,6 +53,8 @@ class Debug extends _BlockType {
 			Number::build( "number", "Number", 42 ),
 
 			Readonly::build("readonly", "Readonly", "not writable"),
+
+			Hidden::build("hidden", "is a hidden value"),
 
 			// ------------------------------------
 			// boolean values

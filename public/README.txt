@@ -36,6 +36,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 = 1.0.2 =
 * Feature: Bidirectional relation for embedded posts exposed via public function 'blockx_get_embedded_in_post_ids'
+* Feature: New widget type Hidden
 * New filter: 'blockx_rest_posts' to change query result of posts query
 * Optimization: Custom ServerSideRenderQueue component for ssr rendering of blocks in a single request
 

@@ -22,7 +22,6 @@ const ServerSideRenderQueue = ({
     const isLoading = isRequesting || isInRenderQueue;
 
     if( false === html ){
-        console.error("Error whith ssr reponse of block: "+block, content, html);
         return <LoadingWrapper isLoading={isLoading}>;
             <Placeholder>
                 {sprintf(__( 'Error loading block: %s'), block )}

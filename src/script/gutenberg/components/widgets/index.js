@@ -6,6 +6,7 @@ import TaxQueryWidget from './tax-query-widget.js';
 import TaxonomyTerm from './taxonomy-term.js';
 import TextWidget from './text-widget.js';
 import ToggleWidget from './toggle-widget.js';
+import HiddenWidget from './hidden-widget.js';
 
 const widgets = {
     text: TextWidget,
@@ -15,6 +16,7 @@ const widgets = {
     taxonomy_term: TaxonomyTerm,
     tax_query: TaxQueryWidget,
     post: PostWidget,
+    hidden: HiddenWidget,
 }
 
 export default widgets;

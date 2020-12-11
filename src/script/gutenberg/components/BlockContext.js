@@ -5,6 +5,7 @@ const BlockContext = ({
     contentStructure, 
     defaultValues, 
     content, 
+    setContent,
     changeLocalState,
     localChanges,
     children
@@ -15,6 +16,7 @@ const BlockContext = ({
         contentStructure,
         defaultValues,
         content,
+        setContent,
         changeLocalState,
         localChanges,
         dirtyState:{
