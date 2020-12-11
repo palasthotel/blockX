@@ -131,3 +131,5 @@ class Plugin {
 }
 
 Plugin::instance();
+
+require_once dirname(__FILE__)."/public-functions.php";
