@@ -3,6 +3,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use WP_Post;
 use WP_REST_Request;
 
 class REST  extends _Component {
@@ -137,10 +138,11 @@ class REST  extends _Component {
 		$posts = get_posts($args);
 		$posts = apply_filters(Plugin::FILTER_REST_POSTS, $posts, $request, $block_instance);
 
-		return array_map(function($post){
+		return array_map(function(WP_Post $post){
 			return [
 				"ID" => $post->ID,
 				"post_title" => $post->post_title,
+				"post_type" => $post->post_type,
 			];
 		}, $posts);
 	}
