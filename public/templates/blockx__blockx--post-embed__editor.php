@@ -2,14 +2,18 @@
 
 /**
  * @var Posts $this
- * @var array $content
+ * @var PostEmbedContent $content
  */
 
+use Palasthotel\WordPress\BlockX\Blocks\PostEmbedContent;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
 
 if( $content->post instanceof WP_Post ) {
-	echo get_the_title($content->post);
+	$title = get_the_title($content->post);
+	$excerpt = get_the_excerpt($content->post);
+	echo "<p><strong>$title</strong><br/>$excerpt</p>";
+
 } else {
-	echo "No post found";
+	echo "<p>No post found</p>";
 }
 
