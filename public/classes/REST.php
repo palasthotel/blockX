@@ -88,6 +88,25 @@ class REST  extends _Component {
 				]
 			)
 		);
+		register_rest_route(
+			static::NAMESPACE,
+			'/get/(?P<id>\d+)',
+			array(
+				'methods'             => "GET",
+				'callback'            => array( $this, 'get' ),
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return current_user_can( 'edit_posts' );
+				},
+				'args'                => [
+					"id" => array(
+						'required' => true,
+						'validate_callback' => function($param, $request, $key) {
+							return is_numeric( $param );
+						},
+					),
+				]
+			)
+		);
 	}
 
 	public function ssr(WP_REST_Request $request){
@@ -145,6 +164,19 @@ class REST  extends _Component {
 				"post_type" => $post->post_type,
 			];
 		}, $posts);
+	}
+
+	public function get(WP_REST_Request $request) {
+		$id = $request->get_param( "id" );
+		$post = get_post($id);
+		if(!($post instanceof WP_Post)){
+			return new \Error("no_post", __("No post found", Plugin::DOMAIN), ["status" => 404]);
+		}
+
+		return [
+			"ID" => $post->ID,
+			"post_title" => $post->post_title,
+		];
 	}
 
 }

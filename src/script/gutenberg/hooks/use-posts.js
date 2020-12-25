@@ -8,18 +8,14 @@ import {useDebounce} from './use-utils.js'
 //----------------------------------------
 const postsCache = {};
 const postFetcher = async (ID)=>{
-    const cachedPost = postsCache[ID]
+    const cachedPost = postsCache[ID];
     if(typeof cachedPost === typeof {} && typeof cachedPost.content !== typeof undefined) return cachedPost;
 
-    const post = await apiFetch({path:"/wp/v2/posts/"+ID})
-    if(typeof post === typeof {} && post.id){
-        post.post_title = post.title.rendered;
-        post.ID = post.id;
+    const post = await apiFetch({path:"/blockx/v1/get/"+ID});
+    if(typeof post === typeof {} && post.ID){
         postsCache[ID] = {
             ...(postsCache[ID] || {}),
             ...post,
-            ID: post.id,
-            post_title: post.title.rendered
         }
     }
     return post;    
@@ -27,7 +23,7 @@ const postFetcher = async (ID)=>{
 export const usePost = (ID)=>{
 
     // fetch!
-    const {data, error} = useSWR(ID, postFetcher)
+    const {data, error} = useSWR(ID, postFetcher);
     return {
         post: data || {},
         isLoading: !error && !data,
