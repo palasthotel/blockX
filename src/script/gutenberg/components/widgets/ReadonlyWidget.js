@@ -1,12 +1,12 @@
 import {TextControl} from "@wordpress/components";
 
-const NumberWidget = ({definition, value})=> {
-    // TODO: value can be object with value and text than text is displayed
+const ReadonlyWidget = ({definition, value})=> {
     return <TextControl
         label={definition.label}
         type="text"
         readOnly
+        value={value}
     />
 }
 
-export default NumberWidget;
+export default ReadonlyWidget;

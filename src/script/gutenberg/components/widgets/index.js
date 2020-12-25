@@ -8,6 +8,7 @@ import TextWidget from './TextWidget.js';
 import ToggleWidget from './ToggleWidget.js';
 import HiddenWidget from './HiddenWidget.js';
 import DividerWidget from './DividerWidget.js';
+import ReadonlyWidget from './ReadonlyWidget.js';
 
 const widgets = {
     text: TextWidget,
@@ -19,6 +20,7 @@ const widgets = {
     post: PostWidget,
     hidden: HiddenWidget,
     divider: DividerWidget,
+    readonly: ReadonlyWidget,
 }
 
 export default widgets;
