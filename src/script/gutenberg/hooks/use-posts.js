@@ -1,7 +1,7 @@
 import apiFetch from "@wordpress/api-fetch";
 import useSWR from 'swr'
 import { useBlock } from "./use-context.js";
-import {useDebounce} from './use-utils.js'
+import { useDebounce } from './use-utils.js'
 
 //----------------------------------------
 // fetch single post
@@ -9,7 +9,7 @@ import {useDebounce} from './use-utils.js'
 const postsCache = {};
 const postFetcher = async (ID)=>{
     const cachedPost = postsCache[ID];
-    if(typeof cachedPost === typeof {} && typeof cachedPost.content !== typeof undefined) return cachedPost;
+    if(typeof cachedPost === typeof {} && typeof cachedPost.post_title !== typeof undefined) return cachedPost;
 
     const post = await apiFetch({path:"/blockx/v1/get/"+ID});
     if(typeof post === typeof {} && post.ID){
