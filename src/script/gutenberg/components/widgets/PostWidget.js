@@ -54,7 +54,7 @@ const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
                         />
                     )
                     :
-                    <p className="blockx--search-post__no-results">No posts found.</p>
+                    <p className="blockx--search-post__no-results">{isLoading ? "Searching..." : "No posts found."}</p>
                 }
                 
             </Popover>
