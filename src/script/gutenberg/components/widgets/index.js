@@ -7,6 +7,7 @@ import TaxonomyTerm from './taxonomy-term.js';
 import TextWidget from './text-widget.js';
 import ToggleWidget from './toggle-widget.js';
 import HiddenWidget from './hidden-widget.js';
+import DividerWidget from './divider-widget.js';
 
 const widgets = {
     text: TextWidget,
@@ -17,6 +18,7 @@ const widgets = {
     tax_query: TaxQueryWidget,
     post: PostWidget,
     hidden: HiddenWidget,
+    divider: DividerWidget,
 }
 
 export default widgets;

@@ -8,6 +8,7 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\Divider;
 use Palasthotel\WordPress\BlockX\Widgets\Hidden;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
@@ -56,6 +57,8 @@ class Debug extends _BlockType {
 
 			Hidden::build("hidden", "is a hidden value"),
 
+			Divider::build(),
+
 			// ------------------------------------
 			// boolean values
 			// ------------------------------------
@@ -73,6 +76,8 @@ class Debug extends _BlockType {
 				      "This thing is off and will be false in content object"
 			      ) ),
 
+			Divider::build(),
+
 			// ------------------------------------
 			// select from a list of options
 			// ------------------------------------
@@ -85,11 +90,15 @@ class Debug extends _BlockType {
 			Select::build( "post_type", "Select post type", Gutenberg::getPostTypeOptions(), "post" ),
 			Select::build( "taxonomies", "Select a taxonomy", Gutenberg::getTaxonomyOptions() ),
 
+			Divider::build(),
+
 			// ------------------------------------
 			// post relation
 			// ------------------------------------
 
 			Post::build("post_id", "Post relation")->postTypes(["post", "uebung"]),
+
+			Divider::build(),
 
 			// ------------------------------------
 			// taxonomies
@@ -97,6 +106,8 @@ class Debug extends _BlockType {
 			TaxonomyTerm::build( "taxonomy_term", "Select single tax term", "category" ),
 			TaxonomyTerm::build( "taxonomy_terms", "Multiple tax Terms", "category" )->multiple( true ),
 			TaxQuery::build( "tax_query", "Tax Query", Plugin::instance()->assets->getTaxonomies() ),
+
+			Divider::build(),
 
 			// ------------------------------------
 			// advanced
