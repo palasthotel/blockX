@@ -2,7 +2,7 @@ import {BaseControl, Icon, Popover, Spinner, TextControl} from "@wordpress/compo
 import { useState } from "@wordpress/element";
 import { useEscapeKey } from "../../hooks/use-utils.js";
 import { useFetchPosts, usePost } from "../../hooks/use-posts";
-import './post-widget.css'
+import './PostWidget.css'
 
 const PostSearchResult = ({ID, post_title, onClick})=>{
     return <div 

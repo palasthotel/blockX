@@ -1,20 +1,20 @@
 
-import NumberWidget from './number-widget.js'
-import PostWidget from './post-widget.js';
-import SelectWidget from './select-widget.js';
-import TaxQueryWidget from './tax-query-widget.js';
-import TaxonomyTerm from './taxonomy-term.js';
-import TextWidget from './text-widget.js';
-import ToggleWidget from './toggle-widget.js';
-import HiddenWidget from './hidden-widget.js';
-import DividerWidget from './divider-widget.js';
+import NumberWidget from './NumberWidget.js'
+import PostWidget from './PostWidget.js';
+import SelectWidget from './SelectWidget.js';
+import TaxQueryWidget from './TaxQueryWidget.js';
+import TaxonomyTermWidget from './TaxonomyTermWidget.js';
+import TextWidget from './TextWidget.js';
+import ToggleWidget from './ToggleWidget.js';
+import HiddenWidget from './HiddenWidget.js';
+import DividerWidget from './DividerWidget.js';
 
 const widgets = {
     text: TextWidget,
     number: NumberWidget,
     toggle: ToggleWidget,
     select: SelectWidget,
-    taxonomy_term: TaxonomyTerm,
+    taxonomy_term: TaxonomyTermWidget,
     tax_query: TaxQueryWidget,
     post: PostWidget,
     hidden: HiddenWidget,
