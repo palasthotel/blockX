@@ -88,7 +88,8 @@ abstract class _BlockType implements _IBlockType {
 		$content = $this->prepare(isset($attributes["content"]) ? (object) $attributes["content"] : new stdClass());
 
 		ob_start();
-		include Plugin::instance()->templates->get_block_template_path($this, $this->isEditor());
+		$template =  Plugin::instance()->templates->get_block_template_path($this, $this->isEditor());
+		if(false !== $template) include $template;
 		$content = $editorContent.ob_get_contents();
 		ob_end_clean();
 
