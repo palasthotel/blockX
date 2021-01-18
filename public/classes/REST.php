@@ -152,10 +152,23 @@ class REST  extends _Component {
 			"s" => $s,
 			"post_type" => $post_type,
 			"post_status" => $post_status,
+			"posts_per_page" => 50,
 		], $block_instance);
 
 		$posts = get_posts($args);
 		$posts = apply_filters(Plugin::FILTER_REST_POSTS, $posts, $request, $block_instance);
+
+		if(intval($s)."" == $s){
+			$candidate = get_posts([
+				"p" => $s,
+				"post_type" => $post_type,
+				"post_status" => $post_status,
+			]);
+
+			if(count($candidate) === 1){
+				array_unshift($posts, $candidate[0]);
+			}
+		}
 
 		return array_map(function(WP_Post $post){
 			return [
