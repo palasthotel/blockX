@@ -156,7 +156,7 @@ class REST  extends _Component {
 		], $block_instance);
 
 		$posts = get_posts($args);
-		$posts = apply_filters(Plugin::FILTER_REST_POSTS, $posts, $request, $block_instance);
+		$posts = apply_filters(Plugin::FILTER_REST_POSTS, $posts, $request, $block_instance, $args);
 
 		if(intval($s)."" == $s){
 			$candidate = get_posts([

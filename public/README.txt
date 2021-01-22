@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.0.4 =
+* New Param: Filter "blockx_rest_posts" got a new $args parameter that holds the query args for the initial wp query
+
 = 1.0.3 =
 * New Widget: Divider
 * New Widget: Readonly
