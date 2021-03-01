@@ -110,6 +110,9 @@ class REST  extends _Component {
 	}
 
 	public function ssr(WP_REST_Request $request){
+
+		define('BLOCK_X_IS_EDITOR_SSR', true);
+
 		$blocks = $request->get_param("blocks");
 		$post_id = $request->get_param("post_id");
 

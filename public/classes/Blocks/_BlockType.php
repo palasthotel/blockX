@@ -15,7 +15,12 @@ abstract class _BlockType implements _IBlockType {
 	 * @return bool
 	 */
 	function isEditor(){
-		return defined( 'REST_REQUEST' ) && REST_REQUEST == true;
+
+		if(defined( 'BLOCK_X_IS_EDITOR_SSR' ) && BLOCK_X_IS_EDITOR_SSR == true) return true;
+		if( isset($_SERVER) && isset($_SERVER["HTTP_BLOCK_X_EDITOR"]) && "true" == $_SERVER["HTTP_BLOCK_X_EDITOR"]) return true;
+		if( is_admin() && $_GET["action"] === "edit") return true;
+
+		return false;
 	}
 
 	function enqueueEditorAssets(Dependencies $dependencies){}

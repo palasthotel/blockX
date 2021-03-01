@@ -8,19 +8,19 @@
     "packages-update": "wp-scripts packages-update"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^3.21.1",
-    "@wordpress/block-editor": "^5.2.1",
-    "@wordpress/blocks": "^6.25.1",
-    "@wordpress/components": "^12.0.1",
-    "@wordpress/data": "^4.26.1",
-    "@wordpress/dom-ready": "^2.12.0",
-    "@wordpress/edit-post": "^3.26.1",
-    "@wordpress/editor": "^9.25.1",
-    "@wordpress/element": "^2.19.0",
-    "@wordpress/i18n": "^3.17.0",
-    "@wordpress/plugins": "^2.24.1",
-    "@wordpress/scripts": "^12.6.1",
-    "@wordpress/server-side-render": "^1.20.1",
-    "swr": "^0.4.0"
+    "@wordpress/api-fetch": "^3.21.5",
+    "@wordpress/block-editor": "^5.2.9",
+    "@wordpress/blocks": "^7.0.5",
+    "@wordpress/components": "^12.0.7",
+    "@wordpress/data": "^4.26.7",
+    "@wordpress/dom-ready": "^2.12.1",
+    "@wordpress/edit-post": "^3.26.9",
+    "@wordpress/editor": "^9.25.9",
+    "@wordpress/element": "^2.19.1",
+    "@wordpress/i18n": "^3.18.0",
+    "@wordpress/plugins": "^2.24.6",
+    "@wordpress/scripts": "^13.0.3",
+    "@wordpress/server-side-render": "^1.20.7",
+    "swr": "^0.4.2"
   }
 }
