@@ -84,11 +84,15 @@ class Posts extends _BlockType {
 	}
 
 	/**
-	 * @param PostsContent $content
+	 * @param stdClass $content
 	 *
-	 * @return false
+	 * @return false|array
 	 */
-	private function buildTaxQuery(PostsContent $content){
+	private function buildTaxQuery(stdClass $content){
+
+		/**
+		 * @var PostsContent $content
+		 */
 
 		if(!isset($content->tax_query) || !is_array($content->tax_query)) return false;
 		$args = $content->tax_query;
@@ -99,14 +103,22 @@ class Posts extends _BlockType {
 		$taxonomies = $args["taxonomies"];
 		if(count($taxonomies) == 0) return false;
 
+		$tax_query = [];
 		foreach ($taxonomies as $item){
 			if(!isset($item["taxonomy"]) || !isset($item["termIds"]) || !is_array($item["termIds"])) continue;
 			$taxonomy = $item["taxonomy"];
 			$termIds = $item["termIds"];
+			$query  = [
+				"taxonomy" => $taxonomy,
+				"field" => "term_id",
+				"terms" => $termIds,
+			];
+			if(isset($item["operator"])) $query["operator"]  = $item["operator"];
+			$tax_query[] = $query;
 		}
+		$tax_query['relation'] = $relation;
 
-
-		return false;
+		return $tax_query;
 
 	}
 

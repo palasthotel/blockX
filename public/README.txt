@@ -3,8 +3,8 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 5.6.0
-Stable tag: 1.0.3
+Tested up to: 5.7.0
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,10 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 
 == Changelog ==
+
+= 1.0.5 =
+* Checkt compatibility with WP5.7
+* Bugfix: Posts block was not using taxonomy query
 
 = 1.0.4 =
 * New Param: Filter "blockx_rest_posts" got a new $args parameter that holds the query args for the initial wp query

@@ -186,7 +186,7 @@ class REST  extends _Component {
 		$id = $request->get_param( "id" );
 		$post = get_post($id);
 		if(!($post instanceof WP_Post)){
-			return new \Error("no_post", __("No post found", Plugin::DOMAIN), ["status" => 404]);
+			return new \Error("no_post", __("No post found.", Plugin::DOMAIN), ["status" => 404]);
 		}
 
 		return [

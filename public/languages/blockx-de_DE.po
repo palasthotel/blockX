@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2020-10-13 11:48+0200\n"
-"PO-Revision-Date: 2020-10-13 11:49+0200\n"
+"POT-Creation-Date: 2021-03-03 10:16+0100\n"
+"PO-Revision-Date: 2021-03-03 10:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: Plugin.php\n"
@@ -22,58 +22,56 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: classes/Assets.php:28
+#: classes/Assets.php:32
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: classes/Assets.php:29
+#: classes/Assets.php:33
 msgid "– Any –"
 msgstr "– Beliebig –"
 
-#: classes/Assets.php:31
+#: classes/Assets.php:35
 msgctxt "tax query widget"
 msgid "Add taxonomy"
 msgstr "Taxonomie hinzufügen"
 
-#: classes/Assets.php:32
+#: classes/Assets.php:36
 msgctxt "tax query widget"
 msgid "Delete"
 msgstr "Löschen"
 
-#: classes/Assets.php:33
+#: classes/Assets.php:37
 msgctxt "tax query widget"
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: classes/Assets.php:34
+#: classes/Assets.php:38
 msgctxt "tax query widget"
 msgid "Add terms"
 msgstr "Begriffe hinzufügen"
 
-#: classes/Assets.php:35
+#: classes/Assets.php:39
 msgctxt "tax query widget"
 msgid "Operator"
 msgstr "Operator"
 
-#: classes/Assets.php:36
+#: classes/Assets.php:40
 msgctxt "tax query widget"
 msgid "All taxonomy conditions."
 msgstr "Alle Taxonomiebedingungen."
 
-#: classes/Assets.php:37
+#: classes/Assets.php:41
 msgctxt "tax query widget"
 msgid "One of the taxonomy conditions."
 msgstr "Eine der Taxonomiebedingungen."
 
-#: classes/Blocks/Debug.php:28
+#: classes/Blocks/Debug.php:31
 msgid "Debug"
 msgstr "Debug"
 
-#: classes/Blocks/Debug.php:37
-#, fuzzy
-#| msgid "This block is just for debugging"
+#: classes/Blocks/Debug.php:40
 msgid "This block is just for debugging."
-msgstr "Dieser Block wird nur für debuggingzwecke verwendet."
+msgstr "Dieser Block wird nur für Debugging-Zwecke verwendet."
 
 #: classes/Blocks/Posts.php:23
 msgid "Posts"
@@ -83,18 +81,30 @@ msgstr "Beiträge"
 msgid "List of posts"
 msgstr "Beitragsliste"
 
-#: classes/Blocks/Posts.php:52
-msgid "Tax Query"
-msgstr "Taxonomyabfrage"
+#: classes/Blocks/RSS.php:19
+msgid "RSS"
+msgstr "RSS"
 
-#: classes/Gutenberg.php:88
+#: classes/Blocks/RSS.php:28
+msgid "RSS feed list"
+msgstr "RSS-Feedliste"
+
+#: classes/Gutenberg.php:119
 msgid "Any"
 msgstr "Beliebig"
+
+#: classes/REST.php:189 templates/blockx__blockx--post-embed__editor.php:18
+msgid "No post found."
+msgstr "Keinen Beitrag gefunden."
 
 #: templates/blockx.php:10
 #, php-format
 msgid "No template found for block '%s'."
 msgstr "Kein template für den Block ‚%s‘ gefunden."
+
+#: templates/blockx__blockx--posts__editor.php:22
+msgid "No posts found."
+msgstr "Keine Beiträge gefunden."
 
 #: templates/blockx__editor.php:11
 #, php-format
@@ -103,11 +113,10 @@ msgstr "Kein Editor-Template für den Block ‚%s‘ gefunden."
 
 #. Plugin Name of the plugin/theme
 msgid "BlockX"
-msgstr ""
+msgstr "BlockX"
 
 #. Plugin URI of the plugin/theme
-#. Author URI of the plugin/theme
-msgid "http://www.palasthotel.de"
+msgid "https://github.com/palasthotel/blockX"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -117,3 +126,10 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)"
 msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.palasthotel.de"
+msgstr ""
+
+#~ msgid "Tax Query"
+#~ msgstr "Taxonomyabfrage"
