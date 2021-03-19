@@ -40,6 +40,9 @@ class Debug extends _BlockType {
 		$args                = parent::registerBlockTypeArgs();
 		$args["description"] = __( "This block is just for debugging.", Plugin::DOMAIN );
 		$args["icon"]        = 'games';
+		$args['supports'] = [
+			"align" => true,
+		];
 
 		return $args;
 	}
