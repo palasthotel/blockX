@@ -45,7 +45,14 @@ class TaxQuery extends _Widget {
 		$arr = parent::toArray();
 		$options = [];
 		foreach ($this->taxonomies as $tax){
-			$options[] = Option::build($tax->name, $tax->label);
+			if(is_string($tax)){
+				$tax = get_taxonomy($tax);
+			}
+			if($tax instanceof WP_Taxonomy){
+				$options[] = Option::build($tax->name, $tax->label);
+			} else {
+				error_log("Could not find taxonomy in widget: ".$this->key());
+			}
 		}
 		$arr["taxonomies"] = $options;
 		return $arr;

@@ -37,6 +37,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 = 1.0.6 =
 * New Widget: Media
 * Optimization: All block attributes are available in the blockx templates now
+* Bugfix: Taxonomies
 
 = 1.0.5 =
 * Checkt compatibility with WP5.7
