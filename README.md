@@ -158,6 +158,26 @@ Choose from a list of options.
 
 If `$defaultValue` is `null` the first Option will be selected when instanciating a new block of this type.
 
+### Media
+
+Use media contents.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Media::build(
+	string $key, 
+	string $label,
+	string $defaultValue = ""
+)
+->multiple(true)
+->setMediaTypes(["image", "audio", "application/pdf"])
+->setMediaUploadTitle("My Title");
+```
+Depending on `multiple` set to true or false the content value of the media widget field will be a single ID or an array of IDs. Default value is `false`.
+
+If `setMediaTypes` expects a list of [media_type or mime_type strings](https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/src/components/media-placeholder#allowedtypes). 
+
+You can also change the title of the media overlay with `setMediaUploadTitle`.
+
 ### TaxonomyTerm
 
 Choose a term of a taxonomy from a select field.
