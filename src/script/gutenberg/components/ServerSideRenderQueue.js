@@ -15,10 +15,16 @@ const LoadingWrapper = ({isLoading, children}) => {
 const ServerSideRenderQueue = ({
     block,
     content,
+    attributes
 })=>{
-    const html = useSSR(block, content);
-    const isRequesting = useIsRequestingBlock(block, content);
-    const isInRenderQueue = useIsInRenderQueue(block, content);
+    if(typeof attributes === "undefined"){
+        // fallback to old behavior
+        console.warn("Using content attribute with ServerSideRenderQueue is deprecated. Please provide the complete attribute object of the block.");
+        attributes = {content};
+    }
+    const html = useSSR(block, attributes);
+    const isRequesting = useIsRequestingBlock(block, attributes);
+    const isInRenderQueue = useIsInRenderQueue(block, attributes);
     const isLoading = isRequesting || isInRenderQueue;
 
     if( false === html ){

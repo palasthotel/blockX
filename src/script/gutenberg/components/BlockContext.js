@@ -3,7 +3,8 @@ const { getBlockContext } = require("../utils/context")
 const BlockContext = ({
     blockId, 
     contentStructure, 
-    defaultValues, 
+    defaultValues,
+    attributes,
     content, 
     setContent,
     changeLocalState,
@@ -15,6 +16,7 @@ const BlockContext = ({
         blockId,
         contentStructure,
         defaultValues,
+        attributes,
         content,
         setContent,
         changeLocalState,

@@ -48,7 +48,7 @@ setCache(blocksCache);
 // ---------------------------------------------
 // default store state
 // ---------------------------------------------
-const getHash = (blockId, blockContent) => btoa(`${blockId}-${JSON.stringify(blockContent)}`);
+const getHash = (blockId, attributes) => btoa(`${blockId}-${JSON.stringify(attributes)}`);
 
 const DEFAULT_STATE = {
     isRequesting: false,
@@ -86,12 +86,13 @@ const actionSetBlocks = (renderedBlocks) => ({type: ACTION_SET_BLOCKS, blocks: r
 // ---------------------------------------------
 const actions = {
     
-    addToQueue: (blockId, blockContent)=>{
+    addToQueue: (blockId, attributes)=>{
+        console.debug("addToQueue", blockId, attributes);
         const block = {
             id: blockId,
-            content: blockContent,
+            attributes,
         };
-        return actionAddToQueue(getHash(blockId, blockContent), block);
+        return actionAddToQueue(getHash(blockId, attributes), block);
     },
 
     * fetchSSR(post_id){
@@ -167,16 +168,16 @@ const store = registerStore( STORE_NAME, {
     // selectors that can be used with select
     // ------------------------------------------------------
     selectors: {
-        isRequesting(state, blockId, blockContent){
+        isRequesting(state, blockId, attributes){
             // is requesting something
-            if(typeof blockId === typeof undefined || typeof blockContent === typeof undefined){
+            if(typeof blockId === typeof undefined || typeof attributes === typeof undefined){
                 return state.isRequesting;
             }
             // is requesting specific block configuration
-            return state.isRequesting && typeof state.queue[getHash(blockId, blockContent)] !== typeof undefined;
+            return state.isRequesting && typeof state.queue[getHash(blockId, attributes)] !== typeof undefined;
         },
-        isInQueue(state, blockId, blockContent) {
-            return typeof state.queue[getHash(blockId, blockContent)] !== typeof undefined;
+        isInQueue(state, blockId, attributes) {
+            return typeof state.queue[getHash(blockId, attributes)] !== typeof undefined;
         },
         getQueue(state){
             return Object.values(state.queue);
@@ -184,8 +185,8 @@ const store = registerStore( STORE_NAME, {
         getBlocks(state){
             return state.blocks;
         },
-        getBlock(state, blockId, blockContent){
-            return state.blocks[getHash(blockId, blockContent)];
+        getBlock(state, blockId, attributes){
+            return state.blocks[getHash(blockId, attributes)];
         },
     },
     // ----------------------------------------------------------------

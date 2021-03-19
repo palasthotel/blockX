@@ -65,6 +65,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                         blockId={id} 
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
+                        attributes={attributes}
                         content={attributes.content}
                         setContent={setContent}
                         changeLocalState={changeLocalState}
@@ -83,6 +84,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                         blockId={id} 
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
+                        attributes={attributes}
                         content={attributes.content}
                         setContent={setContent}
                         changeLocalState={changeLocalState}
