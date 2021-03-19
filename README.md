@@ -160,6 +160,8 @@ If `$defaultValue` is `null` the first Option will be selected when instanciatin
 
 ### Media
 
+*Since plugin Version: `1.0.6`*
+
 Use media contents.
 
 ```php
