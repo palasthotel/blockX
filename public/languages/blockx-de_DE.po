@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2021-03-03 10:16+0100\n"
-"PO-Revision-Date: 2021-03-03 10:17+0100\n"
+"POT-Creation-Date: 2021-03-19 09:37+0100\n"
+"PO-Revision-Date: 2021-03-19 09:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -65,11 +65,21 @@ msgctxt "tax query widget"
 msgid "One of the taxonomy conditions."
 msgstr "Eine der Taxonomiebedingungen."
 
-#: classes/Blocks/Debug.php:31
+#: classes/Assets.php:44
+msgctxt "media widget"
+msgid "You do not have permission to use media."
+msgstr "Keine Berechtigung zur Verwendung von Medien."
+
+#: classes/Assets.php:45
+msgctxt "media widget"
+msgid "❓ Media not found."
+msgstr "❓Medium wurde nicht gefunden."
+
+#: classes/Blocks/Debug.php:32
 msgid "Debug"
 msgstr "Debug"
 
-#: classes/Blocks/Debug.php:40
+#: classes/Blocks/Debug.php:41
 msgid "This block is just for debugging."
 msgstr "Dieser Block wird nur für Debugging-Zwecke verwendet."
 

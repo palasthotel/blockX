@@ -10,6 +10,7 @@ use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Divider;
 use Palasthotel\WordPress\BlockX\Widgets\Hidden;
+use Palasthotel\WordPress\BlockX\Widgets\Media;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
 use Palasthotel\WordPress\BlockX\Widgets\Readonly;
@@ -89,6 +90,24 @@ class Debug extends _BlockType {
 
 			Select::build( "post_type", "Select post type", Gutenberg::getPostTypeOptions(), "post" ),
 			Select::build( "taxonomies", "Select a taxonomy", Gutenberg::getTaxonomyOptions() ),
+
+			Divider::build(),
+
+			// ------------------------------------
+			// media
+			// ------------------------------------
+			Media::build("default_image", "Default Media"),
+
+			Media::build("image_with_file_type", "File types")
+			     ->setMediaTypes(["image", "application/pdf"]),
+
+			Media::build("media_pdf", "PDF only")
+			     ->setMediaTypes(["application/pdf"]),
+
+			Media::build("multiple_images", "Multiple images")
+				->setMediaTypes(["image"])
+			     ->multiple(true)
+			     ->setMediaUploadTitle("Multiple files"),
 
 			Divider::build(),
 

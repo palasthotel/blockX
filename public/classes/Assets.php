@@ -39,6 +39,10 @@ class Assets extends _Component {
 						"label_operator" => _x("Operator", "tax query widget", Plugin::DOMAIN),
 						"toggle_AND_description" => _x("All taxonomy conditions.", "tax query widget", Plugin::DOMAIN),
 						"toggle_OR_description" => _x("One of the taxonomy conditions.", "tax query widget", Plugin::DOMAIN),
+					],
+					"widget_media" => [
+						"no_permission" => _x('You do not have permission to use media.', 'media widget', Plugin::DOMAIN),
+						"not_found" => _x('❓ Media not found.', 'media widget', Plugin::DOMAIN),
 					]
 				],
 				"blocks" => array_map(function($block){
