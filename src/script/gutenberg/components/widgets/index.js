@@ -9,6 +9,7 @@ import ToggleWidget from './ToggleWidget.js';
 import HiddenWidget from './HiddenWidget.js';
 import DividerWidget from './DividerWidget.js';
 import ReadonlyWidget from './ReadonlyWidget.js';
+import MediaWidget from "./MediaWidget";
 
 const widgets = {
     text: TextWidget,
@@ -21,6 +22,7 @@ const widgets = {
     hidden: HiddenWidget,
     divider: DividerWidget,
     readonly: ReadonlyWidget,
+    media: MediaWidget,
 }
 
 export default widgets;

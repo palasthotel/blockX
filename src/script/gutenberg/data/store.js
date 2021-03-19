@@ -193,7 +193,6 @@ const store = registerStore( STORE_NAME, {
     // ----------------------------------------------------------------
     controls: {
         SSR_FETCH(action){
-            console.debug("fetch", action);
             return apiFetch({path:action.path, data:action.data, method: "POST"})
         },
     },

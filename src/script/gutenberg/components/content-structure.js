@@ -2,12 +2,12 @@ import widgets from "./widgets";
 
 const ContentStructure = ({items, value, onChange})=>{
 
-    return items.map(item=>{
+    return items.map((item, index)=>{
         if(typeof widgets[item.type] !== typeof undefined){
             const Widget = widgets[item.type];
             const _value = typeof value[item.key] !== typeof undefined ? value[item.key] : item.defaultValue
             return <Widget
-                key={item.key}
+                key={`${index}-${item.key}`}
                 definition={item}
                 value={_value}
                 onChange={(_value) => onChange(item.key, _value)}

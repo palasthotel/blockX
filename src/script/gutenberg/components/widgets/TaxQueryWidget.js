@@ -39,7 +39,6 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
             const _term = findTerm(search, taxonomyTerms);
             return _term ? _term.id : search;
         })
-        //console.debug(terms, "=> change to => ",_terms, "results in", {taxonomy, terms:newTerms})
         onChange({
             ...value,
             termIds:newTerms

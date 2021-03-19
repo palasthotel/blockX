@@ -6,3 +6,7 @@ export const useTranslation = (component) => {
 export const useTranslationWidgetTaxQuery = ()=>{
     return useTranslation("widget_tax_query");
 }
+
+export const useTranslationWidgetMedia = ()=>{
+    return useTranslation("widget_media");
+}

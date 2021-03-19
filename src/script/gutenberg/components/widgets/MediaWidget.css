@@ -1,0 +1,39 @@
+.blockx-media-widget{
+    border-radius: 5px;
+    border: 1px solid #efefef;
+    padding: 10px;
+}
+
+.blockx-media-widget__control{
+    padding-bottom: 10px;
+}
+
+.blockx-media-widget__preview .spinner{
+    float: none;
+    margin: 0 auto;
+    display: block;
+}
+
+
+.blockx-media-widget__multiple {
+    *zoom: 1; /* Für den IE6 und IE7 */
+}
+.blockx-media-widget__multiple::before,
+.blockx-media-widget__multiple::after {
+    content: " ";
+    display: table;
+}
+
+.blockx-media-widget__multiple::after {
+    clear: both;
+}
+
+.blockx-media-widget__multiple .blockx-media-widget__preview > .blockx-media-widget__preview--image,
+.blockx-media-widget__multiple .blockx-media-widget__preview--is-loading,
+.blockx-media-widget__multiple .blockx-media-widget__404{
+    float: left;
+    width: 25%;
+}
+.blockx-media-widget__preview--image img{
+    max-width: 100%;
+}
