@@ -307,7 +307,7 @@ class MyBlock extends _BlockType{
 	}
 	
 	// prepare the data to use it in templates
-	public function prepare(stdClass $content): stdClass{
+	public function prepare(\stdClass $content): \stdClass{
 		$content = parent::prepare($content);
 		
 		$tax_query = [];
@@ -318,7 +318,7 @@ class MyBlock extends _BlockType{
 			"offset" => $content->offset,
 			"tax_query" => $tax_query,
 			"post_type" => "my-custom-post-type",
-		]
+		];
 		
 		return $content;
 	}
