@@ -3,6 +3,7 @@
 /**
  * @var Posts $this
  * @var PostEmbedContent $content
+ * @var array $attributes
  */
 
 use Palasthotel\WordPress\BlockX\Blocks\PostEmbedContent;

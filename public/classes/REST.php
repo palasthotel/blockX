@@ -130,13 +130,13 @@ class REST  extends _Component {
 
 		foreach ($blocks as $hash => $obj){
 			$id = $obj["id"];
-			$content = $obj["content"];
+			$attributes = $obj["attributes"];
 			$blockType = $this->plugin->gutenberg->getBlockType($id);
 			if(false === $blockType){
 				$res[$hash] = false;
 				continue;
 			}
-			$res[$hash] = $blockType->build(["content"=>$content], "");
+			$res[$hash] = $blockType->build($attributes, "");
 		}
 
 		wp_reset_postdata();

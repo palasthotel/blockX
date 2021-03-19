@@ -2,7 +2,8 @@
 
 /**
  * @var Posts $this
- * @var array $content
+ * @var object $content
+ * @var array $attributes
  */
 
 use Palasthotel\WordPress\BlockX\Plugin;

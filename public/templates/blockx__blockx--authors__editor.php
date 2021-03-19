@@ -3,6 +3,7 @@
 /**
  * @var Authors $this
  * @var AuthorsContent $content
+ * @var array $attributes
  */
 
 use Palasthotel\WordPress\BlockX\Blocks\Authors;
