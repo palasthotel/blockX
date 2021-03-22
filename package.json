@@ -19,8 +19,8 @@
     "@wordpress/element": "^2.20.0",
     "@wordpress/i18n": "^3.19.0",
     "@wordpress/plugins": "^2.25.0",
-    "@wordpress/scripts": "^14.0.0",
+    "@wordpress/scripts": "^14.0.1",
     "@wordpress/server-side-render": "^1.21.0",
-    "swr": "^0.5.3"
+    "swr": "^0.5.4"
   }
 }
