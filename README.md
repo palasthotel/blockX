@@ -180,6 +180,17 @@ If `setMediaTypes` expects a list of [media_type or mime_type strings](https://g
 
 You can also change the title of the media overlay with `setMediaUploadTitle`.
 
+
+### Post
+
+Select one specific post content.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Post::build(string $key, string $label, $defaultValue)
+->postTypes(["post", "page"]) // default is ["post"]
+->postStatus(["publish", "future"]); // default is ["publish"]
+```
+
 ### TaxonomyTerm
 
 Choose a term of a taxonomy from a select field.
