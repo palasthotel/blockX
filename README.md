@@ -180,6 +180,17 @@ If `setMediaTypes` expects a list of [media_type or mime_type strings](https://g
 
 You can also change the title of the media overlay with `setMediaUploadTitle`.
 
+
+### Post
+
+Select one specific post content.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Post::build(string $key, string $label, $defaultValue)
+->postTypes(["post", "page"]) // default is ["post"]
+->postStatus(["publish", "future"]); // default is ["publish"]
+```
+
 ### TaxonomyTerm
 
 Choose a term of a taxonomy from a select field.
@@ -307,7 +318,7 @@ class MyBlock extends _BlockType{
 	}
 	
 	// prepare the data to use it in templates
-	public function prepare(stdClass $content): stdClass{
+	public function prepare(\stdClass $content): \stdClass{
 		$content = parent::prepare($content);
 		
 		$tax_query = [];
@@ -318,7 +329,7 @@ class MyBlock extends _BlockType{
 			"offset" => $content->offset,
 			"tax_query" => $tax_query,
 			"post_type" => "my-custom-post-type",
-		]
+		];
 		
 		return $content;
 	}
