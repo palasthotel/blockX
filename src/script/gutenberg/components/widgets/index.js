@@ -10,6 +10,7 @@ import HiddenWidget from './HiddenWidget.js';
 import DividerWidget from './DividerWidget.js';
 import ReadonlyWidget from './ReadonlyWidget.js';
 import MediaWidget from "./MediaWidget";
+import ListOfWidget from "./ListOfWidget";
 
 const widgets = {
     text: TextWidget,
@@ -23,6 +24,7 @@ const widgets = {
     divider: DividerWidget,
     readonly: ReadonlyWidget,
     media: MediaWidget,
+    list_of: ListOfWidget,
 }
 
 export default widgets;
