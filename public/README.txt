@@ -34,6 +34,10 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.0.7 =
+* New Widget: ListOf
+* Optimization: auto save block changes after a specific time
+
 = 1.0.6 =
 * New Widget: Media
 * Optimization: All block attributes are available in the blockx templates now

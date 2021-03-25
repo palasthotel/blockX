@@ -27,6 +27,8 @@ namespace Palasthotel\WordPress\BlockX;
  * @property REST rest
  * @property PostHooks $postHooks
  * @property Database database
+ * @property string basename
+ * @property Settings settings
  */
 class Plugin {
 
@@ -63,9 +65,14 @@ class Plugin {
 	const BLOCK_EDITOR_TEMPLATE = "blockx__%namespace%--%name%__editor.php";
 
 	// ----------------------------------------------------
+	// options
+	// ----------------------------------------------------
+	const OPTION_AUTO_SAVE_TIMEOUT = "blockx_auto_save_timeout";
+
+	// ----------------------------------------------------
 	// initialize plugin features
 	// ----------------------------------------------------
-	private function __construct(){
+	private function __construct() {
 
 		/**
 		 * load translations
@@ -76,23 +83,25 @@ class Plugin {
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
 
-		$this->path = plugin_dir_path(__FILE__);
-		$this->url = plugin_dir_url(__FILE__);
+		$this->path     = plugin_dir_path( __FILE__ );
+		$this->url      = plugin_dir_url( __FILE__ );
+		$this->basename = plugin_basename( __FILE__ );
 
-		require_once dirname(__FILE__)."/vendor/autoload.php";
+		require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
 		$this->database  = new Database();
-		$this->rest      = new REST($this);
-		$this->assets    = new Assets($this);
-		$this->templates = new Templates($this);
-		$this->gutenberg = new Gutenberg($this);
-		$this->postHooks = new PostHooks($this);
+		$this->rest      = new REST( $this );
+		$this->assets    = new Assets( $this );
+		$this->templates = new Templates( $this );
+		$this->gutenberg = new Gutenberg( $this );
+		$this->postHooks = new PostHooks( $this );
+		$this->settings  = new Settings( $this );
 
 		// for regeneration of permalinks after plugin activation/deactivation
 		register_activation_hook( __FILE__, array( $this, "activation" ) );
 		register_deactivation_hook( __FILE__, array( $this, "deactivation" ) );
 
-		if(WP_DEBUG){
+		if ( WP_DEBUG ) {
 			$this->database->createTable();
 		}
 
@@ -108,7 +117,8 @@ class Plugin {
 	/**
 	 * on plugin deactivation
 	 */
-	function deactivation() {}
+	function deactivation() {
+	}
 
 
 	// ----------------------------------------------------
@@ -118,13 +128,15 @@ class Plugin {
 	 * @var null|Plugin
 	 */
 	private static $instance = null;
+
 	/**
 	 * @return Plugin
 	 */
-	public static function instance(){
-		if(static::$instance == null){
+	public static function instance() {
+		if ( static::$instance == null ) {
 			static::$instance = new static();
 		}
+
 		return static::$instance;
 	}
 
@@ -132,4 +144,4 @@ class Plugin {
 
 Plugin::instance();
 
-require_once dirname(__FILE__)."/public-functions.php";
+require_once dirname( __FILE__ ) . "/public-functions.php";

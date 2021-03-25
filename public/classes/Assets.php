@@ -28,6 +28,9 @@ class Assets extends _Component {
 			Plugin::HANDLE_JS_GUTENBERG,
 			"BlockX",
 			[
+				"settings"=>[
+					"auto_save_timeout" => Settings::getAutoSaveTimeout(),
+				],
 				"i18n" => [
 					"btn_apply_changes" => __("Apply changes", Plugin::DOMAIN),
 					"term_select_any" => __("– Any –", Plugin::DOMAIN),
@@ -43,7 +46,7 @@ class Assets extends _Component {
 					"widget_media" => [
 						"no_permission" => _x('You do not have permission to use media.', 'media widget', Plugin::DOMAIN),
 						"not_found" => _x('❓ Media not found.', 'media widget', Plugin::DOMAIN),
-					]
+					],
 				],
 				"blocks" => array_map(function($block){
 					return [
