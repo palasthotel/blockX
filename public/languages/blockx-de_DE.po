@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2021-03-19 09:37+0100\n"
-"PO-Revision-Date: 2021-03-19 09:38+0100\n"
+"POT-Creation-Date: 2021-03-25 08:31+0100\n"
+"PO-Revision-Date: 2021-03-25 08:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -22,55 +22,55 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: classes/Assets.php:32
+#: classes/Assets.php:35
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: classes/Assets.php:33
+#: classes/Assets.php:36
 msgid "– Any –"
 msgstr "– Beliebig –"
 
-#: classes/Assets.php:35
+#: classes/Assets.php:38
 msgctxt "tax query widget"
 msgid "Add taxonomy"
 msgstr "Taxonomie hinzufügen"
 
-#: classes/Assets.php:36
+#: classes/Assets.php:39
 msgctxt "tax query widget"
 msgid "Delete"
 msgstr "Löschen"
 
-#: classes/Assets.php:37
+#: classes/Assets.php:40
 msgctxt "tax query widget"
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: classes/Assets.php:38
+#: classes/Assets.php:41
 msgctxt "tax query widget"
 msgid "Add terms"
 msgstr "Begriffe hinzufügen"
 
-#: classes/Assets.php:39
+#: classes/Assets.php:42
 msgctxt "tax query widget"
 msgid "Operator"
 msgstr "Operator"
 
-#: classes/Assets.php:40
+#: classes/Assets.php:43
 msgctxt "tax query widget"
 msgid "All taxonomy conditions."
 msgstr "Alle Taxonomiebedingungen."
 
-#: classes/Assets.php:41
+#: classes/Assets.php:44
 msgctxt "tax query widget"
 msgid "One of the taxonomy conditions."
 msgstr "Eine der Taxonomiebedingungen."
 
-#: classes/Assets.php:44
+#: classes/Assets.php:47
 msgctxt "media widget"
 msgid "You do not have permission to use media."
 msgstr "Keine Berechtigung zur Verwendung von Medien."
 
-#: classes/Assets.php:45
+#: classes/Assets.php:48
 msgctxt "media widget"
 msgid "❓ Media not found."
 msgstr "❓Medium wurde nicht gefunden."
@@ -91,32 +91,37 @@ msgstr "Beiträge"
 msgid "List of posts"
 msgstr "Beitragsliste"
 
-#: classes/Blocks/RSS.php:19
-msgid "RSS"
-msgstr "RSS"
-
-#: classes/Blocks/RSS.php:28
-msgid "RSS feed list"
-msgstr "RSS-Feedliste"
-
 #: classes/Gutenberg.php:119
 msgid "Any"
 msgstr "Beliebig"
 
-#: classes/REST.php:189 templates/blockx__blockx--post-embed__editor.php:18
+#: classes/REST.php:189 templates/blockx__blockx--post-embed__editor.php:19
 msgid "No post found."
 msgstr "Keinen Beitrag gefunden."
 
-#: templates/blockx.php:10
+#: classes/Settings.php:52
+msgid "Autosave timeout"
+msgstr "Autosave-Timeout"
+
+#: classes/Settings.php:68
+msgid ""
+"In seconds. 0 means no autosave at all. This does NOT save the post but "
+"applies the block changes to the content preview."
+msgstr ""
+"In Sekunden. 0 bedeutet keine automatische Speicherung. Dadurch wird NICHT "
+"der Beitrag gespeichert, sondern die Blockänderungen auf die "
+"Inhaltsvorschau angewendet."
+
+#: templates/blockx.php:11
 #, php-format
 msgid "No template found for block '%s'."
 msgstr "Kein template für den Block ‚%s‘ gefunden."
 
-#: templates/blockx__blockx--posts__editor.php:22
+#: templates/blockx__blockx--posts__editor.php:23
 msgid "No posts found."
 msgstr "Keine Beiträge gefunden."
 
-#: templates/blockx__editor.php:11
+#: templates/blockx__editor.php:12
 #, php-format
 msgid "No editor template found for block '%s'."
 msgstr "Kein Editor-Template für den Block ‚%s‘ gefunden."
@@ -140,6 +145,12 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.palasthotel.de"
 msgstr ""
+
+#~ msgid "RSS"
+#~ msgstr "RSS"
+
+#~ msgid "RSS feed list"
+#~ msgstr "RSS-Feedliste"
 
 #~ msgid "Tax Query"
 #~ msgstr "Taxonomyabfrage"
