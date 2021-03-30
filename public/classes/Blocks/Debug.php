@@ -97,6 +97,12 @@ class Debug extends _BlockType {
 				Option::build( "option3", "Option 3" ),
 			], "option2" ),
 
+			Select::build( "selectmultiple", "Select multiple", [
+				Option::build( "option1", "Option 1" ),
+				Option::build( "option2", "Option 2" ),
+				Option::build( "option3", "Option 3" ),
+			], ["option1"] ) ->multiple(true),
+
 			Select::build( "post_type", "Select post type", Gutenberg::getPostTypeOptions(), "post" ),
 			Select::build( "taxonomies", "Select a taxonomy", Gutenberg::getTaxonomyOptions() ),
 

@@ -12,6 +12,7 @@ const SelectWidget = ({definition, value, onChange})=> {
         value={value}
         onChange={onChange}
         options={options}
+        multiple={definition.multiple}
     />
 }
 

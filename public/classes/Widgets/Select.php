@@ -12,17 +12,29 @@ class Select extends _Widget {
 
 	private $options;
 
+	private $multiple = false;
+
 	/**
 	 * Select constructor.
 	 *
 	 * @param string $key
 	 * @param string $label
 	 * @param Option[] $options
-	 * @param string $defaultValue
+	 * @param string|string[] $defaultValue
 	 */
 	public function __construct( string $key, string $label, array $options, $defaultValue = "" ) {
 		parent::__construct( $key, $label, static::TYPE, $defaultValue );
 		$this->options = $options;
+	}
+
+	/**
+	 * @param bool $multiple
+	 *
+	 * @return $this
+	 */
+	public function multiple(bool $multiple){
+		$this->multiple = $multiple;
+		return $this;
 	}
 
 	/**
@@ -40,6 +52,7 @@ class Select extends _Widget {
 	public function toArray() {
 		$arr            = parent::toArray();
 		$arr["options"] = $this->options;
+		$arr["multiple"] = $this->multiple;
 
 		return $arr;
 	}
