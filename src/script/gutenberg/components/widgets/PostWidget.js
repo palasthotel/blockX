@@ -46,6 +46,9 @@ const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
                 focusOnMount={false}
                 position="bottom center"
             >
+                <div className="blockx--search-post__popover">
+
+
                 {posts.length > 0 ? 
                     posts.map(post=> <PostSearchResult 
                             key={post.ID}
@@ -56,7 +59,7 @@ const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
                     :
                     <p className="blockx--search-post__no-results">{isLoading ? "Searching..." : "No posts found."}</p>
                 }
-                
+                </div>
             </Popover>
         ) : null}
     </BaseControl>
