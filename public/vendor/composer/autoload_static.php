@@ -55,6 +55,7 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
         'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxQuery' => __DIR__ . '/../..' . '/classes/Widgets/TaxQuery.php',
         'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxonomyTerm' => __DIR__ . '/../..' . '/classes/Widgets/TaxonomyTerm.php',
         'Palasthotel\\WordPress\\BlockX\\Widgets\\Text' => __DIR__ . '/../..' . '/classes/Widgets/Text.php',
+        'Palasthotel\\WordPress\\BlockX\\Widgets\\Textarea' => __DIR__ . '/../..' . '/classes/Widgets/Textarea.php',
         'Palasthotel\\WordPress\\BlockX\\Widgets\\Toggle' => __DIR__ . '/../..' . '/classes/Widgets/Toggle.php',
         'Palasthotel\\WordPress\\BlockX\\Widgets\\_IWidget' => __DIR__ . '/../..' . '/classes/Widgets/_IWidget.php',
         'Palasthotel\\WordPress\\BlockX\\Widgets\\_Widget' => __DIR__ . '/../..' . '/classes/Widgets/_Widget.php',

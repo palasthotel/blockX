@@ -40,6 +40,7 @@ return array(
     'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxQuery' => $baseDir . '/classes/Widgets/TaxQuery.php',
     'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxonomyTerm' => $baseDir . '/classes/Widgets/TaxonomyTerm.php',
     'Palasthotel\\WordPress\\BlockX\\Widgets\\Text' => $baseDir . '/classes/Widgets/Text.php',
+    'Palasthotel\\WordPress\\BlockX\\Widgets\\Textarea' => $baseDir . '/classes/Widgets/Textarea.php',
     'Palasthotel\\WordPress\\BlockX\\Widgets\\Toggle' => $baseDir . '/classes/Widgets/Toggle.php',
     'Palasthotel\\WordPress\\BlockX\\Widgets\\_IWidget' => $baseDir . '/classes/Widgets/_IWidget.php',
     'Palasthotel\\WordPress\\BlockX\\Widgets\\_Widget' => $baseDir . '/classes/Widgets/_Widget.php',
