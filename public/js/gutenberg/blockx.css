@@ -36,6 +36,10 @@
     bottom: 2px;
     right: -6px;
 }
+
+.blockx--search-post__popover{
+    min-width: 240px;
+}
 .blockx-media-widget{
     border-radius: 5px;
     border: 1px solid #efefef;
@@ -121,3 +125,5 @@
     top: 0; 
     right: 0;
 }
+
+/*# sourceMappingURL=blockx.css.map*/
