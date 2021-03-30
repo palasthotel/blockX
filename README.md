@@ -173,10 +173,12 @@ Choose from a list of options.
 		...
 	],
 	string|null $defaultValue = null
-);
+)->multiple(true);
 ```
 
 If `$defaultValue` is `null` the first Option will be selected when instanciating a new block of this type.
+
+If you use `multiple(true)` please provide an array of strings as default value. [At the moment there is a known visual bug with multiple select control](https://github.com/WordPress/gutenberg/issues/27166).
 
 ### Media
 
