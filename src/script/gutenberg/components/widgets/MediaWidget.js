@@ -94,7 +94,7 @@ const MediaWidget = ({definition, value, onChange}) => {
                 {Array.isArray(value) ?
                     value.map(id => <MediaPreview key={id} ID={id}/>)
                     :
-                    <MediaPreview ID={value}/>
+                    (value ? <MediaPreview ID={value}/> : null)
                 }
             </div>
 
