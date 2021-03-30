@@ -5,6 +5,7 @@ import SelectWidget from './SelectWidget.js';
 import TaxQueryWidget from './TaxQueryWidget.js';
 import TaxonomyTermWidget from './TaxonomyTermWidget.js';
 import TextWidget from './TextWidget.js';
+import TextareaWidget from "./TextareaWidget";
 import ToggleWidget from './ToggleWidget.js';
 import HiddenWidget from './HiddenWidget.js';
 import DividerWidget from './DividerWidget.js';
@@ -14,6 +15,7 @@ import ListOfWidget from "./ListOfWidget";
 
 const widgets = {
     text: TextWidget,
+    textarea: TextareaWidget,
     number: NumberWidget,
     toggle: ToggleWidget,
     select: SelectWidget,

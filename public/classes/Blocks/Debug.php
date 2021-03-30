@@ -14,6 +14,7 @@ use Palasthotel\WordPress\BlockX\Widgets\Media;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
 use Palasthotel\WordPress\BlockX\Widgets\Readonly;
+use Palasthotel\WordPress\BlockX\Widgets\Textarea;
 use Palasthotel\WordPress\BlockX\Widgets\Toggle;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
 use Palasthotel\WordPress\BlockX\Widgets\Number;
@@ -55,6 +56,11 @@ class Debug extends _BlockType {
 			// simple values
 			// ------------------------------------
 			Text::build( "text", "Text", "Default text" ),
+			Text::build( "multilinetext", "Text with rows", "Default text" )
+			    ->rows(3)
+				->help("you can use multiline"),
+
+			Textarea::build("textarea", "Textarea", "Just wrapper around text"),
 			Number::build( "number", "Number", 42 ),
 
 			Readonly::build("readonly", "Readonly", "not writable"),
