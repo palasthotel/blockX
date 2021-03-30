@@ -1,6 +1,50 @@
-## BlockX
+# BlockX
 
 This plugin provides an easier way for developers to add new block types to WordPress Gutenberg Editor. You can add configuratable boxes and templates without any javascript code. Everything can be configured and rendered in PHP.
+
+## Filters
+
+Some data filters to change blockx block behavoirs from outside.
+
+### Block attributes
+
+Gutenberg block attributes can be changed before blockx prepares the `$attributes['content']` values.
+
+```php
+add_filter(
+    Palasthotel\WordPress\BlockX\Plugin::FILTER_BLOCK_ATTRIBUTES, 
+    function($attributes, $block, $originalAttributes){
+        /**
+         * @var array $attributes
+         * @var \Palasthotel\WordPress\BlockX\Blocks\_BlockType $block
+         * @var array $originalAttributes
+         */
+      return $attributes;
+    }, 
+    10, 
+    3
+);
+```
+
+### Prepare contents
+
+BlockX contents object can be changed after it was processed by the blockx classes prepare method and right before it will be provided to the template.
+
+```php
+add_filter(
+    Palasthotel\WordPress\BlockX\Plugin::FILTER_PREPARE_CONTENT, 
+    function($content, $block, $originalContent){
+        /**
+         * @var stdClass $content
+         * @var \Palasthotel\WordPress\BlockX\Blocks\_BlockType $block
+         * @var stdClass $originalAttributes
+         */
+      return $content;
+    }, 
+    10, 
+    3
+);
+```
 
 ## Create new block class
 
@@ -434,6 +478,5 @@ wp_reset_postdata();
  ## Future
 
 - More Widgets
-  - Media
   - custom autocomplete
 - Edit content in place and with markup
