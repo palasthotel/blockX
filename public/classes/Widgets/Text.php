@@ -16,7 +16,13 @@ class Text extends _Widget {
 	}
 
 	public function rows(int $rows){
-		$this->rows = $rows;
+		try{
+			if($rows <= 0) throw new \Exception("BlockX Text Widget rows needs to be larger than 0 but is $rows");
+			$this->rows = $rows;
+		} catch (\Exception $exception){
+			error_log($exception->getMessage());
+		}
+
 		return $this;
 	}
 
