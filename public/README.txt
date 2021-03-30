@@ -37,6 +37,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 = 1.0.8 =
 * New Widget: Textarea
 * Optimization: you can add a help text to Text widget
+* Optimization: Select Widget multiple values
 * Bugfix: fixed wrong auto save timeout sanitation
 
 = 1.0.7 =
