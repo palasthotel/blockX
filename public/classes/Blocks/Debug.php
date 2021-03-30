@@ -138,12 +138,14 @@ class Debug extends _BlockType {
 				Number::build( "offset2", "Offset 2", 0 ),
 			] ) ),
 
-
 			ListOf::build( "list", "List of things", [
-				Number::build( "offset", "Offset", 0 ),
-			] )
-			// post type
-			// date?
+				Post::build("post_id", "Post"),
+				Number::build( "offset", "Offset", 4 ),
+				ListOf::build("second_list", "Sublist", [
+					Text::build("title", "Title"),
+				]),
+			] ),
+
 		] );
 	}
 

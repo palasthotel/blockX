@@ -232,6 +232,18 @@ Gutenberg uses collapsible panels to group configuration sections. It's possible
 
 - Panels can only be used as first level ContentStructure Items. It's not possible to use a Panel in a Panel or in other Widgets that open a new level of content structure.
 
+
+### ListOf
+
+ListOf wraps a list of other widgets and lets you build a list of these widgets instances.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\ListOf::build(
+  string $label, 
+  $contentStructure: ContentStructure
+)
+```
+
 ## Templates
 
 Every Block needs two templates to render pretty content in the editor and in frontend. Naming conventions are `blockx__%namespace%--%block-name%.php` and `blockx__%namespace%--%block-name%__editor.php`. So for our block example this would be `blockx__my-namespace--my-block.php` and `blockx__my-namespace--my-block__editor.php`.
