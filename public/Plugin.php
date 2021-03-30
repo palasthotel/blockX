@@ -52,6 +52,9 @@ class Plugin {
 	const FILTER_REST_POSTS_QUERY_ARGS = "blockx_rest_posts_query_args";
 	const FILTER_REST_POSTS = "blockx_rest_posts";
 	const FILTER_ADD_TEMPLATES_PATHS = "blockx_add_templates_paths";
+	const FILTER_BLOCK_ATTRIBUTES = "blockx_block_attributes";
+	const FILTER_PREPARE_CONTENT = "blockx_prepare_content";
+
 
 	// ----------------------------------------------------
 	// templates

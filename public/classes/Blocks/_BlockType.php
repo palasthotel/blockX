@@ -88,7 +88,7 @@ abstract class _BlockType implements _IBlockType {
 
 		}
 
-		return $content;
+		return apply_filters( Plugin::FILTER_PREPARE_CONTENT, $content, $this, clone $content );
 	}
 
 	/**
@@ -99,7 +99,8 @@ abstract class _BlockType implements _IBlockType {
 	 */
 	function build( array $attributes, string $editorContent ) {
 
-		$content = $this->prepare( isset( $attributes["content"] ) ? (object) $attributes["content"] : new stdClass() );
+		$attributes = apply_filters( Plugin::FILTER_BLOCK_ATTRIBUTES, $attributes, $this, $attributes );
+		$content    = $this->prepare( isset( $attributes["content"] ) ? (object) $attributes["content"] : new stdClass() );
 
 		ob_start();
 		$template = Plugin::instance()->templates->get_block_template_path( $this, $this->isEditor() );
