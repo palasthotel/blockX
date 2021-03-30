@@ -4,14 +4,14 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
  * Tested up to: 5.7.0
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
- * @copyright Copyright (c) 2020, Palasthotel
+ * @copyright Copyright (c) 2021, Palasthotel
  * @package Palasthotel\WordPress\BlockX
  *
  */

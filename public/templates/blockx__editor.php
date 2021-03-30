@@ -9,7 +9,7 @@ use Palasthotel\WordPress\BlockX\Plugin;
  * @var array $attributes
  */
 
-printf(__("No editor template found for block '%s'.", Plugin::DOMAIN), $this->id());
+printf( __( "No editor template found for block '%s'.", Plugin::DOMAIN ), $this->id() );
 echo "<pre>";
-print_r($content);
+print_r( $content );
 echo "</pre>";

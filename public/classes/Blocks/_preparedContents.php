@@ -10,7 +10,8 @@ use WP_User;
  * Class PostEmbedContent
  * @property WP_Post|null $post
  */
-class PostEmbedContent extends stdClass {}
+class PostEmbedContent extends stdClass {
+}
 
 /**
  * Class PostsContent
@@ -20,7 +21,8 @@ class PostEmbedContent extends stdClass {}
  * @property array $tax_query
  * @property array $args
  */
-class PostsContent extends stdClass {}
+class PostsContent extends stdClass {
+}
 
 /**
  * Class AuthorsContent
@@ -28,4 +30,5 @@ class PostsContent extends stdClass {}
  * @property string[] $author_ids
  * @property WP_User[] $authors
  */
-class AuthorsContent extends stdClass {}
+class AuthorsContent extends stdClass {
+}

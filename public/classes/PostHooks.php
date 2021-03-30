@@ -56,7 +56,7 @@ class PostHooks extends _Component {
 		foreach ( $blocks as $block ) {
 			$blockName = $block['blockName'];
 			if ( isset( $map[ $blockName ] ) ) {
-				$type = $map[ $blockName ];
+				$type     = $map[ $blockName ];
 				$instance = new BlockInstance( $block );
 				$type->onSaveInstance( $post_id, $instance );
 			}

@@ -33,13 +33,14 @@ class Select extends _Widget {
 	 *
 	 * @return static
 	 */
-	public static function build(string $key, string $label, array $options, $defaultValue = null){
-		return new static($key, $label, $options, $defaultValue );
+	public static function build( string $key, string $label, array $options, $defaultValue = null ) {
+		return new static( $key, $label, $options, $defaultValue );
 	}
 
 	public function toArray() {
-		$arr = parent::toArray();
+		$arr            = parent::toArray();
 		$arr["options"] = $this->options;
+
 		return $arr;
 	}
 

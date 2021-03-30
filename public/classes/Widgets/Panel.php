@@ -26,29 +26,31 @@ class Panel extends _Widget {
 	 * @param string $label
 	 * @param ContentStructure $contentStructure
 	 */
-	public function __construct( string $label, ContentStructure $contentStructure) {
+	public function __construct( string $label, ContentStructure $contentStructure ) {
 		parent::__construct( "", $label, static::TYPE, null );
 		$this->contentStructure = $contentStructure;
 		$this->isOpened         = false;
 	}
 
-	public static function build(string $label, ContentStructure $contentStructure){
-		return new static($label, $contentStructure);
+	public static function build( string $label, ContentStructure $contentStructure ) {
+		return new static( $label, $contentStructure );
 	}
 
-	public function opened(bool $isOpened){
+	public function opened( bool $isOpened ) {
 		$this->isOpened = $isOpened;
+
 		return $this;
 	}
 
-	public function getItems(){
+	public function getItems() {
 		return $this->contentStructure->getItems();
 	}
 
 	public function toArray() {
-		$cs = parent::toArray();
+		$cs                     = parent::toArray();
 		$cs["contentStructure"] = $this->contentStructure->toArray();
-		$cs["opened"] = $this->isOpened;
+		$cs["opened"]           = $this->isOpened;
+
 		return $cs;
 	}
 }

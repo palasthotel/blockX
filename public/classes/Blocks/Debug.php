@@ -41,7 +41,7 @@ class Debug extends _BlockType {
 		$args                = parent::registerBlockTypeArgs();
 		$args["description"] = __( "This block is just for debugging.", Plugin::DOMAIN );
 		$args["icon"]        = 'games';
-		$args['supports'] = [
+		$args['supports']    = [
 			"align" => true,
 		];
 
@@ -57,15 +57,15 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			Text::build( "text", "Text", "Default text" ),
 			Text::build( "multilinetext", "Text with rows", "Default text" )
-			    ->rows(3)
-				->help("you can use multiline"),
+			    ->rows( 3 )
+			    ->help( "you can use multiline" ),
 
-			Textarea::build("textarea", "Textarea", "Just wrapper around text"),
+			Textarea::build( "textarea", "Textarea", "Just wrapper around text" ),
 			Number::build( "number", "Number", 42 ),
 
-			Readonly::build("readonly", "Readonly", "not writable"),
+			Readonly::build( "readonly", "Readonly", "not writable" ),
 
-			Hidden::build("hidden", "is a hidden value"),
+			Hidden::build( "hidden", "is a hidden value" ),
 
 			Divider::build(),
 
@@ -105,18 +105,18 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			// media
 			// ------------------------------------
-			Media::build("default_image", "Default Media"),
+			Media::build( "default_image", "Default Media" ),
 
-			Media::build("image_with_file_type", "File types")
-			     ->setMediaTypes(["image", "application/pdf"]),
+			Media::build( "image_with_file_type", "File types" )
+			     ->setMediaTypes( [ "image", "application/pdf" ] ),
 
-			Media::build("media_pdf", "PDF only")
-			     ->setMediaTypes(["application/pdf"]),
+			Media::build( "media_pdf", "PDF only" )
+			     ->setMediaTypes( [ "application/pdf" ] ),
 
-			Media::build("multiple_images", "Multiple images")
-				->setMediaTypes(["image"])
-			     ->multiple(true)
-			     ->setMediaUploadTitle("Multiple files"),
+			Media::build( "multiple_images", "Multiple images" )
+			     ->setMediaTypes( [ "image" ] )
+			     ->multiple( true )
+			     ->setMediaUploadTitle( "Multiple files" ),
 
 			Divider::build(),
 
@@ -124,7 +124,7 @@ class Debug extends _BlockType {
 			// post relation
 			// ------------------------------------
 
-			Post::build("post_id", "Post relation")->postTypes(["post", "uebung"]),
+			Post::build( "post_id", "Post relation" )->postTypes( [ "post", "uebung" ] ),
 
 			Divider::build(),
 
@@ -145,11 +145,11 @@ class Debug extends _BlockType {
 			] ) ),
 
 			ListOf::build( "list", "List of things", [
-				Post::build("post_id", "Post"),
+				Post::build( "post_id", "Post" ),
 				Number::build( "offset", "Offset", 4 ),
-				ListOf::build("second_list", "Sublist", [
-					Text::build("title", "Title"),
-				]),
+				ListOf::build( "second_list", "Sublist", [
+					Text::build( "title", "Title" ),
+				] ),
 			] ),
 
 		] );

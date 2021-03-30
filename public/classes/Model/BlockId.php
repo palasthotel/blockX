@@ -9,20 +9,20 @@ class BlockId {
 	public $namespace;
 	public $name;
 
-	public function __construct(string $namespace, string $name) {
+	public function __construct( string $namespace, string $name ) {
 		$this->namespace = $namespace;
-		$this->name = $name;
+		$this->name      = $name;
 	}
 
-	public static function build(string $namespace, string $name){
-		return new static($namespace, $name);
+	public static function build( string $namespace, string $name ) {
+		return new static( $namespace, $name );
 	}
 
-	public function equals($id){
-		return (string)$this === $id;
+	public function equals( $id ) {
+		return (string) $this === $id;
 	}
 
 	public function __toString() {
-		return $this->namespace."/".$this->name;
+		return $this->namespace . "/" . $this->name;
 	}
 }

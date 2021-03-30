@@ -14,8 +14,8 @@ class Hidden extends _Widget {
 	 *
 	 * @return Hidden
 	 */
-	public static function build(string $key, $value){
-		return new Hidden($key, "", static::TYPE, $value);
+	public static function build( string $key, $value ) {
+		return new Hidden( $key, "", static::TYPE, $value );
 	}
 
 }

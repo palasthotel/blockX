@@ -18,29 +18,31 @@ class Templates extends _Component {
 	 *
 	 * @return false|string
 	 */
-	function get_block_template_path(_BlockType $block, bool $editor){
-		$class = get_class($block);
-		while(false !== $class){
+	function get_block_template_path( _BlockType $block, bool $editor ) {
+		$class = get_class( $block );
+		while ( false !== $class ) {
 
 			try {
 				$test = new \ReflectionClass( $class );
 			} catch ( \ReflectionException $e ) {
 				return false;
 			}
-			if($test->isAbstract()){
+			if ( $test->isAbstract() ) {
 				return false;
 			}
 
 			$type = new $class();
-			$path = $this->get_template_path($this->get_block_template_name($type, $editor));
-			if(is_string($path) && !empty($path)) return $path;
+			$path = $this->get_template_path( $this->get_block_template_name( $type, $editor ) );
+			if ( is_string( $path ) && ! empty( $path ) ) {
+				return $path;
+			}
 
 			// check next parent class
-			$class = get_parent_class($type);
+			$class = get_parent_class( $type );
 		}
 
 		return $this->get_template_path(
-			$editor ? Plugin::BLOCK_FALLBACK_EDITOR_TEMPLATE: Plugin::BLOCK_FALLBACK_TEMPLATE
+			$editor ? Plugin::BLOCK_FALLBACK_EDITOR_TEMPLATE : Plugin::BLOCK_FALLBACK_TEMPLATE
 		);
 	}
 
@@ -50,11 +52,12 @@ class Templates extends _Component {
 	 *
 	 * @return string
 	 */
-	function get_block_template_name(_BlockType $block, bool $editor){
-		$id = $block->id();
-		$template = $editor ? Plugin::BLOCK_EDITOR_TEMPLATE : Plugin::BLOCK_TEMPLATE;
-		$namespaced = str_replace(Plugin::TEMPLATE_PLACEHOLDER_NAMESPACE, $id->namespace, $template);
-		return str_replace(Plugin::TEMPLATE_PLACEHOLDER_NAME, $id->name, $namespaced);
+	function get_block_template_name( _BlockType $block, bool $editor ) {
+		$id         = $block->id();
+		$template   = $editor ? Plugin::BLOCK_EDITOR_TEMPLATE : Plugin::BLOCK_TEMPLATE;
+		$namespaced = str_replace( Plugin::TEMPLATE_PLACEHOLDER_NAMESPACE, $id->namespace, $template );
+
+		return str_replace( Plugin::TEMPLATE_PLACEHOLDER_NAME, $id->name, $namespaced );
 	}
 
 	/**
@@ -64,24 +67,24 @@ class Templates extends _Component {
 	function get_template_path( $template ) {
 
 		// theme or child theme
-		if ( $overridden_template = locate_template( $this->get_template_dirs($template) ) ) {
+		if ( $overridden_template = locate_template( $this->get_template_dirs( $template ) ) ) {
 			return $overridden_template;
 		}
 
 		// parent theme
-		foreach ($this->get_template_dirs($template) as $path){
-			if( is_file( get_template_directory()."/$path")){
-				return get_template_directory()."/$path";
+		foreach ( $this->get_template_dirs( $template ) as $path ) {
+			if ( is_file( get_template_directory() . "/$path" ) ) {
+				return get_template_directory() . "/$path";
 			}
 		}
 
 		// other plugins
-		$paths = apply_filters(Plugin::FILTER_ADD_TEMPLATES_PATHS, array());
+		$paths = apply_filters( Plugin::FILTER_ADD_TEMPLATES_PATHS, array() );
 		// add default templates at last position
 		$paths[] = $this->plugin->path . '/templates';
 		// find templates
-		foreach ($paths as $path){
-			if(is_file("$path/$template")){
+		foreach ( $paths as $path ) {
+			if ( is_file( "$path/$template" ) ) {
 				return "$path/$template";
 			}
 		}
@@ -92,17 +95,19 @@ class Templates extends _Component {
 
 	/**
 	 * get array of possible template files in theme
+	 *
 	 * @param $template
 	 *
 	 * @return array
 	 */
-	function get_template_dirs($template){
+	function get_template_dirs( $template ) {
 		$dirs = array(
 			Plugin::THEME_FOLDER . "/" . $template,
 		);
-		foreach ($this->get_sub_dirs() as $sub){
-			$dirs[] = $sub.'/'.$template;
+		foreach ( $this->get_sub_dirs() as $sub ) {
+			$dirs[] = $sub . '/' . $template;
 		}
+
 		return $dirs;
 	}
 
@@ -110,14 +115,15 @@ class Templates extends _Component {
 	 * paths for locate_template
 	 * @return array
 	 */
-	function get_sub_dirs(){
-		if($this->sub_dirs == null){
+	function get_sub_dirs() {
+		if ( $this->sub_dirs == null ) {
 			$this->sub_dirs = array();
-			$dirs = array_filter(glob(get_template_directory().'/'.Plugin::THEME_FOLDER.'/*'), 'is_dir');
-			foreach($dirs as $dir){
-				$this->sub_dirs[] = str_replace(get_template_directory().'/', '', $dir);
+			$dirs           = array_filter( glob( get_template_directory() . '/' . Plugin::THEME_FOLDER . '/*' ), 'is_dir' );
+			foreach ( $dirs as $dir ) {
+				$this->sub_dirs[] = str_replace( get_template_directory() . '/', '', $dir );
 			}
 		}
+
 		return $this->sub_dirs;
 	}
 

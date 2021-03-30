@@ -11,7 +11,7 @@ use stdClass;
 class PostEmbed extends _BlockType {
 
 	public function id(): BlockId {
-		return BlockId::build(Plugin::BLOCKS_NAMESPACE, Plugin::BLOCK_NAME_POST_EMBED);
+		return BlockId::build( Plugin::BLOCKS_NAMESPACE, Plugin::BLOCK_NAME_POST_EMBED );
 	}
 
 	public function category(): string {
@@ -23,9 +23,9 @@ class PostEmbed extends _BlockType {
 	}
 
 	public function contentStructure(): ContentStructure {
-		return new ContentStructure([
-			Post::build("post_id", "Post")->postStatus(["publish"])
-		]);
+		return new ContentStructure( [
+			Post::build( "post_id", "Post" )->postStatus( [ "publish" ] )
+		] );
 	}
 
 	public function prepare( stdClass $content ): stdClass {
@@ -33,11 +33,11 @@ class PostEmbed extends _BlockType {
 		/**
 		 * @var PostEmbedContent $content
 		 */
-		$content =  parent::prepare( $content );
-		if( null == $content->post_id || empty( $content->post_id ) ) {
+		$content = parent::prepare( $content );
+		if ( null == $content->post_id || empty( $content->post_id ) ) {
 			$content->post = null;
 		} else {
-			$content->post = get_post( $content->post_id);
+			$content->post = get_post( $content->post_id );
 		}
 
 		return $content;

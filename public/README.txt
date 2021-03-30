@@ -4,7 +4,7 @@ Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 5.7.0
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,10 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 
 == Changelog ==
+
+= 1.0.8 =
+* New Widget: Textarea
+* Optimization: you can add a help text to Text widget
 
 = 1.0.7 =
 * New Widget: ListOf

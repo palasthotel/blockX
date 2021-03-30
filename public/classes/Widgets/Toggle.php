@@ -22,7 +22,7 @@ class Toggle extends _Widget {
 
 	public function __construct( string $key, $label, $defaultValue = false ) {
 		parent::__construct( $key, $label instanceof StateLabel ? $label->off : $label, static::TYPE, $defaultValue );
-		if($label instanceof StateLabel){
+		if ( $label instanceof StateLabel ) {
 			$this->stateLabel = $label;
 		}
 	}
@@ -34,8 +34,8 @@ class Toggle extends _Widget {
 	 *
 	 * @return static
 	 */
-	public static function build(string $key, $label, bool $defaultValue = false ){
-		return new self($key, $label, $defaultValue);
+	public static function build( string $key, $label, bool $defaultValue = false ) {
+		return new self( $key, $label, $defaultValue );
 	}
 
 	/**
@@ -43,25 +43,27 @@ class Toggle extends _Widget {
 	 *
 	 * @return $this
 	 */
-	public function help($help){
-		$this->help  = $help;
+	public function help( $help ) {
+		$this->help = $help;
+
 		return $this;
 	}
 
 	public function toArray() {
 		$arr = parent::toArray();
-		if( !empty($this->stateLabel)){
+		if ( ! empty( $this->stateLabel ) ) {
 			$arr["label"] = $this->stateLabel->toArray();
 		}
-		if($this->help instanceof StateLabel){
+		if ( $this->help instanceof StateLabel ) {
 			$arr["help"] = $this->help->toArray();
-		} else if( !empty($this->help) ){
+		} else if ( ! empty( $this->help ) ) {
 			$arr["help"] = $this->help;
 		}
+
 		return $arr;
 	}
 
 	public function prepareValue( $value ) {
-		return is_bool($value) ? $value : "true" === $value;
+		return is_bool( $value ) ? $value : "true" === $value;
 	}
 }

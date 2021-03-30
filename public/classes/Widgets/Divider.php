@@ -12,8 +12,8 @@ class Divider extends _Widget {
 	 *
 	 * @return Divider
 	 */
-	public static function build(){
-		return new Divider('', "", static::TYPE, false);
+	public static function build() {
+		return new Divider( '', "", static::TYPE, false );
 	}
 
 }

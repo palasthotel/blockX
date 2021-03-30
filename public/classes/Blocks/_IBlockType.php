@@ -9,8 +9,11 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 interface _IBlockType {
 
 	public function id(): BlockId;
+
 	public function category(): string;
+
 	public function title(): string;
+
 	public function contentStructure(): ContentStructure;
 
 }

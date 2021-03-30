@@ -19,11 +19,11 @@ abstract class _Widget implements _IWidget {
 	 * @param string $type
 	 * @param mixed $defaultValue
 	 */
-	public function __construct(string $key, string $label, string $type, $defaultValue) {
-		$this->key          = $key;
-		$this->label        = $label;
-		$this->type         = $type;
-		$this->setDefaultValue($defaultValue);
+	public function __construct( string $key, string $label, string $type, $defaultValue ) {
+		$this->key   = $key;
+		$this->label = $label;
+		$this->type  = $type;
+		$this->setDefaultValue( $defaultValue );
 	}
 
 	public function key(): string {
@@ -34,8 +34,9 @@ abstract class _Widget implements _IWidget {
 		return $this->label;
 	}
 
-	public function setLabel(string $label): _Widget {
+	public function setLabel( string $label ): _Widget {
 		$this->label = $label;
+
 		return $this;
 	}
 
@@ -43,7 +44,7 @@ abstract class _Widget implements _IWidget {
 		return $this->type;
 	}
 
-	public function defaultValue(){
+	public function defaultValue() {
 		return $this->defaultValue;
 	}
 
@@ -52,19 +53,20 @@ abstract class _Widget implements _IWidget {
 	 *
 	 * @return $this
 	 */
-	public function setDefaultValue($defaultValue){
+	public function setDefaultValue( $defaultValue ) {
 		$this->defaultValue = $defaultValue;
+
 		return $this;
 	}
 
-	public function toArray(){
+	public function toArray() {
 		$args = [
-			"key" => $this->key(),
+			"key"   => $this->key(),
 			"label" => $this->label(),
-			"type" => $this->type(),
+			"type"  => $this->type(),
 		];
 
-		if($this->defaultValue() !== null){
+		if ( $this->defaultValue() !== null ) {
 			$args["defaultValue"] = $this->defaultValue();
 		}
 
@@ -73,25 +75,31 @@ abstract class _Widget implements _IWidget {
 
 	/**
 	 * make sure it is typesafe
+	 *
 	 * @param mixed $value
 	 *
 	 * @return mixed
 	 */
-	public function prepareValue($value){return $value;}
+	public function prepareValue( $value ) {
+		return $value;
+	}
 
 	/**
 	 * @param int|string $post_id
 	 */
-	public function onSavePost($post_id){}
+	public function onSavePost( $post_id ) {
+	}
 
 	/**
 	 * @param int|string $post_id
 	 * @param mixed $value
 	 */
-	public function onSaveInstance($post_id, $value ){}
+	public function onSaveInstance( $post_id, $value ) {
+	}
 
 	/**
 	 * @param int|string $post_id
 	 */
-	public function onDeletePost($post_id){	}
+	public function onDeletePost( $post_id ) {
+	}
 }

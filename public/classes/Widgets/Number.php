@@ -8,8 +8,8 @@ class Number extends _Widget {
 
 	const TYPE = "number";
 
-	public static function build(string $key, string $label, int $defaultValue = 0){
-		return new Number($key, $label, static::TYPE, $defaultValue);
+	public static function build( string $key, string $label, int $defaultValue = 0 ) {
+		return new Number( $key, $label, static::TYPE, $defaultValue );
 	}
 
 }

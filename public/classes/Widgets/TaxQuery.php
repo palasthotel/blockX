@@ -37,24 +37,25 @@ class TaxQuery extends _Widget {
 	 *
 	 * @return TaxQuery
 	 */
-	public static function build(string $key, string $label, array $taxonomies, array $defaultValue = []){
-		return new static($key, $label, $taxonomies, $defaultValue);
+	public static function build( string $key, string $label, array $taxonomies, array $defaultValue = [] ) {
+		return new static( $key, $label, $taxonomies, $defaultValue );
 	}
 
 	public function toArray() {
-		$arr = parent::toArray();
+		$arr     = parent::toArray();
 		$options = [];
-		foreach ($this->taxonomies as $tax){
-			if(is_string($tax)){
-				$tax = get_taxonomy($tax);
+		foreach ( $this->taxonomies as $tax ) {
+			if ( is_string( $tax ) ) {
+				$tax = get_taxonomy( $tax );
 			}
-			if($tax instanceof WP_Taxonomy){
-				$options[] = Option::build($tax->name, $tax->label);
+			if ( $tax instanceof WP_Taxonomy ) {
+				$options[] = Option::build( $tax->name, $tax->label );
 			} else {
-				error_log("Could not find taxonomy in widget: ".$this->key());
+				error_log( "Could not find taxonomy in widget: " . $this->key() );
 			}
 		}
 		$arr["taxonomies"] = $options;
+
 		return $arr;
 	}
 }
