@@ -104,8 +104,28 @@ In the namespace `Palasthotel\WordPress\BlockX\Widgets` there are some classes t
 Simple text input.
 
 ```php
-\Palasthotel\WordPress\BlockX\Widgets\Text::build(string $key, string $label, string $defaultValue = "");
+\Palasthotel\WordPress\BlockX\Widgets\Text::build(string $key, string $label, string $defaultValue = "")
+->rows(1)
+->help("Description text");
 ```
+
+With `rows` larger than 1 this widget is equal to Textarea.
+
+The `help` function lets you provide a description.
+
+### Textarea
+
+Is technically the same as Text.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Textarea::build(string $key, string $label, string $defaultValue = "")
+->rows(10)
+->help("Description text");
+```
+
+With `rows` equals 1 this widget is equal to Text.
+
+The `help` function lets you provide a description.
 
 ### Number
 
