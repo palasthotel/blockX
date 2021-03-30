@@ -13,7 +13,7 @@ class Post extends _Widget {
 	private $postStatus = ["publish"];
 	private $useContext = false;
 
-	public static function build(string $key, string $label, ?int $defaultValue = null){
+	public static function build(string $key, string $label, $defaultValue = null){
 		return new Post($key, $label, static::TYPE, $defaultValue);
 	}
 

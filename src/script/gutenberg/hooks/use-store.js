@@ -21,7 +21,6 @@ export const useSSR = (blockId, attributes)=>{
     const html = useSelectStore(state => state.getBlock(blockId, attributes), [blockId, attributes]);
     const dispatch = useStoreDispatch();
     useEffect(()=>{
-        console.debug("useSSR", blockId, attributes);
         dispatch.addToQueue(blockId, attributes);
     }, [blockId, JSON.stringify(attributes)]);
     return html;

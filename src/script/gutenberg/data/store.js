@@ -87,7 +87,6 @@ const actionSetBlocks = (renderedBlocks) => ({type: ACTION_SET_BLOCKS, blocks: r
 const actions = {
     
     addToQueue: (blockId, attributes)=>{
-        console.debug("addToQueue", blockId, attributes);
         const block = {
             id: blockId,
             attributes,
