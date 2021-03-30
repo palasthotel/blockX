@@ -4,6 +4,8 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
+use Exception;
+
 class Text extends _Widget {
 
 	const TYPE = "text";
@@ -18,10 +20,10 @@ class Text extends _Widget {
 	public function rows( int $rows ) {
 		try {
 			if ( $rows <= 0 ) {
-				throw new \Exception( "BlockX Text Widget rows needs to be larger than 0 but is $rows" );
+				throw new Exception( "BlockX Text Widget rows needs to be larger than 0 but is $rows" );
 			}
 			$this->rows = $rows;
-		} catch ( \Exception $exception ) {
+		} catch ( Exception $exception ) {
 			error_log( $exception->getMessage() );
 		}
 
