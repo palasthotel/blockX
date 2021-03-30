@@ -44,7 +44,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
         edit: (props) => {
             const {className,  setAttributes, attributes} = props;
 
-            const autoSaveTimeout = useAutoSaveTimeout();
+
 
             // for local state changes 
             const [localChangeState, setLocalChangeState] = useState({});
@@ -55,18 +55,12 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                 }));
             }
 
-            useEffect(()=>{
-                let timeoutId = null;
-                if(Object.keys(localChangeState).length !== 0 && autoSaveTimeout > 100){
-                    timeoutId = setTimeout(()=>{
-                        setContent({
-                            ...attributes.content,
-                            ...localChangeState,
-                        })
-                    }, autoSaveTimeout);
-                }
-                return ()=> clearTimeout(timeoutId);
-            }, [JSON.stringify(localChangeState)]);
+            useAutoSaveTimeout(()=>{
+                setContent({
+                    ...attributes.content,
+                    ...localChangeState,
+                });
+            }, localChangeState);
 
              // apply local changes to contents
             const setContent = (content)=> {
