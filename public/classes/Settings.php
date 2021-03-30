@@ -45,7 +45,8 @@ class Settings extends _Component {
 			'writing',
 			Plugin::OPTION_AUTO_SAVE_TIMEOUT,
 			function ( $val ) {
-				return intval( $val ) * 1000;
+				// if is string it comes from form else it's set in code
+				return is_string($val) ?  intval( $val ) * 1000 : $val;
 			}
 		);
 		add_settings_field(
