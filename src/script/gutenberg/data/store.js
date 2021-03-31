@@ -1,5 +1,6 @@
 import apiFetch from "@wordpress/api-fetch";
 import { registerStore } from "@wordpress/data";
+import hash from 'object-hash';
 
 // ---------------------------------------------
 // caching
@@ -48,7 +49,10 @@ setCache(blocksCache);
 // ---------------------------------------------
 // default store state
 // ---------------------------------------------
-const getHash = (blockId, attributes) => btoa(`${blockId}-${JSON.stringify(attributes)}`);
+const getHash = (blockId, attributes) => {
+    // unescape and encode needed for hash function to work
+    return hash({blockId, attributes});
+};
 
 const DEFAULT_STATE = {
     isRequesting: false,
