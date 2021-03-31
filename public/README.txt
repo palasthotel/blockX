@@ -36,6 +36,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 = 1.0.9 =
 * Bugfix: SSRQ rendering crash when using none latin1 chars
+* Refactoring: deprecated registerStore function replaced with createReduxStore and register
 
 = 1.0.8 =
 * New Widget: Textarea
