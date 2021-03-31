@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.0.9 =
+* Bugfix: SSRQ rendering crash when using none latin1 chars
+
 = 1.0.8 =
 * New Widget: Textarea
 * Optimization: you can add a help text to Text widget
