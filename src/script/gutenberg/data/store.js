@@ -100,7 +100,7 @@ const actions = {
     * fetchSSR(post_id){
 
         // check queue
-        const queue = select(STORE_NAME).getQueue();
+        const queue = select(STORE_NAME).getQueueMap();
         if(Object.keys(queue).length < 1){
             return actionNone();
         }
@@ -180,6 +180,9 @@ const store = createReduxStore(STORE_NAME, {
         },
         isInQueue(state, blockId, attributes) {
             return typeof state.queue[getHash(blockId, attributes)] !== typeof undefined;
+        },
+        getQueueMap(state){
+            return state.queue;
         },
         getQueue(state){
             return Object.values(state.queue);
