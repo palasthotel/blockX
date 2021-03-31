@@ -1,5 +1,5 @@
 import apiFetch from "@wordpress/api-fetch";
-import {registerStore} from "@wordpress/data";
+import {register, createReduxStore, select} from "@wordpress/data";
 
 // ---------------------------------------------
 // caching
@@ -100,7 +100,7 @@ const actions = {
     * fetchSSR(post_id){
 
         // check queue
-        const queue = store.getState().queue;
+        const queue = select(STORE_NAME).getQueue();
         if(Object.keys(queue).length < 1){
             return actionNone();
         }
@@ -121,7 +121,7 @@ const actions = {
 // register our custom store
 // ------------------------------------------------------
 export const STORE_NAME = 'block-x';
-const store = registerStore( STORE_NAME, {
+const store = createReduxStore(STORE_NAME, {
     // ------------------------------------------------------
     // reduce actions to new state
     // ------------------------------------------------------
@@ -200,3 +200,5 @@ const store = registerStore( STORE_NAME, {
         },
     },
 });
+
+register(store);
