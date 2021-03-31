@@ -21,6 +21,6 @@
     "@wordpress/plugins": "^2.25.0",
     "@wordpress/scripts": "^14.0.1",
     "@wordpress/server-side-render": "^1.21.0",
-    "swr": "^0.5.4"
+    "swr": "^0.5.5"
   }
 }
