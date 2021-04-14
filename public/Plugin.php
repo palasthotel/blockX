@@ -29,6 +29,7 @@ namespace Palasthotel\WordPress\BlockX;
  * @property Database database
  * @property string basename
  * @property Settings settings
+ * @property Update update
  */
 class Plugin {
 
@@ -43,7 +44,6 @@ class Plugin {
 	const BLOCK_NAME_POSTS = "posts";
 	const BLOCK_NAME_POST_EMBED = "post-embed";
 	const BLOCK_NAME_AUTHORS = "authors";
-	const BLOCK_NAME_RSS = "rss";
 
 	// ----------------------------------------------------
 	// hooks
@@ -70,6 +70,7 @@ class Plugin {
 	// ----------------------------------------------------
 	// options
 	// ----------------------------------------------------
+	const OPTION_DATA_VERSION = "blockx_data_version";
 	const OPTION_AUTO_SAVE_TIMEOUT = "blockx_auto_save_timeout";
 
 	// ----------------------------------------------------
@@ -99,6 +100,7 @@ class Plugin {
 		$this->gutenberg = new Gutenberg( $this );
 		$this->postHooks = new PostHooks( $this );
 		$this->settings  = new Settings( $this );
+		$this->update    = new Update( $this );
 
 		// for regeneration of permalinks after plugin activation/deactivation
 		register_activation_hook( __FILE__, array( $this, "activation" ) );

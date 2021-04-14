@@ -4,7 +4,7 @@ Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 5.7.0
-Stable tag: 1.0.8
+Stable tag: 1.0.10
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 
 == Changelog ==
+
+= 1.0.10 =
+* Bugfix: missing database table when updating from 1.0.0
 
 = 1.0.9 =
 * Bugfix: SSRQ rendering crash when using none latin1 chars
