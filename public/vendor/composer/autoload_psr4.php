@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Palasthotel\\WordPress\\BlockX\\' => array($baseDir . '/classes'),
+    'Palasthotel\\WordPress\\' => array($vendorDir . '/palasthotel/wp-components/src', $vendorDir . '/palasthotel/wp-components/src'),
 );

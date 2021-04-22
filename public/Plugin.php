@@ -18,6 +18,8 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+require_once dirname( __FILE__ ) . "/vendor/autoload.php";
+
 /**
  * @property string path
  * @property string url
@@ -31,7 +33,7 @@ namespace Palasthotel\WordPress\BlockX;
  * @property Settings settings
  * @property Update update
  */
-class Plugin {
+class Plugin extends \Palasthotel\WordPress\Plugin {
 
 	const DOMAIN = "blockx";
 	const HANDLE_JS_GUTENBERG = "blockx";
@@ -76,7 +78,7 @@ class Plugin {
 	// ----------------------------------------------------
 	// initialize plugin features
 	// ----------------------------------------------------
-	private function __construct() {
+	public function onCreate() {
 
 		/**
 		 * load translations
@@ -87,12 +89,6 @@ class Plugin {
 			dirname( plugin_basename( __FILE__ ) ) . '/languages'
 		);
 
-		$this->path     = plugin_dir_path( __FILE__ );
-		$this->url      = plugin_dir_url( __FILE__ );
-		$this->basename = plugin_basename( __FILE__ );
-
-		require_once dirname( __FILE__ ) . "/vendor/autoload.php";
-
 		$this->database  = new Database();
 		$this->rest      = new REST( $this );
 		$this->assets    = new Assets( $this );
@@ -101,10 +97,6 @@ class Plugin {
 		$this->postHooks = new PostHooks( $this );
 		$this->settings  = new Settings( $this );
 		$this->update    = new Update( $this );
-
-		// for regeneration of permalinks after plugin activation/deactivation
-		register_activation_hook( __FILE__, array( $this, "activation" ) );
-		register_deactivation_hook( __FILE__, array( $this, "deactivation" ) );
 
 		if ( WP_DEBUG ) {
 			$this->database->createTable();
@@ -115,34 +107,8 @@ class Plugin {
 	/**
 	 * on plugin activation
 	 */
-	function activation() {
+	function onActivation() {
 		$this->database->createTable();
-	}
-
-	/**
-	 * on plugin deactivation
-	 */
-	function deactivation() {
-	}
-
-
-	// ----------------------------------------------------
-	// singleton instance
-	// ----------------------------------------------------
-	/**
-	 * @var null|Plugin
-	 */
-	private static $instance = null;
-
-	/**
-	 * @return Plugin
-	 */
-	public static function instance() {
-		if ( static::$instance == null ) {
-			static::$instance = new static();
-		}
-
-		return static::$instance;
 	}
 
 }

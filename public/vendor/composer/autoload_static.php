@@ -10,6 +10,7 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
         'P' => 
         array (
             'Palasthotel\\WordPress\\BlockX\\' => 29,
+            'Palasthotel\\WordPress\\' => 22,
         ),
     );
 
@@ -18,48 +19,15 @@ class ComposerStaticInit4bf5107ee0c3455b4fd4e8ddf3d339d4
         array (
             0 => __DIR__ . '/../..' . '/classes',
         ),
+        'Palasthotel\\WordPress\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/palasthotel/wp-components/src',
+            1 => __DIR__ . '/..' . '/palasthotel/wp-components/src',
+        ),
     );
 
     public static $classMap = array (
-        'Palasthotel\\WordPress\\BlockX\\Assets' => __DIR__ . '/../..' . '/classes/Assets.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\Authors' => __DIR__ . '/../..' . '/classes/Blocks/Authors.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\AuthorsContent' => __DIR__ . '/../..' . '/classes/Blocks/_preparedContents.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\Debug' => __DIR__ . '/../..' . '/classes/Blocks/Debug.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\PostEmbed' => __DIR__ . '/../..' . '/classes/Blocks/PostEmbed.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\PostEmbedContent' => __DIR__ . '/../..' . '/classes/Blocks/_preparedContents.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\Posts' => __DIR__ . '/../..' . '/classes/Blocks/Posts.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\PostsContent' => __DIR__ . '/../..' . '/classes/Blocks/_preparedContents.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\_BlockType' => __DIR__ . '/../..' . '/classes/Blocks/_BlockType.php',
-        'Palasthotel\\WordPress\\BlockX\\Blocks\\_IBlockType' => __DIR__ . '/../..' . '/classes/Blocks/_IBlockType.php',
-        'Palasthotel\\WordPress\\BlockX\\Database' => __DIR__ . '/../..' . '/classes/Database.php',
-        'Palasthotel\\WordPress\\BlockX\\Gutenberg' => __DIR__ . '/../..' . '/classes/Gutenberg.php',
-        'Palasthotel\\WordPress\\BlockX\\Model\\BlockId' => __DIR__ . '/../..' . '/classes/Model/BlockId.php',
-        'Palasthotel\\WordPress\\BlockX\\Model\\BlockInstance' => __DIR__ . '/../..' . '/classes/Model/BlockInstance.php',
-        'Palasthotel\\WordPress\\BlockX\\Model\\ContentStructure' => __DIR__ . '/../..' . '/classes/Model/ContentStructure.php',
-        'Palasthotel\\WordPress\\BlockX\\Model\\Dependencies' => __DIR__ . '/../..' . '/classes/Model/Dependencies.php',
-        'Palasthotel\\WordPress\\BlockX\\Model\\Option' => __DIR__ . '/../..' . '/classes/Model/Option.php',
-        'Palasthotel\\WordPress\\BlockX\\Model\\StateLabel' => __DIR__ . '/../..' . '/classes/Model/StateLabel.php',
-        'Palasthotel\\WordPress\\BlockX\\PostHooks' => __DIR__ . '/../..' . '/classes/PostHooks.php',
-        'Palasthotel\\WordPress\\BlockX\\REST' => __DIR__ . '/../..' . '/classes/REST.php',
-        'Palasthotel\\WordPress\\BlockX\\Settings' => __DIR__ . '/../..' . '/classes/Settings.php',
-        'Palasthotel\\WordPress\\BlockX\\Templates' => __DIR__ . '/../..' . '/classes/Templates.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Divider' => __DIR__ . '/../..' . '/classes/Widgets/Divider.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Hidden' => __DIR__ . '/../..' . '/classes/Widgets/Hidden.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\ListOf' => __DIR__ . '/../..' . '/classes/Widgets/ListOf.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Media' => __DIR__ . '/../..' . '/classes/Widgets/Media.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Number' => __DIR__ . '/../..' . '/classes/Widgets/Number.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Panel' => __DIR__ . '/../..' . '/classes/Widgets/Panel.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Post' => __DIR__ . '/../..' . '/classes/Widgets/Post.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Readonly' => __DIR__ . '/../..' . '/classes/Widgets/Readonly.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Select' => __DIR__ . '/../..' . '/classes/Widgets/Select.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxQuery' => __DIR__ . '/../..' . '/classes/Widgets/TaxQuery.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\TaxonomyTerm' => __DIR__ . '/../..' . '/classes/Widgets/TaxonomyTerm.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Text' => __DIR__ . '/../..' . '/classes/Widgets/Text.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Textarea' => __DIR__ . '/../..' . '/classes/Widgets/Textarea.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\Toggle' => __DIR__ . '/../..' . '/classes/Widgets/Toggle.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\_IWidget' => __DIR__ . '/../..' . '/classes/Widgets/_IWidget.php',
-        'Palasthotel\\WordPress\\BlockX\\Widgets\\_Widget' => __DIR__ . '/../..' . '/classes/Widgets/_Widget.php',
-        'Palasthotel\\WordPress\\BlockX\\_Component' => __DIR__ . '/../..' . '/classes/_Component.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -13,3 +13,11 @@
  */
 
 include dirname( __FILE__ ) . "/public/plugin.php";
+
+register_activation_hook(__FILE__, function(){
+	\Palasthotel\WordPress\BlockX\Plugin::instance()->onActivation();
+});
+
+register_deactivation_hook(__FILE__, function(){
+	\Palasthotel\WordPress\BlockX\Plugin::instance()->onDeactivation();
+});

@@ -1,10 +1,19 @@
 {
+  "name": "palasthotel/blockx",
+  "description": "Gutenberg block building helper plugin",
   "autoload": {
-    "classmap": [
-      "classes"
-    ],
     "psr-4": {
-      "Palasthotel\\WordPress\\BlockX\\": "classes"
+      "Palasthotel\\WordPress\\BlockX\\": "classes",
+      "Palasthotel\\WordPress\\": "vendor/palasthotel/wp-components/src"
     }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/palasthotel/wp-components.git"
+    }
+  ],
+  "require": {
+    "palasthotel/wp-components": "0.0.2"
   }
 }
