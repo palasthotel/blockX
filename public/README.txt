@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.0.11 =
+* Refactoring: Uses wp-components library now
+
 = 1.0.10 =
 * Bugfix: missing database table when updating from 1.0.0
 
