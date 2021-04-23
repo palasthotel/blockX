@@ -157,6 +157,7 @@ class REST extends _Component {
 			"post_type"      => $post_type,
 			"post_status"    => $post_status,
 			"posts_per_page" => 50,
+			"suppress_filers" => false, //needed for wpml
 		], $block_instance );
 
 		$posts = get_posts( $args );
