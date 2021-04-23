@@ -121,6 +121,7 @@ class REST extends _Component {
 			"p"           => $post_id,
 			"post_type"   => "any",
 			"post_status" => [ "draft", "future", "publish" ],
+			"suppress_filers" => false, //needed for wpml
 		] );
 		if ( $query->have_posts() ) {
 			$query->the_post();
