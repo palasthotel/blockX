@@ -305,6 +305,7 @@ ListOf wraps a list of other widgets and lets you build a list of these widgets 
 
 ```php
 \Palasthotel\WordPress\BlockX\Widgets\ListOf::build(
+  string $key,
   string $label, 
   $contentStructure: ContentStructure
 )
