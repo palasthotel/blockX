@@ -1,8 +1,9 @@
 import {BaseControl, Button} from "@wordpress/components";
+import cloneDeep from 'lodash/cloneDeep'
 import ContentStructure from "../content-structure";
 import './ListOfWidget.css';
 
-const ListOfWidget = ({definition, value, onChange, ...rest})=> {
+const ListOfWidget = ({definition, value, onChange})=> {
     const onAdd = ()=>{
         const newItem = {};
         definition.contentStructure.forEach(widget=>{
@@ -11,7 +12,7 @@ const ListOfWidget = ({definition, value, onChange, ...rest})=> {
         onChange([
             ...value,
             newItem,
-        ])
+        ]);
     }
 
     const onClear = ()=>{
@@ -19,7 +20,7 @@ const ListOfWidget = ({definition, value, onChange, ...rest})=> {
     }
 
     const onChangeItem = (index, widgetKey, widgetValue)=>{
-        const newValue = [...value];
+        const newValue = cloneDeep(value);
         newValue[index][widgetKey] = widgetValue;
         onChange(newValue);
     }
