@@ -1,13 +1,14 @@
 import { Button, SelectControl, ToggleControl, FormTokenField, BaseControl } from "@wordpress/components";
-import { useEffect } from "@wordpress/element";
-import { useFetchTaxonomyTerms } from "../../hooks/use-taxonomy.js";
+import {useEffect, useState} from "@wordpress/element";
+import {useFetchTaxonomyTerms, useFetchTaxonomyTermsByIds} from "../../hooks/use-taxonomy.js";
 import { useTranslationWidgetTaxQuery } from '../../hooks/use-translation.js'
 import { buildOption } from "../../utils/select.js";
+import './TaxQueryWidget.css';
 
 const findTermByName = (name, terms) => terms.find(_t=>_t.name === name);
 const findTermBySlug = (slug, terms) => terms.find(_t => _t.slug === slug);
 const findTermById = (id, terms) => terms.find(_t => _t.id === id);
-const findTerm = (s, terms) =>findTermById(s, terms) || findTermBySlug(s, terms) || findTermByName(s, terms);
+const findTerm = (s, terms) => findTermById(s, terms) || findTermBySlug(s, terms) || findTermByName(s, terms);
 
 const ConditionControl = ({taxonomies, value, onChange}) => {
     const {taxonomy = taxonomies[0], termIds = [], operator = "OR"} = value;
@@ -16,7 +17,17 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
         label_add_terms,
         label_operator,
     } = useTranslationWidgetTaxQuery();
-    const taxonomyTerms = useFetchTaxonomyTerms(taxonomy);
+
+    const [tokenInput, setTokenInput] = useState("");
+    const [searchTermsInput, setSearchTermsInput] = useState("");
+    const {
+        terms: taxonomyTerms,
+        isResolving: isResolvingTaxonomyTerms,
+    } = useFetchTaxonomyTerms(taxonomy, searchTermsInput);
+    const {
+        terms: selectedTerms,
+        isResolving: isResolvingSelectedTerms,
+    } = useFetchTaxonomyTermsByIds(taxonomy, termIds);
 
     // ------------------------------------------------
     // auto select default taxonomy effect
@@ -26,9 +37,19 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
             onChange({
                 ...value,
                 taxonomy: taxonomies[0].value,
-            })
+            });
         }
-    }, [taxonomy, taxonomies])
+    }, [taxonomy, taxonomies]);
+
+    // ------------------------------------------------
+    // suggestions
+    // ------------------------------------------------
+    useEffect(()=>{
+        let requestTimeout = setTimeout(()=>{
+            setSearchTermsInput(tokenInput);
+        }, 600);
+       return ()=> clearTimeout(requestTimeout);
+    }, [termIds, tokenInput]);
 
     // ------------------------------------------------
     // taxonomy token field changed
@@ -36,16 +57,24 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
     const handleChangeTerms = (_terms)=>{
         const newTerms = _terms.map(t=>{
             const search = typeof t === typeof "" ? t : t.value;
-            const _term = findTerm(search, taxonomyTerms);
+            const _term = findTerm(search, taxonomyTerms) || findTerm(search, selectedTerms);
             return _term ? _term.id : search;
-        })
+        });
         onChange({
             ...value,
             termIds:newTerms
         })
     }
 
-    return <>
+    const handleTokenInputChange = (value)=>{
+        setTokenInput(value);
+    }
+
+    const cls = ["blockx--tax-query"];
+    if(isResolvingTaxonomyTerms) cls.push("is-resolving-search");
+    if(isResolvingSelectedTerms) cls.push("is-resolving-selection");
+
+    return <div className={cls.join(" ")}>
         <div>
             <SelectControl
                 label={label_taxonomy}
@@ -61,10 +90,10 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
             <FormTokenField
                 label={label_add_terms}
                 value={termIds.map(t=>{
-                    const taxonomyTerm = findTerm(t, taxonomyTerms)
+                    const taxonomyTerm = findTerm(t, selectedTerms)
                     return taxonomyTerm ? taxonomyTerm.name : t;
-                    
                 })}
+                onInputChange={handleTokenInputChange}
                 suggestions={taxonomyTerms.map(t=>(t.name))}
                 onChange={handleChangeTerms}
             />
@@ -82,7 +111,7 @@ const ConditionControl = ({taxonomies, value, onChange}) => {
                 }}
             />
         </div>
-    </>
+    </div>
 }
 
 const ConditionWrapper = ({children})=>{

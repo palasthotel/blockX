@@ -1,0 +1,12 @@
+.blockx--tax-query.is-resolving-selection .components-form-token-field__token{
+    animation: blockx-tax-query-blink 1s linear infinite;
+}
+.blockx--tax-query.is-resolving-search .components-form-token-field__label{
+    animation: blockx-tax-query-blink 1s linear infinite;
+}
+
+@keyframes blockx-tax-query-blink {
+    50% {
+        opacity: 0.4;
+    }
+}
