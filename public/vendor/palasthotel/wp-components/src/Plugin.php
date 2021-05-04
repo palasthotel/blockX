@@ -31,19 +31,38 @@ abstract class Plugin {
 
 	abstract function onCreate();
 
-	public function onActivation() {
+	public function onActivation( bool $networkWide ) {
+		if ( $networkWide ) {
+			MultiSite::foreach([$this, 'onSiteActivation']);
+		} else {
+			$this->onSiteActivation();
+		}
 	}
 
-	public function onDeactivation() {
+	public function onSiteActivation() {
+
 	}
 
-	private static $instance;
+	public function onDeactivation( bool $networkWide ) {
+		if ( $networkWide ) {
+			MultiSite::foreach([$this, 'onSiteDeactivation']);
+		} else {
+			$this->onSiteDeactivation();
+		}
+	}
+
+	public function onSiteDeactivation() {
+
+	}
+
+	private static $instances = [];
 
 	public static function instance() {
-		if ( ! self::$instance ) {
-			self::$instance = new static();
+		$class = get_called_class();
+		if ( ! isset( self::$instances[ $class ] ) ) {
+			self::$instances[ $class ] = new static();
 		}
 
-		return self::$instance;
+		return self::$instances[ $class ];
 	}
 }

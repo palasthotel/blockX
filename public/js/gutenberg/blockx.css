@@ -40,6 +40,26 @@
 .blockx--search-post__popover{
     min-width: 240px;
 }
+.blockx--tax-query.is-resolving-selection .components-form-token-field__token{
+    -webkit-animation: blockx-tax-query-blink 1s linear infinite;
+            animation: blockx-tax-query-blink 1s linear infinite;
+}
+.blockx--tax-query.is-resolving-search .components-form-token-field__label{
+    -webkit-animation: blockx-tax-query-blink 1s linear infinite;
+            animation: blockx-tax-query-blink 1s linear infinite;
+}
+
+@-webkit-keyframes blockx-tax-query-blink {
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes blockx-tax-query-blink {
+    50% {
+        opacity: 0.4;
+    }
+}
 .blockx-media-widget{
     border-radius: 5px;
     border: 1px solid #efefef;

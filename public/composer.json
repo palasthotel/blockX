@@ -3,8 +3,7 @@
   "description": "Gutenberg block building helper plugin",
   "autoload": {
     "psr-4": {
-      "Palasthotel\\WordPress\\BlockX\\": "classes",
-      "Palasthotel\\WordPress\\": "vendor/palasthotel/wp-components/src"
+      "Palasthotel\\WordPress\\BlockX\\": "classes"
     }
   },
   "repositories": [
@@ -14,6 +13,6 @@
     }
   ],
   "require": {
-    "palasthotel/wp-components": "0.0.2"
+    "palasthotel/wp-components": "0.0.8"
   }
 }

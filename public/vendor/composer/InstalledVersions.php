@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b9ce56ff1fc3150d072ba9ccba09eacf9ab019d3',
+    'reference' => 'ddef27b0f6172178a6be95a33babf58dc16dfc15',
     'name' => 'palasthotel/blockx',
   ),
   'versions' => 
@@ -42,16 +42,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b9ce56ff1fc3150d072ba9ccba09eacf9ab019d3',
+      'reference' => 'ddef27b0f6172178a6be95a33babf58dc16dfc15',
     ),
     'palasthotel/wp-components' => 
     array (
-      'pretty_version' => '0.0.2',
-      'version' => '0.0.2.0',
+      'pretty_version' => '0.0.8',
+      'version' => '0.0.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'aaee850cfde94c4d54d70bf651f138d126a3f986',
+      'reference' => '32b415345c5e3d7f50897e5db650093039dc1f00',
     ),
   ),
 );

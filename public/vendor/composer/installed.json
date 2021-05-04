@@ -2,20 +2,20 @@
     "packages": [
         {
             "name": "palasthotel/wp-components",
-            "version": "0.0.2",
-            "version_normalized": "0.0.2.0",
+            "version": "0.0.8",
+            "version_normalized": "0.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/palasthotel/wp-components.git",
-                "reference": "aaee850cfde94c4d54d70bf651f138d126a3f986"
+                "reference": "32b415345c5e3d7f50897e5db650093039dc1f00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palasthotel/wp-components/zipball/aaee850cfde94c4d54d70bf651f138d126a3f986",
-                "reference": "aaee850cfde94c4d54d70bf651f138d126a3f986",
+                "url": "https://api.github.com/repos/palasthotel/wp-components/zipball/32b415345c5e3d7f50897e5db650093039dc1f00",
+                "reference": "32b415345c5e3d7f50897e5db650093039dc1f00",
                 "shasum": ""
             },
-            "time": "2021-04-22T09:05:42+00:00",
+            "time": "2021-05-04T10:41:38+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -37,7 +37,7 @@
             "description": "Provide helper components for plugin and theme development",
             "homepage": "https://palasthotel.de",
             "support": {
-                "source": "https://github.com/palasthotel/wp-components/tree/0.0.2",
+                "source": "https://github.com/palasthotel/wp-components/tree/0.0.8",
                 "issues": "https://github.com/palasthotel/wp-components/issues"
             },
             "install-path": "../palasthotel/wp-components"
