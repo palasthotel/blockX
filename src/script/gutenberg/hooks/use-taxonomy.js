@@ -14,7 +14,7 @@ export const useFetchTaxonomyTerms = (taxonomy, search, per_page = 25)=>{
 
 export const useFetchTaxonomyTermsByIds = (taxonomy, termIds) => {
     return useSelect(select=> {
-        const query = {include: termIds};
+        const query = {include: termIds, per_page: -1};
         return {
             terms: select('core').getEntityRecords('taxonomy', taxonomy, query) || [],
             isResolving: select( 'core/data' ).isResolving( 'core', 'getEntityRecords', [ 'taxonomy', taxonomy, query ]),
