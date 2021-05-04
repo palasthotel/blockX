@@ -23,7 +23,7 @@ export const useFetchTaxonomyTermsByIds = (taxonomy, termIds) => {
 }
 
 export const useFetchTaxonomyTermsAsOptionsWithDefaultAny = (taxonomy)=>{
-    const terms = useFetchTaxonomyTerms(taxonomy);
+    const {terms} = useFetchTaxonomyTerms(taxonomy);
     const {
         term_select_any
     } = useTranslation();
