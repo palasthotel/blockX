@@ -21,6 +21,7 @@
     "@wordpress/plugins": "^2.25.3",
     "@wordpress/scripts": "^15.0.1",
     "@wordpress/server-side-render": "^1.21.3",
+    "lodash": "^4.17.21",
     "postcss": "^8.2.2",
     "swr": "^0.5.6"
   }
