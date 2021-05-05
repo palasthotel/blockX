@@ -4,7 +4,7 @@ Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 5.7.1
-Stable tag: 1.0.10
+Stable tag: 1.0.11
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 
 == Changelog ==
+
+= 1.0.12 =
+* Bugfix: Again fixed performance issues with tax query widget and several thousand terms
 
 = 1.0.11 =
 * Bugfix: fixed performance issues with tax query widget and several thousand terms
