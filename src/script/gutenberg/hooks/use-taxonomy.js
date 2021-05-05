@@ -1,29 +1,43 @@
-import { useSelect } from '@wordpress/data';
+import { useSelect, select } from '@wordpress/data';
 import { buildOption } from '../utils/select';
 import { useTranslation } from './use-translation';
+import {useEffect, useState} from "@wordpress/element";
+
+const useFetchTaxonomyTermsQuery = (taxonomy, query, deps) => {
+    const isResolving = useSelect(
+        select => select( 'core/data' ).isResolving( 'core', 'getEntityRecords', [ 'taxonomy', taxonomy, query ]),
+        [taxonomy, ...deps]
+    );
+    const [terms, setTerms] = useState([]);
+    useEffect(()=>{
+        setTerms(select('core').getEntityRecords('taxonomy', taxonomy, query) || []);
+    }, [isResolving, taxonomy, ...deps]);
+
+
+    return {
+        terms,
+        isResolving,
+    };
+}
 
 export const useFetchTaxonomyTerms = (taxonomy, search, per_page = 25)=>{
-    return useSelect(select=> {
-        const query = { per_page, search};
-        return {
-            terms: select('core').getEntityRecords('taxonomy', taxonomy, query) || [],
-            isResolving: select( 'core/data' ).isResolving( 'core', 'getEntityRecords', [ 'taxonomy', taxonomy, query ]),
-        };
-    }, [taxonomy, search]);
+    return useFetchTaxonomyTermsQuery(
+        taxonomy,
+        { per_page, search},
+        [search, per_page]
+    );
 }
 
 export const useFetchTaxonomyTermsByIds = (taxonomy, termIds) => {
-    return useSelect(select=> {
-        const query = {include: termIds, per_page: -1};
-        return {
-            terms: select('core').getEntityRecords('taxonomy', taxonomy, query) || [],
-            isResolving: select( 'core/data' ).isResolving( 'core', 'getEntityRecords', [ 'taxonomy', taxonomy, query ]),
-        }
-    }, [taxonomy, termIds]);
+    return useFetchTaxonomyTermsQuery(
+        taxonomy,
+        {include: termIds},
+        [termIds.join(",")]
+    );
 }
 
 export const useFetchTaxonomyTermsAsOptionsWithDefaultAny = (taxonomy)=>{
-    const terms = useFetchTaxonomyTerms(taxonomy);
+    const terms = useFetchTaxonomyTerms(taxonomy, "", -1);
     const {
         term_select_any
     } = useTranslation();
