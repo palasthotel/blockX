@@ -39,6 +39,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 = 1.0.11 =
 * Bugfix: fixed performance issues with tax query widget and several thousand terms
+* Bugfix: deep clone list widget changes to avoid reference problems when duplicating a block
 * Bugfix: ignore wpml constraints with suppress_filters in wp_query
 * Refactoring: Uses wp-components library now
 
