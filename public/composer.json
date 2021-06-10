@@ -5,14 +5,5 @@
     "psr-4": {
       "Palasthotel\\WordPress\\BlockX\\": "classes"
     }
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/palasthotel/wp-components.git"
-    }
-  ],
-  "require": {
-    "palasthotel/wp-components": "0.0.8"
   }
 }

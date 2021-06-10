@@ -8,14 +8,14 @@ use Palasthotel\WordPress\BlockX\Blocks\Authors;
 use Palasthotel\WordPress\BlockX\Blocks\Debug;
 use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
-use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Model\Option;
 
 /**
  * @property Dependencies jsDependencies
  */
-class Gutenberg extends _Component {
+class Gutenberg extends Component {
 
 	/**
 	 * @var _BlockType[]

@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Palasthotel\WordPress;
+namespace Palasthotel\WordPress\BlockX\Components;
 
 use wpdb;
 
 /**
  * @property wpdb wpdb
+ * @version 0.1.1
  */
 abstract class Database {
 

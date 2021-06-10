@@ -4,11 +4,11 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
- * Version: 1.0.11
+ * Version: 1.1.0
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 5.7.1
+ * Tested up to: 5.7.2
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @copyright Copyright (c) 2021, Palasthotel
@@ -17,6 +17,8 @@
  */
 
 namespace Palasthotel\WordPress\BlockX;
+
+use Palasthotel\WordPress\BlockX\Components\TextdomainConfig;
 
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
@@ -33,7 +35,7 @@ require_once dirname( __FILE__ ) . "/vendor/autoload.php";
  * @property Settings settings
  * @property Update update
  */
-class Plugin extends \Palasthotel\WordPress\Plugin {
+class Plugin extends Components\Plugin {
 
 	const DOMAIN = "blockx";
 	const HANDLE_JS_GUTENBERG = "blockx";
@@ -83,23 +85,22 @@ class Plugin extends \Palasthotel\WordPress\Plugin {
 		/**
 		 * load translations
 		 */
-		load_plugin_textdomain(
-			static::DOMAIN,
-			false,
-			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		$this->textdomainConfig = new TextdomainConfig(
+			Plugin::DOMAIN,
+			"languages"
 		);
 
 		$this->database  = new Database();
 		$this->rest      = new REST( $this );
 		$this->assets    = new Assets( $this );
-		$this->templates = new Templates( $this );
+		$this->templates = new Templates($this);
 		$this->gutenberg = new Gutenberg( $this );
 		$this->postHooks = new PostHooks( $this );
 		$this->settings  = new Settings( $this );
 		$this->update    = new Update( $this );
 
 		if ( WP_DEBUG ) {
-			$this->database->createTable();
+			$this->database->createTables();
 		}
 
 	}
@@ -108,7 +109,8 @@ class Plugin extends \Palasthotel\WordPress\Plugin {
 	 * on plugin activation
 	 */
 	function onSiteActivation() {
-		$this->database->createTable();
+		parent::onSiteActivation();
+		$this->database->createTables();
 	}
 
 }

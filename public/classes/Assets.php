@@ -9,7 +9,7 @@ use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use WP_Post_Type;
 use WP_Taxonomy;
 
-class Assets extends _Component {
+class Assets extends Components\Component {
 
 	/**
 	 * @param _BlockType[] $blocks
@@ -84,5 +84,6 @@ class Assets extends _Component {
 			'public' => true,
 		), 'objects' );
 	}
+
 
 }

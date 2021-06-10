@@ -4,12 +4,13 @@
 namespace Palasthotel\WordPress\BlockX;
 
 
-class Update extends _Component {
+use Palasthotel\WordPress\BlockX\Components\Component;
+
+class Update extends Component {
 
 	const DATA_VERSION = 1;
 
 	public function onCreate() {
-		parent::onCreate();
 		add_action( 'admin_init', [ $this, 'update' ] );
 	}
 
@@ -34,7 +35,7 @@ class Update extends _Component {
 	}
 
 	public function update_1(){
-		$this->plugin->database->createTable();
+		$this->plugin->database->createTables();
 	}
 
 }

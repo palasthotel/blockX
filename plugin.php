@@ -12,12 +12,14 @@
  * Domain Path:       /plugin/languages
  */
 
+use Palasthotel\WordPress\BlockX\Plugin;
+
 include dirname( __FILE__ ) . "/public/plugin.php";
 
 register_activation_hook(__FILE__, function($multisite){
-	\Palasthotel\WordPress\BlockX\Plugin::instance()->onActivation($multisite);
+	Plugin::instance()->onActivation($multisite);
 });
 
 register_deactivation_hook(__FILE__, function($multisite){
-	\Palasthotel\WordPress\BlockX\Plugin::instance()->onDeactivation($multisite);
+	Plugin::instance()->onDeactivation($multisite);
 });

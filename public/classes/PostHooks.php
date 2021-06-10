@@ -2,10 +2,11 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use WP_Post;
 
-class PostHooks extends _Component {
+class PostHooks extends Component {
 
 	public function onCreate() {
 		add_action( 'save_post', [ $this, 'save_post' ], 10, 2 );

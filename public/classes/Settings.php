@@ -4,9 +4,10 @@
 namespace Palasthotel\WordPress\BlockX;
 
 
-class Settings extends _Component {
+use Palasthotel\WordPress\BlockX\Components\Component;
+
+class Settings extends Component {
 	public function onCreate() {
-		parent::onCreate();
 		add_filter( 'plugin_action_links_' . $this->plugin->basename, array( $this, 'add_action_links' ) );
 		add_action( 'admin_init', array( $this, 'custom_settings' ) );
 	}

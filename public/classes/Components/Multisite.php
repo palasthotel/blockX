@@ -1,9 +1,13 @@
 <?php
 
 
-namespace Palasthotel\WordPress;
+namespace Palasthotel\WordPress\BlockX\Components;
 
-
+/**
+ * Class MultiSite
+ * @package Palasthotel\WordPress
+ * @version 0.1.1
+ */
 class MultiSite {
 	public static function foreach(callable $onSite){
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {

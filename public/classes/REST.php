@@ -3,10 +3,11 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Components\Component;
 use WP_Post;
 use WP_REST_Request;
 
-class REST extends _Component {
+class REST extends Component {
 
 	const NAMESPACE = "blockx/v1";
 

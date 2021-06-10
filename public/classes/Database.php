@@ -2,18 +2,13 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
-use wpdb;
-
 /**
- * @property wpdb wpdb
  * @property string table
  */
-class Database {
+class Database extends Components\Database {
 
-	public function __construct() {
-		global $wpdb;
-		$this->wpdb  = $wpdb;
-		$this->table = $wpdb->prefix . "blockx_post_embed";
+	public function init() {
+		$this->table = $this->wpdb->prefix . "blockx_post_embed";
 	}
 
 	/**
@@ -80,8 +75,8 @@ class Database {
 	/**
 	 * create tables if they do not exist
 	 */
-	function createTable() {
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	function createTables() {
+		parent::createTables();
 		\dbDelta( "CREATE TABLE IF NOT EXISTS $this->table
 			(
 			 id bigint(20) unsigned auto_increment,
