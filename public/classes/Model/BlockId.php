@@ -19,7 +19,7 @@ class BlockId {
 	}
 
 	public function equals( $id ) {
-		return (string) $this === $id;
+		return (string) $this === (string) $id;
 	}
 
 	public function __toString() {

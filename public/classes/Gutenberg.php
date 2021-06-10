@@ -93,11 +93,11 @@ class Gutenberg extends _Component {
 	/**
 	 * remove block type
 	 *
-	 * @param BlockId $id
+	 * @param string $id
 	 *
 	 * @return bool
 	 */
-	public function removeBlockType( BlockId $id ){
+	public function removeBlockType( string $id ){
 		if($this->tooLate){
 			error_log("BlockX: You cannot use addBlockType anymore. Please use blockx_collect action.");
 			return false;
