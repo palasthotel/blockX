@@ -8,6 +8,7 @@ use Palasthotel\WordPress\BlockX\Blocks\Authors;
 use Palasthotel\WordPress\BlockX\Blocks\Debug;
 use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
+use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Model\Option;
 
@@ -20,6 +21,7 @@ class Gutenberg extends _Component {
 	 * @var _BlockType[]
 	 */
 	private $blocks = [];
+	private $tooLate = false;
 
 	public function onCreate() {
 
@@ -32,6 +34,7 @@ class Gutenberg extends _Component {
 			// collect all block classes
 			do_action( Plugin::ACTION_COLLECT, $this );
 			// let blocks register
+			$this->tooLate = true;
 			foreach ( $this->blocks as $block ) {
 				$block->registerBlock();
 			}
@@ -51,7 +54,7 @@ class Gutenberg extends _Component {
 			if ( WP_DEBUG ) {
 				$gutenberg->addBlockType( new Debug() );
 			}
-		} );
+		}, 0 );
 
 		// ---------------------------
 		// enqueue assets
@@ -75,9 +78,34 @@ class Gutenberg extends _Component {
 	 * add a block type
 	 *
 	 * @param _BlockType $block
+	 *
+	 * @return bool
 	 */
 	public function addBlockType( _BlockType $block ) {
+		if($this->tooLate){
+			error_log("BlockX: You cannot use addBlockType anymore. Please use blockx_collect action.");
+			return false;
+		}
 		$this->blocks[] = $block;
+		return true;
+	}
+
+	/**
+	 * remove block type
+	 *
+	 * @param BlockId $id
+	 *
+	 * @return bool
+	 */
+	public function removeBlockType( BlockId $id ){
+		if($this->tooLate){
+			error_log("BlockX: You cannot use addBlockType anymore. Please use blockx_collect action.");
+			return false;
+		}
+		$this->blocks = array_values(array_filter($this->blocks, function($block) use ($id){
+			return !$block->id()->equals($id);
+		}));
+		return true;
 	}
 
 	/**
