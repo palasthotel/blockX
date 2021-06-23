@@ -9,20 +9,34 @@ use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use WP_Post_Type;
 use WP_Taxonomy;
 
+/**
+ * @property Components\Assets helper
+ */
 class Assets extends Components\Component {
+
+	public function onCreate() {
+		parent::onCreate();
+		$this->helper = new Components\Assets($this->plugin);
+	}
 
 	/**
 	 * @param _BlockType[] $blocks
 	 * @param Dependencies $dependencies
 	 */
 	function enqueueGutenberg( array $blocks, Dependencies $dependencies ) {
-		$info = include $this->plugin->path . "/js/gutenberg/blockx.asset.php";
-		wp_enqueue_script(
-			Plugin::HANDLE_JS_GUTENBERG,
-			$this->plugin->url . "/js/gutenberg/blockx.js",
-			array_merge( $info["dependencies"], $dependencies->get() ),
-			$info["version"]
+
+		$this->helper->registerStyle(
+			Plugin::HANDLE_CSS_GUTENBERG,
+			"dist/gutenberg.css"
 		);
+		wp_enqueue_style(Plugin::HANDLE_CSS_GUTENBERG);
+
+		$this->helper->registerScript(
+			Plugin::HANDLE_JS_GUTENBERG,
+			"dist/gutenberg.js",
+			$dependencies->get()
+		);
+		wp_enqueue_script(Plugin::HANDLE_JS_GUTENBERG);
 
 		wp_localize_script(
 			Plugin::HANDLE_JS_GUTENBERG,
@@ -59,14 +73,7 @@ class Assets extends Components\Component {
 				}, $blocks ),
 			]
 		);
-		if ( file_exists( $this->plugin->path . "/js/gutenberg/blockx.css" ) ) {
-			wp_enqueue_style(
-				Plugin::HANDLE_CSS_GUTENBERG,
-				$this->plugin->url . "/js/gutenberg/blockx.css",
-				[],
-				filemtime( $this->plugin->path . "/js/gutenberg/blockx.css" )
-			);
-		}
+
 	}
 
 	/**

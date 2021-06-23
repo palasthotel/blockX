@@ -29,10 +29,10 @@ class Templates extends Component {
 			try {
 				$test = new \ReflectionClass( $class );
 			} catch ( \ReflectionException $e ) {
-				return false;
+				break;
 			}
 			if ( $test->isAbstract() ) {
-				return false;
+				break;
 			}
 
 			$type = new $class();

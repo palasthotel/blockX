@@ -10,3 +10,4 @@ apiFetch.use((options, next)=>{
 
 import './gutenberg/blocks/block-x.js'
 import './gutenberg/auto/auto-ssr.js';
+import './gutenberg.scss';

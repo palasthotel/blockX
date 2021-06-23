@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.1.1 =
+* Bugfix: Template did not find default templates
+
 = 1.1.0 =
 * Feature: You may remove blockx blocks in collect action now
 
