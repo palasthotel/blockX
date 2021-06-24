@@ -2,52 +2,50 @@
 
 namespace Palasthotel\WordPress\BlockX\Components;
 
+use ReflectionClass;
 use ReflectionException;
 
 /**
  * @property string path
  * @property string url
  * @property string basename
- * @since 0.1.1
+ * @version 0.1.2
  */
 abstract class Plugin {
 
 	/**
-	 * @var TextdomainConfig|null
+	 * @var ReflectionClass
 	 */
-	var $textdomainConfig;
+	private ReflectionClass $ref;
+
+	private $tooLateForTextdomain;
 
 	/**
 	 * @throws ReflectionException
 	 */
 	public function __construct() {
-		$ref            = new \ReflectionClass( get_called_class() );
-		$this->path     = plugin_dir_path( $ref->getFileName() );
-		$this->url      = plugin_dir_url( $ref->getFileName() );
-		$this->basename = plugin_basename( $ref->getFileName() );
+		$this->ref      = new ReflectionClass( get_called_class() );
+		$this->path     = plugin_dir_path( $this->ref->getFileName() );
+		$this->url      = plugin_dir_url( $this->ref->getFileName() );
+		$this->basename = plugin_basename( $this->ref->getFileName() );
 
+		$this->tooLateForTextdomain = false;
 		$this->onCreate();
+		$this->tooLateForTextdomain = true;
 
-		if( $this->textdomainConfig instanceof TextdomainConfig){
-			add_action('init', function () use ($ref){
-				load_plugin_textdomain(
-					$this->textdomainConfig->domain,
-					false,
-					dirname( plugin_basename( $ref->getFileName() ) ) . "/" .$this->textdomainConfig->languages
-				);
-			});
-		}
-
-		register_activation_hook( $ref->getFileName(), array( $this, "onActivation" ) );
-		register_deactivation_hook( $ref->getFileName(), array( $this, "onDeactivation" ) );
+		register_activation_hook( $this->ref->getFileName(), array( $this, "onActivation" ) );
+		register_deactivation_hook( $this->ref->getFileName(), array( $this, "onDeactivation" ) );
 
 	}
 
+	// -----------------------------------------------------------------------------
+	// lifecycle methods
+	// -----------------------------------------------------------------------------
 	abstract function onCreate();
 
 	public function onActivation( $networkWide ) {
 		if ( $networkWide ) {
-			MultiSite::foreach([$this, 'onSiteActivation']);
+			$this->foreachMultisite( [ $this, 'onSiteActivation' ] );
 		} else {
 			$this->onSiteActivation();
 		}
@@ -59,7 +57,7 @@ abstract class Plugin {
 
 	public function onDeactivation( $networkWide ) {
 		if ( $networkWide ) {
-			MultiSite::foreach([$this, 'onSiteDeactivation']);
+			$this->foreachMultisite( [ $this, 'onSiteDeactivation' ] );
 		} else {
 			$this->onSiteDeactivation();
 		}
@@ -69,6 +67,43 @@ abstract class Plugin {
 
 	}
 
+	// -----------------------------------------------------------------------------
+	// utility methods
+	// -----------------------------------------------------------------------------
+	public function loadTextdomain( string $domain, string $relativeLanguagesPath ) {
+		if ( $this->tooLateForTextdomain ) {
+			error_log( "Too late: You need to setTextdomain in onCreate Method of the Plugin class." );
+			return;
+		}
+		add_action( 'init', function () use ( $domain, $relativeLanguagesPath ) {
+			load_plugin_textdomain(
+				$domain,
+				false,
+				dirname( plugin_basename( $this->ref->getFileName() ) ) . "/" . $relativeLanguagesPath
+			);
+		} );
+	}
+
+	public function foreachMultisite(callable $onSite){
+		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			$network_site = get_network()->site_id;
+			$args         = array( 'fields' => 'ids' );
+			$site_ids     = get_sites( $args );
+
+			// run the activation function for each blog id
+			foreach ( $site_ids as $site_id ) {
+				switch_to_blog( $site_id );
+				$onSite();
+			}
+
+			// switch back to the network site
+			switch_to_blog( $network_site );
+		}
+	}
+
+	// -----------------------------------------------------------------------------
+	// singleton pattern
+	// -----------------------------------------------------------------------------
 	private static $instances = [];
 
 	public static function instance() {

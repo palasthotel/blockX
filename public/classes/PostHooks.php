@@ -2,6 +2,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Model\BlockInstance;
 use WP_Post;
@@ -51,15 +52,29 @@ class PostHooks extends Component {
 			$map[ (string) $type->id() ] = $type;
 		}
 
+		$this->save_blocks($post_id, $blocks, $map);
+	}
+
+	/**
+	 * @param int|string $post_id
+	 * @param array $blocks
+	 * @param _BlockType[] $map
+	 */
+	public function save_blocks($post_id, array $blocks, array $map){
 		/**
 		 * check all blocks if it is a BlockX type and call onSaveInstance if it is
 		 */
 		foreach ( $blocks as $block ) {
+
+			if(!is_array($block) || !isset($block["blockName"])) continue;
+
 			$blockName = $block['blockName'];
 			if ( isset( $map[ $blockName ] ) ) {
 				$type     = $map[ $blockName ];
 				$instance = new BlockInstance( $block );
 				$type->onSaveInstance( $post_id, $instance );
+			} else if( isset($block["innerBlocks"]) && is_array($block["innerBlocks"])){
+				$this->save_blocks($post_id, $block["innerBlocks"], $map);
 			}
 		}
 	}
