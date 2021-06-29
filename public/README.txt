@@ -35,6 +35,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Changelog ==
 
 = 1.1.3 =
+* Optimization: always set block attributes, so we can use random defaults that are saved
 * Bugfix: property type declaration with php < 7.4 fix
 
 = 1.1.2 =
