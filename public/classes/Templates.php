@@ -7,7 +7,7 @@ use Palasthotel\WordPress\BlockX\Components\Component;
 
 class Templates extends Component {
 
-	private Components\Templates $component;
+	private $component;
 
 	public function onCreate() {
 		$this->component = new Components\Templates($this->plugin);

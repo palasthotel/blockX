@@ -16,7 +16,7 @@ abstract class Plugin {
 	/**
 	 * @var ReflectionClass
 	 */
-	private ReflectionClass $ref;
+	private $ref;
 
 	private $tooLateForTextdomain;
 

@@ -4,7 +4,7 @@ Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 5.7.2
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 
 == Changelog ==
+
+= 1.1.3 =
+* Bugfix: property type declaration with php < 7.4 fix
 
 = 1.1.2 =
 * Bugfix: Embedded posts in groups were handled as relations
