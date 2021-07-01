@@ -38,7 +38,7 @@ class Gutenberg extends Component {
 			foreach ( $this->blocks as $block ) {
 				$block->registerBlock();
 			}
-		} );
+		}, 99 );
 
 		// ---------------------------
 		// collect core blocks
