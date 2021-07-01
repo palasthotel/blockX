@@ -65,7 +65,7 @@ class Debug extends _BlockType {
 
 			Readonly::build( "readonly", "Readonly", "not writable" ),
 
-			Hidden::build( "hidden", "is a hidden value" ),
+			Hidden::build( "hidden", "is a hidden random value ".rand(1,99) ),
 
 			Divider::build(),
 

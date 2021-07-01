@@ -1,4 +1,4 @@
-import { registerBlockType } from '@wordpress/blocks'
+import {registerBlockType} from '@wordpress/blocks'
 import {InspectorControls} from '@wordpress/block-editor'
 import {useEffect, useState} from "@wordpress/element";
 import Panels from '../components/panels';
@@ -44,8 +44,6 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
         edit: (props) => {
             const {className,  setAttributes, attributes} = props;
 
-
-
             // for local state changes 
             const [localChangeState, setLocalChangeState] = useState({});
             const changeLocalState = (key, value) => {
@@ -54,6 +52,14 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                     [key]: value,
                 }));
             }
+
+            useEffect(()=>{
+                // set once so attributes will always be present
+                setContent({
+                    ...attributes.content,
+                    ...localChangeState,
+                })
+            }, []);
 
             useAutoSaveTimeout(()=>{
                 setContent({

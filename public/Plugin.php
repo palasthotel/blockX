@@ -4,7 +4,7 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
- * Version: 1.1.1
+ * Version: 1.1.3
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
@@ -17,8 +17,6 @@
  */
 
 namespace Palasthotel\WordPress\BlockX;
-
-use Palasthotel\WordPress\BlockX\Components\TextdomainConfig;
 
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
@@ -85,10 +83,7 @@ class Plugin extends Components\Plugin {
 		/**
 		 * load translations
 		 */
-		$this->textdomainConfig = new TextdomainConfig(
-			Plugin::DOMAIN,
-			"languages"
-		);
+		$this->loadTextdomain(Plugin::DOMAIN, "languages");
 
 		$this->database  = new Database();
 		$this->rest      = new REST( $this );
