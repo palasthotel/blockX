@@ -78,7 +78,7 @@ class Posts extends _BlockType {
 
 		// replace blockx args with wp tax query args
 		if ( isset( $content->tax_query ) && is_array( $content->tax_query ) ) {
-			$content->args["tax_query"] = TaxQuery::buildTaxQuery($content->tax_query);
+			$content->args["tax_query"] = TaxQuery::buildWPTaxQuery($content->tax_query);
 		}
 
 		return $content;

@@ -64,7 +64,7 @@ class TaxQuery extends _Widget {
 	 *
 	 * @return false|array
 	 */
-	public static function buildTaxQuery( array $args ) {
+	public static function buildWPTaxQuery( array $args ) {
 
 		if ( ! isset( $args["relation"] ) || ! isset( $args["taxonomies"] ) ) {
 			return false;
