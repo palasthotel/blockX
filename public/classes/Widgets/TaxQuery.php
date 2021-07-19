@@ -58,4 +58,46 @@ class TaxQuery extends _Widget {
 
 		return $arr;
 	}
+
+	/**
+	 * @param array $args
+	 *
+	 * @return false|array
+	 */
+	public static function buildTaxQuery( array $args ) {
+
+		if ( ! isset( $args["relation"] ) || ! isset( $args["taxonomies"] ) ) {
+			return false;
+		}
+		if ( ! is_array( $args["taxonomies"] ) ) {
+			return false;
+		}
+		$relation   = $args["relation"];
+		$taxonomies = $args["taxonomies"];
+		if ( count( $taxonomies ) == 0 ) {
+			return false;
+		}
+
+		$tax_query = [];
+		foreach ( $taxonomies as $item ) {
+			if ( ! isset( $item["taxonomy"] ) || ! isset( $item["termIds"] ) || ! is_array( $item["termIds"] ) ) {
+				continue;
+			}
+			$taxonomy = $item["taxonomy"];
+			$termIds  = $item["termIds"];
+			$query    = [
+				"taxonomy" => $taxonomy,
+				"field"    => "term_id",
+				"terms"    => $termIds,
+			];
+			if ( isset( $item["operator"] ) ) {
+				$query["operator"] = $item["operator"];
+			}
+			$tax_query[] = $query;
+		}
+		$tax_query['relation'] = $relation;
+
+		return $tax_query;
+
+	}
 }

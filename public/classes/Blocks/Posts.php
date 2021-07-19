@@ -76,63 +76,12 @@ class Posts extends _BlockType {
 			"post_type"      => isset( $content->post_type ) ? sanitize_text_field( $content->post_type ) : "any",
 		];
 
-		$taxQuery = $this->buildTaxQuery( $content );
-		if ( $taxQuery ) {
-			$content->args["tax_query"] = $taxQuery;
+		// replace blockx args with wp tax query args
+		if ( isset( $content->tax_query ) && is_array( $content->tax_query ) ) {
+			$content->args["tax_query"] = TaxQuery::buildTaxQuery($content->tax_query);
 		}
 
 		return $content;
-	}
-
-	/**
-	 * @param stdClass $content
-	 *
-	 * @return false|array
-	 */
-	private function buildTaxQuery( stdClass $content ) {
-
-		/**
-		 * @var PostsContent $content
-		 */
-
-		if ( ! isset( $content->tax_query ) || ! is_array( $content->tax_query ) ) {
-			return false;
-		}
-		$args = $content->tax_query;
-
-		if ( ! isset( $args["relation"] ) || ! isset( $args["taxonomies"] ) ) {
-			return false;
-		}
-		if ( ! is_array( $args["taxonomies"] ) ) {
-			return false;
-		}
-		$relation   = $args["relation"];
-		$taxonomies = $args["taxonomies"];
-		if ( count( $taxonomies ) == 0 ) {
-			return false;
-		}
-
-		$tax_query = [];
-		foreach ( $taxonomies as $item ) {
-			if ( ! isset( $item["taxonomy"] ) || ! isset( $item["termIds"] ) || ! is_array( $item["termIds"] ) ) {
-				continue;
-			}
-			$taxonomy = $item["taxonomy"];
-			$termIds  = $item["termIds"];
-			$query    = [
-				"taxonomy" => $taxonomy,
-				"field"    => "term_id",
-				"terms"    => $termIds,
-			];
-			if ( isset( $item["operator"] ) ) {
-				$query["operator"] = $item["operator"];
-			}
-			$tax_query[] = $query;
-		}
-		$tax_query['relation'] = $relation;
-
-		return $tax_query;
-
 	}
 
 }
