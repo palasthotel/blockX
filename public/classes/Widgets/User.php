@@ -25,7 +25,7 @@ class User extends _Widget {
 	/**
 	 * @param string[] $userRoles ['administrator', 'editor', 'author', 'contributor' …]
 	 */
-	public function setUserRoles( array $userRoles ): User {
+	public function roles( array $userRoles ): User {
 		$this->userRoles = $userRoles;
 
 		return $this;

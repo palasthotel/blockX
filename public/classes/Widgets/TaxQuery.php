@@ -37,11 +37,11 @@ class TaxQuery extends _Widget {
 	 *
 	 * @return TaxQuery
 	 */
-	public static function build( string $key, string $label, array $taxonomies, array $defaultValue = [] ) {
+	public static function build( string $key, string $label, array $taxonomies, array $defaultValue = [] ): TaxQuery {
 		return new static( $key, $label, $taxonomies, $defaultValue );
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$arr     = parent::toArray();
 		$options = [];
 		foreach ( $this->taxonomies as $tax ) {

@@ -17,7 +17,7 @@ class Text extends _Widget {
 		return new static( $key, $label, static::TYPE, $defaultValue );
 	}
 
-	public function rows( int $rows ) {
+	public function rows( int $rows ): Text {
 		try {
 			if ( $rows <= 0 ) {
 				throw new Exception( "BlockX Text Widget rows needs to be larger than 0 but is $rows" );
@@ -30,13 +30,13 @@ class Text extends _Widget {
 		return $this;
 	}
 
-	public function help( string $help ) {
+	public function help( string $help ): Text {
 		$this->help = $help;
 
 		return $this;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$arr         = parent::toArray();
 		$arr["rows"] = $this->rows;
 		$arr["help"] = $this->help;

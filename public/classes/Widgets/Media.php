@@ -22,7 +22,7 @@ class Media extends _Widget {
 		$this->mediaUploadTitle = "";
 	}
 
-	public static function build( string $key, string $label, string $defaultValue = "" ) {
+	public static function build( string $key, string $label, string $defaultValue = "" ): Media {
 		return new static( $key, $label, static::TYPE, $defaultValue );
 	}
 
@@ -31,37 +31,40 @@ class Media extends _Widget {
 	 *
 	 * @param string[] $mediaTypes ['image', 'audio', 'application/pdf', ...]
 	 *
-	 * @return $this
 	 */
-	public function setMediaTypes( array $mediaTypes ) {
+	public function mediaTypes( array $mediaTypes ): Media {
 		$this->mediaTypes = $mediaTypes;
 
 		return $this;
 	}
 
 	/**
-	 * @param boolean $allow
-	 *
-	 * @return $this
+	 * @deprecated use mediaTypes instead
 	 */
-	public function multiple( bool $allow ) {
+	public function setMediaTypes( array $mediaTypes ): Media {
+		return $this->mediaTypes($mediaTypes);
+	}
+
+	public function multiple( bool $allow ): Media {
 		$this->multiple = $allow === true;
 
 		return $this;
 	}
 
-	/**
-	 * @param string $title
-	 *
-	 * @return $this
-	 */
-	public function setMediaUploadTitle( string $title ) {
+	public function mediaUploadTitle( string $title ): Media {
 		$this->mediaUploadTitle = $title;
 
 		return $this;
 	}
 
-	public function toArray() {
+	/**
+	 * @deprecated use mediaUploadTitle instead
+	 */
+	public function setMediaUploadTitle( string $title ): Media {
+		return $this->mediaUploadTitle($title);
+	}
+
+	public function toArray(): array {
 		$arr                     = parent::toArray();
 		$arr["mediaTypes"]       = $this->mediaTypes;
 		$arr["multiple"]         = $this->multiple;

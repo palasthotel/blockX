@@ -32,11 +32,11 @@ class Panel extends _Widget {
 		$this->isOpened         = false;
 	}
 
-	public static function build( string $label, ContentStructure $contentStructure ) {
+	public static function build( string $label, ContentStructure $contentStructure ): Panel {
 		return new static( $label, $contentStructure );
 	}
 
-	public function opened( bool $isOpened ) {
+	public function opened( bool $isOpened ): Panel {
 		$this->isOpened = $isOpened;
 
 		return $this;

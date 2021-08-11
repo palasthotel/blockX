@@ -13,7 +13,7 @@ class Post extends _Widget {
 	private $postStatus = [ "publish" ];
 	private $useContext = false;
 
-	public static function build( string $key, string $label, $defaultValue = null ) {
+	public static function build( string $key, string $label, $defaultValue = null ): Post {
 		return new Post( $key, $label, static::TYPE, $defaultValue );
 	}
 
@@ -22,18 +22,18 @@ class Post extends _Widget {
 	 *
 	 * @return $this
 	 */
-	public function postTypes( array $postTypes ) {
+	public function postTypes( array $postTypes ): Post {
 		$this->postTypes = $postTypes;
 
 		return $this;
 	}
 
 	/**
-	 * @param array $postStatuses
+	 * @param string[] $postStatuses ["publish", "draft", ...]
 	 *
 	 * @return $this
 	 */
-	public function postStatus( array $postStatuses ) {
+	public function postStatus( array $postStatuses ): Post {
 		$this->postStatus = $postStatuses;
 
 		return $this;
@@ -46,13 +46,13 @@ class Post extends _Widget {
 	 *
 	 * @return $this
 	 */
-	public function useContext( bool $activate ) {
+	public function useContext( bool $activate ): Post {
 		$this->useContext = $activate;
 
 		return $this;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$arr                = parent::toArray();
 		$arr["post_types"]  = $this->postTypes;
 		$arr["post_status"] = $this->postStatus;

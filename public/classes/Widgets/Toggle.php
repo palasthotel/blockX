@@ -34,7 +34,7 @@ class Toggle extends _Widget {
 	 *
 	 * @return static
 	 */
-	public static function build( string $key, $label, bool $defaultValue = false ) {
+	public static function build( string $key, $label, bool $defaultValue = false ): Toggle {
 		return new self( $key, $label, $defaultValue );
 	}
 
@@ -43,13 +43,13 @@ class Toggle extends _Widget {
 	 *
 	 * @return $this
 	 */
-	public function help( $help ) {
+	public function help( $help ): Toggle {
 		$this->help = $help;
 
 		return $this;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$arr = parent::toArray();
 		if ( ! empty( $this->stateLabel ) ) {
 			$arr["label"] = $this->stateLabel->toArray();
@@ -63,7 +63,7 @@ class Toggle extends _Widget {
 		return $arr;
 	}
 
-	public function prepareValue( $value ) {
+	public function prepareValue( $value ): bool {
 		return is_bool( $value ) ? $value : "true" === $value;
 	}
 }

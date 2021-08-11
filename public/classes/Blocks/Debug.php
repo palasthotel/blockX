@@ -115,13 +115,13 @@ class Debug extends _BlockType {
 			Media::build( "default_image", "Default Media" ),
 
 			Media::build( "image_with_file_type", "File types" )
-			     ->setMediaTypes( [ "image", "application/pdf" ] ),
+			     ->mediaTypes( [ "image", "application/pdf" ] ),
 
 			Media::build( "media_pdf", "PDF only" )
-			     ->setMediaTypes( [ "application/pdf" ] ),
+			     ->mediaTypes( [ "application/pdf" ] ),
 
 			Media::build( "multiple_images", "Multiple images" )
-			     ->setMediaTypes( [ "image" ] )
+			     ->mediaTypes( [ "image" ] )
 			     ->multiple( true )
 			     ->setMediaUploadTitle( "Multiple files" ),
 
@@ -139,7 +139,8 @@ class Debug extends _BlockType {
 			// user relation
 			// ------------------------------------
 
-			User::build( "user_id", "User relation" )->setUserRoles( [ "administrator", "editor", "author", "contributor", "subscriber" ]),
+			User::build( "user_id", "User relation" )
+			    ->roles( [ "administrator", "editor", "author", "contributor", "subscriber" ]),
 
 			Divider::build(),
 

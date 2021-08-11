@@ -27,12 +27,7 @@ class Select extends _Widget {
 		$this->options = $options;
 	}
 
-	/**
-	 * @param bool $multiple
-	 *
-	 * @return $this
-	 */
-	public function multiple(bool $multiple){
+	public function multiple(bool $multiple): Select {
 		$this->multiple = $multiple;
 		return $this;
 	}
@@ -45,11 +40,11 @@ class Select extends _Widget {
 	 *
 	 * @return static
 	 */
-	public static function build( string $key, string $label, array $options, $defaultValue = null ) {
+	public static function build( string $key, string $label, array $options, $defaultValue = null ): Select {
 		return new static( $key, $label, $options, $defaultValue );
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$arr            = parent::toArray();
 		$arr["options"] = $this->options;
 		$arr["multiple"] = $this->multiple;

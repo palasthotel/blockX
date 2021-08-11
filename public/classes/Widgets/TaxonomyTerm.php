@@ -34,22 +34,17 @@ class TaxonomyTerm extends _Widget {
 	 *
 	 * @return $this
 	 */
-	public static function build( string $key, string $label, $taxonomy, $defaultValue = null ) {
+	public static function build( string $key, string $label, $taxonomy, $defaultValue = null ): TaxonomyTerm {
 		return new static( $key, $label, $taxonomy, $defaultValue );
 	}
 
-	/**
-	 * @param boolean $allow
-	 *
-	 * @return $this
-	 */
-	public function multiple( bool $allow ) {
+	public function multiple( bool $allow ): TaxonomyTerm {
 		$this->multiple = $allow;
 
 		return $this;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$arr             = parent::toArray();
 		$arr["taxonomy"] = $this->taxonomy instanceof WP_Taxonomy ? $this->taxonomy->name : $this->taxonomy;
 		$arr["multiple"] = $this->multiple;
