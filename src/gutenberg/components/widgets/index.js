@@ -1,6 +1,7 @@
 
 import NumberWidget from './NumberWidget.js'
 import PostWidget from './PostWidget.js';
+import UserWidget from './UserWidget.js';
 import SelectWidget from './SelectWidget.js';
 import TaxQueryWidget from './TaxQueryWidget.js';
 import TaxonomyTermWidget from './TaxonomyTermWidget.js';
@@ -22,6 +23,7 @@ const widgets = {
     taxonomy_term: TaxonomyTermWidget,
     tax_query: TaxQueryWidget,
     post: PostWidget,
+    user: UserWidget,
     hidden: HiddenWidget,
     divider: DividerWidget,
     readonly: ReadonlyWidget,

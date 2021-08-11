@@ -1,0 +1,42 @@
+.blockx-user{
+    padding: 10px;
+}
+.blockx-user + .blockx-user{
+    border-top: 1px solid #eee;
+}
+.blockx-user:hover{
+    background: #efefef;
+    cursor: pointer;
+}
+.blockx--locked-user{
+    position: relative;
+}
+.blockx--search-user__no-results{
+    padding: 10px;
+    font-style: italic;
+}
+.blockx--locked-user__icon{
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    top: 28px;
+    padding: 4px;
+    background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
+    
+}
+.blockx--locked-user__icon:hover{
+    cursor: pointer;
+}
+
+.blockx--search-users__input-wrapper{
+    position: relative;
+}
+.blockx--search-user__spinner-wrapper{
+    position: absolute;
+    bottom: 2px;
+    right: -6px;
+}
+
+.blockx--search-user__popover{
+    min-width: 240px;
+}

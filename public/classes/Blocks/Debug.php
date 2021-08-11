@@ -13,6 +13,7 @@ use Palasthotel\WordPress\BlockX\Widgets\Hidden;
 use Palasthotel\WordPress\BlockX\Widgets\Media;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
+use Palasthotel\WordPress\BlockX\Widgets\User;
 use Palasthotel\WordPress\BlockX\Widgets\Readonly;
 use Palasthotel\WordPress\BlockX\Widgets\Textarea;
 use Palasthotel\WordPress\BlockX\Widgets\Toggle;
@@ -131,6 +132,14 @@ class Debug extends _BlockType {
 			// ------------------------------------
 
 			Post::build( "post_id", "Post relation" )->postTypes( [ "post", "uebung" ] ),
+
+			Divider::build(),
+
+			// ------------------------------------
+			// user relation
+			// ------------------------------------
+
+			User::build( "user_id", "User relation" )->setUserRoles( [ "administrator", "editor", "author", "contributor", "subscriber" ]),
 
 			Divider::build(),
 
