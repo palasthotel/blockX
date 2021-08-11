@@ -9,6 +9,7 @@
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
  * Tested up to: 5.8
+ * Requires PHP: 7.3
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @copyright Copyright (c) 2021, Palasthotel
