@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.1.5 =
+* New Widget: User
+
 = 1.1.4 =
 * Optimization: Provide helper function to build wp query args from TaxQuery widget args.
 

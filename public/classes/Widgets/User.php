@@ -4,8 +4,6 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-use Palasthotel\WordPress\BlockX\Plugin;
-
 class User extends _Widget {
 
 	const TYPE = "user";
@@ -17,27 +15,25 @@ class User extends _Widget {
 
 	public function __construct( string $key, string $label, string $type, $defaultValue ) {
 		parent::__construct( $key, $label, $type, $defaultValue );
-		$this->userRoles       = [];
+		$this->userRoles = [];
 	}
 
-	public static function build( string $key, string $label, $defaultValue = null ) {
+	public static function build( string $key, string $label, $defaultValue = null ): User {
 		return new User( $key, $label, static::TYPE, $defaultValue );
 	}
 
 	/**
 	 * @param string[] $userRoles ['administrator', 'editor', 'author', 'contributor' …]
-	 *
-	 * @return $this
 	 */
-	public function setUserRoles( array $userRoles ) {
+	public function setUserRoles( array $userRoles ): User {
 		$this->userRoles = $userRoles;
 
 		return $this;
 	}
 
-	public function toArray() {
-		$arr                = parent::toArray();
-		$arr["roles"]  = $this->userRoles;
+	public function toArray(): array {
+		$arr          = parent::toArray();
+		$arr["roles"] = $this->userRoles;
 
 		return $arr;
 	}
