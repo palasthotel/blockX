@@ -257,6 +257,15 @@ Select one specific post content.
 ->postStatus(["publish", "future"]); // default is ["publish"]
 ```
 
+### User
+
+Select one specific user.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\User::build(string $key, string $label, $defaultValue)
+->roles(["administrator", "editor"]) // default is [""] which gives you all roles
+```
+
 ### TaxonomyTerm
 
 Choose a term of a taxonomy from a select field.
