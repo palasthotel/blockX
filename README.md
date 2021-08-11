@@ -263,7 +263,7 @@ Select one specific user.
 
 ```php
 \Palasthotel\WordPress\BlockX\Widgets\User::build(string $key, string $label, $defaultValue)
-->roles(["administrator", "editor"]) // default is [""] which gives you all roles
+->setUserRoles(["administrator", "editor"]) // default is [""] which gives you all roles
 ```
 
 ### TaxonomyTerm
