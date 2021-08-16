@@ -3,9 +3,16 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
+use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\BlockX\Widgets\_AjaxWidget;
+use Palasthotel\WordPress\BlockX\Widgets\_IWidget;
+use Palasthotel\WordPress\BlockX\Widgets\_IWidgetGroup;
+use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use WP_Post;
 use WP_REST_Request;
+use WP_REST_Server;
 
 class REST extends Component {
 
@@ -20,7 +27,7 @@ class REST extends Component {
 			static::NAMESPACE,
 			'/ssr',
 			array(
-				'methods'             => "POST",
+				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'ssr' ),
 				'permission_callback' => function ( WP_REST_Request $request ) {
 					return current_user_can( 'edit_posts' );
@@ -44,7 +51,7 @@ class REST extends Component {
 			static::NAMESPACE,
 			'/query',
 			array(
-				'methods'             => "POST",
+				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'query' ),
 				'permission_callback' => function ( WP_REST_Request $request ) {
 					return current_user_can( 'edit_posts' );
@@ -93,7 +100,7 @@ class REST extends Component {
 			static::NAMESPACE,
 			'/get/(?P<id>\d+)',
 			array(
-				'methods'             => "GET",
+				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get' ),
 				'permission_callback' => function ( WP_REST_Request $request ) {
 					return current_user_can( 'edit_posts' );
@@ -105,6 +112,55 @@ class REST extends Component {
 							return is_numeric( $param );
 						},
 					),
+				]
+			)
+		);
+		register_rest_route(
+			static::NAMESPACE,
+			'/ajax/(?P<block_ns>[\S]+)/(?P<block_id>[\S]+)/(?P<widget_key_path>[\S.]+)',
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'ajax' ),
+				'permission_callback' => function ( WP_REST_Request $request ) {
+					return true; //current_user_can( 'edit_posts' );
+				},
+				'args'                => [
+					"block_ns" => array(
+						'required'          => true,
+						'validate_callback' => function ( $param, $request, $key ) {
+							return is_string( $param );
+						},
+						'sanitize_callback' => function($param){
+							return sanitize_text_field($param);
+						}
+					),
+					"block_id" => array(
+						'required'          => true,
+						'validate_callback' => function ( $param, $request, $key ) {
+							return is_string( $param );
+						},
+						'sanitize_callback' => function($param){
+							return sanitize_text_field($param);
+						}
+					),
+					"widget_key_path" => array(
+						'required'          => true,
+						'validate_callback' => function ( $param, $request, $key ) {
+							return is_string( $param );
+						},
+						'sanitize_callback' => function($param){
+							return sanitize_text_field($param);
+						}
+					),
+					"query" => [
+						'required'          => true,
+						'validate_callback' => function ( $param, $request, $key ) {
+							return is_string( $param );
+						},
+						'sanitize_callback' => function($param){
+							return sanitize_text_field($param);
+						}
+					]
 				]
 			)
 		);
@@ -189,13 +245,70 @@ class REST extends Component {
 		$id   = $request->get_param( "id" );
 		$post = get_post( $id );
 		if ( ! ( $post instanceof WP_Post ) ) {
-			return new \Error( "no_post", __( "No post found.", Plugin::DOMAIN ), [ "status" => 404 ] );
+			return new \WP_Error( "no_post", __( "No post found.", Plugin::DOMAIN ), [ "status" => 404 ] );
 		}
 
 		return [
 			"ID"         => $post->ID,
 			"post_title" => $post->post_title,
 		];
+	}
+
+	public function ajax( WP_REST_Request $request ){
+		$blockNamespace = $request->get_param("block_ns");
+		$blockNamespaceId = $request->get_param("block_id");
+		$widgetKeyPath = $request->get_param("widget_key_path");
+		$query = $request->get_param("query");
+		$keyParts = explode(".",$widgetKeyPath);
+
+		$blockId = BlockId::build($blockNamespace, $blockNamespaceId);
+		$blockType = $this->plugin->gutenberg->getBlockType( $blockId );
+		if(!($blockType instanceof _IBlockType)){
+			return new \WP_Error("BlockType not found.");
+		}
+		$widgets = $blockType->contentStructure()->getItems();
+
+		$widget = null;
+		for ($i = 0; $i < count($keyParts); $i++){
+			$key = $keyParts[$i];
+			$widget = $this->findWidget($key, $widgets);
+			if($widget instanceof _IWidgetGroup){
+				$widgets = $widget->contentStructure()->getItems();
+				continue;
+			}
+			break;
+		}
+
+		if($widget instanceof _AjaxWidget){
+			return apply_filters(
+				Plugin::FILTER_REST_AJAX,
+				$widget->ajax($query, $request),
+				$request,
+				$widget
+			);
+		}
+
+		return  new \WP_Error("Invalid widget type");
+	}
+
+	/**
+	 * @param string $key
+	 * @param _IWidget[] $widgets
+	 *
+	 * @return false|_IWidget
+	 */
+	private function findWidget($key, $widgets){
+		foreach ($widgets as $item){
+			if($item instanceof Panel){
+				$widget = $this->findWidget($key, $item->contentStructure()->getItems());
+				if($widget instanceof _IWidget){
+					return $widget;
+				}
+			} else if($item->key() == $key){
+				return $item;
+			}
+		}
+		return false;
 	}
 
 }

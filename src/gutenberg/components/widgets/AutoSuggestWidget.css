@@ -1,0 +1,10 @@
+.blockx-auto-suggest__suggestion{
+    padding: 12px;
+}
+.blockx-auto-suggest__suggestion:hover{
+    cursor: pointer;
+    background: #efefef;
+}
+.blockx-auto-suggest__suggestion + .blockx-auto-suggest__suggestion {
+    border-top: 1px solid #eee;
+}

@@ -1,0 +1,10 @@
+.blockx-url__suggestion{
+    padding: 12px;
+}
+.blockx-url__suggestion:hover{
+    cursor: pointer;
+    background: #efefef;
+}
+.blockx-url__suggestion + .blockx-url__suggestion {
+    border-top: 1px solid #eee;
+}

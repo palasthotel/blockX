@@ -13,6 +13,8 @@ import DividerWidget from './DividerWidget.js';
 import ReadonlyWidget from './ReadonlyWidget.js';
 import MediaWidget from "./MediaWidget";
 import ListOfWidget from "./ListOfWidget";
+import AutoSuggestWidget from "./AutoSuggestWidget";
+import UrlWidget from "./UrlWidget";
 
 const widgets = {
     text: TextWidget,
@@ -28,6 +30,8 @@ const widgets = {
     divider: DividerWidget,
     readonly: ReadonlyWidget,
     media: MediaWidget,
+    url: UrlWidget,
+    auto_suggest: AutoSuggestWidget,
     list_of: ListOfWidget,
 }
 

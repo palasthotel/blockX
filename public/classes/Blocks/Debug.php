@@ -8,11 +8,13 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
+use Palasthotel\WordPress\BlockX\Widgets\AutoSuggest;
 use Palasthotel\WordPress\BlockX\Widgets\Divider;
 use Palasthotel\WordPress\BlockX\Widgets\Hidden;
 use Palasthotel\WordPress\BlockX\Widgets\Media;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
+use Palasthotel\WordPress\BlockX\Widgets\Url;
 use Palasthotel\WordPress\BlockX\Widgets\User;
 use Palasthotel\WordPress\BlockX\Widgets\Readonly;
 use Palasthotel\WordPress\BlockX\Widgets\Textarea;
@@ -66,7 +68,7 @@ class Debug extends _BlockType {
 
 			Readonly::build( "readonly", "Readonly", "not writable" ),
 
-			Hidden::build( "hidden", "is a hidden random value ".rand(1,99) ),
+			Hidden::build( "hidden", "is a hidden random value " . rand( 1, 99 ) ),
 
 			Divider::build(),
 
@@ -102,7 +104,7 @@ class Debug extends _BlockType {
 				Option::build( "option1", "Option 1" ),
 				Option::build( "option2", "Option 2" ),
 				Option::build( "option3", "Option 3" ),
-			], ["option1"] ) ->multiple(true),
+			], [ "option1" ] )->multiple( true ),
 
 			Select::build( "post_type", "Select post type", Gutenberg::getPostTypeOptions(), "post" ),
 			Select::build( "taxonomies", "Select a taxonomy", Gutenberg::getTaxonomyOptions() ),
@@ -123,7 +125,7 @@ class Debug extends _BlockType {
 			Media::build( "multiple_images", "Multiple images" )
 			     ->mediaTypes( [ "image" ] )
 			     ->multiple( true )
-			     ->setMediaUploadTitle( "Multiple files" ),
+			     ->mediaUploadTitle( "Multiple files" ),
 
 			Divider::build(),
 
@@ -140,15 +142,24 @@ class Debug extends _BlockType {
 			// ------------------------------------
 
 			User::build( "user_id", "User relation" )
-			    ->roles( [ "administrator", "editor", "author", "contributor", "subscriber" ]),
+			    ->roles( [ "administrator", "editor", "author", "contributor", "subscriber" ] ),
 
 			Divider::build(),
+
+			// ------------------------------------
+			// autosuggest
+			// ------------------------------------
+			AutoSuggest::build( "auto_suggest", "AutoSuggests" )
+			           ->suggest( function () {
+				           return [ 1, 2, 3, 4 ];
+			           } ),
+			Url::build( "url", "Url" ),
 
 			// ------------------------------------
 			// taxonomies
 			// ------------------------------------
 			TaxonomyTerm::build( "taxonomy_term", "Select single tax term", "category" ),
-			TaxonomyTerm::build( "taxonomy_terms", "Multiple tax Terms", "category" )->multiple( true ),
+			TaxonomyTerm::build( "taxonomy_terms", "Multiple tax Terms", "post_tag" )->multiple( true ),
 			TaxQuery::build( "tax_query", "Tax Query", Plugin::instance()->assets->getTaxonomies() ),
 
 			Divider::build(),
@@ -158,12 +169,19 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			Panel::build( "Collapsible content", new ContentStructure( [
 				Number::build( "offset2", "Offset 2", 0 ),
+				Url::build( "panel_url", "Url" ),
 			] ) ),
 
 			ListOf::build( "list", "List of things", [
 				Post::build( "post_id", "Post" ),
 				Number::build( "offset", "Offset", 4 ),
+				Url::build( "url", "Url" ),
+				AutoSuggest::build( "auto_suggest", "AutoSuggests" )
+				           ->suggest( function () {
+					           return [ 1, 2, 3, 4 ];
+				           } ),
 				ListOf::build( "second_list", "Sublist", [
+					Url::build( "url", "Url" ),
 					Text::build( "title", "Title" ),
 				] ),
 			] ),

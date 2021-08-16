@@ -3,7 +3,14 @@ import cloneDeep from 'lodash/cloneDeep'
 import ContentStructure from "../content-structure";
 import './ListOfWidget.css';
 
-const ListOfWidget = ({definition, value, onChange})=> {
+const ListOfWidget = ({definition, value, savedState, onChange})=> {
+
+    const {
+        label,
+        key,
+        parentPath,
+    } = definition;
+
     const onAdd = ()=>{
         const newItem = {};
         definition.contentStructure.forEach(widget=>{
@@ -46,10 +53,11 @@ const ListOfWidget = ({definition, value, onChange})=> {
 
     return <BaseControl
         className="blockx-list-of-widget"
-        label={definition.label}
+        label={label}
     >
         <div className="blockx-list-of-widget__body">
         {value.map((instanceValue, index )=> {
+            const itemSavedState = Array.isArray(savedState) && savedState.length > index ? savedState[index] : undefined;
             return <div className="blockx-list-of-widget__item" key={index}>
                 <div className="blockx-list-of-widget__item--control blockx-list-of-widget__item--control-top">
                     <Button
@@ -65,6 +73,8 @@ const ListOfWidget = ({definition, value, onChange})=> {
                 <ContentStructure
                     items={definition.contentStructure}
                     value={instanceValue}
+                    savedState={itemSavedState}
+                    parentPath={parentPath+key+"."}
                     onChange={(widgetKey, widgetValue)=>onChangeItem(index, widgetKey, widgetValue)}
                 />
                 <div className="blockx-list-of-widget__item--control blockx-list-of-widget__item--control-bottom">

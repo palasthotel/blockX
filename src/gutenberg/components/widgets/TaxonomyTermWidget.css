@@ -1,0 +1,10 @@
+.blockx-taxonomy-term__suggestion{
+    padding: 12px;
+}
+.blockx-taxonomy-term__suggestion:hover{
+    cursor: pointer;
+    background: #efefef;
+}
+.blockx-taxonomy-term__suggestion + .blockx-taxonomy-term__suggestion {
+    border-top: 1px solid #eee;
+}

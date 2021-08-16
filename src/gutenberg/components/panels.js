@@ -54,6 +54,7 @@ const Panels = ({definition, content, setContent})=>{
                     ...content,
                     ...localChanges
                 }}
+                savedState={content}
                 onChange={(key, value)=>{
                     changeLocalState(key, value)
                 }}

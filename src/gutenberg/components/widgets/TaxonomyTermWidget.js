@@ -5,6 +5,7 @@ import {findTerm} from "../../utils/selectors";
 import LockedTextControl from "../LockedTextControl";
 import AutoCompleteTextControl from "../AutoCompleteTextControl";
 import {useTaxonomyTermsCompletionFactory} from "../../hooks/use-completion";
+import './TaxonomyTermWidget.css';
 
 const MultipleTaxonomyTerms = ({definition, value, onChange}) => {
 
@@ -97,7 +98,13 @@ const SingleTaxonomyTerm = ({definition, value, onChange}) => {
         label={label}
         useCompletion={useCompletion}
         renderItem={(item) => {
-            return <p key={item.id} onClick={() => onChange(item.id)}>{item.name}</p>
+            return <div
+                key={item.id}
+                onClick={() => onChange(item.id)}
+                className="blockx-taxonomy-term__suggestion"
+            >
+                {item.name}
+            </div>
         }}
     />
 }
