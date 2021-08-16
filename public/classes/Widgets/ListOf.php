@@ -5,7 +5,7 @@ namespace Palasthotel\WordPress\BlockX\Widgets;
 
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 
-class ListOf extends _Widget {
+class ListOf extends _Widget implements _IWidgetGroup {
 
 	const TYPE = "list_of";
 
@@ -31,10 +31,7 @@ class ListOf extends _Widget {
 		return new static( $key, $label, $contentStructure, $defaultValue );
 	}
 
-	/**
-	 * @return ContentStructure
-	 */
-	public function contentStructure() {
+	public function contentStructure(): ContentStructure {
 		return $this->contentStructure;
 	}
 

@@ -43,10 +43,8 @@ class Gutenberg extends Component {
 		// ---------------------------
 		// collect core blocks
 		// ---------------------------
-		add_action( Plugin::ACTION_COLLECT, function ( $gutenberg ) {
-			/**
-			 * @var Gutenberg $gutenberg
-			 */
+		add_action( Plugin::ACTION_COLLECT, function ( Gutenberg $gutenberg ) {
+
 			$gutenberg->addBlockType( new Posts() );
 			$gutenberg->addBlockType( new PostEmbed() );
 			$gutenberg->addBlockType( new Authors() );
@@ -54,6 +52,8 @@ class Gutenberg extends Component {
 			if ( WP_DEBUG ) {
 				$gutenberg->addBlockType( new Debug() );
 			}
+
+
 		}, 0 );
 
 		// ---------------------------

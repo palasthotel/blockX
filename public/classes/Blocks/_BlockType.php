@@ -66,7 +66,7 @@ abstract class _BlockType implements _IBlockType {
 		foreach ( $this->contentStructure()->getItems() as $widget ) {
 
 			if ( $widget instanceof Panel ) {
-				foreach ( $widget->getItems() as $_widget ) {
+				foreach ( $widget->contentStructure()->getItems() as $_widget ) {
 					$key          = $_widget->key();
 					$defaultValue = $_widget->defaultValue();
 					if ( ! isset( $content->{$key} ) ) {

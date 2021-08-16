@@ -6,7 +6,7 @@ namespace Palasthotel\WordPress\BlockX\Widgets;
 
 use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 
-class Panel extends _Widget {
+class Panel extends _Widget implements _IWidgetGroup {
 
 	const TYPE = "panel";
 
@@ -42,8 +42,8 @@ class Panel extends _Widget {
 		return $this;
 	}
 
-	public function getItems() {
-		return $this->contentStructure->getItems();
+	public function contentStructure(): ContentStructure {
+		return $this->contentStructure;
 	}
 
 	public function toArray() {
