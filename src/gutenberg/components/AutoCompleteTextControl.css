@@ -2,16 +2,3 @@
     padding: 10px;
     font-style: italic;
 }
-
-.blockx--auto-completes__input-wrapper{
-    position: relative;
-}
-.blockx--auto-complete__spinner-wrapper{
-    position: absolute;
-    bottom: 2px;
-    right: -6px;
-}
-
-.blockx--auto-complete__popover{
-    min-width: 240px;
-}

@@ -1,0 +1,17 @@
+.blockx--popover-text-control__no-results{
+    padding: 10px;
+    font-style: italic;
+}
+
+.blockx--popover-text-control__input-wrapper{
+    position: relative;
+}
+.blockx--popover-text-control__spinner-wrapper{
+    position: absolute;
+    bottom: 2px;
+    right: -6px;
+}
+
+.blockx--popover-text-control__popover{
+    min-width: 240px;
+}
