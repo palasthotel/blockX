@@ -1,8 +1,8 @@
-import {BaseControl, Icon, Popover, Spinner, TextControl} from "@wordpress/components";
-import { useState } from "@wordpress/element";
-import { useEscapeKey } from "../../hooks/use-utils.js";
-import { useFetchPosts, usePost } from "../../hooks/use-posts";
+import {usePost} from "../../hooks/use-posts";
 import './PostWidget.css'
+import LockedTextControl from "../LockedTextControl";
+import {usePostsCompletionFactory} from "../../hooks/use-completion";
+import AutoCompleteTextControl from "../AutoCompleteTextControl";
 
 const PostSearchResult = ({ID, post_title, onClick})=>{
     return <div 
@@ -16,53 +16,19 @@ const PostSearchResult = ({ID, post_title, onClick})=>{
 
 const SearchPost = ({label, post_types, post_status, use_context, onFound})=>{
 
-    const [state, setState] = useState("")
-    const [isVisible, setIsVisible] = useState(false)
+    const useCompletion = usePostsCompletionFactory(post_types, post_status, use_context);
 
-    const {posts, isLoading} = useFetchPosts(state, post_types, post_status, use_context)
-
-    useEscapeKey(()=>{
-        setIsVisible(false)
-    }, [isVisible], isVisible)
-
-    return <BaseControl className="blockx--search-post">
-        <div className="blockx--search-posts__input-wrapper">
-            <TextControl
-                label={label}
-                value={state}
-                onChange={(value)=>{
-                    setIsVisible(true)
-                    setState(value);
-                }}
-                onFocus={()=>setIsVisible(true)}
+    return <AutoCompleteTextControl
+        label={label}
+        useCompletion={useCompletion}
+        renderItem={(post) => {
+            return <PostSearchResult
+                key={post.ID}
+                {...post}
+                onClick={()=>onFound(post.ID)}
             />
-            {isLoading && (<span 
-                className="blockx--search-post__spinner-wrapper"
-            ><Spinner/></span>)}
-        </div>
-        
-        { isVisible ? (
-            <Popover 
-                focusOnMount={false}
-                position="bottom center"
-            >
-                <div className="blockx--search-post__popover">
-
-
-                {posts.length > 0 ? 
-                    posts.map(post=> <PostSearchResult 
-                            key={post.ID}
-                            {...post} 
-                            onClick={()=>onFound(post.ID)} 
-                        />
-                    )
-                    :
-                    <p className="blockx--search-post__no-results">{isLoading ? "Searching..." : "No posts found."}</p>
-                }
-                </div>
-            </Popover>
-        ) : null}
-    </BaseControl>
+        }}
+    />
 }
 
 const LockedPost = ({label,post_id, onUnlock})=>{
@@ -73,18 +39,11 @@ const LockedPost = ({label,post_id, onUnlock})=>{
         post_title = post_id
     } = post;
 
-    return <BaseControl
-        className="blockx--locked-post"
-    >
-        <TextControl
-            label={label}
-            value={post_title}
-            readOnly={true}
-        />
-        <span className="blockx--locked-post__icon" onClick={onUnlock} >
-            <Icon icon="no" />
-        </span>
-    </BaseControl>
+    return <LockedTextControl
+        label={label}
+        value={post_title}
+        onUnlock={onUnlock}
+    />
 }
 
 const PostWidget = ({definition, value, onChange, instance})=> {

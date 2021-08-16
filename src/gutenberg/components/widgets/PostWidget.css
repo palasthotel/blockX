@@ -8,24 +8,9 @@
     background: #efefef;
     cursor: pointer;
 }
-.blockx--locked-post{
-    position: relative;
-}
 .blockx--search-post__no-results{
     padding: 10px;
     font-style: italic;
-}
-.blockx--locked-post__icon{
-    position: absolute;
-    right: 0px;
-    bottom: 1px;
-    top: 28px;
-    padding: 4px;
-    background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
-    
-}
-.blockx--locked-post__icon:hover{
-    cursor: pointer;
 }
 
 .blockx--search-posts__input-wrapper{

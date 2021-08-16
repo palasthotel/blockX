@@ -2,17 +2,17 @@ import { useSelect, select } from '@wordpress/data';
 import { buildOption } from '../utils/select';
 import { useTranslation } from './use-translation';
 import {useEffect, useState} from "@wordpress/element";
+import {getTaxonomyTerms, isResolvingTaxonomyTerms} from "../data/taxonomy";
 
 const useFetchTaxonomyTermsQuery = (taxonomy, query, deps) => {
     const isResolving = useSelect(
-        select => select( 'core/data' ).isResolving( 'core', 'getEntityRecords', [ 'taxonomy', taxonomy, query ]),
+        select => isResolvingTaxonomyTerms(taxonomy, query),
         [taxonomy, ...deps]
     );
     const [terms, setTerms] = useState([]);
     useEffect(()=>{
-        setTerms(select('core').getEntityRecords('taxonomy', taxonomy, query) || []);
+        setTerms(getTaxonomyTerms(taxonomy, query));
     }, [isResolving, taxonomy, ...deps]);
-
 
     return {
         terms,
@@ -34,6 +34,14 @@ export const useFetchTaxonomyTermsByIds = (taxonomy, termIds) => {
         {include: termIds},
         [termIds.join(",")]
     );
+}
+
+export const useFetchTaxonomyTermById = (taxonomy, termId) => {
+    const {terms, isResolving} = useFetchTaxonomyTermsByIds(taxonomy, [termId]);
+    return {
+        term: terms.length === 1 ? terms[0] : null,
+        isResolving,
+    }
 }
 
 export const useFetchTaxonomyTermsAsOptionsWithDefaultAny = (taxonomy)=>{

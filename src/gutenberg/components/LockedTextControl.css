@@ -1,0 +1,16 @@
+
+.blockx--locked-text-control{
+    position: relative;
+}
+.blockx--locked-text-control__icon{
+    position: absolute;
+    right: 0px;
+    bottom: 1px;
+    top: 28px;
+    padding: 4px;
+    background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
+    
+}
+.blockx--locked-text-control__icon:hover{
+    cursor: pointer;
+}

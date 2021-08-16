@@ -4,11 +4,7 @@ import {useFetchTaxonomyTerms, useFetchTaxonomyTermsByIds} from "../../hooks/use
 import {useTranslationWidgetTaxQuery} from '../../hooks/use-translation.js'
 import {buildOption} from "../../utils/select.js";
 import './TaxQueryWidget.css';
-
-const findTermByName = (name, terms) => terms.find(_t => _t.name === name);
-const findTermBySlug = (slug, terms) => terms.find(_t => _t.slug === slug);
-const findTermById = (id, terms) => terms.find(_t => _t.id === id);
-const findTerm = (s, terms) => findTermById(s, terms) || findTermBySlug(s, terms) || findTermByName(s, terms);
+import {findTerm} from "../../utils/selectors";
 
 const ConditionControl = ({taxonomies, value, onChange}) => {
     const {taxonomy = taxonomies[0], termIds = [], operator = "OR"} = value;
