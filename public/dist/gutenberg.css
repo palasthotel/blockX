@@ -8,24 +8,9 @@
     background: #efefef;
     cursor: pointer;
 }
-.blockx--locked-post{
-    position: relative;
-}
 .blockx--search-post__no-results{
     padding: 10px;
     font-style: italic;
-}
-.blockx--locked-post__icon{
-    position: absolute;
-    right: 0px;
-    bottom: 1px;
-    top: 28px;
-    padding: 4px;
-    background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
-    
-}
-.blockx--locked-post__icon:hover{
-    cursor: pointer;
 }
 
 .blockx--search-posts__input-wrapper{
@@ -40,6 +25,43 @@
 .blockx--search-post__popover{
     min-width: 240px;
 }
+
+.blockx--locked-text-control{
+    position: relative;
+}
+.blockx--locked-text-control__icon{
+    position: absolute;
+    right: 0px;
+    bottom: 1px;
+    top: 28px;
+    padding: 4px;
+    background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
+    
+}
+.blockx--locked-text-control__icon:hover{
+    cursor: pointer;
+}
+.blockx--auto-complete__no-results{
+    padding: 10px;
+    font-style: italic;
+}
+.blockx--popover-text-control__no-results{
+    padding: 10px;
+    font-style: italic;
+}
+
+.blockx--popover-text-control__input-wrapper{
+    position: relative;
+}
+.blockx--popover-text-control__spinner-wrapper{
+    position: absolute;
+    bottom: 2px;
+    right: -6px;
+}
+
+.blockx--popover-text-control__popover{
+    min-width: 240px;
+}
 .blockx-user{
     padding: 10px;
 }
@@ -49,38 +71,6 @@
 .blockx-user:hover{
     background: #efefef;
     cursor: pointer;
-}
-.blockx--locked-user{
-    position: relative;
-}
-.blockx--search-user__no-results{
-    padding: 10px;
-    font-style: italic;
-}
-.blockx--locked-user__icon{
-    position: absolute;
-    right: 0;
-    bottom: 1px;
-    top: 28px;
-    padding: 4px;
-    background: linear-gradient(90deg,transparent 0%, #eee 20%, #eee 100%);
-    
-}
-.blockx--locked-user__icon:hover{
-    cursor: pointer;
-}
-
-.blockx--search-users__input-wrapper{
-    position: relative;
-}
-.blockx--search-user__spinner-wrapper{
-    position: absolute;
-    bottom: 2px;
-    right: -6px;
-}
-
-.blockx--search-user__popover{
-    min-width: 240px;
 }
 .blockx--tax-query.is-resolving-selection .components-form-token-field__token{
     -webkit-animation: blockx-tax-query-blink 1s linear infinite;
@@ -101,6 +91,16 @@
     50% {
         opacity: 0.4;
     }
+}
+.blockx-taxonomy-term__suggestion{
+    padding: 12px;
+}
+.blockx-taxonomy-term__suggestion:hover{
+    cursor: pointer;
+    background: #efefef;
+}
+.blockx-taxonomy-term__suggestion + .blockx-taxonomy-term__suggestion {
+    border-top: 1px solid #eee;
 }
 .blockx-media-widget{
     border-radius: 5px;
@@ -178,6 +178,26 @@
 .blockx-list-of-widget__item--control .components-button{
     margin-right: 5px;
 }
+.blockx-auto-suggest__suggestion{
+    padding: 12px;
+}
+.blockx-auto-suggest__suggestion:hover{
+    cursor: pointer;
+    background: #efefef;
+}
+.blockx-auto-suggest__suggestion + .blockx-auto-suggest__suggestion {
+    border-top: 1px solid #eee;
+}
+.blockx-url__suggestion{
+    padding: 12px;
+}
+.blockx-url__suggestion:hover{
+    cursor: pointer;
+    background: #efefef;
+}
+.blockx-url__suggestion + .blockx-url__suggestion {
+    border-top: 1px solid #eee;
+}
 
 .blockx--ssr__wrapper{
     position: relative;
@@ -187,9 +207,4 @@
     top: 0; 
     right: 0;
 }
-.blockx__no-template {
-  border: 2px #999 dashed;
-  padding: 10px;
-}
-
-/*# sourceMappingURL=gutenberg.css.map*/
+.blockx__no-template{border:2px #999 dashed;padding:10px}
