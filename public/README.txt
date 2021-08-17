@@ -35,6 +35,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.2.2 =
+* Optimization: preview mode class for desktop, tablet and mobile preview added to block preview
+
 = 1.2.1 =
 * Security fix: rest route permission callback fix
 * New Widget: Info

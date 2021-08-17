@@ -6,6 +6,7 @@ import BlockContext from '../components/BlockContext';
 import ServerSideRenderQueue from '../components/ServerSideRenderQueue';
 import {useBlock} from '../hooks/use-context.js';
 import {useAutoSaveTimeout} from "../hooks/use-settings";
+import {usePreviewMode} from "../hooks/use-preview-mode";
 
 const BlockXComponents = window.BlockXComponents = {
     ...(window.BlockXComponents || {}),
@@ -75,6 +76,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
             }
             
             const Preview = BlockXComponents[id] || ServerSideRenderQueue;
+            const previewMode = usePreviewMode();
 
             return <>
 
@@ -97,7 +99,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                     </BlockContext>
                 </InspectorControls>
 
-                <div className={className}>
+                <div className={`${className} preview-mode-${previewMode.toLowerCase()}`}>
                     <BlockContext 
                         blockId={id} 
                         contentStructure={contentStructure}
