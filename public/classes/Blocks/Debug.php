@@ -13,6 +13,7 @@ use Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider;
 use Palasthotel\WordPress\BlockX\Widgets\AutoSuggest;
 use Palasthotel\WordPress\BlockX\Widgets\Divider;
 use Palasthotel\WordPress\BlockX\Widgets\Hidden;
+use Palasthotel\WordPress\BlockX\Widgets\Info;
 use Palasthotel\WordPress\BlockX\Widgets\Media;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
@@ -57,6 +58,8 @@ class Debug extends _BlockType {
 
 		return new ContentStructure( [
 
+			Info::build("This is just some Info text This is some more information text so it will be more than one line."),
+
 			// ------------------------------------
 			// simple values
 			// ------------------------------------
@@ -64,6 +67,8 @@ class Debug extends _BlockType {
 			Text::build( "multilinetext", "Text with rows", "Default text" )
 			    ->rows( 3 )
 			    ->help( "you can use multiline" ),
+
+			Info::build("This is just some Info text"),
 
 			Textarea::build( "textarea", "Textarea", "Just wrapper around text" ),
 			Number::build( "number", "Number", 42 ),

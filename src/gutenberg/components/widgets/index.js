@@ -1,4 +1,3 @@
-
 import NumberWidget from './NumberWidget.js'
 import PostWidget from './PostWidget.js';
 import UserWidget from './UserWidget.js';
@@ -15,6 +14,7 @@ import MediaWidget from "./MediaWidget";
 import ListOfWidget from "./ListOfWidget";
 import AutoSuggestWidget from "./AutoSuggestWidget";
 import UrlWidget from "./UrlWidget";
+import InfoWidget from "./InfoWidget";
 
 const widgets = {
     text: TextWidget,
@@ -28,6 +28,7 @@ const widgets = {
     user: UserWidget,
     hidden: HiddenWidget,
     divider: DividerWidget,
+    info: InfoWidget,
     readonly: ReadonlyWidget,
     media: MediaWidget,
     url: UrlWidget,
