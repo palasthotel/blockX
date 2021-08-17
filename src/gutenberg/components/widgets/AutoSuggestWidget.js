@@ -28,14 +28,14 @@ const AutoSuggestWidget = (
 
     const _renderItem = typeof renderItem === "function" ? renderItem : (item, closePopover) => {
         return <div
-            key={item}
+            key={item.value}
             onClick={()=>{
-                onChange(item);
+                onChange(item.value);
                 closePopover();
             }}
             className="blockx-auto-suggest__suggestion"
         >
-            {item}
+            {item.value}
         </div>
     }
 

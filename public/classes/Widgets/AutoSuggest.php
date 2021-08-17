@@ -2,13 +2,14 @@
 
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
-use WP_REST_Request;
+use Palasthotel\WordPress\BlockX\Model\SimpleSuggestion;
+use Palasthotel\WordPress\BlockX\Utils\ISuggestionProvider;
 
 class AutoSuggest extends _AjaxWidget {
 
 	const TYPE = "auto_suggest";
 	/**
-	 * @var callable|null $handler
+	 * @var ISuggestionProvider|null $handler
 	 */
 	private $handler = null;
 
@@ -16,15 +17,25 @@ class AutoSuggest extends _AjaxWidget {
 		return new static( $key, $label,static::TYPE, $defaultValue);
 	}
 
-	public function suggest(callable $handler): AutoSuggest{
-		$this->handler = $handler;
+	/**
+	 * @param ISuggestionProvider $provider should return SimpleSuggestion array
+	 *
+	 * @return $this
+	 */
+	public function useProvider(ISuggestionProvider $provider): AutoSuggest {
+		$this->handler = $provider;
 		return $this;
 	}
 
-	public function ajax( string $query, WP_REST_Request $request ): array {
+	/**
+	 * @param string $query
+	 *
+	 * @return SimpleSuggestion[]
+	 */
+	public function ajax( string $query ): array {
 
-		if(is_callable($this->handler)){
-			return call_user_func($this->handler, $request);
+		if($this->handler instanceof ISuggestionProvider){
+			return $this->handler->suggest($query);
 		}
 
 		return [];

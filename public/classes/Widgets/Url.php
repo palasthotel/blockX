@@ -2,25 +2,34 @@
 
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
-use WP_REST_Request;
+use Palasthotel\WordPress\BlockX\Model\UrlSuggestion;
+use Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider;
 
 class Url extends _AjaxWidget {
 
 	const TYPE = "url";
 
+	/**
+	 * @var PostUrlSuggestionProvider
+	 */
+	private $provider;
+
 	public static function build(string $key, string $label, string $defaultValue = ""): Url {
-		return new static( $key, $label,static::TYPE, $defaultValue);
+		return (new static( $key, $label,static::TYPE, $defaultValue))
+			->useProvider(new PostUrlSuggestionProvider());
 	}
 
-	public function ajax( string $query, WP_REST_Request $request ): array {
+	public function useProvider(PostUrlSuggestionProvider $provider): Url {
+		$this->provider = $provider;
+		return $this;
+	}
 
-		$posts = get_posts(["s" => $query, "fields" => "ids"]);
-
-		return array_map(function($post_id){
-			return [
-				"label" => get_the_title($post_id),
-				"value" => get_permalink($post_id),
-			];
-		}, $posts);
+	/**
+	 * @param string $query
+	 *
+	 * @return UrlSuggestion[]
+	 */
+	public function ajax( string $query ): array {
+		return $this->provider->suggest($query);
 	}
 }

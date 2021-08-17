@@ -57,6 +57,7 @@ class Plugin extends Components\Plugin {
 	const FILTER_ADD_TEMPLATES_PATHS = "blockx_add_templates_paths";
 	const FILTER_BLOCK_ATTRIBUTES = "blockx_block_attributes";
 	const FILTER_PREPARE_CONTENT = "blockx_prepare_content";
+	const FILTER_REST_AJAX = "blockx_rest_ajax";
 
 
 	// ----------------------------------------------------

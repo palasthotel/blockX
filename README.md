@@ -271,8 +271,16 @@ Select one specific user.
 Choose a term of a taxonomy from a select field.
 
 ```php
-\Palasthotel\WordPress\BlockX\Widgets\TaxonomyTerm::build(string $key, string $label, WP_Taxonomy|string $taxonomy, int|null $defaultValue);
+\Palasthotel\WordPress\BlockX\Widgets\TaxonomyTerm::build(
+    string $key, 
+    string $label, 
+    WP_Taxonomy|string $taxonomy, 
+    int|null $defaultValue
+)
+->multiple(true);
 ```
+
+Depending on `multiple` set to true or false the content value of the widget field will be a single ID or an array of IDs. Default value is `false`.
 
 **Important:** 
 
@@ -291,6 +299,40 @@ For much more complex taxonomy conditions this widget provides a way to build ta
 	array $defaultValue = []
 );
 ```
+
+### AutoSuggest
+
+Help user inputs with auto suggestions.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\AutoSuggest::build(
+    "post_url",
+    "Post url"
+)
+->useProvider(new \Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider());
+```
+
+**Important:**
+
+It is required to use a class that implements ISuggestionProvider interface. AutoSuggest widget can only handle SimpleSuggestion model responses.
+
+### Url
+
+The Url widget works pretty much the same like the AutoSuggest widget.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Url::build(
+    "page_url",
+    "Page Url"
+)
+->useProvider(new \Palasthotel\WordPress\BlockX\Utils\PageUrlSuggestionProvider());
+```
+
+If you do not provide a custom ISuggestionProvider `\Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider` will be used by default.
+
+**Important:**
+
+The ISuggestionProvider class for this widget must return `UrlSuggestion` array.
 
 ### Panel
 

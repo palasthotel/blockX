@@ -282,7 +282,7 @@ class REST extends Component {
 		if($widget instanceof _AjaxWidget){
 			return apply_filters(
 				Plugin::FILTER_REST_AJAX,
-				$widget->ajax($query, $request),
+				$widget->ajax($query),
 				$request,
 				$widget
 			);
