@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 7.3
-Stable tag: 1.1.4
+Stable tag: 1.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -35,7 +35,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
-= 1.1.5 =
+= 1.2.0 =
 * New Widget: User
 * New Widget: AutoSuggest
 * New Widget: Url
