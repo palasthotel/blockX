@@ -37,6 +37,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 = 1.2.1 =
 * Security fix: rest route permission callback fix
+* New Widget: Info
 
 = 1.2.0 =
 * New Widget: User
