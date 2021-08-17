@@ -530,5 +530,4 @@ wp_reset_postdata();
  ## Future
 
 - More Widgets
-  - custom autocomplete
 - Edit content in place and with markup
