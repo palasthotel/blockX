@@ -179,6 +179,14 @@ Simple integer input.
 \Palasthotel\WordPress\BlockX\Widgets\Number::build(string $key, string $label, int $defaultValue = 0);
 ```
 
+### Info
+
+Simple text info for the user. No input.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Info::build(string $text);
+```
+
 ### Toggle
 
 Simple boolean input.
