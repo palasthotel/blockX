@@ -122,7 +122,7 @@ class REST extends Component {
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'ajax' ),
 				'permission_callback' => function ( WP_REST_Request $request ) {
-					return true; //current_user_can( 'edit_posts' );
+					return current_user_can( 'edit_posts' );
 				},
 				'args'                => [
 					"block_ns" => array(
