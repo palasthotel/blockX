@@ -14,12 +14,20 @@ class Media extends _Widget {
 	private $mediaTypes;
 	private $multiple;
 	private $mediaUploadTitle;
+	private $minWidth;
+	private $minHeight;
+	private $maxWidth;
+	private $maxHeight;
 
 	public function __construct( string $key, string $label, string $type, $defaultValue ) {
 		parent::__construct( $key, $label, $type, $defaultValue );
 		$this->mediaTypes       = [];
 		$this->multiple         = false;
 		$this->mediaUploadTitle = "";
+		$this->minWidth = 0;
+		$this->minHeight = 0;
+		$this->maxWidth = 0;
+		$this->maxHeight = 0;
 	}
 
 	public static function build( string $key, string $label, string $defaultValue = "" ): Media {
@@ -57,6 +65,26 @@ class Media extends _Widget {
 		return $this;
 	}
 
+	public function minWidth( int $width): Media {
+		$this->minWidth = $width;
+		return $this;
+	}
+
+	public function maxWidth( int $width): Media {
+		$this->maxWidth = $width;
+		return $this;
+	}
+
+	public function minHeight( int $height): Media {
+		$this->minHeight = $height;
+		return $this;
+	}
+
+	public function maxHeight( int $height): Media {
+		$this->maxHeight = $height;
+		return $this;
+	}
+
 	/**
 	 * @deprecated use mediaUploadTitle instead
 	 */
@@ -69,6 +97,10 @@ class Media extends _Widget {
 		$arr["mediaTypes"]       = $this->mediaTypes;
 		$arr["multiple"]         = $this->multiple;
 		$arr["mediaUploadTitle"] = $this->mediaUploadTitle;
+		$arr["minWidth"] = $this->minWidth;
+		$arr["maxWidth"] = $this->maxWidth;
+		$arr["minHeight"] = $this->minHeight;
+		$arr["maxHeight"] = $this->maxHeight;
 
 		return $arr;
 	}

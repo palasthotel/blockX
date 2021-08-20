@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2021-03-25 08:31+0100\n"
-"PO-Revision-Date: 2021-03-25 08:37+0100\n"
+"POT-Creation-Date: 2021-08-20 08:02+0200\n"
+"PO-Revision-Date: 2021-08-20 08:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -10,76 +10,81 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: Plugin.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: classes/Assets.php:35
+#: classes/Assets.php:49
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: classes/Assets.php:36
+#: classes/Assets.php:50
 msgid "– Any –"
 msgstr "– Beliebig –"
 
-#: classes/Assets.php:38
+#: classes/Assets.php:52
 msgctxt "tax query widget"
 msgid "Add taxonomy"
 msgstr "Taxonomie hinzufügen"
 
-#: classes/Assets.php:39
+#: classes/Assets.php:53
 msgctxt "tax query widget"
 msgid "Delete"
 msgstr "Löschen"
 
-#: classes/Assets.php:40
+#: classes/Assets.php:54
 msgctxt "tax query widget"
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: classes/Assets.php:41
+#: classes/Assets.php:55
 msgctxt "tax query widget"
 msgid "Add terms"
 msgstr "Begriffe hinzufügen"
 
-#: classes/Assets.php:42
+#: classes/Assets.php:56
 msgctxt "tax query widget"
 msgid "Operator"
 msgstr "Operator"
 
-#: classes/Assets.php:43
+#: classes/Assets.php:57
 msgctxt "tax query widget"
 msgid "All taxonomy conditions."
 msgstr "Alle Taxonomiebedingungen."
 
-#: classes/Assets.php:44
+#: classes/Assets.php:58
 msgctxt "tax query widget"
 msgid "One of the taxonomy conditions."
 msgstr "Eine der Taxonomiebedingungen."
 
-#: classes/Assets.php:47
+#: classes/Assets.php:61
+msgctxt "media widget"
+msgid "Clear selection"
+msgstr "Auswahl löschen"
+
+#: classes/Assets.php:62
 msgctxt "media widget"
 msgid "You do not have permission to use media."
 msgstr "Keine Berechtigung zur Verwendung von Medien."
 
-#: classes/Assets.php:48
+#: classes/Assets.php:63
 msgctxt "media widget"
 msgid "❓ Media not found."
 msgstr "❓Medium wurde nicht gefunden."
 
-#: classes/Blocks/Debug.php:32
+#: classes/Blocks/Debug.php:39
 msgid "Debug"
 msgstr "Debug"
 
-#: classes/Blocks/Debug.php:41
+#: classes/Blocks/Debug.php:48
 msgid "This block is just for debugging."
 msgstr "Dieser Block wird nur für Debugging-Zwecke verwendet."
 
@@ -91,26 +96,26 @@ msgstr "Beiträge"
 msgid "List of posts"
 msgstr "Beitragsliste"
 
-#: classes/Gutenberg.php:119
+#: classes/Gutenberg.php:148
 msgid "Any"
 msgstr "Beliebig"
 
-#: classes/REST.php:189 templates/blockx__blockx--post-embed__editor.php:19
+#: classes/REST.php:248 templates/blockx__blockx--post-embed__editor.php:19
 msgid "No post found."
 msgstr "Keinen Beitrag gefunden."
 
-#: classes/Settings.php:52
+#: classes/Settings.php:55
 msgid "Autosave timeout"
 msgstr "Autosave-Timeout"
 
-#: classes/Settings.php:68
+#: classes/Settings.php:72
 msgid ""
 "In seconds. 0 means no autosave at all. This does NOT save the post but "
 "applies the block changes to the content preview."
 msgstr ""
 "In Sekunden. 0 bedeutet keine automatische Speicherung. Dadurch wird NICHT "
-"der Beitrag gespeichert, sondern die Blockänderungen auf die "
-"Inhaltsvorschau angewendet."
+"der Beitrag gespeichert, sondern die Blockänderungen auf die Inhaltsvorschau "
+"angewendet."
 
 #: templates/blockx.php:11
 #, php-format
@@ -121,7 +126,7 @@ msgstr "Kein template für den Block ‚%s‘ gefunden."
 msgid "No posts found."
 msgstr "Keine Beiträge gefunden."
 
-#: templates/blockx__editor.php:12
+#: templates/blockx__editor.php:13
 #, php-format
 msgid "No editor template found for block '%s'."
 msgstr "Kein Editor-Template für den Block ‚%s‘ gefunden."

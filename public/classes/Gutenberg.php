@@ -13,7 +13,6 @@ use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use Palasthotel\WordPress\BlockX\Model\Option;
 
 /**
- * @property Dependencies jsDependencies
  */
 class Gutenberg extends Component {
 
@@ -22,10 +21,11 @@ class Gutenberg extends Component {
 	 */
 	private $blocks = [];
 	private $tooLate = false;
+	var Dependencies $dependencies;
 
 	public function onCreate() {
 
-		$this->jsDependencies = new Dependencies();
+		$this->dependencies = new Dependencies();
 
 		// ---------------------------
 		// initialize stuff
@@ -53,7 +53,6 @@ class Gutenberg extends Component {
 				$gutenberg->addBlockType( new Debug() );
 			}
 
-
 		}, 0 );
 
 		// ---------------------------
@@ -61,10 +60,10 @@ class Gutenberg extends Component {
 		// ---------------------------
 		add_action( 'enqueue_block_editor_assets', function () {
 			foreach ( $this->blocks as $block ) {
-				$block->enqueueEditorAssets( $this->jsDependencies );
+				$block->enqueueEditorAssets( $this->dependencies );
 			}
 			// backend only
-			$this->plugin->assets->enqueueGutenberg( $this->blocks, $this->jsDependencies );
+			$this->plugin->assets->enqueueGutenberg( $this->blocks, $this->dependencies );
 		} );
 		add_action( 'enqueue_block_assets', function () {
 			// frontend and backend

@@ -58,7 +58,7 @@ class Debug extends _BlockType {
 
 		return new ContentStructure( [
 
-			Info::build("This is just some Info text This is some more information text so it will be more than one line."),
+			Info::build( "This is just some Info text This is some more information text so it will be more than one line." ),
 
 			// ------------------------------------
 			// simple values
@@ -68,7 +68,7 @@ class Debug extends _BlockType {
 			    ->rows( 3 )
 			    ->help( "you can use multiline" ),
 
-			Info::build("This is just some Info text"),
+			Info::build( "This is just some Info text" ),
 
 			Textarea::build( "textarea", "Textarea", "Just wrapper around text" ),
 			Number::build( "number", "Number", 42 ),
@@ -134,6 +134,11 @@ class Debug extends _BlockType {
 			     ->multiple( true )
 			     ->mediaUploadTitle( "Multiple files" ),
 
+			Media::build( "sized_image", "Media with size restrictions" )
+				->multiple(true)
+			     ->minWidth( 300 )->maxWidth( 1000 )
+			     ->minHeight( 100 )->maxHeight( 1000 ),
+
 			Divider::build(),
 
 			// ------------------------------------
@@ -161,7 +166,7 @@ class Debug extends _BlockType {
 
 			Url::build( "post_url", "Post Url" ),
 			Url::build( "page_url", "Page Url" )
-			   ->useProvider(new PageUrlSuggestionProvider()),
+			   ->useProvider( new PageUrlSuggestionProvider() ),
 
 			// ------------------------------------
 			// taxonomies
