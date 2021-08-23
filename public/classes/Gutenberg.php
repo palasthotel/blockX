@@ -21,7 +21,7 @@ class Gutenberg extends Component {
 	 */
 	private $blocks = [];
 	private $tooLate = false;
-	var Dependencies $dependencies;
+	var $dependencies;
 
 	public function onCreate() {
 
