@@ -3,7 +3,6 @@
 namespace Palasthotel\WordPress\BlockX\Containers;
 
 use Palasthotel\WordPress\BlockX\Model\BlockId;
-use Palasthotel\WordPress\BlockX\Model\Style;
 use Palasthotel\WordPress\BlockX\Plugin;
 
 class Container_1D3_2D3 extends _ContainerType {
