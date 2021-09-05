@@ -46,6 +46,89 @@ add_filter(
 );
 ```
 
+### Change block asset generation directory
+
+With the introduction of containers as layout elements blockx needs to generate block.json files and css style files for those elements. Those files will be written to a blockx directory in the wp-content folder.
+
+```php
+add_action(
+    Palasthotel\WordPress\BlockX\Plugin::ACTION_ASSET_GENERATION_PATHS,
+    function($paths){
+        // Change file generation to uploads/blockx/ directory.
+        // You always have to change system and url property!
+        $paths->system = wp_upload_dir()["basedir"]."/blockx/";
+		$paths->url    = wp_upload_dir()["baseurl"]."/blockx/";
+    }
+)
+```
+
+## Create new container class
+
+Containers are special blocks. You can use containers for custom columned rows. Blockx comes with containers for 1d1, 1d2 + 1d2, 1d3 + 2d3 and 2d3 + 1d3 columns.
+
+Containers need to extend `_ContainerType` abstract class which comes with the interface `_IContainerType` that forces you t add some required functions. The minimal setup looks like this:
+
+```php
+namespace MyNamespace;
+
+use Palasthotel\WordPress\BlockX\Containers\_ContainerType;
+
+class MyContainer extends _ContainerType {
+    public function id(): BlockId{
+        // have a look at the Block Name character restrictions
+        // https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#block-name
+      	// the block id corresponds to the namespace and block-name parts of the first argument of the registerBlockType function
+        return BlockId::build("my-namespace","my-container");
+    }
+    
+    public function title(): string{
+	    return "My Container";
+    }
+    
+    public function columns(): array {
+		return [1,1,1];
+	}
+}
+```
+
+Columns will be calculated with the denominator as the sum of all column values and the discriminators as the column values. This example would result in a 1d3 + 1d3 + 1d3 container with three slots. Blockx will automagically build css style files and a block.json.
+
+You can prevent the autogeneration of styles if you provide your own styles.
+
+```php
+namespace MyNamespace;
+
+use Palasthotel\WordPress\BlockX\Containers\_ContainerType;use Palasthotel\WordPress\BlockX\Model\Style;
+
+class MyContainer extends _ContainerType {
+   ...
+   public function style() : Style{
+     // Register a custom frontend css file and use its handle to provide frontend styles for this container
+     // these styles will also be used in the editor.
+     wp_register_style("my-frontend-and-editor-styles-handle", ...);
+     return Style::build("my-frontend-and-editor-styles-handle", false);
+   }
+   
+   public function editorStyle() : Style{
+     // You can do the same exact thing with the editorStyles file which is only used in the editor
+     wp_register_style("my-editor-styles-handle", ...);
+     return Style::build("my-editor-styles-handle", false);
+   }
+}
+```
+
+## Add a container
+
+Use the action `blockx_collect` to add your custom container classes:
+
+```php
+add_action('blockx_collect', function(Gutenberg $gutenberg){
+  $gutenberg->addContainerType(new MyContainer());
+});
+```
+
+Your brand new container will now be available in Gutenberg.
+
 ## Create new block class
 
 Blocks need to extend `_BlockType` abstract class which comes with the interface `_IBlockType` that forces you to add some required functions. The minimal setup looks like this:
