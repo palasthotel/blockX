@@ -4,7 +4,8 @@
 namespace Palasthotel\WordPress\BlockX;
 
 
-use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
+use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
+use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use WP_Post_Type;
 use WP_Taxonomy;
@@ -16,27 +17,36 @@ class Assets extends Components\Component {
 
 	public function onCreate() {
 		parent::onCreate();
-		$this->helper = new Components\Assets($this->plugin);
+		$this->helper = new Components\Assets( $this->plugin );
+		add_action('init', [$this, 'init'], 0);
+	}
+
+	public function init(){
+		$this->helper->registerStyle(
+			Plugin::HANDLE_CSS_GUTENBERG,
+			"assets/dist/gutenberg.css"
+		);
+		$this->helper->registerStyle(
+			Plugin::HANDLE_CSS_CONTAINER_BASE,
+			"assets/container/base.css"
+		);
 	}
 
 	/**
-	 * @param _BlockType[] $blocks
+	 * @param _IBlockType[] $blocks
 	 * @param Dependencies $dependencies
+	 * @param _IContainerType[] $containers
 	 */
-	function enqueueGutenberg( array $blocks, Dependencies $dependencies ) {
+	function enqueueGutenberg( array $blocks, Dependencies $dependencies, array $containers ) {
 
-		$this->helper->registerStyle(
-			Plugin::HANDLE_CSS_GUTENBERG,
-			"dist/gutenberg.css"
-		);
-		wp_enqueue_style(Plugin::HANDLE_CSS_GUTENBERG);
+		wp_enqueue_style( Plugin::HANDLE_CSS_GUTENBERG );
 
 		$this->helper->registerScript(
 			Plugin::HANDLE_JS_GUTENBERG,
-			"dist/gutenberg.js",
+			"assets/dist/gutenberg.js",
 			$dependencies->get()
 		);
-		wp_enqueue_script(Plugin::HANDLE_JS_GUTENBERG);
+		wp_enqueue_script( Plugin::HANDLE_JS_GUTENBERG );
 
 		wp_localize_script(
 			Plugin::HANDLE_JS_GUTENBERG,
@@ -71,6 +81,15 @@ class Assets extends Components\Component {
 						"contentStructure"      => $block->contentStructure()->toArray(),
 					];
 				}, $blocks ),
+				"containers" => array_map(function ($container){
+					return [
+						"id" => (string) $container->id(),
+						"title" => $container->title(),
+						"columns" => $container->columns(),
+						"editorStyle" => $container->editorStyle(),
+						"style" => $container->style(),
+					];
+				}, $containers),
 			]
 		);
 

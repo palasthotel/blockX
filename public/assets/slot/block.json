@@ -1,0 +1,19 @@
+{
+  "apiVersion": 2,
+  "name": "blockx/slot",
+  "title": "Slot",
+  "icon": "columns",
+  "category": "design",
+  "description": "A single slot within a container block.",
+  "textdomain": "blockx",
+  "parent": [ "blockx/container" ],
+  "attributes": {
+  },
+  "supports": {
+    "inserter": false,
+    "reusable": false,
+    "html": false
+  },
+  "editorStyle": "blockx_slot_style_editor",
+  "style": "blockx_slot_style"
+}
