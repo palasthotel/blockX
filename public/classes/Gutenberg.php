@@ -12,6 +12,7 @@ use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Containers\_ContainerType;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D1;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D2_1D2;
+use Palasthotel\WordPress\BlockX\Containers\Container_1D3_1D3_1D3;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D3_2D3;
 use Palasthotel\WordPress\BlockX\Containers\Container_2D3_1D3;
 use Palasthotel\WordPress\BlockX\Model\Dependencies;
@@ -53,10 +54,10 @@ class Gutenberg extends Component {
 			}
 
 			// register slot block type with block.json
-			register_block_type( $this->plugin->path . '/assets/slot');
+			register_block_type( $this->plugin->path . '/assets/slot' );
 
 			// register container bocks with block.json files
-			foreach ($this->containers as $container){
+			foreach ( $this->containers as $container ) {
 				$container->registerContainer();
 			}
 
@@ -77,8 +78,9 @@ class Gutenberg extends Component {
 
 			$gutenberg->addContainerType( new Container_1D1() );
 			$gutenberg->addContainerType( new Container_1D2_1D2() );
-			$gutenberg->addContainerType( new Container_1D3_2D3());
-			$gutenberg->addContainerType( new Container_2D3_1D3());
+			$gutenberg->addContainerType( new Container_1D3_2D3() );
+			$gutenberg->addContainerType( new Container_2D3_1D3() );
+			$gutenberg->addContainerType( new Container_1D3_1D3_1D3() );
 
 		}, 0 );
 
@@ -110,11 +112,13 @@ class Gutenberg extends Component {
 	 * @return bool
 	 */
 	public function addBlockType( _BlockType $block ) {
-		if($this->tooLate){
-			error_log("BlockX: You cannot use addBlockType anymore. Please use blockx_collect action.");
+		if ( $this->tooLate ) {
+			error_log( "BlockX: You cannot use addBlockType anymore. Please use blockx_collect action." );
+
 			return false;
 		}
 		$this->blocks[] = $block;
+
 		return true;
 	}
 
@@ -123,12 +127,14 @@ class Gutenberg extends Component {
 	 *
 	 * @return bool
 	 */
-	public function addContainerType( _ContainerType $container){
-		if($this->tooLate){
-			error_log("BlockX: You cannot use addContainerType anymore. Please use blockx_collect action.");
+	public function addContainerType( _ContainerType $container ) {
+		if ( $this->tooLate ) {
+			error_log( "BlockX: You cannot use addContainerType anymore. Please use blockx_collect action." );
+
 			return false;
 		}
 		$this->containers[] = $container;
+
 		return true;
 	}
 
@@ -139,14 +145,16 @@ class Gutenberg extends Component {
 	 *
 	 * @return bool
 	 */
-	public function removeBlockType( string $id ){
-		if($this->tooLate){
-			error_log("BlockX: You cannot use removeBlockType anymore. Please use blockx_collect action.");
+	public function removeBlockType( string $id ) {
+		if ( $this->tooLate ) {
+			error_log( "BlockX: You cannot use removeBlockType anymore. Please use blockx_collect action." );
+
 			return false;
 		}
-		$this->blocks = array_values(array_filter($this->blocks, function($block) use ($id){
-			return !$block->id()->equals($id);
-		}));
+		$this->blocks = array_values( array_filter( $this->blocks, function ( $block ) use ( $id ) {
+			return ! $block->id()->equals( $id );
+		} ) );
+
 		return true;
 	}
 
@@ -157,14 +165,16 @@ class Gutenberg extends Component {
 	 *
 	 * @return bool
 	 */
-	public function removeContainerType( string $id ){
-		if($this->tooLate){
-			error_log("BlockX: You cannot use removeContainerType anymore. Please use blockx_collect action.");
+	public function removeContainerType( string $id ) {
+		if ( $this->tooLate ) {
+			error_log( "BlockX: You cannot use removeContainerType anymore. Please use blockx_collect action." );
+
 			return false;
 		}
-		$this->containers = array_values(array_filter($this->containers, function($item) use ($id){
-			return !$item->id()->equals($id);
-		}));
+		$this->containers = array_values( array_filter( $this->containers, function ( $item ) use ( $id ) {
+			return ! $item->id()->equals( $id );
+		} ) );
+
 		return true;
 	}
 

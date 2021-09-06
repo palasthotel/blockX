@@ -12,7 +12,7 @@ class Container_1D1 extends _ContainerType {
 	}
 
 	public function title(): string {
-		return __("Full width Container", Plugin::DOMAIN);
+		return __("Single column", Plugin::DOMAIN);
 	}
 
 	public function columns(): array {
