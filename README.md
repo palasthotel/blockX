@@ -102,6 +102,18 @@ use Palasthotel\WordPress\BlockX\Containers\_ContainerType;use Palasthotel\WordP
 
 class MyContainer extends _ContainerType {
    ...
+   public function useColumnsInTabletPreview() : bool{
+     // stick with columns even if editor preview switched to tablet preview
+     // default is false 
+     return true;
+   }
+   
+   public function useColumnsInMobilePreview() : bool{
+     // stick with columns even if editor preview switched to mobile preview
+     // default is false
+     return true;
+   }
+   
    public function style() : Style{
      // Register a custom frontend css file and use its handle to provide frontend styles for this container
      // these styles will also be used in the editor.
