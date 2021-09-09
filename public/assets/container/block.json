@@ -4,6 +4,7 @@
   "title": "Container",
   "category": "design",
   "description": "Adds a container with custom grid.",
+  "keywords": [ "container", "row", "grid" ],
   "textdomain": "blockx",
   "supports": {
     "html": false

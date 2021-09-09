@@ -55,7 +55,7 @@ add_action(
     Palasthotel\WordPress\BlockX\Plugin::ACTION_ASSET_GENERATION_PATHS,
     function($paths){
         // Change file generation to uploads/blockx/ directory.
-        // You always have to change system and url property!
+        // You always have to change system and url property!		
         $paths->system = wp_upload_dir()["basedir"]."/blockx/";
 		$paths->url    = wp_upload_dir()["baseurl"]."/blockx/";
     }

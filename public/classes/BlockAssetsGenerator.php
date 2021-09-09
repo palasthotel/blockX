@@ -2,16 +2,15 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use DirectoryIterator;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Model\Style;
 
+/**
+ * @property AssetGeneratorPaths $paths
+ */
 class BlockAssetsGenerator extends Component {
-
-	/**
-	 * @var AssetGeneratorPaths
-	 */
-	private $paths;
 
 	public function onCreate() {
 		$this->paths = new AssetGeneratorPaths(
@@ -96,5 +95,21 @@ class BlockAssetsGenerator extends Component {
 			ob_end_clean();
 			file_put_contents( $styleFile, $css );
 		}
+	}
+
+	public function deleteAssets(){
+		$this->deleteFilesThenSelf( $this->paths->system );
+	}
+
+	private function deleteFilesThenSelf($folder) {
+		foreach(new DirectoryIterator($folder) as $f) {
+			if($f->isDot()) continue; // skip . and ..
+			if ($f->isFile()) {
+				unlink($f->getPathname());
+			} else if($f->isDir()) {
+				$this->deleteFilesThenSelf($f->getPathname());
+			}
+		}
+		rmdir($folder);
 	}
 }
