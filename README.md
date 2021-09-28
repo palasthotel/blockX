@@ -62,7 +62,7 @@ add_action(
 )
 ```
 
-## Create new container class
+## Create new container class (BETA)
 
 Containers are special blocks. You can use containers for custom columned rows. Blockx comes with containers for 1d1, 1d2 + 1d2, 1d3 + 2d3 and 2d3 + 1d3 columns.
 
@@ -129,7 +129,7 @@ class MyContainer extends _ContainerType {
 }
 ```
 
-## Add a container
+## Add a container (BETA)
 
 Use the action `blockx_collect` to add your custom container classes:
 
