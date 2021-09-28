@@ -33,12 +33,19 @@ require_once dirname( __FILE__ ) . "/vendor/autoload.php";
  * @property string basename
  * @property Settings settings
  * @property Update update
+ * @property BlockAssetsGenerator $bag
  */
 class Plugin extends Components\Plugin {
 
 	const DOMAIN = "blockx";
+
+	// ----------------------------------------------------
+	// asset handles
+	// ----------------------------------------------------
 	const HANDLE_JS_GUTENBERG = "blockx";
 	const HANDLE_CSS_GUTENBERG = "blockx";
+
+	const HANDLE_CSS_CONTAINER_BASE = "blockx_container_base";
 
 	// ----------------------------------------------------
 	// core blockx
@@ -58,6 +65,7 @@ class Plugin extends Components\Plugin {
 	const FILTER_BLOCK_ATTRIBUTES = "blockx_block_attributes";
 	const FILTER_PREPARE_CONTENT = "blockx_prepare_content";
 	const FILTER_REST_AJAX = "blockx_rest_ajax";
+	const ACTION_ASSET_GENERATION_PATHS = "blockx_asset_generation_paths";
 
 
 	// ----------------------------------------------------
@@ -76,6 +84,7 @@ class Plugin extends Components\Plugin {
 	// ----------------------------------------------------
 	const OPTION_DATA_VERSION = "blockx_data_version";
 	const OPTION_AUTO_SAVE_TIMEOUT = "blockx_auto_save_timeout";
+	const OPTION_ENABLED_CORE_CONTAINERS = "blockx_enabled_core_containers";
 
 	// ----------------------------------------------------
 	// initialize plugin features
@@ -85,12 +94,13 @@ class Plugin extends Components\Plugin {
 		/**
 		 * load translations
 		 */
-		$this->loadTextdomain(Plugin::DOMAIN, "languages");
+		$this->loadTextdomain( Plugin::DOMAIN, "languages" );
 
 		$this->database  = new Database();
 		$this->rest      = new REST( $this );
 		$this->assets    = new Assets( $this );
-		$this->templates = new Templates($this);
+		$this->bag       = new BlockAssetsGenerator( $this );
+		$this->templates = new Templates( $this );
 		$this->gutenberg = new Gutenberg( $this );
 		$this->postHooks = new PostHooks( $this );
 		$this->settings  = new Settings( $this );

@@ -1,0 +1,14 @@
+{
+  "apiVersion": 2,
+  "name": "blockx/container",
+  "title": "Container",
+  "category": "design",
+  "description": "Adds a container with custom grid.",
+  "keywords": [ "container", "row", "grid" ],
+  "textdomain": "blockx",
+  "supports": {
+    "html": false
+  },
+  "editorStyle": "blockx_container_style_editor",
+  "style": "blockx_container_style"
+}

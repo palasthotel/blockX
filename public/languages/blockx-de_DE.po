@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2021-08-20 08:02+0200\n"
-"PO-Revision-Date: 2021-08-20 08:02+0200\n"
+"POT-Creation-Date: 2021-09-05 16:00+0200\n"
+"PO-Revision-Date: 2021-09-05 16:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -22,60 +22,55 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: classes/Assets.php:49
+#: classes/Assets.php:59
 msgid "Apply changes"
 msgstr "Änderungen übernehmen"
 
-#: classes/Assets.php:50
+#: classes/Assets.php:60
 msgid "– Any –"
 msgstr "– Beliebig –"
 
-#: classes/Assets.php:52
+#: classes/Assets.php:62
 msgctxt "tax query widget"
 msgid "Add taxonomy"
 msgstr "Taxonomie hinzufügen"
 
-#: classes/Assets.php:53
+#: classes/Assets.php:63
 msgctxt "tax query widget"
 msgid "Delete"
 msgstr "Löschen"
 
-#: classes/Assets.php:54
+#: classes/Assets.php:64
 msgctxt "tax query widget"
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: classes/Assets.php:55
+#: classes/Assets.php:65
 msgctxt "tax query widget"
 msgid "Add terms"
 msgstr "Begriffe hinzufügen"
 
-#: classes/Assets.php:56
+#: classes/Assets.php:66
 msgctxt "tax query widget"
 msgid "Operator"
 msgstr "Operator"
 
-#: classes/Assets.php:57
+#: classes/Assets.php:67
 msgctxt "tax query widget"
 msgid "All taxonomy conditions."
 msgstr "Alle Taxonomiebedingungen."
 
-#: classes/Assets.php:58
+#: classes/Assets.php:68
 msgctxt "tax query widget"
 msgid "One of the taxonomy conditions."
 msgstr "Eine der Taxonomiebedingungen."
 
-#: classes/Assets.php:61
-msgctxt "media widget"
-msgid "Clear selection"
-msgstr "Auswahl löschen"
-
-#: classes/Assets.php:62
+#: classes/Assets.php:71
 msgctxt "media widget"
 msgid "You do not have permission to use media."
 msgstr "Keine Berechtigung zur Verwendung von Medien."
 
-#: classes/Assets.php:63
+#: classes/Assets.php:72
 msgctxt "media widget"
 msgid "❓ Media not found."
 msgstr "❓Medium wurde nicht gefunden."
@@ -96,7 +91,23 @@ msgstr "Beiträge"
 msgid "List of posts"
 msgstr "Beitragsliste"
 
-#: classes/Gutenberg.php:148
+#: classes/Containers/Container_1D1.php:15
+msgid "Full width Container"
+msgstr "Vollbreiter Container"
+
+#: classes/Containers/Container_1D2_1D2.php:15
+msgid "Two Column 50%"
+msgstr "Zwei Spalten 50%"
+
+#: classes/Containers/Container_1D3_2D3.php:15
+msgid "Two Column 1/3 & 2/3"
+msgstr "Zwei Spalten 1/3 & 2/3"
+
+#: classes/Containers/Container_2D3_1D3.php:15
+msgid "Two Column 2/3 & 1/3"
+msgstr "Zwei Spalten 2/3 & 1/3"
+
+#: classes/Gutenberg.php:209
 msgid "Any"
 msgstr "Beliebig"
 
@@ -150,6 +161,10 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.palasthotel.de"
 msgstr ""
+
+#~ msgctxt "media widget"
+#~ msgid "Clear selection"
+#~ msgstr "Auswahl löschen"
 
 #~ msgid "RSS"
 #~ msgstr "RSS"

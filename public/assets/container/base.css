@@ -1,0 +1,16 @@
+
+.blockx__container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.blockx__slot{
+    min-height: 20px;
+    padding: 0 5px;
+}
+.blockx__slot:last-child{
+     padding-right: 0;
+ }
+.blockx__slot:first-child {
+     padding-left: 0;
+ }
+

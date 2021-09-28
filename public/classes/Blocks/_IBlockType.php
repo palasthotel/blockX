@@ -14,6 +14,8 @@ interface _IBlockType {
 
 	public function title(): string;
 
+	public function registerBlockTypeArgs(): array;
+
 	public function contentStructure(): ContentStructure;
 
 }

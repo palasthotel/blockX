@@ -3,26 +3,26 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "wp-scripts start src/gutenberg.js --output-path=public/dist",
-    "build": "wp-scripts build src/gutenberg.js --output-path=public/dist",
+    "watch": "./node_modules/.bin/wp-scripts start src/gutenberg.js --output-path=public/assets/dist",
+    "build": "wp-scripts build src/gutenberg.js --output-path=public/assets/dist",
     "packages-update": "wp-scripts packages-update"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^5.2.1",
-    "@wordpress/block-editor": "^7.0.0",
-    "@wordpress/blocks": "^11.0.0",
-    "@wordpress/components": "^15.0.0",
-    "@wordpress/data": "^6.0.0",
+    "@wordpress/api-fetch": "^5.2.2",
+    "@wordpress/block-editor": "^7.0.2",
+    "@wordpress/blocks": "^11.1.0",
+    "@wordpress/components": "^17.0.0",
+    "@wordpress/data": "^6.1.0",
     "@wordpress/dom-ready": "^3.2.1",
-    "@wordpress/edit-post": "^5.0.0",
-    "@wordpress/editor": "^11.0.0",
-    "@wordpress/element": "^4.0.0",
-    "@wordpress/i18n": "^4.2.1",
-    "@wordpress/plugins": "^4.0.0",
-    "@wordpress/scripts": "^17.1.0",
-    "@wordpress/server-side-render": "^3.0.0",
+    "@wordpress/edit-post": "^5.0.2",
+    "@wordpress/editor": "^11.0.2",
+    "@wordpress/element": "^4.0.1",
+    "@wordpress/i18n": "^4.2.2",
+    "@wordpress/plugins": "^4.0.2",
+    "@wordpress/scripts": "^18.0.1",
+    "@wordpress/server-side-render": "^3.0.2",
     "lodash": "^4.17.21",
-    "postcss": "^8.3.6",
-    "swr": "^0.5.6"
+    "postcss": "^8.3.8",
+    "swr": "^1.0.1"
   }
 }
