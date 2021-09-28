@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2021-09-05 16:00+0200\n"
-"PO-Revision-Date: 2021-09-05 16:00+0200\n"
+"POT-Creation-Date: 2021-09-28 13:25+0200\n"
+"PO-Revision-Date: 2021-09-28 13:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -92,22 +92,26 @@ msgid "List of posts"
 msgstr "Beitragsliste"
 
 #: classes/Containers/Container_1D1.php:15
-msgid "Full width Container"
-msgstr "Vollbreiter Container"
+msgid "Single column"
+msgstr "Einzelspalte"
 
 #: classes/Containers/Container_1D2_1D2.php:15
-msgid "Two Column 50%"
-msgstr "Zwei Spalten 50%"
+msgid "Two column 1/2 & 1/2"
+msgstr "Zwei Spalten 1/2 & 1/2"
+
+#: classes/Containers/Container_1D3_1D3_1D3.php:15
+msgid "Three column 1/3 & 1/3 & 1/3"
+msgstr "Drei Spalten 1/3 & 1/3 & 1/3"
 
 #: classes/Containers/Container_1D3_2D3.php:15
-msgid "Two Column 1/3 & 2/3"
+msgid "Two column 1/3 & 2/3"
 msgstr "Zwei Spalten 1/3 & 2/3"
 
 #: classes/Containers/Container_2D3_1D3.php:15
-msgid "Two Column 2/3 & 1/3"
+msgid "Two column 2/3 & 1/3"
 msgstr "Zwei Spalten 2/3 & 1/3"
 
-#: classes/Gutenberg.php:209
+#: classes/Gutenberg.php:241
 msgid "Any"
 msgstr "Beliebig"
 
@@ -115,18 +119,54 @@ msgstr "Beliebig"
 msgid "No post found."
 msgstr "Keinen Beitrag gefunden."
 
-#: classes/Settings.php:55
-msgid "Autosave timeout"
-msgstr "Autosave-Timeout"
+#: classes/Settings.php:47
+msgid "Settings"
+msgstr "Einstellungen"
 
-#: classes/Settings.php:72
-msgid ""
-"In seconds. 0 means no autosave at all. This does NOT save the post but "
-"applies the block changes to the content preview."
+#. Plugin Name of the plugin/theme
+#: classes/Settings.php:59 classes/Settings.php:60
+msgid "BlockX"
+msgstr "BlockX"
+
+#: classes/Settings.php:93
+msgid "Assets"
+msgstr "Assets"
+
+#: classes/Settings.php:101
+msgid "Types"
+msgstr "Typen"
+
+#: classes/Settings.php:129
+msgid "Timeout in seconds"
+msgstr "Zeitraum (Sekunden)"
+
+#: classes/Settings.php:143
+#, fuzzy
+#| msgid "BlockX"
+msgid "Blockx"
+msgstr "BlockX"
+
+#: classes/Settings.php:195
+msgid "File mods are disabled via DISALLOW_FILE_MODS constant."
 msgstr ""
-"In Sekunden. 0 bedeutet keine automatische Speicherung. Dadurch wird NICHT "
-"der Beitrag gespeichert, sondern die Blockänderungen auf die Inhaltsvorschau "
-"angewendet."
+"Dateiveränderungen werden über DISALLOW_FILE_MODS Konstante deaktiviert."
+
+#: classes/Settings.php:224
+#, php-format
+msgid ""
+"block.json and CSS-Files will be deleted and regenerated to %s{namespace}/"
+"{name}/."
+msgstr ""
+"block.json und CSS-Dateien werden gelöscht und zu %s{namespace}/{name}/ neu "
+"generiert."
+
+#: classes/Settings.php:287
+msgid ""
+"Changes of the block settings will be automatically applied. 0 means no auto "
+"apply of changes at all."
+msgstr ""
+"Änderungen der Blockeinstellungen werden automatisch übernommen. 0 bedeutet, "
+"dass Änderungen überhaupt nicht automatisch angewendet werden."
 
 #: templates/blockx.php:11
 #, php-format
@@ -141,10 +181,6 @@ msgstr "Keine Beiträge gefunden."
 #, php-format
 msgid "No editor template found for block '%s'."
 msgstr "Kein Editor-Template für den Block ‚%s‘ gefunden."
-
-#. Plugin Name of the plugin/theme
-msgid "BlockX"
-msgstr "BlockX"
 
 #. Plugin URI of the plugin/theme
 msgid "https://github.com/palasthotel/blockX"
@@ -161,6 +197,23 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.palasthotel.de"
 msgstr ""
+
+#~ msgid "Full width Container"
+#~ msgstr "Vollbreiter Container"
+
+#~ msgid "Two Column 50%"
+#~ msgstr "Zwei Spalten 50%"
+
+#~ msgid "Autosave timeout"
+#~ msgstr "Autosave-Timeout"
+
+#~ msgid ""
+#~ "In seconds. 0 means no autosave at all. This does NOT save the post but "
+#~ "applies the block changes to the content preview."
+#~ msgstr ""
+#~ "In Sekunden. 0 bedeutet keine automatische Speicherung. Dadurch wird "
+#~ "NICHT der Beitrag gespeichert, sondern die Blockänderungen auf die "
+#~ "Inhaltsvorschau angewendet."
 
 #~ msgctxt "media widget"
 #~ msgid "Clear selection"
