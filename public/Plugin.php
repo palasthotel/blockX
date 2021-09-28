@@ -84,6 +84,7 @@ class Plugin extends Components\Plugin {
 	// ----------------------------------------------------
 	const OPTION_DATA_VERSION = "blockx_data_version";
 	const OPTION_AUTO_SAVE_TIMEOUT = "blockx_auto_save_timeout";
+	const OPTION_ENABLED_CORE_CONTAINERS = "blockx_enabled_core_containers";
 
 	// ----------------------------------------------------
 	// initialize plugin features

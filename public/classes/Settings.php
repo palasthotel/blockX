@@ -5,6 +5,7 @@ namespace Palasthotel\WordPress\BlockX;
 
 
 use Palasthotel\WordPress\BlockX\Components\Component;
+use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 
 class Settings extends Component {
 
@@ -12,7 +13,17 @@ class Settings extends Component {
 		add_filter( 'plugin_action_links_' . $this->plugin->basename, array( $this, 'add_action_links' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'custom_settings' ) );
-        add_action( 'wp_ajax_blockx_regenerate_containers' , [$this, 'regenerate_containers']);
+		add_action( 'wp_ajax_blockx_regenerate_containers', [ $this, 'regenerate_containers' ] );
+	}
+
+	public static function isCoreContainerEnabled( _IContainerType $container ) {
+		$enabledContainers = static::getEnabledCoreContainers();
+
+		return in_array( (string) $container->id(), $enabledContainers );
+	}
+
+	public static function getEnabledCoreContainers() {
+		return get_option( Plugin::OPTION_ENABLED_CORE_CONTAINERS, [] );
 	}
 
 	public static function getAutoSaveTimeout() {
@@ -65,6 +76,18 @@ class Settings extends Component {
 			'blockx'
 		);
 
+		register_setting(
+			'blockx',
+			Plugin::OPTION_ENABLED_CORE_CONTAINERS,
+			[
+				"type"              => "array",
+				"default"           => [],
+				"sanitize_callback" => function ( $val ) {
+					return is_array( $val ) ? $val : [];
+				}
+			]
+		);
+
 		add_settings_field(
 			"regeneration",
 			__( 'Assets', Plugin::DOMAIN ),
@@ -72,6 +95,15 @@ class Settings extends Component {
 			'blockx',
 			'blockx-container'
 		);
+
+		add_settings_field(
+			"types",
+			__( 'Types', Plugin::DOMAIN ),
+			array( $this, 'render_types' ),
+			'blockx',
+			'blockx-container'
+		);
+
 
 		add_settings_section(
 			'blockx-auto',
@@ -83,10 +115,14 @@ class Settings extends Component {
 		register_setting(
 			'blockx',
 			Plugin::OPTION_AUTO_SAVE_TIMEOUT,
-			function ( $val ) {
-				// if is string it comes from form else it's set in code
-				return is_string( $val ) ? intval( $val ) * 1000 : $val;
-			}
+			[
+				"type"              => "integer",
+				"default"           => 0,
+				"sanitize_callback" => function ( $val ) {
+					// if is string it comes from form else it's set in code
+					return is_string( $val ) ? intval( $val ) * 1000 : $val;
+				}
+			]
 		);
 		add_settings_field(
 			Plugin::OPTION_AUTO_SAVE_TIMEOUT,
@@ -116,24 +152,60 @@ class Settings extends Component {
 		<?php
 	}
 
+	public function render_types() {
+
+		echo "<table>";
+		echo "<thead>";
+		echo "<tr>";
+        echo "<th style='width: 80px;'>Enabled</th>";
+		echo "<th style='width: 120px;'>Namespace</th>";
+		echo "<th style='width: 340px;'>Name</th>";
+		echo "</tr>";
+		echo "</thead>";
+		echo "<tbody>";
+
+		$containerTypes    = $this->plugin->gutenberg->getCoreContainerTypes();
+
+		foreach ( $containerTypes as $container ) {
+
+            $id = $container->id();
+            $name = $id->name;
+            $namespace = $id->namespace;
+
+			echo "<tr>";
+
+            $inputName = Plugin::OPTION_ENABLED_CORE_CONTAINERS;
+            $checked = static::isCoreContainerEnabled($container) ? "checked": "";
+            echo "<td><input type='checkbox' name='{$inputName}[]' value='$id' $checked /></td>";
+
+			echo "<td style='vertical-align: top;'>$namespace</td>";
+			echo "<td style='vertical-align: top;'>$name</td>";
+			echo "</tr>";
+		}
+
+
+		echo "</tbody>";
+		echo "</table>";
+	}
+
 	public function render_regenerate_assets() {
 		$path = $this->plugin->bag->paths->system;
 		$url  = $this->plugin->bag->paths->url;
-        if( defined('DISALLOW_FILE_MODS') && DISALLOW_FILE_MODS){
-            $info = __("File mods are disabled via DISALLOW_FILE_MODS constant.", Plugin::DOMAIN);
-            echo '<input type="submit" disabled="disabled" class="button" value="Regenerate" title="'.$info.'" />';
-        } else {
-	        submit_button( "Regenerate", 'secondary', 'regenerate' );
-	        $admin_ajax_url = admin_url("admin-ajax.php?action=blockx_regenerate_containers");
-	        ?>
+		if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
+			$info = __( "File mods are disabled via DISALLOW_FILE_MODS constant.", Plugin::DOMAIN );
+			echo '<input type="submit" disabled="disabled" class="button" value="Regenerate" title="' . $info . '" />';
+		} else {
+			submit_button( "Regenerate", 'secondary', 'regenerate' );
+			$admin_ajax_url = admin_url( "admin-ajax.php?action=blockx_regenerate_containers" );
+			?>
             <script>
-                jQuery(function($){
-                    $("[name=regenerate]").click(function(e){
+                jQuery(function ($) {
+                    $("[name=regenerate]").click(function (e) {
                         e.preventDefault();
                         jQuery.ajax({
                             url: "<?php echo $admin_ajax_url; ?>",
-                            success: function(res){
-                                if(res.success){
+                            success: function (res) {
+                                if (res.success) {
                                     window.location.reload();
                                 } else {
                                     console.debug(res);
@@ -145,8 +217,8 @@ class Settings extends Component {
                     });
                 });
             </script>
-	        <?php
-        }
+			<?php
+		}
 
 		$description = sprintf(
 			__( "block.json and CSS-Files will be deleted and regenerated to %s{namespace}/{name}/.", Plugin::DOMAIN ),
@@ -173,19 +245,19 @@ class Settings extends Component {
 				if ( $container == "." || $container == ".." ) {
 					continue;
 				}
-                $time = "";
-                $file = $path."/$domain/$container/block.json";
-                if(file_exists($file)){
-                    $time = date("Y-m-d H:i:s",filemtime($file));
-                }
-				echo "<tr>";
-				echo "<td>$domain</td>";
-				echo "<td>";
-                echo "$container<br/>";
+				$time = "";
+				$file = $path . "/$domain/$container/block.json";
+				if ( file_exists( $file ) ) {
+					$time = date( "Y-m-d H:i:s", filemtime( $file ) );
+				}
+
+				echo "<td style='vertical-align: top;'>$domain</td>";
+				echo "<td style='vertical-align: top;'>";
+				echo "$container<br/>";
 				echo "&nbsp;&nbsp;&nbsp;<span style='font-size: 0.7rem;'>($time)</span><br/>";
-                echo "&nbsp;&nbsp;&nbsp;/block.json<br/>";
-                echo "&nbsp;&nbsp;&nbsp;/{$domain}_{$container}.css";
-                echo "</td>";
+				echo "&nbsp;&nbsp;&nbsp;/block.json<br/>";
+				echo "&nbsp;&nbsp;&nbsp;/{$domain}_{$container}.css";
+				echo "</td>";
 				echo "</tr>";
 			}
 
@@ -194,12 +266,14 @@ class Settings extends Component {
 		echo "</table>";
 	}
 
-    public function regenerate_containers(){
-        if(!current_user_can("manage_options")) return;
-        $this->plugin->bag->deleteAssets();
-        wp_send_json_success();
-        exit;
-    }
+	public function regenerate_containers() {
+		if ( ! current_user_can( "manage_options" ) ) {
+			return;
+		}
+		$this->plugin->bag->deleteAssets();
+		wp_send_json_success();
+		exit;
+	}
 
 	/**
 	 * render the setting field

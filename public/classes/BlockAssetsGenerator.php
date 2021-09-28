@@ -14,18 +14,18 @@ class BlockAssetsGenerator extends Component {
 
 	public function onCreate() {
 		$this->paths = new AssetGeneratorPaths(
-			WP_CONTENT_DIR."/blockx/",
-			content_url("blockx/")
+			WP_CONTENT_DIR . "/blockx/",
+			content_url( "blockx/" )
 		);
 		add_action( 'plugins_loaded', function () {
 			do_action(
 				Plugin::ACTION_ASSET_GENERATION_PATHS,
 				$this->paths
 			);
-			$this->paths->system = rtrim($this->paths->system,"/")."/";
-			$this->paths->url = rtrim($this->paths->url,"/")."/";
+			$this->paths->system = rtrim( $this->paths->system, "/" ) . "/";
+			$this->paths->url    = rtrim( $this->paths->url, "/" ) . "/";
 
-		}, 99);
+		}, 99 );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class BlockAssetsGenerator extends Component {
 	 * @return string
 	 */
 	private function getDirectoryPath( _IContainerType $container ) {
-		return $this->paths->system . $container->id()."/";
+		return $this->paths->system . $container->id() . "/";
 	}
 
 	/**
@@ -43,7 +43,7 @@ class BlockAssetsGenerator extends Component {
 	 * @return string
 	 */
 	private function getDirectoryUrl( _IContainerType $container ) {
-		return $this->paths->url . $container->id()."/";
+		return $this->paths->url . $container->id() . "/";
 	}
 
 	/**
@@ -74,7 +74,7 @@ class BlockAssetsGenerator extends Component {
 	public function createBlockJSONIfNotExists( _IContainerType $container ) {
 		$this->mkdir( $container );
 		$jsonFile = $this->getBlockJSONFilePath( $container );
-		if ( WP_DEBUG || ! file_exists( $jsonFile ) ) {
+		if ( ! file_exists( $jsonFile ) ) {
 			$contents          = file_get_contents( $this->plugin->path . "assets/container/block.json" );
 			$json              = json_decode( $contents );
 			$json->name        = (string) $container->id();
@@ -88,7 +88,7 @@ class BlockAssetsGenerator extends Component {
 	public function createContainerStylesIfNotExists( _IContainerType $container, Style $style ) {
 		$this->mkdir( $container );
 		$styleFile = $this->getContainerStylesFilePath( $container, $style );
-		if ( WP_DEBUG || ! file_exists( $styleFile ) ) {
+		if ( ! file_exists( $styleFile ) ) {
 			ob_start();
 			include $this->plugin->path . "/scripts/container-styles.php";
 			$css = ob_get_contents();
@@ -97,19 +97,21 @@ class BlockAssetsGenerator extends Component {
 		}
 	}
 
-	public function deleteAssets(){
+	public function deleteAssets() {
 		$this->deleteFilesThenSelf( $this->paths->system );
 	}
 
-	private function deleteFilesThenSelf($folder) {
-		foreach(new DirectoryIterator($folder) as $f) {
-			if($f->isDot()) continue; // skip . and ..
-			if ($f->isFile()) {
-				unlink($f->getPathname());
-			} else if($f->isDir()) {
-				$this->deleteFilesThenSelf($f->getPathname());
+	private function deleteFilesThenSelf( $folder ) {
+		foreach ( new DirectoryIterator( $folder ) as $f ) {
+			if ( $f->isDot() ) {
+				continue;
+			} // skip . and ..
+			if ( $f->isFile() ) {
+				unlink( $f->getPathname() );
+			} else if ( $f->isDir() ) {
+				$this->deleteFilesThenSelf( $f->getPathname() );
 			}
 		}
-		rmdir($folder);
+		rmdir( $folder );
 	}
 }

@@ -10,6 +10,7 @@ use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Containers\_ContainerType;
+use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D1;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D2_1D2;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D3_1D3_1D3;
@@ -76,11 +77,11 @@ class Gutenberg extends Component {
 				$gutenberg->addBlockType( new Debug() );
 			}
 
-			$gutenberg->addContainerType( new Container_1D1() );
-			$gutenberg->addContainerType( new Container_1D2_1D2() );
-			$gutenberg->addContainerType( new Container_1D3_2D3() );
-			$gutenberg->addContainerType( new Container_2D3_1D3() );
-			$gutenberg->addContainerType( new Container_1D3_1D3_1D3() );
+			foreach ($this->getCoreContainerTypes() as $container){
+				if(Settings::isCoreContainerEnabled($container)){
+					$gutenberg->addContainerType($container);
+				}
+			}
 
 		}, 0 );
 
@@ -93,7 +94,11 @@ class Gutenberg extends Component {
 			}
 
 			// backend only
-			$this->plugin->assets->enqueueGutenberg( $this->blocks, $this->dependencies, $this->containers );
+			$this->plugin->assets->enqueueGutenberg(
+				$this->blocks,
+				$this->dependencies,
+				$this->getContainerTypes()
+			);
 
 		} );
 		add_action( 'enqueue_block_assets', function () {
@@ -102,6 +107,23 @@ class Gutenberg extends Component {
 				$block->enqueueAssets();
 			}
 		} );
+	}
+
+	public function getCoreContainerTypes(): array {
+		return [
+			new Container_1D1(),
+			new Container_1D2_1D2(),
+			new Container_1D3_1D3_1D3(),
+			new Container_1D3_2D3(),
+			new Container_2D3_1D3(),
+		];
+	}
+
+	/**
+	 * @return _IContainerType[]
+	 */
+	public function getContainerTypes(): array{
+		return  $this->containers;
 	}
 
 	/**
