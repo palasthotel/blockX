@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BlockX\n"
-"POT-Creation-Date: 2021-09-28 13:25+0200\n"
-"PO-Revision-Date: 2021-09-28 13:29+0200\n"
+"POT-Creation-Date: 2021-09-28 13:32+0200\n"
+"PO-Revision-Date: 2021-09-28 13:32+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -128,6 +128,12 @@ msgstr "Einstellungen"
 msgid "BlockX"
 msgstr "BlockX"
 
+#: classes/Settings.php:74
+#, fuzzy
+#| msgid "Full width Container"
+msgid "Container"
+msgstr "Vollbreiter Container"
+
 #: classes/Settings.php:93
 msgid "Assets"
 msgstr "Assets"
@@ -135,6 +141,12 @@ msgstr "Assets"
 #: classes/Settings.php:101
 msgid "Types"
 msgstr "Typen"
+
+#: classes/Settings.php:110
+#, fuzzy
+#| msgid "Apply changes"
+msgid "Auto apply changes"
+msgstr "Änderungen übernehmen"
 
 #: classes/Settings.php:129
 msgid "Timeout in seconds"
@@ -145,6 +157,10 @@ msgstr "Zeitraum (Sekunden)"
 #| msgid "BlockX"
 msgid "Blockx"
 msgstr "BlockX"
+
+#: classes/Settings.php:160
+msgid "Enabled"
+msgstr "Aktiviert"
 
 #: classes/Settings.php:195
 msgid "File mods are disabled via DISALLOW_FILE_MODS constant."
@@ -197,9 +213,6 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://www.palasthotel.de"
 msgstr ""
-
-#~ msgid "Full width Container"
-#~ msgstr "Vollbreiter Container"
 
 #~ msgid "Two Column 50%"
 #~ msgstr "Zwei Spalten 50%"
