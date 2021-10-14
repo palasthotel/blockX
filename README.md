@@ -247,10 +247,13 @@ Simple text input.
 ```php
 \Palasthotel\WordPress\BlockX\Widgets\Text::build(string $key, string $label, string $defaultValue = "")
 ->rows(1)
+->maxChars(30)
 ->help("Description text");
 ```
 
 With `rows` larger than 1 this widget is equal to Textarea.
+
+To restrict the text to a maximal length you can use `maxChars`.
 
 The `help` function lets you provide a description.
 
@@ -261,10 +264,13 @@ Is technically the same as Text.
 ```php
 \Palasthotel\WordPress\BlockX\Widgets\Textarea::build(string $key, string $label, string $defaultValue = "")
 ->rows(10)
+->maxChars(500)
 ->help("Description text");
 ```
 
 With `rows` equals 1 this widget is equal to Text.
+
+To restrict the text to a maximal length you can use `maxChars`.
 
 The `help` function lets you provide a description.
 
