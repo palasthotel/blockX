@@ -12,6 +12,8 @@ class Text extends _Widget {
 
 	private $rows = 1;
 	private $help = "";
+	private $maxChars = false;
+
 
 	public static function build( string $key, string $label, string $defaultValue = "" ) {
 		return new static( $key, $label, static::TYPE, $defaultValue );
@@ -36,10 +38,22 @@ class Text extends _Widget {
 		return $this;
 	}
 
+	/**
+	 * @param int|false $value
+	 *
+	 * @return self
+	 */
+	public function maxChars( $value ): Text {
+		$this->maxChars = $value;
+
+		return $this;
+	}
+
 	public function toArray(): array {
 		$arr         = parent::toArray();
 		$arr["rows"] = $this->rows;
 		$arr["help"] = $this->help;
+		$arr["max_chars"] = $this->maxChars;
 
 		return $arr;
 	}
