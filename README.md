@@ -282,6 +282,15 @@ Simple integer input.
 \Palasthotel\WordPress\BlockX\Widgets\Number::build(string $key, string $label, int $defaultValue = 0);
 ```
 
+### Readonly
+
+Readonly field.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Readonly::build(string $key, string $label, string $value = "")
+->help("Some helping text");
+```
+
 ### Info
 
 Simple text info for the user. No input.
