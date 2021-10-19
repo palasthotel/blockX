@@ -6,6 +6,7 @@ const ReadonlyWidget = ({definition, value})=> {
         type="text"
         readOnly
         value={value}
+        help={definition.help}
     />
 }
 
