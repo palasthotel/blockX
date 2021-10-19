@@ -46,7 +46,7 @@ class Panel extends _Widget implements _IWidgetGroup {
 		return $this->contentStructure;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$cs                     = parent::toArray();
 		$cs["contentStructure"] = $this->contentStructure->toArray();
 		$cs["opened"]           = $this->isOpened;

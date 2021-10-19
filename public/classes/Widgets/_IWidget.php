@@ -10,4 +10,6 @@ interface _IWidget {
 	public function label(): string;
 
 	public function type(): string;
+
+	public function toArray(): array;
 }

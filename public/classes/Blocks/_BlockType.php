@@ -14,7 +14,7 @@ abstract class _BlockType implements _IBlockType {
 	/**
 	 * @return bool
 	 */
-	function isEditor() {
+	function isEditor(): bool {
 
 		if ( defined( 'BLOCK_X_IS_EDITOR_SSR' ) && BLOCK_X_IS_EDITOR_SSR == true ) {
 			return true;
@@ -97,7 +97,7 @@ abstract class _BlockType implements _IBlockType {
 	 *
 	 * @return string
 	 */
-	function build( array $attributes, string $editorContent ) {
+	function build( array $attributes, string $editorContent ): string {
 
 		$attributes = apply_filters( Plugin::FILTER_BLOCK_ATTRIBUTES, $attributes, $this, $attributes );
 		$content    = $this->prepare( isset( $attributes["content"] ) ? (object) $attributes["content"] : new stdClass() );

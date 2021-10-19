@@ -59,7 +59,7 @@ abstract class _Widget implements _IWidget {
 		return $this;
 	}
 
-	public function toArray() {
+	public function toArray(): array {
 		$args = [
 			"key"   => $this->key(),
 			"label" => $this->label(),
