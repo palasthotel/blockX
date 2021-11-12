@@ -279,7 +279,10 @@ The `help` function lets you provide a description.
 Simple integer input.
 
 ```php
-\Palasthotel\WordPress\BlockX\Widgets\Number::build(string $key, string $label, int $defaultValue = 0);
+\Palasthotel\WordPress\BlockX\Widgets\Number::build(string $key, string $label, int $defaultValue = 0)
+->min(10)
+->max(500)
+->help("Description text");
 ```
 
 ### Readonly
