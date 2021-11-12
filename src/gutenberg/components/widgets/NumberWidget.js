@@ -3,7 +3,7 @@ import {useCallback} from "@wordpress/element";
 
 const NumberWidget = ({definition, value, onChange})=> {
 
-    const handleChange = useCallback((value)=>{
+    const handleChange = (value)=>{
         if(value && definition.max && value > definition.max){
             return;
         }
@@ -11,7 +11,7 @@ const NumberWidget = ({definition, value, onChange})=> {
             return;
         }
         onChange(value);
-    }, [definition.max, definition.min]);
+    };
 
     return <TextControl
         label={definition.label}
