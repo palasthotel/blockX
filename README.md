@@ -62,9 +62,11 @@ add_action(
 )
 ```
 
-## Create new container class (BETA)
+## Use containers (BETA)
 
-Containers are special blocks. You can use containers for custom columned rows. Blockx comes with containers for 1d1, 1d2 + 1d2, 1d3 + 2d3 and 2d3 + 1d3 columns.
+Containers are special blocks. You can use containers for custom columned rows. Blockx comes with containers for 1d1, 1d2 + 1d2, 1d3 + 2d3 and 2d3 + 1d3 columns. If you want to use some of these core containers, activate them in the blockx settings.
+
+### Create new container class
 
 Containers need to extend `_ContainerType` abstract class which comes with the interface `_IContainerType` that forces you t add some required functions. The minimal setup looks like this:
 
@@ -129,7 +131,7 @@ class MyContainer extends _ContainerType {
 }
 ```
 
-## Add a container (BETA)
+### Add a container
 
 Use the action `blockx_collect` to add your custom container classes:
 
@@ -245,10 +247,13 @@ Simple text input.
 ```php
 \Palasthotel\WordPress\BlockX\Widgets\Text::build(string $key, string $label, string $defaultValue = "")
 ->rows(1)
+->maxChars(30)
 ->help("Description text");
 ```
 
 With `rows` larger than 1 this widget is equal to Textarea.
+
+To restrict the text to a maximal length you can use `maxChars`.
 
 The `help` function lets you provide a description.
 
@@ -259,10 +264,13 @@ Is technically the same as Text.
 ```php
 \Palasthotel\WordPress\BlockX\Widgets\Textarea::build(string $key, string $label, string $defaultValue = "")
 ->rows(10)
+->maxChars(500)
 ->help("Description text");
 ```
 
 With `rows` equals 1 this widget is equal to Text.
+
+To restrict the text to a maximal length you can use `maxChars`.
 
 The `help` function lets you provide a description.
 
@@ -271,7 +279,19 @@ The `help` function lets you provide a description.
 Simple integer input.
 
 ```php
-\Palasthotel\WordPress\BlockX\Widgets\Number::build(string $key, string $label, int $defaultValue = 0);
+\Palasthotel\WordPress\BlockX\Widgets\Number::build(string $key, string $label, int $defaultValue = 0)
+->min(10)
+->max(500)
+->help("Description text");
+```
+
+### Readonly
+
+Readonly field.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\Readonly::build(string $key, string $label, string $value = "")
+->help("Some helping text");
 ```
 
 ### Info

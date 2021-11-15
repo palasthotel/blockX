@@ -3,18 +3,18 @@
 
 namespace Palasthotel\WordPress\BlockX\Model;
 
-use Palasthotel\WordPress\BlockX\Widgets\_Widget;
+use Palasthotel\WordPress\BlockX\Widgets\_IWidget;
 
 class ContentStructure {
 	/**
-	 * @var _Widget[]
+	 * @var _IWidget[]
 	 */
 	private $items;
 
 	/**
 	 * ContentStructure constructor.
 	 *
-	 * @param _Widget[] $items
+	 * @param _IWidget[] $items
 	 */
 	public function __construct( array $items = [] ) {
 		$this->items = $items;
@@ -23,7 +23,7 @@ class ContentStructure {
 	/**
 	 * @return array
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		$cs = [];
 		foreach ( $this->items as $item ) {
 			$cs[] = $item->toArray();
@@ -32,7 +32,10 @@ class ContentStructure {
 		return $cs;
 	}
 
-	public function getItems() {
+	/**
+	 * @return _IWidget[]
+	 */
+	public function getItems():array {
 		return $this->items;
 	}
 

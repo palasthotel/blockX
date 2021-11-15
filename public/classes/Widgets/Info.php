@@ -7,7 +7,7 @@ namespace Palasthotel\WordPress\BlockX\Widgets;
 class Info extends _Widget {
 
 	const TYPE = "info";
-	private string $text;
+	private $text;
 
 	public static function build(string $text): Info {
 		$widget = new Info( '', "", static::TYPE, false );

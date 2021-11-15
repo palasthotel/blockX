@@ -180,6 +180,9 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			// advanced
 			// ------------------------------------
+			Panel::build( "Empty panel", new ContentStructure( [
+			] ) ),
+
 			Panel::build( "Collapsible content", new ContentStructure( [
 				Number::build( "offset2", "Offset 2", 0 ),
 				Url::build( "panel_url", "Url" ),

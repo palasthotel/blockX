@@ -71,7 +71,7 @@ class Settings extends Component {
 
 		add_settings_section(
 			'blockx-container',
-			'Container',
+			__('Container', Plugin::DOMAIN),
 			"",
 			'blockx'
 		);
@@ -107,7 +107,7 @@ class Settings extends Component {
 
 		add_settings_section(
 			'blockx-auto',
-			'Auto apply changes',
+			__('Auto apply changes', Plugin::DOMAIN),
 			null,
 			'blockx'
 		);
@@ -157,7 +157,7 @@ class Settings extends Component {
 		echo "<table>";
 		echo "<thead>";
 		echo "<tr>";
-        echo "<th style='width: 80px;'>Enabled</th>";
+        echo "<th style='width: 80px;'>".__("Enabled", Plugin::DOMAIN)."</th>";
 		echo "<th style='width: 120px;'>Namespace</th>";
 		echo "<th style='width: 340px;'>Name</th>";
 		echo "</tr>";
