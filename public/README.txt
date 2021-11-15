@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.3.3 =
+* UI: Panel and Media widget UI optimization
+
 = 1.3.2 =
 * Feature: Help text for ReadonlyWidget
 

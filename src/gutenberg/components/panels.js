@@ -29,7 +29,9 @@ const Panels = ({definition, content, setContent})=>{
     };
     for(const item of definition){
         if(item.type === "panel"){
-            panels.push({...activePanel})
+            if(activePanel.contentStructure.length) {
+                panels.push({...activePanel})
+            }
             panels.push({
                 label: item.label,
                 opened: item.opened,
@@ -38,9 +40,11 @@ const Panels = ({definition, content, setContent})=>{
             activePanel.contentStructure = [];
             continue;
         }
-        activePanel.contentStructure.push(item)
+        activePanel.contentStructure.push(item);
+
+
     }
-    if(activePanel.contentStructure.length > 0 ) panels.push(activePanel)
+    if(activePanel.contentStructure.length > 0 ) panels.push(activePanel);
 
     return <>
         {panels.map((panel, panelIndex)=> <PanelBody
