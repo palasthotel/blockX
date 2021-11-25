@@ -85,7 +85,7 @@ class BlockAssetsGenerator extends Component {
 		}
 	}
 
-	public function createContainerStylesIfNotExists( _IContainerType $container, Style $style ) {
+	public function createContainerStylesIfNotExists( _IContainerType $container, Style $style, bool $isEditorStyle ) {
 		$this->mkdir( $container );
 		$styleFile = $this->getContainerStylesFilePath( $container, $style );
 		if ( ! file_exists( $styleFile ) ) {

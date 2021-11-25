@@ -66,6 +66,7 @@ class Plugin extends Components\Plugin {
 	const FILTER_PREPARE_CONTENT = "blockx_prepare_content";
 	const FILTER_REST_AJAX = "blockx_rest_ajax";
 	const ACTION_ASSET_GENERATION_PATHS = "blockx_asset_generation_paths";
+	const FILTER_CONTAINER_BREAKPOINT = "blockx_container_breakpoint";
 
 
 	// ----------------------------------------------------
