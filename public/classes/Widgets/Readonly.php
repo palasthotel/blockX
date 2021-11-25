@@ -9,7 +9,7 @@ class Readonly extends _Widget {
 	const TYPE = "readonly";
 	private $help = "";
 
-	public static function build( string $key, string $label, string $value ): Readonly {
+	public static function build( string $key, string $label, string $value = "" ): Readonly {
 		return new Readonly( $key, $label, static::TYPE, $value );
 	}
 
