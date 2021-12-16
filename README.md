@@ -509,7 +509,7 @@ Use the `enqueueEditorAssets` function to provide custom javascript files..
 ...
 class MyBlock extends _BlockType{
   	...
-    public function enqueueEditorAssets( Dependencies $depenencies ){
+    public function enqueueEditorAssets( Dependencies $dependencies ){
       wp_enqueue_script(
         "my-blockx-components-script", 
         plugin_dir_url(__FILE__)."/my-blockx-components.js"
