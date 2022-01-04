@@ -22,7 +22,7 @@ abstract class _BlockType implements _IBlockType {
 		if ( isset( $_SERVER ) && isset( $_SERVER["HTTP_BLOCK_X_EDITOR"] ) && "true" == $_SERVER["HTTP_BLOCK_X_EDITOR"] ) {
 			return true;
 		}
-		if ( is_admin() && $_GET["action"] === "edit" ) {
+		if ( is_admin() && isset($_GET["action"]) && $_GET["action"] === "edit" ) {
 			return true;
 		}
 
