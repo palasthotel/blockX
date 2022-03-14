@@ -44,6 +44,14 @@ abstract class _BlockType implements _IBlockType {
 	public function registerBlock() {
 		$bag = Plugin::instance()->bag;
 		$bag->createBlockJSONIfNotExists( $this );
+
+		// so they can be enqueued
+		$this->editorScript();
+		$this->script();
+		$this->viewScript();
+		$this->editorStyles();
+		$this->styles();
+
 		register_block_type( $bag->getBlockJSONFilePath( $this->id() ), array(
 			'render_callback' => array( $this, 'build' )
 		) );
