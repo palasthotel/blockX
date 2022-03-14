@@ -4,12 +4,58 @@
 namespace Palasthotel\WordPress\BlockX\Blocks;
 
 use Palasthotel\WordPress\BlockX\Model\BlockInstance;
-use Palasthotel\WordPress\BlockX\Model\Dependencies;
+use Palasthotel\WordPress\BlockX\Model\Styles;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use stdClass;
 
 abstract class _BlockType implements _IBlockType {
+
+
+	public function editorScript(): string {
+		return Plugin::HANDLE_JS_GUTENBERG;
+	}
+
+	public function script(): string {
+		return "";
+	}
+
+	public function viewScript(): string {
+		return "";
+	}
+
+	public function editorStyles(): Styles {
+		return Styles::build();
+	}
+
+	public function styles(): Styles {
+		return Styles::build();
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getEditorScripts(): array {
+		return array_filter([$this->editorScript(), $this->script()],function($item){
+			return is_string($item);
+		});
+	}
+
+	public function registerBlock() {
+		$bag = Plugin::instance()->bag;
+		$bag->createBlockJSONIfNotExists( $this );
+		register_block_type( $bag->getBlockJSONFilePath( $this->id() ), array(
+			'render_callback' => array( $this, 'build' )
+		) );
+	}
+
+	/**
+	 * arguments for block register javascript call
+	 * @return array
+	 */
+	function registerBlockTypeArgs(): array {
+		return [];
+	}
 
 	/**
 	 * @return bool
@@ -22,36 +68,11 @@ abstract class _BlockType implements _IBlockType {
 		if ( isset( $_SERVER ) && isset( $_SERVER["HTTP_BLOCK_X_EDITOR"] ) && "true" == $_SERVER["HTTP_BLOCK_X_EDITOR"] ) {
 			return true;
 		}
-		if ( is_admin() && isset($_GET["action"]) && $_GET["action"] === "edit" ) {
+		if ( is_admin() && isset( $_GET["action"] ) && $_GET["action"] === "edit" ) {
 			return true;
 		}
 
 		return false;
-	}
-
-	function enqueueEditorAssets( Dependencies $dependencies ) {
-	}
-
-	function enqueueAssets() {
-	}
-
-	public function registerBlock() {
-		register_block_type( (string) $this->id(), array(
-			'attributes'      => array(
-				'content' => array(
-					'type' => 'object',
-				),
-			),
-			'render_callback' => array( $this, 'build' )
-		) );
-	}
-
-	/**
-	 * arguments for block register javascript call
-	 * @return array
-	 */
-	function registerBlockTypeArgs(): array {
-		return [];
 	}
 
 	/**

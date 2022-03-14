@@ -1,10 +1,16 @@
 import {
     InnerBlocks,
     useBlockProps,
-    __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+    useInnerBlocksProps as __stableUseInnerBlocksProps,
+    __experimentalUseInnerBlocksProps,
     store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { useSelect } from '@wordpress/data';
+
+const useInnerBlocksProps = __stableUseInnerBlocksProps
+    ? __stableUseInnerBlocksProps
+    : __experimentalUseInnerBlocksProps;
+
 
 const settings = {
     edit: (props) => {

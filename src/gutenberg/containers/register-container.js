@@ -1,9 +1,16 @@
 import {usePreviewMode} from "../hooks/use-preview-mode";
 import {InnerBlocks, useBlockProps} from "@wordpress/block-editor";
-import {__experimentalUseInnerBlocksProps as useInnerBlocksProps} from "@wordpress/block-editor";
+import {
+    useInnerBlocksProps as __stableUseInnerBlocksProps,
+    __experimentalUseInnerBlocksProps
+} from "@wordpress/block-editor";
 import meta from '../../../public/assets/container/block.json';
 
 const ALLOWED_BLOCKS = ['blockx/slot'];
+
+const useInnerBlocksProps = __stableUseInnerBlocksProps
+    ? __stableUseInnerBlocksProps
+    : __experimentalUseInnerBlocksProps;
 
 function getContainerClasses(type, previewMode){
     const classes = [

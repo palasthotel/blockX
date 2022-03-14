@@ -26,10 +26,6 @@ class Assets extends Components\Component {
 			Plugin::HANDLE_CSS_GUTENBERG,
 			"assets/dist/gutenberg.css"
 		);
-		$this->helper->registerStyle(
-			Plugin::HANDLE_CSS_CONTAINER_BASE,
-			"assets/container/base.css"
-		);
 	}
 
 	/**
@@ -44,7 +40,9 @@ class Assets extends Components\Component {
 		$this->helper->registerScript(
 			Plugin::HANDLE_JS_GUTENBERG,
 			"assets/dist/gutenberg.js",
-			$dependencies->get()
+			array_filter($dependencies->get(), function($handle){
+				return $handle != Plugin::HANDLE_JS_GUTENBERG;
+			})
 		);
 		wp_enqueue_script( Plugin::HANDLE_JS_GUTENBERG );
 
@@ -86,8 +84,8 @@ class Assets extends Components\Component {
 						"id" => (string) $container->id(),
 						"title" => $container->title(),
 						"columns" => $container->columns(),
-						"editorStyle" => $container->editorStyle(),
-						"style" => $container->style(),
+						"editorStyle" => $container->editorStyles(),
+						"style" => $container->styles(),
 					];
 				}, $containers),
 			]

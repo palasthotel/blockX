@@ -2,66 +2,53 @@
 
 namespace Palasthotel\WordPress\BlockX\Containers;
 
-use Palasthotel\WordPress\BlockX\Model\Style;
+use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
+use Palasthotel\WordPress\BlockX\Model\Styles;
 use Palasthotel\WordPress\BlockX\Plugin;
 
 abstract class _ContainerType implements _IContainerType {
 
+	private int $breakpoint;
+
+	public function __construct(int $breakpoint = 0) {
+		$this->breakpoint = $breakpoint;
+	}
+
 	public function registerContainer() {
 		// build block.json
 		$bag = Plugin::instance()->bag;
-		$bag->createBlockJSONIfNotExists( $this );
-		register_block_type( $bag->getBlockJSONFilePath( $this ) );
+		$bag->createContainerBlockJSONIfNotExists( $this );
+		register_block_type( $bag->getBlockJSONFilePath( $this->id() ) );
 
 		// build styles
-		$editorStyle = $this->editorStyle();
-		if ( $editorStyle->isGenerated() ) {
-			$bag->createContainerStylesIfNotExists( $this, $editorStyle, true );
-			$path = $bag->getContainerStylesFilePath( $this, $editorStyle );
-			$url  = $bag->getContainerStylesUrl( $this, $editorStyle );
-			wp_register_style(
-				(string) $editorStyle,
-				$url,
-				[ Plugin::HANDLE_CSS_CONTAINER_BASE ],
-				filemtime( $path )
-			);
-		}
-		$style = $this->style();
-		if ( $style->isGenerated() ) {
-			$bag->createContainerStylesIfNotExists( $this, $style, false );
-			$path = $bag->getContainerStylesFilePath( $this, $style );
-			$url  = $bag->getContainerStylesUrl( $this, $style );
-			wp_register_style(
-				(string) $style,
-				$url,
-				[ Plugin::HANDLE_CSS_CONTAINER_BASE ],
-				filemtime( $path )
-			);
+		$styles = [$this->styles(), $this->editorStyles()];
+		foreach ($styles as $style){
+			if ( $style instanceof ContainerStyles && $style->isGenerated() ) {
+				$bag->createContainerStylesIfNotExists( $this, $style );
+				$path = $bag->getContainerStylesFilePath( $this->id(), $style );
+				$url  = $bag->getContainerStylesUrl( $this->id(), $style );
+				wp_register_style(
+					$style->handle,
+					$url,
+					[],
+					filemtime( $path )
+				);
+			}
 		}
 	}
 
-	public function style(): Style {
-		return Style::build(
-			$this->id()->namespace . "_" . $this->id()->name
-		);
+	public function styles(): Styles {
+		return ContainerStyles::generate( $this->id()->namespace . "_" . $this->id()->name);
 	}
 
-	public function editorStyle(): Style {
-		return Style::build(
-			$this->id()->namespace . "_" . $this->id()->name . "_editor"
-		);
+	public function editorStyles(): Styles {
+		return Styles::build();
 	}
 
-	public function useColumnsInTabletPreview(): bool {
-		return false;
-	}
-
-	public function useColumnsInMobilePreview(): bool {
-		return false;
-	}
+	const BREAKPOINT_TABLET_PREVIEW = 778;
 
 	public function breakpoint(): int{
-		return apply_filters(Plugin::FILTER_CONTAINER_BREAKPOINT, 900, $this);
+		return apply_filters(Plugin::FILTER_CONTAINER_BREAKPOINT, $this->breakpoint, $this);
 	}
 
 }

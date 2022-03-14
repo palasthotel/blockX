@@ -1,11 +1,10 @@
 <?php
 
 use Palasthotel\WordPress\BlockX\Containers\_ContainerType;
-use Palasthotel\WordPress\BlockX\Model\Style;
+use Palasthotel\WordPress\BlockX\Model\Styles;
 /**
  * @var _ContainerType $container
- * @var Style $style
- * @var bool $isEditorStyle
+ * @var Styles $style
  */
 
 $columns = $container->columns();
@@ -17,45 +16,42 @@ $typeParts = array_map(function($column) use ( $denominator ) {
 	return $column."d".$denominator;
 }, $columns);
 $type = "c".implode("-", $typeParts);
-if(!$isEditorStyle && $container->breakpoint() > 0) echo "@media screen and (min-width:{$container->breakpoint()}px) {\n";
-foreach ($columns as $index => $column){
-	$position = $index+1;
-	$widthInPercent = round( ($column / $denominator) * 1000) / 10;
 
-    ?>
-    .blockx__container--<?php echo $type ?> .blockx__slot:nth-child(<?php echo $position; ?>){
-        flex-grow: <?php echo $column; ?>;
-        width: <?php echo $widthInPercent; ?>%;
-    }
+$breakpoint = $container->breakpoint();
+
+if( $breakpoint > 0 ) echo "@media screen and (min-width:{$container->breakpoint()}px) {\n";
+
+    $containerType = ".blockx__container--$type";
+
+echo $containerType ?>{
+    display: flex;
+    flex-wrap: nowrap;
+    --blockx-slot-padding: 5px;
+}
+<?php
+echo $containerType ?> .blockx__slot{
+    min-height: 20px;
+    padding: 0 var(--blockx-slot-padding);
+}
+<?php
+echo $containerType ?> .blockx__slot:last-child{
+    padding-right: 0;
+}
+<?php
+echo $containerType ?> .blockx__slot:first-child {
+    padding-left: 0;
+}
+<?php
+
+foreach ($columns as $index => $column){
+    $position = $index+1;
+    $widthInPercent = round( ($column / $denominator) * 1000) / 10;
+
+echo $containerType ?> .blockx__slot:nth-child(<?php echo $position; ?>){
+    flex-grow: <?php echo $column; ?>;
+    width: <?php echo $widthInPercent; ?>%;
+}
 <?php
 
 }
-if(!$isEditorStyle && $container->breakpoint() > 0) echo "}\n";
-
-if(!$isEditorStyle) return;
-
-$noColModes = [];
-
-
-if(!$container->useColumnsInTabletPreview()){
-    $noColModes[] = ".preview-mode-Tablet";
-}
-
-if(!$container->useColumnsInMobilePreview()){
-	$noColModes[] = ".preview-mode-Mobile";
-}
-
-if(count($noColModes) > 0){
-    $selectors = array_map(function($mode) use ( $type ) {
-       return "$mode.blockx__container--$type";
-    }, $noColModes);
-    echo implode(",", $selectors);
-    echo "{display: inherit;}";
-	$slotSelectors = array_map(function($selector) {
-		return "$selector .blockx__slot";
-	}, $selectors);
-    echo "\n";
-    echo implode(",",$slotSelectors);
-    echo "{flex-grow: inherit; width: inherit; padding: 0; }";
-
-}
+if($breakpoint > 0) echo "\n}\n";

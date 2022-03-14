@@ -5,7 +5,7 @@ namespace Palasthotel\WordPress\BlockX\Model;
 /**
  * @property string $handle
  */
-class Style {
+class ContainerStyles extends Styles {
 
 	/**
 	 * @var bool
@@ -13,7 +13,9 @@ class Style {
 	private $generate;
 
 	public function __construct(string $handle, bool $generate){
-		$this->handle      = $handle;
+		parent::__construct();
+		$this->handle = $handle;
+		$this->handles[] = $handle;
 		$this->generate = $generate;
 	}
 
@@ -21,12 +23,8 @@ class Style {
 		return  $this->generate;
 	}
 
-	public static function build(string $handle, bool $generate = true){
-		return new Style($handle, $generate);
-	}
-
-	public function __toString() {
-		return $this->handle;
+	public static function generate(string $handle, bool $generate = true){
+		return new ContainerStyles($handle, $generate);
 	}
 
 }

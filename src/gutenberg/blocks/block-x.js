@@ -1,5 +1,5 @@
 import {registerBlockType} from '@wordpress/blocks'
-import {InspectorControls} from '@wordpress/block-editor'
+import {InspectorControls, useBlockProps} from '@wordpress/block-editor'
 import {useEffect, useState} from "@wordpress/element";
 import Panels from '../components/panels';
 import BlockContext from '../components/BlockContext';
@@ -15,7 +15,9 @@ const BlockXComponents = window.BlockXComponents = {
     useBlock,
 };
 
-for( const {id, title, category, registerBlockTypeArgs, contentStructure} of BlockX.blocks){
+for( const block of BlockX.blocks){
+
+    const {id, title, category, registerBlockTypeArgs, contentStructure} = block;
 
     // ------------------------------
     // build default values
@@ -34,16 +36,9 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
     // ------------------------------
     registerBlockType( id, {
         ...registerBlockTypeArgs,
-        title,
-        category,
-        attributes: {
-            content:{
-                type: 'object',
-                default: defaultValues,
-            }
-        },
         edit: (props) => {
             const {className,  setAttributes, attributes} = props;
+            const blockProps = useBlockProps();
 
             // for local state changes 
             const [localChangeState, setLocalChangeState] = useState({});
@@ -99,7 +94,7 @@ for( const {id, title, category, registerBlockTypeArgs, contentStructure} of Blo
                     </BlockContext>
                 </InspectorControls>
 
-                <div className={`${className} preview-mode-${previewMode.toLowerCase()}`}>
+                <div {...blockProps} className={`${blockProps.className ?? ""} preview-mode-${previewMode.toLowerCase()}`}>
                     <BlockContext 
                         blockId={id} 
                         contentStructure={contentStructure}

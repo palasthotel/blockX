@@ -3,9 +3,11 @@
 namespace Palasthotel\WordPress\BlockX;
 
 use DirectoryIterator;
+use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
-use Palasthotel\WordPress\BlockX\Model\Style;
+use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
 
 /**
  * @property AssetGeneratorPaths $paths
@@ -28,67 +30,88 @@ class BlockAssetsGenerator extends Component {
 		}, 99 );
 	}
 
-	/**
-	 * @param _IContainerType $container
-	 *
-	 * @return string
-	 */
-	private function getDirectoryPath( _IContainerType $container ) {
-		return $this->paths->system . $container->id() . "/";
+	private function getDirectoryPath( BlockId $id ): string {
+		return $this->paths->system . $id . "/";
 	}
 
-	/**
-	 * @param _IContainerType $container
-	 *
-	 * @return string
-	 */
-	private function getDirectoryUrl( _IContainerType $container ) {
-		return $this->paths->url . $container->id() . "/";
+	private function getDirectoryUrl( BlockId $id ): string {
+		return $this->paths->url . $id . "/";
 	}
 
-	/**
-	 * @param _IContainerType $container
-	 */
-	private function mkdir( _IContainerType $container ) {
-		$containerIdPath = $this->getDirectoryPath( $container );
+	private function mkdir( BlockId $id ) {
+		$containerIdPath = $this->getDirectoryPath( $id );
 		if ( ! is_dir( $containerIdPath ) ) {
 			mkdir( $containerIdPath, 0777, true );
 		}
 	}
 
-	public function getBlockJSONFilePath( _IContainerType $container ): string {
-		return $this->getDirectoryPath( $container ) . "block.json";
+	public function getBlockJSONFilePath( BlockId $id ): string {
+		return $this->getDirectoryPath( $id ) . "block.json";
 	}
 
-	public function getContainerStylesFilePath( _IContainerType $container, Style $style ): string {
-		return $this->getDirectoryPath( $container ) . $style->handle . ".css";
-	}
-
-	public function getContainerStylesUrl( _IContainerType $container, Style $style ): string {
-		return $this->getDirectoryUrl( $container ) . $style->handle . ".css";
-	}
-
-	/**
-	 * @param _IContainerType $container
-	 */
-	public function createBlockJSONIfNotExists( _IContainerType $container ) {
-		$this->mkdir( $container );
-		$jsonFile = $this->getBlockJSONFilePath( $container );
-		if ( ! file_exists( $jsonFile ) ) {
-			$contents          = file_get_contents( $this->plugin->path . "assets/container/block.json" );
+	public function createBlockJSONIfNotExists( _IBlockType $block ) {
+		$this->mkdir( $block->id() );
+		$jsonFile = $this->getBlockJSONFilePath( $block->id() );
+		if ( ! file_exists( $jsonFile ) || WP_DEBUG ) {
+			$contents          = file_get_contents( $this->plugin->path . "assets/block/block.json" );
 			$json              = json_decode( $contents );
-			$json->name        = (string) $container->id();
-			$json->title       = $container->title();
-			$json->style       = (string) $container->style();
-			$json->editorStyle = (string) $container->editorStyle();
+			$json->name        = (string) $block->id();
+			$json->title       = $block->title();
+			$json->category    = $block->category();
+
+			// scripts
+			$editorScript = $block->editorScript();
+			if(!empty($editorScript)){
+				$json->editorScript = $editorScript;
+			}
+			$script = $block->script();
+			if(!empty($script)){
+				$json->script = $script;
+			}
+			$viewScript = $block->viewScript();
+			if(!empty($viewScript)){
+				$json->viewScript = $viewScript;
+			}
+			// styles
+			$styles = $block->styles();
+			if(!empty($styles)){
+				$json->style = $styles->handles;
+			}
+			$editorStyles = $block->editorStyles();
+			if(!empty($editorStyles)){
+				$json->editorStyle = $editorStyles->handles;
+			}
+
 			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
 		}
 	}
 
-	public function createContainerStylesIfNotExists( _IContainerType $container, Style $style, bool $isEditorStyle ) {
-		$this->mkdir( $container );
-		$styleFile = $this->getContainerStylesFilePath( $container, $style );
-		if ( ! file_exists( $styleFile ) ) {
+	public function createContainerBlockJSONIfNotExists( _IContainerType $container ) {
+		$this->mkdir( $container->id() );
+		$jsonFile = $this->getBlockJSONFilePath( $container->id() );
+		if ( ! file_exists( $jsonFile ) || WP_DEBUG  ) {
+			$contents          = file_get_contents( $this->plugin->path . "assets/container/block.json" );
+			$json              = json_decode( $contents );
+			$json->name        = (string) $container->id();
+			$json->title       = $container->title();
+			$json->style       = $container->styles()->handles;
+			$json->editorStyle = $container->editorStyles()->handles;
+			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
+		}
+	}
+
+	public function getContainerStylesFilePath( BlockId $id, ContainerStyles $style ): string {
+		return $this->getDirectoryPath( $id ) . $style->handle . ".css";
+	}
+
+	public function getContainerStylesUrl( BlockId $id, ContainerStyles $style ): string {
+		return $this->getDirectoryUrl( $id ) . $style->handle . ".css";
+	}
+
+	public function createContainerStylesIfNotExists( _IContainerType $container, ContainerStyles $style ) {
+		$this->mkdir( $container->id() );
+		$styleFile = $this->getContainerStylesFilePath( $container->id(), $style );
+		if ( ! file_exists( $styleFile ) || WP_DEBUG ) {
 			ob_start();
 			include $this->plugin->path . "/scripts/container-styles.php";
 			$css = ob_get_contents();

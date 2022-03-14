@@ -18,8 +18,4 @@ class Container_1D3_2D3 extends _ContainerType {
 	public function columns(): array {
 		return [1,2];
 	}
-
-	public function useColumnsInTabletPreview(): bool {
-		return true;
-	}
 }

@@ -34,6 +34,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Changelog ==
 
+= 1.4.0 =
+* Optimization: All BlockX blocks are using block.json api
+
 = 1.3.3 =
 * Feature: Minimum and maximum restriction for number widget
 * UI: Panel and Media widget UI optimization
@@ -140,6 +143,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 == Upgrade Notice ==
 
+With 1.4.0 and newer there were some _BlockType Api changes that should be applied to custom blocks. Please remove the methods $block->enqueueEditorAssets() and $block->enqueueAssets() and use editorStyles() and styles() instead.
 
 == Arbitrary section ==
 

@@ -45,8 +45,6 @@ class Plugin extends Components\Plugin {
 	const HANDLE_JS_GUTENBERG = "blockx";
 	const HANDLE_CSS_GUTENBERG = "blockx";
 
-	const HANDLE_CSS_CONTAINER_BASE = "blockx_container_base";
-
 	// ----------------------------------------------------
 	// core blockx
 	// ----------------------------------------------------

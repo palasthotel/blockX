@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Palasthotel\WordPress\BlockX;
 
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
@@ -34,7 +33,7 @@ class Gutenberg extends Component {
 	private $containers = [];
 
 	private $tooLate = false;
-	var $dependencies;
+	private Dependencies $dependencies;
 
 	public function onCreate() {
 
@@ -48,16 +47,19 @@ class Gutenberg extends Component {
 			// collect all block and container classes
 			do_action( Plugin::ACTION_COLLECT, $this );
 
-			// let blocks register
+			// let blocks register with block/block.json
 			$this->tooLate = true;
 			foreach ( $this->blocks as $block ) {
 				$block->registerBlock();
+				foreach( $block->getEditorScripts() as $script){
+					$this->dependencies->addHandle($script);
+				}
 			}
 
-			// register slot block type with block.json
+			// register slot block type with slot/block.json
 			register_block_type( $this->plugin->path . '/assets/slot' );
 
-			// register container bocks with block.json files
+			// register container bocks with container/block.json
 			foreach ( $this->containers as $container ) {
 				$container->registerContainer();
 			}
@@ -89,11 +91,18 @@ class Gutenberg extends Component {
 		// enqueue assets
 		// ---------------------------
 		add_action( 'enqueue_block_editor_assets', function () {
+
 			foreach ( $this->blocks as $block ) {
-				$block->enqueueEditorAssets( $this->dependencies );
+				if(method_exists($block, 'enqueueEditorAssets')){
+					_doing_it_wrong(
+						'$block->enqueueEditorAssets()',
+						'"Please use editorStyles api instead',
+						"BlockX 1.4"
+					);
+					$block->enqueueEditorAssets( $this->dependencies );
+				}
 			}
 
-			// backend only
 			$this->plugin->assets->enqueueGutenberg(
 				$this->blocks,
 				$this->dependencies,
@@ -104,7 +113,14 @@ class Gutenberg extends Component {
 		add_action( 'enqueue_block_assets', function () {
 			// frontend and backend
 			foreach ( $this->blocks as $block ) {
-				$block->enqueueAssets();
+				if(method_exists($block, 'enqueueAssets')) {
+					_doing_it_wrong(
+						'$block->enqueueAssets()',
+						'"Please use styles api instead',
+						"BlockX 1.4"
+					);
+					$block->enqueueAssets();
+				}
 			}
 		} );
 	}

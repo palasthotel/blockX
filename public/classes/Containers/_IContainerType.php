@@ -3,7 +3,7 @@
 namespace Palasthotel\WordPress\BlockX\Containers;
 
 use Palasthotel\WordPress\BlockX\Model\BlockId;
-use Palasthotel\WordPress\BlockX\Model\Style;
+use Palasthotel\WordPress\BlockX\Model\Styles;
 
 interface _IContainerType {
 
@@ -13,12 +13,8 @@ interface _IContainerType {
 
 	public function columns(): array;
 
-	public function editorStyle(): Style;
+	public function editorStyles(): Styles;
 
-	public function style(): Style;
-
-	public function useColumnsInMobilePreview(): bool;
-
-	public function useColumnsInTabletPreview(): bool;
+	public function styles(): Styles;
 
 }

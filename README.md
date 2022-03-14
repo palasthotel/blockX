@@ -62,7 +62,7 @@ add_action(
 )
 ```
 
-## Use containers (BETA)
+## Use containers
 
 Containers are special blocks. You can use containers for custom columned rows. Blockx comes with containers for 1d1, 1d2 + 1d2, 1d3 + 2d3 and 2d3 + 1d3 columns. If you want to use some of these core containers, activate them in the blockx settings.
 
@@ -100,33 +100,31 @@ You can prevent the autogeneration of styles if you provide your own styles.
 ```php
 namespace MyNamespace;
 
-use Palasthotel\WordPress\BlockX\Containers\_ContainerType;use Palasthotel\WordPress\BlockX\Model\Style;
+use Palasthotel\WordPress\BlockX\Containers\_ContainerType;use Palasthotel\WordPress\BlockX\Model\Styles;
 
 class MyContainer extends _ContainerType {
    ...
-   public function useColumnsInTabletPreview() : bool{
-     // stick with columns even if editor preview switched to tablet preview
-     // default is false 
-     return true;
+   public function __construct() {
+        // you can provide a custom breakpoint when columns should be used. Default is 0 which means always use columns.
+        parent::__construct(768);
    }
    
-   public function useColumnsInMobilePreview() : bool{
-     // stick with columns even if editor preview switched to mobile preview
-     // default is false
-     return true;
-   }
+   public function columns() : array{
+      // this container will have two slots with 25% and 75% width 
+      return [1,3];
+    }
    
-   public function style() : Style{
+   public function style() : Styles{
      // Register a custom frontend css file and use its handle to provide frontend styles for this container
      // these styles will also be used in the editor.
      wp_register_style("my-frontend-and-editor-styles-handle", ...);
-     return Style::build("my-frontend-and-editor-styles-handle", false);
+     return parent::styles()->add("my-frontend-and-editor-styles-handle", false);
    }
    
-   public function editorStyle() : Style{
+   public function editorStyle() : Styles{
      // You can do the same exact thing with the editorStyles file which is only used in the editor
      wp_register_style("my-editor-styles-handle", ...);
-     return Style::build("my-editor-styles-handle", false);
+     return parent::editorStyles()->add("my-editor-styles-handle");
    }
 }
 ```
@@ -502,19 +500,19 @@ add_filter('blockx_add_templates_paths', function($paths){
 
 There is another way to provide content rendering of BlockX in Gutenberg Editor. This is a little more tricky than the php editor template variant but it might help preventing server performance issues and can help build better and faster user experiance.
 
-Use the `enqueueEditorAssets` function to provide custom javascript files..
+Overwrite the `editorScript` function which should register and return the scripts file handle.
 
 ```php
 // MyBlock.php
 ...
 class MyBlock extends _BlockType{
   	...
-    public function enqueueEditorAssets( Dependencies $dependencies ){
-      wp_enqueue_script(
+    public function editorScript(): string {
+      wp_register_script(
         "my-blockx-components-script", 
         plugin_dir_url(__FILE__)."/my-blockx-components.js"
       );
-      $dependencies->addHandle("my-blockx-components-script");
+      return "my-blockx-components-script";
     }
   	...
 }
@@ -535,7 +533,7 @@ If the `BlockXComponents` object holds a component for the block id this will be
 **Important:**
 
 - This is JSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
-- Best practice is to use the `@wordpress/scripts` npm package to transpile React comoponents
+- Best practice is to use the `@wordpress/scripts` npm package to transpile React components
 
 ## Usage
 
@@ -589,7 +587,7 @@ class MyBlock extends _BlockType{
 }
 ```
 
-Now the block will provide input widgets and parpare the `$content` data that will be delivered to the templates.
+Now the block will provide input widgets and prepare the `$content` data that will be delivered to the templates.
 
 ```php
 // blockx__my-namespace--my-block__editor.php
@@ -606,7 +604,7 @@ Now the block will provide input widgets and parpare the `$content` data that wi
  echo "</div>";
 ```
 
-It is possible to render WP_Query data in the editor template. But beware of peformance issues.
+It is possible to render WP_Query data in the editor template. But beware of performance issues.
 
 ---
 
