@@ -52,9 +52,10 @@ for( const block of BlockX.blocks){
             useEffect(()=>{
                 // set once so attributes will always be present
                 setContent({
+                    ...defaultValues,
                     ...attributes.content,
                     ...localChangeState,
-                })
+                });
             }, []);
 
             useAutoSaveTimeout(()=>{
