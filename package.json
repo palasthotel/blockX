@@ -22,7 +22,7 @@
     "@wordpress/scripts": "^22.2.1",
     "@wordpress/server-side-render": "^3.2.1",
     "lodash": "^4.17.21",
-    "postcss": "^8.4.8",
+    "postcss": "^8.4.12",
     "swr": "^1.2.2"
   }
 }
