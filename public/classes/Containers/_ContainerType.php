@@ -10,6 +10,7 @@ abstract class _ContainerType implements _IContainerType {
 
 	private int $breakpoint;
 
+
 	public function __construct(int $breakpoint = 0) {
 		$this->breakpoint = $breakpoint;
 	}

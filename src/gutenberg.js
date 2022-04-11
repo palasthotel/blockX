@@ -8,6 +8,7 @@ apiFetch.use((options, next)=>{
     return next(options);
 });
 
+import './gutenberg/composedBlocks/composedBlocks-x.js'
 import './gutenberg/containers/container-x.js'
 import './gutenberg/blocks/block-x.js';
 import './gutenberg/auto/auto-ssr.js';

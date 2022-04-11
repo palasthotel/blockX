@@ -65,6 +65,8 @@ class Plugin extends Components\Plugin {
 	const FILTER_REST_AJAX = "blockx_rest_ajax";
 	const ACTION_ASSET_GENERATION_PATHS = "blockx_asset_generation_paths";
 	const FILTER_CONTAINER_BREAKPOINT = "blockx_container_breakpoint";
+	const FILTER_COMPOSED_BLOCKS_TEMPLATES = "blockx_composed_blocks_templates";
+  const FILTER_COMPOSED_BLOCKS_ALLOWED_BLOCKS = "blockx_composed_blocks_allowed_blocks";
 
 
 	// ----------------------------------------------------
@@ -88,7 +90,9 @@ class Plugin extends Components\Plugin {
 	// ----------------------------------------------------
 	// initialize plugin features
 	// ----------------------------------------------------
-	public function onCreate() {
+
+
+  public function onCreate() {
 
 		/**
 		 * load translations

@@ -33,7 +33,7 @@ class Assets extends Components\Component {
 	 * @param Dependencies $dependencies
 	 * @param _IContainerType[] $containers
 	 */
-	function enqueueGutenberg( array $blocks, Dependencies $dependencies, array $containers ) {
+	function enqueueGutenberg( array $blocks, Dependencies $dependencies, array $containers, array $composedBlocks ) {
 
 		wp_enqueue_style( Plugin::HANDLE_CSS_GUTENBERG );
 
@@ -88,6 +88,17 @@ class Assets extends Components\Component {
 						"style" => $container->styles(),
 					];
 				}, $containers),
+        "composedBlocks" => array_map(function ($composedBlocks){
+					return [
+						"id" => (string) $composedBlocks->id(),
+						"title" => $composedBlocks->title(),
+						"editorStyle" => $composedBlocks->editorStyles(),
+						"style" => $composedBlocks->styles(),
+						"templates" => $composedBlocks->templates(),
+						"allowedBlocks" => $composedBlocks->allowedBlocks(),
+
+					];
+				}, $composedBlocks),
 			]
 		);
 

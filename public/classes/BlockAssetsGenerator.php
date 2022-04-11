@@ -5,8 +5,10 @@ namespace Palasthotel\WordPress\BlockX;
 use DirectoryIterator;
 use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
+use Palasthotel\WordPress\BlockX\ComposedBlocks\_IComposedBlockType;
 use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\BlockX\Model\ComposedBlockStyles;
 use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
 
 /**
@@ -96,6 +98,20 @@ class BlockAssetsGenerator extends Component {
 			$json->title       = $container->title();
 			$json->style       = $container->styles()->handles;
 			$json->editorStyle = $container->editorStyles()->handles;
+			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
+		}
+	}
+
+	public function createComposedBlockJSONIfNotExists( _IComposedBlockType $composedBlock ) {
+		$this->mkdir( $composedBlock->id() );
+		$jsonFile = $this->getBlockJSONFilePath( $composedBlock->id() );
+		if ( ! file_exists( $jsonFile ) || WP_DEBUG  ) {
+			$contents          = file_get_contents( $this->plugin->path . "assets/composedBlock/block.json" );
+			$json              = json_decode( $contents );
+			$json->name        = (string) $composedBlock->id();
+			$json->title       = $composedBlock->title();
+			$json->style       = $composedBlock->styles()->handles;
+			$json->editorStyle = $composedBlock->editorStyles()->handles;
 			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
 		}
 	}

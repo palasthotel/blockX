@@ -8,6 +8,8 @@ use Palasthotel\WordPress\BlockX\Blocks\Debug;
 use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
 use Palasthotel\WordPress\BlockX\Components\Component;
+use Palasthotel\WordPress\BlockX\ComposedBlocks\_ComposedBlockType;
+use Palasthotel\WordPress\BlockX\ComposedBlocks\_IComposedBlockType;
 use Palasthotel\WordPress\BlockX\Containers\_ContainerType;
 use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Containers\Container_1D1;
@@ -31,6 +33,11 @@ class Gutenberg extends Component {
 	 * @var _ContainerType[]
 	 */
 	private $containers = [];
+
+	/**
+	 * @var _ComposedBlockType[]
+	 */
+	private $composedBlocks = [];
 
 	private $tooLate = false;
 	private Dependencies $dependencies;
@@ -64,6 +71,11 @@ class Gutenberg extends Component {
 				$container->registerContainer();
 			}
 
+      // register composed blocks with composedBlocks/block.json
+			foreach ( $this->composedBlocks as $composedBlock ) {
+        $composedBlock->registerComposedBlock();
+			}
+
 		}, 99 );
 
 		// ---------------------------
@@ -94,11 +106,19 @@ class Gutenberg extends Component {
 
 			foreach ( $this->blocks as $block ) {
 				if(method_exists($block, 'enqueueEditorAssets')){
+
 					_doing_it_wrong(
 						'${'.$block->id().'}->enqueueEditorAssets()',
 						'"Please use editorStyles api instead',
 						"BlockX 1.4"
 					);
+
+					/*_doing_it_wrong(
+						'${'.$block->id().'}->enqueueEditorAssets()',
+						'"Please use editorStyles api instead',
+						"BlockX 1.4"
+					);*/
+
 					$block->enqueueEditorAssets( $this->dependencies );
 				}
 			}
@@ -106,7 +126,8 @@ class Gutenberg extends Component {
 			$this->plugin->assets->enqueueGutenberg(
 				$this->blocks,
 				$this->dependencies,
-				$this->getContainerTypes()
+				$this->getContainerTypes(),
+				$this->getComposedBlockTypes(),
 			);
 
 		} );
@@ -114,11 +135,19 @@ class Gutenberg extends Component {
 			// frontend and backend
 			foreach ( $this->blocks as $block ) {
 				if(method_exists($block, 'enqueueAssets')) {
+
 					_doing_it_wrong(
 						'${'.$block->id().'}->enqueueAssets()',
 						'"Please use styles api instead',
 						"BlockX 1.4"
 					);
+
+					/*_doing_it_wrong(
+						'${'.$block->id().'}->enqueueAssets()',
+						'"Please use styles api instead',
+						"BlockX 1.4"
+					);*/
+
 					$block->enqueueAssets();
 				}
 			}
@@ -140,6 +169,13 @@ class Gutenberg extends Component {
 	 */
 	public function getContainerTypes(): array{
 		return  $this->containers;
+	}
+
+	/**
+	 * @return _IComposedBlockType[]
+	 */
+	public function getComposedBlockTypes(): array{
+		return  $this->composedBlocks;
 	}
 
 	/**
@@ -172,6 +208,22 @@ class Gutenberg extends Component {
 			return false;
 		}
 		$this->containers[] = $container;
+
+		return true;
+	}
+
+	/**
+	 * @param _ContainerType $composedBlock
+	 *
+	 * @return bool
+	 */
+	public function addComposedBlockType( _ComposedBlockType $composedBlock ) {
+		if ( $this->tooLate ) {
+			error_log( "BlockX: You cannot use addContainerType anymore. Please use blockx_collect action." );
+
+			return false;
+		}
+		$this->composedBlocks[] = $composedBlock;
 
 		return true;
 	}
