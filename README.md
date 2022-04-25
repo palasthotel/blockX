@@ -483,6 +483,52 @@ ListOf wraps a list of other widgets and lets you build a list of these widgets 
 )
 ```
 
+### Custom Widget
+
+If you need a custom widget you can simply provide one in two steps:
+
+First create a custom Widget class that extends `_Widget` abstract class.
+
+```php
+class MyWidget extends \Palasthotel\WordPress\BlockX\Widgets\_Widget {
+
+    const TYPE = "my-widget";
+
+    public static function build( string $key, string $label, string $defaultValue = "" ) {
+        return new static( $key, $label, static::TYPE, $defaultValue );
+    }
+}
+```
+
+Then add some React JavaScript.
+
+```javascript
+const MyWidget = ({definition, value, onChange}) => {
+    return (
+        <label>{definition.label}<br/>
+            <input 
+                value={value} 
+                onChange={e => onChange(e.target.value)}
+            />
+        </label>
+    )
+}
+
+BlockXComponents.widgets = {
+    ...(window.BlockXComponents.widgets || {
+        "my-widget": MyWidget,
+    }),
+};
+```
+
+Now you can use this widget in your blockx blocks content structure.
+
+**Important:**
+
+- This is JSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
+- Best practice is to use the `@wordpress/scripts` npm package to transpile React components
+
+
 ## Templates
 
 Every Block needs two templates to render pretty content in the editor and in frontend. Naming conventions are `blockx__%namespace%--%block-name%.php` and `blockx__%namespace%--%block-name%__editor.php`. So for our block example this would be `blockx__my-namespace--my-block.php` and `blockx__my-namespace--my-block__editor.php`.
@@ -529,11 +575,6 @@ window.BlockXComponents = {
 ```
 
 If the `BlockXComponents` object holds a component for the block id this will be used in Gutenberg content view instead of server side rendering.
-
-**Important:**
-
-- This is JSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
-- Best practice is to use the `@wordpress/scripts` npm package to transpile React components
 
 ## Usage
 
