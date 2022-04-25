@@ -15,6 +15,10 @@ const BlockXComponents = window.BlockXComponents = {
     useBlock,
 };
 
+BlockXComponents.widgets = {
+    ...(window.BlockXComponents.widgets || {}),
+};
+
 for( const block of BlockX.blocks){
 
     const {id, title, category, registerBlockTypeArgs, contentStructure} = block;

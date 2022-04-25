@@ -3,8 +3,14 @@ import widgets from "./widgets";
 const ContentStructure = ({items, value, savedState = {}, onChange, parentPath = ""})=>{
 
     return items.map((item, index)=>{
-        if(typeof widgets[item.type] !== typeof undefined){
-            const Widget = widgets[item.type];
+
+        const widget = typeof widgets[item.type] !== "undefined" ?
+            widgets[item.type]
+            :
+            window.BlockXComponents.widgets[item.type];
+
+        if(typeof widget !== typeof undefined){
+            const Widget = widget;
             const _value = typeof value[item.key] !== typeof undefined ? value[item.key] : item.defaultValue
             const _savedState = typeof savedState[item.key] !== typeof undefined ? savedState[item.key] : undefined;
             return <Widget
