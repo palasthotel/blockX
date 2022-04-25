@@ -19,7 +19,7 @@ use Palasthotel\WordPress\BlockX\Widgets\Panel;
 use Palasthotel\WordPress\BlockX\Widgets\Post;
 use Palasthotel\WordPress\BlockX\Widgets\Url;
 use Palasthotel\WordPress\BlockX\Widgets\User;
-use Palasthotel\WordPress\BlockX\Widgets\Readonly;
+use Palasthotel\WordPress\BlockX\Widgets\Read_Only;
 use Palasthotel\WordPress\BlockX\Widgets\Textarea;
 use Palasthotel\WordPress\BlockX\Widgets\Toggle;
 use Palasthotel\WordPress\BlockX\Widgets\ListOf;
@@ -73,8 +73,7 @@ class Debug extends _BlockType {
 			Textarea::build( "textarea", "Textarea", "Just wrapper around text" ),
 			Number::build( "number", "Number", 42 ),
 
-			// we need full namespace here to satisfy wordpress.org pre commit hook
-			\Palasthotel\WordPress\BlockX\Widgets\Readonly::build( "readonly", "Readonly", "not writable" ),
+			Read_Only::build( "readonly", "Read_Only", "not writable" ),
 
 			Hidden::build( "hidden", "is a hidden random value " . rand( 1, 99 ) ),
 

@@ -35,6 +35,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Changelog ==
 
 = 1.5.0 =
+* BREAKING CHANGE: renamed Readonly class to Read_Only
 * Feature: You can add custom widgets now
 
 = 1.4.0 =
@@ -145,6 +146,8 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 * First release
 
 == Upgrade Notice ==
+
+With 1.5.0 there is a breaking change for blocks that use Readonly widget which was renamed to Read_Only because of php 8.1 token collisions.
 
 With 1.4.0 and newer there were some _BlockType Api changes that should be applied to custom blocks. Please remove the methods $block->enqueueEditorAssets() and $block->enqueueAssets() and use editorStyles() and styles() instead.
 

@@ -4,16 +4,16 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 
-class Readonly extends _Widget {
+class Read_Only extends _Widget {
 
 	const TYPE = "readonly";
 	private $help = "";
 
-	public static function build( string $key, string $label, string $value = "" ): Readonly {
-		return new Readonly( $key, $label, static::TYPE, $value );
+	public static function build( string $key, string $label, string $value = "" ): Read_Only {
+		return new Read_Only( $key, $label, static::TYPE, $value );
 	}
 
-	public function help( string $help ): Readonly {
+	public function help( string $help ): Read_Only {
 		$this->help = $help;
 
 		return $this;
