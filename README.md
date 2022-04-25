@@ -556,7 +556,10 @@ class MyBlock extends _BlockType{
     public function editorScript(): string {
       wp_register_script(
         "my-blockx-components-script", 
-        plugin_dir_url(__FILE__)."/my-blockx-components.js"
+        plugin_dir_url(__FILE__)."/my-blockx-components.js",
+        ["react"],
+        "version",
+        true
       );
       return "my-blockx-components-script";
     }
@@ -564,7 +567,7 @@ class MyBlock extends _BlockType{
 }
 ```
 
-The `my-blockx-components.js` file will be enqueue as a dependency of `blockx.js`.  
+The `my-blockx-components.js` file will be enqueue as a dependency of `blockx.js`. Add it to the footer and with react as a dependency.
 
 ```jsx
 // my-blockx-components.js
