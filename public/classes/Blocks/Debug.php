@@ -73,7 +73,7 @@ class Debug extends _BlockType {
 			Textarea::build( "textarea", "Textarea", "Just wrapper around text" ),
 			Number::build( "number", "Number", 42 ),
 
-			Readonly::build( "read_only", "Readonly", "not writable" ),
+			\Palasthotel\WordPress\BlockX\Widgets\ReadOnly::build( "readonly", "Readonly", "not writable" ),
 
 			Hidden::build( "hidden", "is a hidden random value " . rand( 1, 99 ) ),
 

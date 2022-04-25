@@ -288,7 +288,7 @@ Simple integer input.
 Readonly field.
 
 ```php
-\Palasthotel\WordPress\BlockX\Widgets\Readonly::build(string $key, string $label, string $value = "")
+\Palasthotel\WordPress\BlockX\Widgets\ReadOnly::build(string $key, string $label, string $value = "")
 ->help("Some helping text");
 ```
 
