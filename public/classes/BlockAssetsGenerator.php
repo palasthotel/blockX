@@ -55,6 +55,9 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $block->id() );
 		$jsonFile = $this->getBlockJSONFilePath( $block->id() );
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG ) {
+			if(!is_writable($this->getDirectoryPath($block->id() ))){
+				return;
+			}
 			$contents          = file_get_contents( $this->plugin->path . "assets/block/block.json" );
 			$json              = json_decode( $contents );
 			$json->name        = (string) $block->id();
@@ -92,6 +95,9 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $container->id() );
 		$jsonFile = $this->getBlockJSONFilePath( $container->id() );
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG  ) {
+			if(!is_writable($this->getDirectoryPath($container->id() ))){
+				return;
+			}
 			$contents          = file_get_contents( $this->plugin->path . "assets/container/block.json" );
 			$json              = json_decode( $contents );
 			$json->name        = (string) $container->id();
@@ -106,6 +112,9 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $composedBlock->id() );
 		$jsonFile = $this->getBlockJSONFilePath( $composedBlock->id() );
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG  ) {
+			if(!is_writable($this->getDirectoryPath($composedBlock->id() ))){
+				return;
+			}
 			$contents          = file_get_contents( $this->plugin->path . "assets/composedBlock/block.json" );
 			$json              = json_decode( $contents );
 			$json->name        = (string) $composedBlock->id();
