@@ -692,6 +692,48 @@ echo "</ul>";
 wp_reset_postdata();
  ```
 
+## Use Composed Blocks / Inner Blocks
+You can use Gutenbergs [innerBlocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) with a composed block in BlockX.
+
+
+### Create composed block
+Composed blocks are very similar constructed to containers. They need to extend _ComposedBlockType abstract class which comes with the interface _IComposedBlockType that forces you to add some required functions. The minimal setup looks like this:
+
+```php
+namespace MyNamespace;
+
+use Palasthotel\WordPress\BlockX\ComposedBlocks\_ComposedBlockType;
+
+class MyComposedBlock extends _ComposedBlockType {
+    public function id(): BlockId {
+        // have a look at the Block Name character restrictions
+        // https://developer.wordpress.org/block-editor/developers/block-api/block-registration/#block-name
+      	// the block id corresponds to the namespace and block-name parts of the first argument of the registerBlockType function
+        return BlockId::build("my-namespace","my-composed-block");
+    }
+    
+    public function title(): string {
+      return "My Composed Block";
+    }
+    
+    public function allowedBlocks(): array {
+	    return ['core/headline', 'core/paragraph'];
+    }
+   
+}
+```
+
+Supported [innerBlocks-props](https://github.com/WordPress/gutenberg/blob/trunk/packages/block-editor/src/components/inner-blocks/README.md) via class-methods: 
+
+- allowedBlocks | allowedBlocks()
+- orientation | orientation()
+- template | template()
+- templateLock | templateLock()
+- category | category()
+- Styles (frontend and editor) and scripts can be enqueued.
+
+
+
  ## Future
 
 - More Widgets
