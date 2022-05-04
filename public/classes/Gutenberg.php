@@ -113,12 +113,6 @@ class Gutenberg extends Component {
 						"BlockX 1.4"
 					);
 
-					/*_doing_it_wrong(
-						'${'.$block->id().'}->enqueueEditorAssets()',
-						'"Please use editorStyles api instead',
-						"BlockX 1.4"
-					);*/
-
 					$block->enqueueEditorAssets( $this->dependencies );
 				}
 			}
@@ -141,12 +135,6 @@ class Gutenberg extends Component {
 						'"Please use styles api instead',
 						"BlockX 1.4"
 					);
-
-					/*_doing_it_wrong(
-						'${'.$block->id().'}->enqueueAssets()',
-						'"Please use styles api instead',
-						"BlockX 1.4"
-					);*/
 
 					$block->enqueueAssets();
 				}
@@ -213,7 +201,7 @@ class Gutenberg extends Component {
 	}
 
 	/**
-	 * @param _ContainerType $composedBlock
+	 * @param _ComposedBlockType $composedBlock
 	 *
 	 * @return bool
 	 */

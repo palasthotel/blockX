@@ -13,7 +13,7 @@ const useInnerBlocksProps = __stableUseInnerBlocksProps
 function getComposedBlocksClasses(type, previewMode){
     const classes = [
         "blockx__composed-block",
-        `blockx__composed-block--c${type}`,
+        `blockx__composed-block--${type.replace("/", "_")}`,
     ];
     if(previewMode){
         classes.push(`preview-mode-${previewMode}`);
@@ -31,17 +31,21 @@ const build = (composedBlock) => {
         editorStyle: composedBlock.editorStyle,
         templates: composedBlock.templates,
         allowedBlocks: composedBlock.allowedBlocks,
+        templateLock: composedBlock.templateLock,
+        orientation: composedBlock.orientation,
     }
-
-    console.log("composedBlock - build");
-    console.log(composedBlock);
     
+
+    if (composedBlock.category) composedBlockMeta.category = composedBlock.category;
+    if (composedBlock.icon) composedBlockMeta.icon = composedBlock.icon;
+
     const type = composedBlockMeta.name;
 
     return {
         meta: composedBlockMeta,
         settings: {
-            icon: "layout",
+            category: composedBlockMeta.category,
+            icon: composedBlockMeta.icon,
             transforms: [],
             edit: (props) => {
                 const previewMode = usePreviewMode();
@@ -52,8 +56,8 @@ const build = (composedBlock) => {
                 const innerBlocksProps = useInnerBlocksProps(blockProps, {
                     allowedBlocks: composedBlockMeta.allowedBlocks,
                     template: composedBlockMeta.templates,
-                    //templateLock: 'insert',
-                    //orientation: 'horizontal',
+                    templateLock: composedBlockMeta.templateLock,
+                    orientation: composedBlockMeta.orientation,
                     renderAppender: InnerBlocks.ButtonBlockAppender
                 });
 

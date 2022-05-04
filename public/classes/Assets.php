@@ -96,6 +96,10 @@ class Assets extends Components\Component {
 						"style" => $composedBlocks->styles(),
 						"templates" => $composedBlocks->templates(),
 						"allowedBlocks" => $composedBlocks->allowedBlocks(),
+						"orientation" => $composedBlocks->orientation(),
+						"templateLock" => $composedBlocks->templateLock(),
+						"category" => $composedBlocks->category(),
+						"icon" => $composedBlocks->icon(),
 
 					];
 				}, $composedBlocks),

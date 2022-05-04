@@ -67,6 +67,8 @@ class Plugin extends Components\Plugin {
 	const FILTER_CONTAINER_BREAKPOINT = "blockx_container_breakpoint";
 	const FILTER_COMPOSED_BLOCKS_TEMPLATES = "blockx_composed_blocks_templates";
   const FILTER_COMPOSED_BLOCKS_ALLOWED_BLOCKS = "blockx_composed_blocks_allowed_blocks";
+  const FILTER_COMPOSED_BLOCKS_ORIENTATION = "blockx_composed_blocks_orientation";
+  const FILTER_COMPOSED_BLOCKS_TEMPLATE_LOCK = "blockx_composed_blocks_template_lock";
 
 
 	// ----------------------------------------------------
