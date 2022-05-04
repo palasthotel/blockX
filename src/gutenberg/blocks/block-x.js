@@ -15,6 +15,10 @@ const BlockXComponents = window.BlockXComponents = {
     useBlock,
 };
 
+BlockXComponents.widgets = {
+    ...(window.BlockXComponents.widgets || {}),
+};
+
 for( const block of BlockX.blocks){
 
     const {id, title, category, registerBlockTypeArgs, contentStructure} = block;
@@ -101,7 +105,7 @@ for( const block of BlockX.blocks){
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
                         attributes={attributes}
-                        content={attributes.content}
+                        content={attributes.content ?? defaultValues}
                         setContent={setContent}
                         changeLocalState={changeLocalState}
                         localChanges={localChangeState}
@@ -109,7 +113,7 @@ for( const block of BlockX.blocks){
                         <Preview
                             block={id}
                             attributes={attributes} // for ssr
-                            content={attributes.content} // for js preview
+                            content={attributes.content ?? defaultValues} // for js preview
                         />
                     </BlockContext>
                 </div>

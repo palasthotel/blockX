@@ -3,9 +3,9 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 5.9.2
+Tested up to: 5.9.3
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.5.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,16 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Screenshots ==
 
 == Changelog ==
+
+= 1.5.2 =
+* Bugfix: Media widget object cache fix
+
+= 1.5.1 =
+* Bugfix: Missing content state on first load fix
+
+= 1.5.0 =
+* BREAKING CHANGE: renamed Readonly class to Read_Only
+* Feature: You can add custom widgets now
 
 = 1.4.0 =
 * Optimization: All BlockX blocks are using block.json api
@@ -142,6 +152,8 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 * First release
 
 == Upgrade Notice ==
+
+With 1.5.0 there is a breaking change for blocks that use Readonly widget which was renamed to Read_Only because of php 8.1 token collisions.
 
 With 1.4.0 and newer there were some _BlockType Api changes that should be applied to custom blocks. Please remove the methods $block->enqueueEditorAssets() and $block->enqueueAssets() and use editorStyles() and styles() instead.
 

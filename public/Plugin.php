@@ -4,11 +4,11 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
- * Version: 1.4.0
+ * Version: 1.5.2
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 5.9.2
+ * Tested up to: 5.9.3
  * Requires PHP: 7.4
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
