@@ -3,7 +3,7 @@
   "name": "blockx/composedBlock",
   "title": "composedBlock",
   "category": "design",
-  "icon": "Layout",
+  "icon": "layout",
   "description": "Adds a composed Block which can be used to insert other Blocks into one new Block",
   "keywords": [
     "composedBlock",
