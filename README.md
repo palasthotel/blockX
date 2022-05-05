@@ -694,7 +694,7 @@ wp_reset_postdata();
 
 ## Use Composed Blocks / Inner Blocks
 You can use Gutenbergs [innerBlocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/nested-blocks-inner-blocks/) with a composed block in BlockX.
-
+This allows you to generate a new block that uses existing blocks. 
 
 ### Create composed block
 Composed blocks are very similar constructed to containers. They need to extend _ComposedBlockType abstract class which comes with the interface _IComposedBlockType that forces you to add some required functions. The minimal setup looks like this:
@@ -730,9 +730,8 @@ Supported [innerBlocks-props](https://github.com/WordPress/gutenberg/blob/trunk/
 - template | template()
 - templateLock | templateLock()
 - category | category()
-- Styles (frontend and editor) and scripts can be enqueued.
 
-
+Styles (frontend and editor) and scripts can be enqueued as usual.
 
  ## Future
 
