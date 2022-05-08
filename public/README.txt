@@ -36,6 +36,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 = 1.6.0 =
 * Feature: Composed blocks
+* Feature: you can now use @palasthotel/blockx npm package for a better developer experience
 
 = 1.5.2 =
 * Bugfix: Media widget object cache fix
