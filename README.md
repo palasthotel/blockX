@@ -1,6 +1,6 @@
 # BlockX
 
-This is a npm package as well as a WordPress plugin for easier Gutenberg Block development. You can add configuratable boxes and templates without any javascript code. Everything can be configured and rendered in PHP. But you can also use `@palasthotel/blockx` package to add react editor view for your blockx blocks.
+This is a npm package as well as a WordPress plugin for easier Gutenberg Block development. You can add configuratable boxes and templates without any javascript code. Everything can be configured and rendered in PHP. But you can also use `@palasthotel/blockx` package to add react editor views for your blockx blocks or to provide custom editor widgets.
 
 ## Filters
 
