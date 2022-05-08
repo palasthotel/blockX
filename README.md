@@ -1,6 +1,6 @@
 # BlockX
 
-This plugin provides an easier way for developers to add new block types to WordPress Gutenberg Editor. You can add configuratable boxes and templates without any javascript code. Everything can be configured and rendered in PHP.
+This is a npm package as well as a WordPress plugin for easier Gutenberg Block development. You can add configuratable boxes and templates without any javascript code. Everything can be configured and rendered in PHP. But you can also use `@palasthotel/blockx` package to add react editor views for your blockx blocks or to provide custom editor widgets.
 
 ## Filters
 
@@ -503,6 +503,7 @@ class MyWidget extends \Palasthotel\WordPress\BlockX\Widgets\_Widget {
 Then add some React JavaScript.
 
 ```javascript
+import {registerEditorWidget} from "@palasthotel/blockx";
 const MyWidget = ({definition, value, onChange}) => {
     return (
         <label>{definition.label}<br/>
@@ -514,18 +515,14 @@ const MyWidget = ({definition, value, onChange}) => {
     )
 }
 
-BlockXComponents.widgets = {
-    ...(window.BlockXComponents.widgets || {
-        "my-widget": MyWidget,
-    }),
-};
+registerEditorWidget("my-widget-type", MyWidget);
 ```
 
 Now you can use this widget in your blockx blocks content structure.
 
 **Important:**
 
-- This is JSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
+- This is JSX/TSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
 - Best practice is to use the `@wordpress/scripts` npm package to transpile React components
 
 
@@ -571,13 +568,14 @@ The `my-blockx-components.js` file will be enqueue as a dependency of `blockx.js
 
 ```jsx
 // my-blockx-components.js
-window.BlockXComponents = {
-    ...(window.BlockXComponents || {}),
-    ["my-namespace/my-block"]: ({id, content})=> <MyBlockEditorCompontent {...content} />,
-};
+import {blockId, registerEditorView} from "@palasthotel/blockx";
+registerEditorView(
+    blockId("my-namespace","my-block"),
+    MyBlockEditorCompontent
+);
 ```
 
-If the `BlockXComponents` object holds a component for the block id this will be used in Gutenberg content view instead of server side rendering.
+If there is a registered component for the block id it will be used in Gutenberg content view instead of server side rendering the editor php templates.
 
 ## Usage
 
@@ -656,6 +654,8 @@ Alternatively use React Component editor rendering.
 
  ```jsx
 // my-blockx-components.js
+import {blockId, registerEditorView} from "@palasthotel/blockx";
+
 const MyBlockEditorComponent = ({headline, number_of_posts, offset})=>{
   return <>
   	<hr>{headline}</hr>
@@ -665,10 +665,11 @@ const MyBlockEditorComponent = ({headline, number_of_posts, offset})=>{
   	</div>
   </>
 }
-window.BlockXComponents = {
-    ...(window.BlockXComponents || {}),
-    ["my-namespace/my-block"]: ({id, content})=> <MyBlockEditorCompontent {...content} />,
-};
+
+registerEditorView(
+    blockId("my-namespace","my-block"),
+    MyBlockEditorCompontent
+);
  ```
 
 It is possible to use wp.data and the REST API to query for posts and display an even better preview. This has better performance than the php server side rendering version but can nevertheless also lead to server performance issues.

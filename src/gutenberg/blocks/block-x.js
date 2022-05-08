@@ -7,19 +7,17 @@ import ServerSideRenderQueue from '../components/ServerSideRenderQueue';
 import {useBlock} from '../hooks/use-context.js';
 import {useAutoSaveTimeout} from "../hooks/use-settings";
 import {usePreviewMode} from "../hooks/use-preview-mode";
+import {
+    blockIdFromString,
+    getEditorView,
+    registerServerSideRenderQueue,
+    registerUseBlock,
+} from '../../lib';
 
-const BlockXComponents = window.BlockXComponents = {
-    ...(window.BlockXComponents || {}),
-    // expose so others can use it
-    ServerSideRenderQueue,
-    useBlock,
-};
+registerServerSideRenderQueue(ServerSideRenderQueue);
+registerUseBlock(useBlock);
 
-BlockXComponents.widgets = {
-    ...(window.BlockXComponents.widgets || {}),
-};
-
-for( const block of BlockX.blocks){
+for( const block of BlockX.blocks ){
 
     const {id, title, category, registerBlockTypeArgs, contentStructure} = block;
 
@@ -74,12 +72,14 @@ for( const block of BlockX.blocks){
                 setAttributes({content})
                 setLocalChangeState({})
             }
-            
-            const Preview = BlockXComponents[id] || ServerSideRenderQueue;
+
+            const blockId = blockIdFromString(id);
+            const Preview = typeof blockId === "undefined" ?
+                ServerSideRenderQueue : getEditorView(blockId) ?? ServerSideRenderQueue;
+
             const previewMode = usePreviewMode();
 
             return <>
-
                 <InspectorControls>
                     <BlockContext 
                         blockId={id} 

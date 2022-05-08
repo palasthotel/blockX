@@ -1,13 +1,27 @@
 {
-  "name": "blockx",
+  "name": "@palasthotel/blockx",
   "version": "1.0.0",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/lib.js",
+  "types": "dist/lib.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "./node_modules/.bin/wp-scripts start src/gutenberg.js --output-path=public/assets/dist",
-    "build": "wp-scripts build src/gutenberg.js --output-path=public/assets/dist",
+    "watch": "npm run watch:plugin",
+    "build": "npm run build:lib && npm run build:plugin",
+    "build:lib": "tsc",
+    "watch:plugin": "wp-scripts start src/gutenberg.js --output-path=public/assets/dist",
+    "build:plugin": "wp-scripts build src/gutenberg.js --output-path=public/assets/dist",
     "packages-update": "wp-scripts packages-update"
   },
-  "dependencies": {
+  "publishConfig": {
+    "registry": "https://npm.palasthotel.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:palasthotel/blockX.git"
+  },
+  "devDependencies": {
     "@wordpress/api-fetch": "^6.4.0",
     "@wordpress/block-editor": "^8.6.0",
     "@wordpress/blocks": "^11.6.0",
@@ -21,8 +35,10 @@
     "@wordpress/plugins": "^4.5.0",
     "@wordpress/scripts": "^22.5.0",
     "@wordpress/server-side-render": "^3.5.0",
+    "postcss": "^8.4.12"
+  },
+  "dependencies": {
     "lodash": "^4.17.21",
-    "postcss": "^8.4.12",
     "swr": "^1.3.0"
   }
 }

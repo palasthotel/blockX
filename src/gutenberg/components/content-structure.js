@@ -1,13 +1,11 @@
 import widgets from "./widgets";
+import {getEditorWidget} from '../../lib'
 
 const ContentStructure = ({items, value, savedState = {}, onChange, parentPath = ""})=>{
 
     return items.map((item, index)=>{
 
-        const widget = typeof widgets[item.type] !== "undefined" ?
-            widgets[item.type]
-            :
-            window.BlockXComponents.widgets[item.type];
+        const widget = getEditorWidget(item.type) ?? widgets[item.type];
 
         if(typeof widget !== typeof undefined){
             const Widget = widget;
