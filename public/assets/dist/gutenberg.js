@@ -134,7 +134,7 @@ for (const block of BlockX.blocks) {
         setLocalChangeState({});
       };
 
-      const Preview = BlockXComponents[id] || _components_ServerSideRenderQueue__WEBPACK_IMPORTED_MODULE_6__["default"];
+      const Preview = (0,_lib__WEBPACK_IMPORTED_MODULE_10__.getEditorView)((0,_lib__WEBPACK_IMPORTED_MODULE_10__.blockId)(...id.split("/"))) || _components_ServerSideRenderQueue__WEBPACK_IMPORTED_MODULE_6__["default"];
       const previewMode = (0,_hooks_use_preview_mode__WEBPACK_IMPORTED_MODULE_9__.usePreviewMode)();
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components_BlockContext__WEBPACK_IMPORTED_MODULE_5__["default"], {
         blockId: id,
@@ -3405,19 +3405,22 @@ const findTerm = (s, terms) => findTermById(s, terms) || findTermBySlug(s, terms
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "registerEditorView": function() { return /* reexport safe */ _lib_editor_view__WEBPACK_IMPORTED_MODULE_0__.registerEditorView; },
-/* harmony export */   "getEditorView": function() { return /* reexport safe */ _lib_editor_view__WEBPACK_IMPORTED_MODULE_0__.getEditorView; },
-/* harmony export */   "registerEditorWidget": function() { return /* reexport safe */ _lib_editor_widget__WEBPACK_IMPORTED_MODULE_1__.registerEditorWidget; },
-/* harmony export */   "getEditorWidget": function() { return /* reexport safe */ _lib_editor_widget__WEBPACK_IMPORTED_MODULE_1__.getEditorWidget; },
-/* harmony export */   "registerServerSideRenderQueue": function() { return /* reexport safe */ _lib_ssrq__WEBPACK_IMPORTED_MODULE_2__.registerServerSideRenderQueue; },
-/* harmony export */   "getServerSideRenderQueueComponent": function() { return /* reexport safe */ _lib_ssrq__WEBPACK_IMPORTED_MODULE_2__.getServerSideRenderQueueComponent; },
-/* harmony export */   "registerUseBlock": function() { return /* reexport safe */ _lib_use_block__WEBPACK_IMPORTED_MODULE_3__.registerUseBlock; },
-/* harmony export */   "useBlock": function() { return /* reexport safe */ _lib_use_block__WEBPACK_IMPORTED_MODULE_3__.useBlock; }
+/* harmony export */   "blockId": function() { return /* reexport safe */ _lib_id__WEBPACK_IMPORTED_MODULE_0__.blockId; },
+/* harmony export */   "registerEditorView": function() { return /* reexport safe */ _lib_editor_view__WEBPACK_IMPORTED_MODULE_1__.registerEditorView; },
+/* harmony export */   "getEditorView": function() { return /* reexport safe */ _lib_editor_view__WEBPACK_IMPORTED_MODULE_1__.getEditorView; },
+/* harmony export */   "registerEditorWidget": function() { return /* reexport safe */ _lib_editor_widget__WEBPACK_IMPORTED_MODULE_2__.registerEditorWidget; },
+/* harmony export */   "getEditorWidget": function() { return /* reexport safe */ _lib_editor_widget__WEBPACK_IMPORTED_MODULE_2__.getEditorWidget; },
+/* harmony export */   "registerServerSideRenderQueue": function() { return /* reexport safe */ _lib_ssrq__WEBPACK_IMPORTED_MODULE_3__.registerServerSideRenderQueue; },
+/* harmony export */   "getServerSideRenderQueueComponent": function() { return /* reexport safe */ _lib_ssrq__WEBPACK_IMPORTED_MODULE_3__.getServerSideRenderQueueComponent; },
+/* harmony export */   "registerUseBlock": function() { return /* reexport safe */ _lib_use_block__WEBPACK_IMPORTED_MODULE_4__.registerUseBlock; },
+/* harmony export */   "useBlock": function() { return /* reexport safe */ _lib_use_block__WEBPACK_IMPORTED_MODULE_4__.useBlock; }
 /* harmony export */ });
-/* harmony import */ var _lib_editor_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/editor-view */ "./src/lib/editor-view.ts");
-/* harmony import */ var _lib_editor_widget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/editor-widget */ "./src/lib/editor-widget.ts");
-/* harmony import */ var _lib_ssrq__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/ssrq */ "./src/lib/ssrq.ts");
-/* harmony import */ var _lib_use_block__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/use-block */ "./src/lib/use-block.ts");
+/* harmony import */ var _lib_id__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/id */ "./src/lib/id.ts");
+/* harmony import */ var _lib_editor_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lib/editor-view */ "./src/lib/editor-view.ts");
+/* harmony import */ var _lib_editor_widget__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/editor-widget */ "./src/lib/editor-widget.ts");
+/* harmony import */ var _lib_ssrq__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/ssrq */ "./src/lib/ssrq.ts");
+/* harmony import */ var _lib_use_block__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/use-block */ "./src/lib/use-block.ts");
+
 
 
 
@@ -3445,7 +3448,7 @@ const registerEditorView = (id, component) => (0,_store__WEBPACK_IMPORTED_MODULE
 const getEditorView = id => {
   var _get;
 
-  return (_get = (0,_store__WEBPACK_IMPORTED_MODULE_0__.get)((0,_id__WEBPACK_IMPORTED_MODULE_1__.blockIdToString)(id), "editorViews")) !== null && _get !== void 0 ? _get : (0,_store__WEBPACK_IMPORTED_MODULE_0__.getDeprecated)((0,_id__WEBPACK_IMPORTED_MODULE_1__.blockIdToString)(id));
+  return (_get = (0,_store__WEBPACK_IMPORTED_MODULE_0__.get)("editorViews", (0,_id__WEBPACK_IMPORTED_MODULE_1__.blockIdToString)(id))) !== null && _get !== void 0 ? _get : (0,_store__WEBPACK_IMPORTED_MODULE_0__.getDeprecated)((0,_id__WEBPACK_IMPORTED_MODULE_1__.blockIdToString)(id));
 };
 
 /***/ }),
@@ -3539,7 +3542,6 @@ const set = (path, key, object) => {
   };
 };
 const setDeprecated = (key, object) => {
-  console.warn("DEPRECATION WARNING: Please use @palastotel/blockx.");
   window.BlockXComponents = { ...(window.BlockXComponents || {}),
     [key]: object
   };
@@ -3555,11 +3557,15 @@ const getDeprecated = key => {
   const ob = (_window$BlockXCompone4 = (_window2 = window) === null || _window2 === void 0 ? void 0 : _window2.BlockXComponents) !== null && _window$BlockXCompone4 !== void 0 ? _window$BlockXCompone4 : {};
 
   if (ob[key] != undefined) {
-    console.warn("DEPRECATION WARNING: " + "please use @palasthotel/blockx utils for blockx custom javascripts. " + "All ohter registrations will be break with BlockX Version 2.0");
+    deprecationWarning(key);
     return ob === null || ob === void 0 ? void 0 : ob[key];
   }
 
   return;
+};
+
+const deprecationWarning = key => {
+  console.warn("BlockX - DEPRECATION WARNING: for '" + key + "' " + "please use @palasthotel/blockx utils for blockx custom javascripts. " + "All other registrations will break with BlockX Version 2.0");
 };
 
 /***/ }),

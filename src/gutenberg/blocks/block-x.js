@@ -7,7 +7,12 @@ import ServerSideRenderQueue from '../components/ServerSideRenderQueue';
 import {useBlock} from '../hooks/use-context.js';
 import {useAutoSaveTimeout} from "../hooks/use-settings";
 import {usePreviewMode} from "../hooks/use-preview-mode";
-import {registerServerSideRenderQueue,registerUseBlock} from '../../lib';
+import {
+    blockId,
+    getEditorView,
+    registerServerSideRenderQueue,
+    registerUseBlock,
+} from '../../lib';
 
 registerServerSideRenderQueue(ServerSideRenderQueue);
 registerUseBlock(useBlock);
@@ -67,8 +72,9 @@ for( const block of BlockX.blocks ){
                 setAttributes({content})
                 setLocalChangeState({})
             }
-            
-            const Preview = BlockXComponents[id] || ServerSideRenderQueue;
+
+
+            const Preview = getEditorView(blockId(...id.split("/"))) || ServerSideRenderQueue;
             const previewMode = usePreviewMode();
 
             return <>

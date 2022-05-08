@@ -10,6 +10,6 @@ export const registerEditorView = (
 
 
 export const getEditorView = (id: BlockId): FunctionComponent | undefined => {
-    return get<FunctionComponent>(blockIdToString(id), "editorViews")
+    return get<FunctionComponent>("editorViews", blockIdToString(id))
         ?? getDeprecated<FunctionComponent>(blockIdToString(id));
 }
