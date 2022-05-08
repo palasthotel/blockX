@@ -7,10 +7,10 @@ import ServerSideRenderQueue from '../components/ServerSideRenderQueue';
 import {useBlock} from '../hooks/use-context.js';
 import {useAutoSaveTimeout} from "../hooks/use-settings";
 import {usePreviewMode} from "../hooks/use-preview-mode";
-import {setServerSideRenderQueue,setUseBlock} from '../../lib';
+import {registerServerSideRenderQueue,registerUseBlock} from '../../lib';
 
-setServerSideRenderQueue(ServerSideRenderQueue);
-setUseBlock(useBlock);
+registerServerSideRenderQueue(ServerSideRenderQueue);
+registerUseBlock(useBlock);
 
 for( const block of BlockX.blocks ){
 
