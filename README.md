@@ -503,7 +503,7 @@ class MyWidget extends \Palasthotel\WordPress\BlockX\Widgets\_Widget {
 Then add some React JavaScript.
 
 ```javascript
-import {registerBlockXEditorWidget, blockId} from "@palasthotel/blockx"
+import {registerEditorWidget} from "@palasthotel/blockx";
 const MyWidget = ({definition, value, onChange}) => {
     return (
         <label>{definition.label}<br/>
@@ -515,14 +515,14 @@ const MyWidget = ({definition, value, onChange}) => {
     )
 }
 
-registerBlockXEditorWidget("my-widget", MyWidget);
+registerEditorWidget("my-widget-type", MyWidget);
 ```
 
 Now you can use this widget in your blockx blocks content structure.
 
 **Important:**
 
-- This is JSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
+- This is JSX/TSX syntax so you need to use a javascript bundler to transpile it to browser readable javascript code
 - Best practice is to use the `@wordpress/scripts` npm package to transpile React components
 
 
@@ -568,10 +568,10 @@ The `my-blockx-components.js` file will be enqueue as a dependency of `blockx.js
 
 ```jsx
 // my-blockx-components.js
-import registerBlockXEditorView, {blockId} from "@palasthotel/blockx";
-registerBlockXEditorView(
+import {blockId, registerEditorView} from "@palasthotel/blockx";
+registerEditorView(
     blockId("my-namespace","my-block"),
-    ({content})=> <MyBlockEditorCompontent {...content} />
+    MyBlockEditorCompontent
 );
 ```
 
@@ -654,7 +654,7 @@ Alternatively use React Component editor rendering.
 
  ```jsx
 // my-blockx-components.js
-import registerBlockXEditorView, {blockId} from "@palasthotel/blockx";
+import {blockId, registerEditorView} from "@palasthotel/blockx";
 
 const MyBlockEditorComponent = ({headline, number_of_posts, offset})=>{
   return <>
@@ -666,9 +666,9 @@ const MyBlockEditorComponent = ({headline, number_of_posts, offset})=>{
   </>
 }
 
-registerBlockXEditorView(
+registerEditorView(
     blockId("my-namespace","my-block"),
-    ({content})=> <MyBlockEditorCompontent {...content} />
+    MyBlockEditorCompontent
 );
  ```
 
