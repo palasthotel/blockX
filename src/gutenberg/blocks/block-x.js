@@ -8,7 +8,7 @@ import {useBlock} from '../hooks/use-context.js';
 import {useAutoSaveTimeout} from "../hooks/use-settings";
 import {usePreviewMode} from "../hooks/use-preview-mode";
 import {
-    blockId,
+    blockIdFromString,
     getEditorView,
     registerServerSideRenderQueue,
     registerUseBlock,
@@ -73,12 +73,13 @@ for( const block of BlockX.blocks ){
                 setLocalChangeState({})
             }
 
+            const blockId = blockIdFromString(id);
+            const Preview = typeof blockId === "undefined" ?
+                ServerSideRenderQueue : getEditorView(blockId) ?? ServerSideRenderQueue;
 
-            const Preview = getEditorView(blockId(...id.split("/"))) || ServerSideRenderQueue;
             const previewMode = usePreviewMode();
 
             return <>
-
                 <InspectorControls>
                     <BlockContext 
                         blockId={id} 

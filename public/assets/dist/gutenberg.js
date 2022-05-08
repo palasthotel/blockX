@@ -97,7 +97,7 @@ for (const block of BlockX.blocks) {
 
   (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)(id, { ...registerBlockTypeArgs,
     edit: props => {
-      var _blockProps$className, _attributes$content, _attributes$content2;
+      var _getEditorView, _blockProps$className, _attributes$content, _attributes$content2;
 
       const {
         className,
@@ -134,7 +134,8 @@ for (const block of BlockX.blocks) {
         setLocalChangeState({});
       };
 
-      const Preview = (0,_lib__WEBPACK_IMPORTED_MODULE_10__.getEditorView)((0,_lib__WEBPACK_IMPORTED_MODULE_10__.blockId)(...id.split("/"))) || _components_ServerSideRenderQueue__WEBPACK_IMPORTED_MODULE_6__["default"];
+      const blockId = (0,_lib__WEBPACK_IMPORTED_MODULE_10__.blockIdFromString)(id);
+      const Preview = typeof blockId === "undefined" ? _components_ServerSideRenderQueue__WEBPACK_IMPORTED_MODULE_6__["default"] : (_getEditorView = (0,_lib__WEBPACK_IMPORTED_MODULE_10__.getEditorView)(blockId)) !== null && _getEditorView !== void 0 ? _getEditorView : _components_ServerSideRenderQueue__WEBPACK_IMPORTED_MODULE_6__["default"];
       const previewMode = (0,_hooks_use_preview_mode__WEBPACK_IMPORTED_MODULE_9__.usePreviewMode)();
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_components_BlockContext__WEBPACK_IMPORTED_MODULE_5__["default"], {
         blockId: id,
@@ -502,6 +503,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./widgets */ "./src/gutenberg/components/widgets/index.js");
+/* harmony import */ var _lib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib */ "./src/lib.ts");
+
 
 
 
@@ -514,7 +517,9 @@ const ContentStructure = _ref => {
     parentPath = ""
   } = _ref;
   return items.map((item, index) => {
-    const widget = typeof _widgets__WEBPACK_IMPORTED_MODULE_1__["default"][item.type] !== "undefined" ? _widgets__WEBPACK_IMPORTED_MODULE_1__["default"][item.type] : window.BlockXComponents.widgets[item.type];
+    var _getEditorWidget;
+
+    const widget = (_getEditorWidget = (0,_lib__WEBPACK_IMPORTED_MODULE_2__.getEditorWidget)(item.type)) !== null && _getEditorWidget !== void 0 ? _getEditorWidget : _widgets__WEBPACK_IMPORTED_MODULE_1__["default"][item.type];
 
     if (typeof widget !== typeof undefined) {
       const Widget = widget;
@@ -3406,6 +3411,7 @@ const findTerm = (s, terms) => findTermById(s, terms) || findTermBySlug(s, terms
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "blockId": function() { return /* reexport safe */ _lib_id__WEBPACK_IMPORTED_MODULE_0__.blockId; },
+/* harmony export */   "blockIdFromString": function() { return /* reexport safe */ _lib_id__WEBPACK_IMPORTED_MODULE_0__.blockIdFromString; },
 /* harmony export */   "registerEditorView": function() { return /* reexport safe */ _lib_editor_view__WEBPACK_IMPORTED_MODULE_1__.registerEditorView; },
 /* harmony export */   "getEditorView": function() { return /* reexport safe */ _lib_editor_view__WEBPACK_IMPORTED_MODULE_1__.getEditorView; },
 /* harmony export */   "registerEditorWidget": function() { return /* reexport safe */ _lib_editor_widget__WEBPACK_IMPORTED_MODULE_2__.registerEditorWidget; },
@@ -3486,13 +3492,22 @@ const getEditorWidget = id => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "blockId": function() { return /* binding */ blockId; },
-/* harmony export */   "blockIdToString": function() { return /* binding */ blockIdToString; }
+/* harmony export */   "blockIdToString": function() { return /* binding */ blockIdToString; },
+/* harmony export */   "blockIdFromString": function() { return /* binding */ blockIdFromString; }
 /* harmony export */ });
 const blockId = (namespace, name) => ({
   namespace,
   name
 });
 const blockIdToString = id => `${id.namespace}/${id.name}`;
+const blockIdFromString = id => {
+  const parts = id.split("/");
+  if (parts.length < 2) return;
+  return {
+    namespace: parts[0],
+    name: parts[1]
+  };
+};
 
 /***/ }),
 
@@ -3585,10 +3600,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./src/lib/store.ts");
 
 const registerUseBlock = fn => {
-  (0,_store__WEBPACK_IMPORTED_MODULE_0__.set)("utils", "useBlocks", fn);
+  (0,_store__WEBPACK_IMPORTED_MODULE_0__.set)("utils", "useBlock", fn);
   (0,_store__WEBPACK_IMPORTED_MODULE_0__.setDeprecated)("useBlock", fn);
 };
-const useBlock = _store__WEBPACK_IMPORTED_MODULE_0__.get.bind(undefined, "utils", "useBlock");
+const useBlock = () => {
+  var _get;
+
+  return (_get = (0,_store__WEBPACK_IMPORTED_MODULE_0__.get)("utils", "useBlock")) === null || _get === void 0 ? void 0 : _get();
+};
 
 /***/ }),
 
