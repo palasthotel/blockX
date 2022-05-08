@@ -1,0 +1,7 @@
+/bin
+/node_modules
+/public
+/src
+/.gitignore
+/.idea
+/plugin.php
