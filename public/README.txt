@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 5.9.3
 Requires PHP: 7.4
-Stable tag: 1.5.2
+Stable tag: 1.6.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Screenshots ==
 
 == Changelog ==
+
+= 1.6.0 =
+* Feature: Composed blocks
 
 = 1.5.2 =
 * Bugfix: Media widget object cache fix
