@@ -2,7 +2,6 @@
 
 namespace Palasthotel\WordPress\BlockX\ComposedBlocks;
 
-use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
 use Palasthotel\WordPress\BlockX\Model\Styles;
 use Palasthotel\WordPress\BlockX\Plugin;
 

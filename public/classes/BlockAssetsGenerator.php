@@ -8,7 +8,6 @@ use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\ComposedBlocks\_IComposedBlockType;
 use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
-use Palasthotel\WordPress\BlockX\Model\ComposedBlockStyles;
 use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
 
 /**
