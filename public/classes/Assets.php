@@ -88,7 +88,7 @@ class Assets extends Components\Component {
 						"style" => $container->styles(),
 					];
 				}, $containers),
-        "composedBlocks" => array_map(function ($composedBlocks){
+                "composedBlocks" => array_map(function ($composedBlocks){
 					return [
 						"id" => (string) $composedBlocks->id(),
 						"title" => $composedBlocks->title(),
