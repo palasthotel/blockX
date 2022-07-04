@@ -13,7 +13,7 @@ const getExpiredCache = ()=>{
 const setExpiredCache = (map) => {
     return localStorage.setItem(SSR_CACHE_TIMESTAMPS_KEY,  JSON.stringify(map));
 }
-const setCache = (blocks, expiresInSeconds = 300) => {
+const setCache = (blocks, expiresInSeconds = 5*60) => {
     const map = getExpiredCache();
     const now = Date.now();
     for(const hash in blocks){
@@ -50,7 +50,10 @@ setCache(blocksCache);
 // ---------------------------------------------
 const getHash = (blockId, attributes) => {
     // unescape and encode needed for hash function to work
-    return btoa(`${blockId}-${unescape(encodeURIComponent(JSON.stringify(attributes)))}`);
+    return `${blockId}-${JSON.stringify(attributes)}`
+        .replaceAll("\"","")
+        .replaceAll("{", "(")
+        .replaceAll("}", ")");
 };
 
 const DEFAULT_STATE = {
@@ -94,7 +97,9 @@ const actions = {
             id: blockId,
             attributes,
         };
-        return actionAddToQueue(getHash(blockId, attributes), block);
+        const hash = getHash(blockId, attributes);
+
+        return actionAddToQueue(hash, block);
     },
 
     * fetchSSR(post_id){
@@ -151,12 +156,16 @@ const store = createReduxStore(STORE_NAME, {
                     }
                 }
             case ACTION_REMOVE_FROM_QUEUE:
+                const remainingKeys = Object
+                    .keys(state.queue)
+                    .filter(hash=> !action.hashes.includes(hash));
+                const queue = {};
+                remainingKeys.forEach(key => {
+                    queue[key] = state.queue[key];
+                })
                 return {
                     ...state,
-                    queue: Object
-                            .keys(state.queue)
-                            .filter(hash=> !action.hashes.includes(hash))
-                            .map(hash=> state.queue[hash]),
+                    queue,
                 }
         }
         return state;
@@ -191,7 +200,8 @@ const store = createReduxStore(STORE_NAME, {
             return state.blocks;
         },
         getBlock(state, blockId, attributes){
-            return state.blocks[getHash(blockId, attributes)];
+            const hash = getHash(blockId, attributes);
+            return state.blocks[hash];
         },
     },
     // ----------------------------------------------------------------
