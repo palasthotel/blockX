@@ -4,11 +4,11 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Experimental blocks for palasthotel
- * Version: 1.6.1
+ * Version: 1.7.0
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 5.9.3
+ * Tested up to: 6.0.1
  * Requires PHP: 7.4
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
@@ -34,6 +34,7 @@ require_once dirname( __FILE__ ) . "/vendor/autoload.php";
  * @property Settings settings
  * @property Update update
  * @property BlockAssetsGenerator $bag
+ * @property Headless $headless
  */
 class Plugin extends Components\Plugin {
 
@@ -110,6 +111,8 @@ class Plugin extends Components\Plugin {
 		$this->postHooks = new PostHooks( $this );
 		$this->settings  = new Settings( $this );
 		$this->update    = new Update( $this );
+
+		$this->headless = new Headless($this);
 
 		if ( WP_DEBUG ) {
 			$this->database->createTables();
