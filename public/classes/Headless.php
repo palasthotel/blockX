@@ -92,7 +92,7 @@ class Headless extends Component {
 			"id"                 => $post->ID,
 			"type"               => $post->post_type,
 			"title"              => $post->post_title,
-			"name"               => $post->post_name,
+			"slug"               => $post->post_name,
 			"featured_media"     => get_post_thumbnail_id( $post ),
 			"featured_media_url" => get_the_post_thumbnail_url( $post, "full" ),
 			"excerpt"            => $post->post_excerpt,
