@@ -34,20 +34,20 @@ class Headless extends Component {
 
 	}
 
-	public function block_preparation_extensions(BlockPreparations $extensions){
+	public function block_preparation_extensions( BlockPreparations $extensions ) {
 		$containers = $this->plugin->gutenberg->getContainerTypes();
-		foreach ($containers as $container){
-			$sum = array_sum($container->columns());
+		foreach ( $containers as $container ) {
+			$sum  = array_sum( $container->columns() );
 			$type = implode(
 				"-",
-				array_map(function($col) use ( $sum ) {
-					return $col."d".$sum;
-				},$container->columns())
+				array_map( function ( $col ) use ( $sum ) {
+					return $col . "d" . $sum;
+				}, $container->columns() )
 			);
 			$container->columns();
-			$extensions->add(new ContainerBlockPreparation($type));
+			$extensions->add( new ContainerBlockPreparation( $type ) );
 		}
-		$extensions->add(new SlotBlockPreparation());
+		$extensions->add( new SlotBlockPreparation() );
 	}
 
 	public function prepare_block( $block, $level ) {
@@ -73,14 +73,14 @@ class Headless extends Component {
 			foreach ( $posts as $post ) {
 				$block["posts"][] = $this->buildPostTeaser( $post, $level + 1 );
 			}
-			unset($block["innerHTML"]);
-			unset($block["innerContent"]);
+			unset( $block["innerHTML"] );
+			unset( $block["innerContent"] );
 		} else if ( $blockX instanceof PostEmbed || is_subclass_of( $blockX, 'Palasthotel\WordPress\BlockX\Blocks\PostEmbed' ) ) {
 			$content       = $block["attrs"]["content"];
 			$prepared      = $blockX->prepare( (object) $content );
 			$block["post"] = ( $prepared->post instanceof \WP_Post ) ? $this->buildPostTeaser( $prepared->post, $level + 1 ) : null;
-			unset($block["innerHTML"]);
-			unset($block["innerContent"]);
+			unset( $block["innerHTML"] );
+			unset( $block["innerContent"] );
 		}
 
 		return $block;
@@ -92,8 +92,9 @@ class Headless extends Component {
 			"id"                 => $post->ID,
 			"type"               => $post->post_type,
 			"title"              => $post->post_title,
-			"slug"               => $post->post_name,
-			"featured_image_url" => get_the_post_thumbnail_url( $post->ID, "full" ),
+			"name"               => $post->post_name,
+			"featured_media"     => get_post_thumbnail_id( $post ),
+			"featured_media_url" => get_the_post_thumbnail_url( $post, "full" ),
 			"excerpt"            => $post->post_excerpt,
 			"taxonomies"         => [],
 		];
