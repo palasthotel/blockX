@@ -8,6 +8,7 @@ use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Headless\ContainerBlockPreparation;
 use Palasthotel\WordPress\BlockX\Headless\SlotBlockPreparation;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
+use Palasthotel\WordPress\Headless\Extensions\FeaturedMedia;
 use Palasthotel\WordPress\Headless\Model\BlockPreparations;
 
 class Headless extends Component {
@@ -88,13 +89,16 @@ class Headless extends Component {
 
 	private function buildPostTeaser( $id_or_post, $level ) {
 		$post       = get_post( $id_or_post );
+		$featuredImageId = get_post_thumbnail_id( $post );
 		$postJson   = [
 			"id"                 => $post->ID,
 			"type"               => $post->post_type,
 			"title"              => $post->post_title,
 			"slug"               => $post->post_name,
-			"featured_media"     => get_post_thumbnail_id( $post ),
+			"featured_media"     => $featuredImageId,
 			"featured_media_url" => get_the_post_thumbnail_url( $post, "full" ),
+			"featured_media_src" => wp_get_attachment_image_src( $featuredImageId, "full" ),
+			"featured_media_sizes" => (class_exists("Palasthotel\WordPress\Headless\Extensions\FeaturedMedia")) ? FeaturedMedia::imageSizes($featuredImageId): [],
 			"excerpt"            => $post->post_excerpt,
 			"taxonomies"         => [],
 		];
