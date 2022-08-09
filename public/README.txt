@@ -36,6 +36,7 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 
 = 1.7.0 =
 * Headless plugin integrations
+* Bugfix: Do not escape slashes in block.json
 
 = 1.6.2 =
 * Fix: empty render blocks problem
