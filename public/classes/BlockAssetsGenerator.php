@@ -86,7 +86,7 @@ class BlockAssetsGenerator extends Component {
 				$json->editorStyle = $editorStyles->handles;
 			}
 
-			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
+			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
 		}
 	}
 
@@ -103,7 +103,7 @@ class BlockAssetsGenerator extends Component {
 			$json->title       = $container->title();
 			$json->style       = $container->styles()->handles;
 			$json->editorStyle = $container->editorStyles()->handles;
-			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
+			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
 		}
 	}
 
@@ -120,7 +120,7 @@ class BlockAssetsGenerator extends Component {
 			$json->title       = $composedBlock->title();
 			$json->style       = $composedBlock->styles()->handles;
 			$json->editorStyle = $composedBlock->editorStyles()->handles;
-			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT ) );
+			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
 		}
 	}
 
