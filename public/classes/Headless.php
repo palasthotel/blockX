@@ -10,6 +10,7 @@ use Palasthotel\WordPress\BlockX\Headless\SlotBlockPreparation;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\Headless\Extensions\FeaturedMedia;
 use Palasthotel\WordPress\Headless\Model\BlockPreparations;
+use WP_Term;
 
 class Headless extends Component {
 
@@ -100,14 +101,23 @@ class Headless extends Component {
 			"featured_media_src" => wp_get_attachment_image_src( $featuredImageId, "full" ),
 			"featured_media_sizes" => (class_exists("Palasthotel\WordPress\Headless\Extensions\FeaturedMedia")) ? FeaturedMedia::imageSizes($featuredImageId): [],
 			"excerpt"            => $post->post_excerpt,
-			"taxonomies"         => [],
 		];
-		$taxonomies = get_object_taxonomies( $post );
+		$taxonomies = get_object_taxonomies( $post, 'objects' );
 		foreach ( $taxonomies as $taxonomy ) {
-			$terms = get_the_terms( $post, $taxonomy );
-			if ( is_array( $terms ) ) {
-				$postJson["taxonomies"][ $taxonomy ] = array_map( function ( $term ) {
-					return $term->term_id;
+			if(!$taxonomy->show_in_rest) continue;
+			$terms = get_the_terms( $post, $taxonomy->name );
+			if ( is_array( $terms ) && is_string($taxonomy->rest_base) ) {
+				$postJson[$taxonomy->rest_base] = array_map( function ( $term ){
+					/**
+					 * @var WP_Term
+					 */
+					return [
+						"id" => $term->term_id,
+						"name" => $term->name,
+						"slug" => $term->slug,
+						"parent" => $term->parent,
+						"count" => $term->count,
+					];
 				}, $terms );
 			}
 		}
