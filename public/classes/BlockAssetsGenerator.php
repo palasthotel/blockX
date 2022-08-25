@@ -3,6 +3,7 @@
 namespace Palasthotel\WordPress\BlockX;
 
 use DirectoryIterator;
+use Lcobucci\JWT\Exception;
 use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\ComposedBlocks\_IComposedBlockType;
@@ -41,8 +42,12 @@ class BlockAssetsGenerator extends Component {
 
 	private function mkdir( BlockId $id ) {
 		$containerIdPath = $this->getDirectoryPath( $id );
-		if ( ! is_dir( $containerIdPath ) ) {
-			mkdir( $containerIdPath, 0777, true );
+		try {
+			if ( ! is_dir( $containerIdPath ) && is_writable($containerIdPath) ) {
+				mkdir( $containerIdPath, 0777, true );
+			}
+		} catch (Exception $e){
+
 		}
 	}
 
@@ -136,6 +141,9 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $container->id() );
 		$styleFile = $this->getContainerStylesFilePath( $container->id(), $style );
 		if ( ! file_exists( $styleFile ) || WP_DEBUG ) {
+			if(!is_writable($styleFile)){
+				return;
+			}
 			ob_start();
 			include $this->plugin->path . "/scripts/container-styles.php";
 			$css = ob_get_contents();
