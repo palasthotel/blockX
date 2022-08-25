@@ -3,7 +3,7 @@
 namespace Palasthotel\WordPress\BlockX;
 
 use DirectoryIterator;
-use Lcobucci\JWT\Exception;
+use Exception;
 use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\ComposedBlocks\_IComposedBlockType;
