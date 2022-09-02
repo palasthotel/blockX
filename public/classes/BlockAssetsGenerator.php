@@ -43,7 +43,7 @@ class BlockAssetsGenerator extends Component {
 	private function mkdir( BlockId $id ) {
 		$containerIdPath = $this->getDirectoryPath( $id );
 		try {
-			if ( ! is_dir( $containerIdPath ) && is_writable($containerIdPath) ) {
+			if ( ! is_dir( $containerIdPath ) ) {
 				mkdir( $containerIdPath, 0777, true );
 			}
 		} catch (Exception $e){
