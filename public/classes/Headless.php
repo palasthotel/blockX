@@ -8,9 +8,7 @@ use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\Headless\ContainerBlockPreparation;
 use Palasthotel\WordPress\BlockX\Headless\SlotBlockPreparation;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
-use Palasthotel\WordPress\Headless\Extensions\FeaturedMedia;
 use Palasthotel\WordPress\Headless\Model\BlockPreparations;
-use WP_Term;
 
 class Headless extends Component {
 
@@ -33,7 +31,6 @@ class Headless extends Component {
 			10,
 			2
 		);
-
 	}
 
 	public function block_preparation_extensions( BlockPreparations $extensions ) {
@@ -73,14 +70,14 @@ class Headless extends Component {
 			$posts          = get_posts( $prepared->args );
 			$block["posts"] = [];
 			foreach ( $posts as $post ) {
-				$block["posts"][] = $this->buildPostTeaser( $post, $level + 1 );
+				$block["posts"][] = $this->buildPostTeaser( $post );
 			}
 			unset( $block["innerHTML"] );
 			unset( $block["innerContent"] );
 		} else if ( $blockX instanceof PostEmbed || is_subclass_of( $blockX, 'Palasthotel\WordPress\BlockX\Blocks\PostEmbed' ) ) {
 			$content       = $block["attrs"]["content"];
 			$prepared      = $blockX->prepare( (object) $content );
-			$block["post"] = ( $prepared->post instanceof \WP_Post ) ? $this->buildPostTeaser( $prepared->post, $level + 1 ) : null;
+			$block["post"] = ( $prepared->post instanceof \WP_Post ) ? $this->buildPostTeaser( $prepared->post ) : null;
 			unset( $block["innerHTML"] );
 			unset( $block["innerContent"] );
 		}
@@ -88,41 +85,8 @@ class Headless extends Component {
 		return $block;
 	}
 
-	private function buildPostTeaser( $id_or_post, $level ) {
-		$post       = get_post( $id_or_post );
-		$featuredImageId = get_post_thumbnail_id( $post );
-		$postJson   = [
-			"id"                 => $post->ID,
-			"type"               => $post->post_type,
-			"title"              => $post->post_title,
-			"slug"               => $post->post_name,
-			"featured_media"     => $featuredImageId,
-			"featured_media_url" => get_the_post_thumbnail_url( $post, "full" ),
-			"featured_media_src" => wp_get_attachment_image_src( $featuredImageId, "full" ),
-			"featured_media_sizes" => (class_exists("Palasthotel\WordPress\Headless\Extensions\FeaturedMedia")) ? FeaturedMedia::imageSizes($featuredImageId): [],
-			"excerpt"            => $post->post_excerpt,
-		];
-		$taxonomies = get_object_taxonomies( $post, 'objects' );
-		foreach ( $taxonomies as $taxonomy ) {
-			if(!$taxonomy->show_in_rest) continue;
-			$terms = get_the_terms( $post, $taxonomy->name );
-			if ( is_array( $terms ) && is_string($taxonomy->rest_base) ) {
-				$postJson[$taxonomy->rest_base] = array_map( function ( $term ){
-					/**
-					 * @var WP_Term
-					 */
-					return [
-						"id" => $term->term_id,
-						"name" => $term->name,
-						"slug" => $term->slug,
-						"parent" => $term->parent,
-						"count" => $term->count,
-					];
-				}, $terms );
-			}
-		}
-
-		return $postJson;
+	private function buildPostTeaser( $id_or_post ) {
+		return apply_filters( \Palasthotel\WordPress\Headless\Plugin::FILTER_PREPARE_POST, [], $id_or_post );
 	}
 
 }
