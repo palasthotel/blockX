@@ -3,9 +3,9 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.0.1
+Tested up to: 6.0.2
 Requires PHP: 7.4
-Stable tag: 1.7.1
+Stable tag: 1.8.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Screenshots ==
 
 == Changelog ==
+
+= 1.8.0 =
+* BREAKING CHANGE: moved prepare post to headless plugin. Please update to headless > 1.6.2
 
 = 1.7.1 =
 * Bugfix: write permission denied for generator fix
@@ -169,6 +172,8 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 * First release
 
 == Upgrade Notice ==
+
+With 1.8.0 there is a breaking change if used with headless plugin.
 
 With 1.5.0 there is a breaking change for blocks that use Readonly widget which was renamed to Read_Only because of php 8.1 token collisions.
 
