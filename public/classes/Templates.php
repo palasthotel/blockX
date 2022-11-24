@@ -41,6 +41,14 @@ class Templates extends Component {
 				return $path;
 			}
 
+			if($editor){
+				// fallback to frontend template for editor
+				$path = $this->component->get_template_path( $this->get_block_template_name( $type, false ) );
+				if(is_string($path) && !empty($path)){
+					return $path;
+				}
+			}
+
 			// check next parent class
 			$class = get_parent_class( $type );
 		}
