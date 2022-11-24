@@ -3,9 +3,9 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.0.2
+Tested up to: 6.1.1
 Requires PHP: 7.4
-Stable tag: 1.8.0
+Stable tag: 1.8.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,12 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Screenshots ==
 
 == Changelog ==
+
+= 1.8.2 =
+* Dependency updates
+
+= 1.8.1 =
+* Optimization: Use frontend template in editor if there is no *__editor template file
 
 = 1.8.0 =
 * BREAKING CHANGE: moved prepare post to headless plugin. Please update to headless > 1.6.2
