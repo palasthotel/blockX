@@ -39,9 +39,6 @@ const MediaPreview = ({ ID, minHeight, minWidth, maxHeight, maxWidth }) => {
     }
 
     if (media?.media_type === "image") {
-        if (!media?.media_details?.sizes?.thumbnail?.source_url) {
-            return <span className="blockx-media-widget__404">{not_found}</span>;
-        }
 
         const width = media.media_details.width;
         const height = media.media_details.height;
@@ -58,6 +55,18 @@ const MediaPreview = ({ ID, minHeight, minWidth, maxHeight, maxWidth }) => {
         }
         if(maxHeight > 0 && height > maxHeight){
             restrictionInfo.push(<>{`height ${height}px > max height ${maxHeight}px`}<br/></>);
+        }
+
+        if(media?.mime_type === "image/svg+xml") {
+            return (
+                <MediaPreviewWrapper type="image" error={restrictionInfo.length ? <p>{restrictionInfo}</p> : ""}>
+                    <img src={media?.source_url} />
+                </MediaPreviewWrapper>
+            )
+        }
+
+        if (!media?.media_details?.sizes?.thumbnail?.source_url) {
+            return <span className="blockx-media-widget__404">{not_found}</span>;
         }
 
         return <MediaPreviewWrapper type="image" error={restrictionInfo.length ? <p>{restrictionInfo}</p> : ""}>
