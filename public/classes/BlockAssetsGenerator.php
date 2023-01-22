@@ -141,7 +141,7 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $container->id() );
 		$styleFile = $this->getContainerStylesFilePath( $container->id(), $style );
 		if ( ! file_exists( $styleFile ) || WP_DEBUG ) {
-			if(!is_writable($styleFile)){
+			if(!is_writable($this->getDirectoryPath($container->id()))){
 				return;
 			}
 			ob_start();
