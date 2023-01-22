@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.4
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know here: https://github.com/palasthotel/blockX/bl
 == Screenshots ==
 
 == Changelog ==
+
+= 1.8.4 =
+* Bugfix: Container style generator fix
 
 = 1.8.3 =
 * Optimization: Media widget can preview svg now
