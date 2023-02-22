@@ -5,6 +5,12 @@
   "title": "Block",
   "category": "widgets",
   "attributes": {
+    "anchor": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    },
     "content": {
       "type": "object"
     }
