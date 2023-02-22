@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.4
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -27,12 +27,15 @@ Easy, php developer friendly way to add new gutenberg blocks to your wordpress.
 
 = How can I add my own blockX? =
 
-You can find all you need to know here: https://github.com/palasthotel/blockX/blob/master/README.md
+You can find all you need to know in the docs: [https://github.com/palasthotel/blockX/blob/master/README.md](https://github.com/palasthotel/blockX#create-new-block-class)
 
 
 == Screenshots ==
 
 == Changelog ==
+
+= 1.8.4 =
+* Fix: Support for custom class and anchor block fields
 
 = 1.8.3 =
 * Optimization: Media widget can preview svg now
