@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.4
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.8.6 =
+* Fix: add missing registerBlockTypeArgs values to block.json files
 
 = 1.8.5 =
 * Fix: Support for custom class and anchor block fields

@@ -90,6 +90,10 @@ class BlockAssetsGenerator extends Component {
 			if(!empty($editorStyles)){
 				$json->editorStyle = $editorStyles->handles;
 			}
+			$args = $block->registerBlockTypeArgs();
+			foreach ($args as $key => $value){
+				$json->{$key} = $value;
+			}
 
 			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
 		}
