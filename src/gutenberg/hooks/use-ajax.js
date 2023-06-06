@@ -5,7 +5,7 @@ import {fetchWidgetAjax} from "../data/ajax";
 import {useBlock} from "./use-context";
 
 const ajaxCache = {};
-const ajaxFetcher = async (widgetKeyFullPath, blockId, query) => {
+const ajaxFetcher = async ([widgetKeyFullPath, blockId, query]) => {
 
     // build url path
     const cacheKey = `${blockId}/${widgetKeyFullPath}?${query}`;
