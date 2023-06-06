@@ -3,9 +3,9 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.1.1
-Requires PHP: 7.4
-Stable tag: 1.8.7
+Tested up to: 6.2.2
+Requires PHP: 8.0
+Stable tag: 1.8.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,9 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.8.8 =
+* Fix: problem with autosuggest widget
 
 = 1.8.6 =
 * Fix: add missing registerBlockTypeArgs values to block.json files
