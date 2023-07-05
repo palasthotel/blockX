@@ -1,13 +1,18 @@
 import {TextControl} from "@wordpress/components";
-import {useCallback} from "@wordpress/element";
 
 const NumberWidget = ({definition, value, onChange})=> {
 
     const handleChange = (value)=>{
+        if(value === "" && definition.min){
+            onChange(definition.min);
+            return;
+        }
         if(value && definition.max && value > definition.max){
+            onChange(definition.max);
             return;
         }
         if(value && definition.min && value < definition.min){
+            onChange(definition.min);
             return;
         }
         onChange(value);
