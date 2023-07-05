@@ -34,6 +34,9 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 
 == Changelog ==
 
+= 1.8.9 =
+* Optimization: force min value in number control widget
+
 = 1.8.8 =
 * Fix: problem with autosuggest widget
 
