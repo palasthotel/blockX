@@ -14,9 +14,6 @@
     "build:plugin": "wp-scripts build src/gutenberg.js --output-path=public/assets/dist",
     "packages-update": "wp-scripts packages-update"
   },
-  "publishConfig": {
-    "registry": "https://npm.palasthotel.de"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:palasthotel/blockX.git"
