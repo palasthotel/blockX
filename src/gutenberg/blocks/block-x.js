@@ -69,6 +69,9 @@ for( const block of BlockX.blocks ){
 
              // apply local changes to contents
             const setContent = (content)=> {
+                if(JSON.stringify(content) === JSON.stringify(attributes.content)){
+                    return;
+                }
                 setAttributes({content})
                 setLocalChangeState({})
             }
@@ -81,8 +84,8 @@ for( const block of BlockX.blocks ){
 
             return <>
                 <InspectorControls>
-                    <BlockContext 
-                        blockId={id} 
+                    <BlockContext
+                        blockId={id}
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
                         attributes={attributes}
