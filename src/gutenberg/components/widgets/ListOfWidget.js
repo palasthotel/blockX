@@ -2,6 +2,7 @@ import {BaseControl, Button} from "@wordpress/components";
 import cloneDeep from 'lodash/cloneDeep'
 import ContentStructure from "../content-structure";
 import './ListOfWidget.css';
+import {useEffect} from "@wordpress/element";
 
 const ListOfWidget = ({definition, value, savedState, onChange})=> {
 
@@ -9,7 +10,11 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
         label,
         key,
         parentPath,
+        max_items = 0,
+        min_items = 0,
     } = definition;
+
+    const isExact = max_items === min_items && min_items > 0;
 
     const onAdd = ()=>{
         const newItem = {};
@@ -22,8 +27,23 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
         ]);
     }
 
+    useEffect(() => {
+        if(value.length >= min_items) return;
+        const newValues = Array.from(Array(min_items-value.length).keys()).map(_=> {
+            const newItem = {};
+            definition.contentStructure.forEach(widget=>{
+                newItem[widget.key] = structuredClone(definition?.defaultValues[widget.key]);
+            });
+            return newItem;
+        })
+        onChange([
+            ...value,
+            ...newValues,
+        ]);
+    }, [min_items, value.length]);
+
     const onClear = ()=>{
-        onChange([]);
+        onChange(value.splice(0, min_items));
     }
 
     const onChangeItem = (index, widgetKey, widgetValue)=>{
@@ -62,7 +82,7 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
                 <div className="blockx-list-of-widget__item--control blockx-list-of-widget__item--control-top">
                     <Button
                         icon="arrow-up"
-                        isSecondary
+                        variant="secondary"
                         isSmall
                         disabled={index === 0}
                         onClick={()=>onUp(index)}
@@ -80,47 +100,63 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
                 <div className="blockx-list-of-widget__item--control blockx-list-of-widget__item--control-bottom">
                     <Button
                         icon="arrow-down"
-                        isSecondary
+                        variant="secondary"
                         isSmall
                         disabled={index >= value.length-1}
                         onClick={()=>onDown(index)}
                     >
                         Down
                     </Button>
-                    <Button
-                        icon="trash"
-                        isSecondary
-                        isSmall
-                        isDestructive
-                        disabled={value.length === 0}
-                        onClick={()=>onDeleteItem(index)}
-                    >
-                        Delete item
-                    </Button>
+                    {!isExact ?
+                        <Button
+                            icon="trash"
+                            variant="secondary"
+                            isSmall
+                            isDestructive
+                            disabled={value.length <= min_items}
+                            onClick={()=> onDeleteItem(index)}
+                        >
+                            Delete item
+                        </Button>
+                        :
+                        null
+                    }
+
                 </div>
             </div>
         })}
         </div>
-        <div className="blockx-list-of-widget__control">
-            <Button
-                icon="plus"
-                isSecondary
-                isSmall
-                onClick={onAdd}
-            >
-                Add list item
-            </Button>
-            <Button
-                icon="trash"
-                isSecondary
-                isSmall
-                isDestructive
-                disabled={value.length === 0}
-                onClick={onClear}
-            >
-                Delete all items
-            </Button>
-        </div>
+        {!isExact ?
+            <>
+                <div className="blockx-list-of-widget__control">
+                    <Button
+                        icon="plus"
+                        variant="secondary"
+                        isSmall
+                        disabled={max_items > 0 && value.length >= max_items}
+                        onClick={onAdd}
+                    >
+                        Add list item {max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : null}
+                    </Button>
+                    <Button
+                        icon="trash"
+                        variant="secondary"
+                        isSmall
+                        isDestructive
+                        disabled={value.length <= min_items}
+                        onClick={onClear}
+                    >
+                        Delete all items
+                    </Button>
+                </div>
+            </>
+            : null
+        }
+        {
+            !isExact && min_items > 0 ? <p className="description">Min {min_items}</p> : null
+        }
+
+
     </BaseControl>
 }
 

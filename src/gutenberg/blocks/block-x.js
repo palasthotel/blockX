@@ -42,11 +42,11 @@ for( const block of BlockX.blocks ){
             const {className,  setAttributes, attributes} = props;
             const blockProps = useBlockProps();
 
-            // for local state changes 
+            // for local state changes
             const [localChangeState, setLocalChangeState] = useState({});
             const changeLocalState = (key, value) => {
                 setLocalChangeState(_state => ({
-                    ...localChangeState,
+                    ..._state,
                     [key]: value,
                 }));
             }
@@ -103,8 +103,8 @@ for( const block of BlockX.blocks ){
                 </InspectorControls>
 
                 <div {...blockProps} className={`${blockProps.className ?? ""} preview-mode-${previewMode.toLowerCase()}`}>
-                    <BlockContext 
-                        blockId={id} 
+                    <BlockContext
+                        blockId={id}
                         contentStructure={contentStructure}
                         defaultValues={defaultValues}
                         attributes={attributes}

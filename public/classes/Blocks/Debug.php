@@ -198,7 +198,19 @@ class Debug extends _BlockType {
 					Url::build( "url", "Url" ),
 					Text::build( "title", "Title" ),
 				] ),
-			] ),
+			] )->max(3),
+
+			ListOf::build("min_list", "Min list",[
+				Text::build("item", "Item")
+			])->min(2),
+
+			ListOf::build("max_list", "Max list",[
+				Text::build("item", "Item")
+			])->max(2),
+
+			ListOf::build("exact_list", "Exact list",[
+				Text::build("item", "Item")
+			])->exact(2),
 
 		] );
 	}

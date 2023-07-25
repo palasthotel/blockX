@@ -13,6 +13,8 @@ class ListOf extends _Widget implements _IWidgetGroup {
 	 * @var ContentStructure
 	 */
 	private $contentStructure;
+	private int $maxItems = 0;
+	private int $minItems = 0;
 
 	/**
 	 * ListOf constructor.
@@ -35,6 +37,31 @@ class ListOf extends _Widget implements _IWidgetGroup {
 		return $this->contentStructure;
 	}
 
+	public function exact( int $value ): self {
+		$this->minItems = $value;
+		$this->maxItems = $value;
+
+		return $this;
+	}
+
+	public function min( int $value ): self {
+		$this->minItems = $value;
+		if($this->maxItems > 0){
+			$this->maxItems = max( $this->minItems, $this->maxItems );
+		}
+
+		return $this;
+	}
+
+	public function max( int $value ): self {
+		$this->maxItems = $value;
+		if($this->minItems > 0){
+			$this->minItems = min( $this->maxItems, $this->minItems );
+		}
+
+		return $this;
+	}
+
 	/**
 	 * @return array
 	 */
@@ -46,6 +73,8 @@ class ListOf extends _Widget implements _IWidgetGroup {
 			$defaultValues[ $widget->key() ] = $widget->defaultValue();
 		}
 		$arr["defaultValues"] = $defaultValues;
+		$arr["max_items"]     = $this->maxItems;
+		$arr["min_items"]      = $this->minItems;
 
 		return $arr;
 	}
