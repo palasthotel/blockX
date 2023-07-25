@@ -481,7 +481,14 @@ ListOf wraps a list of other widgets and lets you build a list of these widgets 
   string $label, 
   $contentStructure: ContentStructure
 )
+->min(2)
+->max(4)
+->exact(3);
 ```
+
+- `min` value larger than 0 will automagically add that number of items to the list when the block is added to the editor. It will also disable the delete buttons if the number of elements would fall below the specified value.
+- `max` value larger than 0 will disable all add buttons if the number of elements matches the specified value.
+- `exact` is a shorthand for min and max with the same value.
 
 ### Custom Widget
 
