@@ -42,7 +42,6 @@ const Panels = ({definition, content, setContent})=>{
         }
         activePanel.contentStructure.push(item);
 
-
     }
     if(activePanel.contentStructure.length > 0 ) panels.push(activePanel);
 
@@ -59,15 +58,13 @@ const Panels = ({definition, content, setContent})=>{
                     ...localChanges
                 }}
                 savedState={content}
-                onChange={(key, value)=>{
-                    changeLocalState(key, value)
-                }}
+                onChange={changeLocalState}
             />
         </PanelBody>
         )}
         <PanelBody>
-            <Button 
-                isSecondary
+            <Button
+                variant="secondary"
                 disabled={Object.keys(localChanges).length === 0}
                 onClick={handleApplyChangesClick}
             >

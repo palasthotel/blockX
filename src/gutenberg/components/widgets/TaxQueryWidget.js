@@ -192,7 +192,7 @@ const ConditionGroup = ({taxonomies, value, onChange}) => {
             }
         </div>
         <Button
-            isSecondary
+            variant="secondary"
             isSmall
             onClick={() => {
                 handleChange({
