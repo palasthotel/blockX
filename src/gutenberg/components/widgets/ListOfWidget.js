@@ -78,18 +78,7 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
         <div className="blockx-list-of-widget__body">
         {value.map((instanceValue, index )=> {
             const itemSavedState = Array.isArray(savedState) && savedState.length > index ? savedState[index] : undefined;
-            return <div className="blockx-list-of-widget__item" key={index}>
-                <div className="blockx-list-of-widget__item--control blockx-list-of-widget__item--control-top">
-                    <Button
-                        icon="arrow-up"
-                        variant="secondary"
-                        isSmall
-                        disabled={index === 0}
-                        onClick={()=>onUp(index)}
-                    >
-                        Up
-                    </Button>
-                </div>
+            return <div className="blockx-list-of-widget__item" data-number-of-widgets={definition.contentStructure.length} key={index}>
                 <ContentStructure
                     items={definition.contentStructure}
                     value={instanceValue}
@@ -97,27 +86,35 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
                     parentPath={parentPath+key+"."}
                     onChange={(widgetKey, widgetValue)=>onChangeItem(index, widgetKey, widgetValue)}
                 />
-                <div className="blockx-list-of-widget__item--control blockx-list-of-widget__item--control-bottom">
-                    <Button
-                        icon="arrow-down"
-                        variant="secondary"
-                        isSmall
-                        disabled={index >= value.length-1}
-                        onClick={()=>onDown(index)}
-                    >
-                        Down
-                    </Button>
+                <div className="blockx-list-of-widget__item--control">
+                    <div className="blockx-list-of-widget__item--control-move">
+                        <Button
+                            icon="arrow-up"
+                            variant="secondary"
+                            isSmall
+                            disabled={index === 0}
+                            onClick={()=>onUp(index)}
+                            label="Move item up"
+                        ></Button>
+                        <Button
+                            icon="arrow-down"
+                            variant="secondary"
+                            isSmall
+                            disabled={index >= value.length-1}
+                            onClick={()=>onDown(index)}
+                            label="Move item down"
+                        ></Button>
+                    </div>
                     {!isExact ?
                         <Button
                             icon="trash"
                             variant="secondary"
-                            isSmall
                             isDestructive
+                            isSmall
                             disabled={value.length <= min_items}
                             onClick={()=> onDeleteItem(index)}
-                        >
-                            Delete item
-                        </Button>
+                            label="Delete item"
+                        ></Button>
                         :
                         null
                     }
@@ -135,28 +132,23 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
                         isSmall
                         disabled={max_items > 0 && value.length >= max_items}
                         onClick={onAdd}
-                    >
-                        Add list item {max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : null}
-                    </Button>
+                        label={`Add item ${max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : ""}`}
+                    >{max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : null}</Button>
                     <Button
                         icon="trash"
                         variant="secondary"
-                        isSmall
                         isDestructive
+                        isSmall
                         disabled={value.length <= min_items}
                         onClick={onClear}
                     >
-                        Delete all items
+                        All
                     </Button>
                 </div>
             </>
             : null
         }
-        {
-            !isExact && min_items > 0 ? <p className="description">Min {min_items}</p> : null
-        }
-
-
+        <hr />
     </BaseControl>
 }
 
