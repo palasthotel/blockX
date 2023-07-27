@@ -148,7 +148,6 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
             </>
             : null
         }
-        <hr />
     </BaseControl>
 }
 
