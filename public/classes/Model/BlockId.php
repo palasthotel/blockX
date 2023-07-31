@@ -6,8 +6,8 @@ namespace Palasthotel\WordPress\BlockX\Model;
 
 class BlockId {
 
-	public $namespace;
-	public $name;
+	public string $namespace;
+	public string $name;
 
 	public function __construct( string $namespace, string $name ) {
 		$this->namespace = $namespace;

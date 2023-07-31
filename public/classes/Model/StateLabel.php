@@ -3,13 +3,10 @@
 
 namespace Palasthotel\WordPress\BlockX\Model;
 
-
-/**
- * @property string on
- * @property string off
- */
 class StateLabel {
 
+	public string $on;
+	public string $off;
 	public function __construct( string $on, string $off ) {
 		$this->on  = $on;
 		$this->off = $off;

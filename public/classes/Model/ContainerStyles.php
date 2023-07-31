@@ -2,15 +2,10 @@
 
 namespace Palasthotel\WordPress\BlockX\Model;
 
-/**
- * @property string $handle
- */
 class ContainerStyles extends Styles {
 
-	/**
-	 * @var bool
-	 */
-	private $generate;
+	public string $handle;
+	private bool $generate;
 
 	public function __construct(string $handle, bool $generate){
 		parent::__construct();

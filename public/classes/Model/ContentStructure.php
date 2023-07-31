@@ -9,7 +9,7 @@ class ContentStructure {
 	/**
 	 * @var _IWidget[]
 	 */
-	private $items;
+	private array $items;
 
 	/**
 	 * ContentStructure constructor.

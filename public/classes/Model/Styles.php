@@ -2,10 +2,12 @@
 
 namespace Palasthotel\WordPress\BlockX\Model;
 
-/**
- * @property string[] $handles
- */
 class Styles {
+
+	/**
+	 * @var string[]
+	 */
+	public array $handles;
 
 	public function __construct(){
 		$this->handles = [];

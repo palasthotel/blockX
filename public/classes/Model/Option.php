@@ -3,12 +3,10 @@
 
 namespace Palasthotel\WordPress\BlockX\Model;
 
-
-/**
- * @property string $value
- * @property string label
- */
 class Option {
+
+	public string $value;
+	public string $label;
 
 	public function __construct( string $value, string $label ) {
 		$this->value = $value;
