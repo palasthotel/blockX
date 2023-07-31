@@ -34,6 +34,9 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 
 == Changelog ==
 
+= 1.9.1 =
+* Refactor: PHP 8.2 fix; remove dynamic properties
+
 = 1.9.0 =
 * Feature: ListOf widget can be restricted to min, max and exact number of items
 
