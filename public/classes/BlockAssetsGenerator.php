@@ -11,10 +11,9 @@ use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 use Palasthotel\WordPress\BlockX\Model\BlockId;
 use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
 
-/**
- * @property AssetGeneratorPaths $paths
- */
 class BlockAssetsGenerator extends Component {
+
+	private AssetGeneratorPaths $paths;
 
 	public function onCreate() {
 		$this->paths = new AssetGeneratorPaths(

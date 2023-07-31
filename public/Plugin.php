@@ -21,21 +21,6 @@ namespace Palasthotel\WordPress\BlockX;
 
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
-/**
- * @property string path
- * @property string url
- * @property Assets assets
- * @property Gutenberg gutenberg
- * @property Templates templates
- * @property REST rest
- * @property PostHooks $postHooks
- * @property Database database
- * @property string basename
- * @property Settings settings
- * @property Update update
- * @property BlockAssetsGenerator $bag
- * @property Headless $headless
- */
 class Plugin extends Components\Plugin {
 
 	const DOMAIN = "blockx";
@@ -93,15 +78,24 @@ class Plugin extends Components\Plugin {
 	// ----------------------------------------------------
 	// initialize plugin features
 	// ----------------------------------------------------
+	public Database $database;
+	public REST $rest;
+	public Assets $assets;
+	public BlockAssetsGenerator $bag;
+	public Templates $templates;
+	public Gutenberg $gutenberg;
+	public PostHooks $postHooks;
+	public Settings $settings;
+	public Update $update;
+	public Headless $headless;
 
 
-  public function onCreate() {
+	public function onCreate() {
 
 		/**
 		 * load translations
 		 */
 		$this->loadTextdomain( Plugin::DOMAIN, "languages" );
-
 		$this->database  = new Database();
 		$this->rest      = new REST( $this );
 		$this->assets    = new Assets( $this );

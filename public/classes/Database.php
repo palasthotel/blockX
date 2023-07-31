@@ -2,10 +2,9 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
-/**
- * @property string table
- */
 class Database extends Components\Database {
+
+	private string $table;
 
 	public function init() {
 		$this->table = $this->wpdb->prefix . "blockx_post_embed";

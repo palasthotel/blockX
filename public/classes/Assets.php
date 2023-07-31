@@ -10,10 +10,9 @@ use Palasthotel\WordPress\BlockX\Model\Dependencies;
 use WP_Post_Type;
 use WP_Taxonomy;
 
-/**
- * @property Components\Assets helper
- */
 class Assets extends Components\Component {
+
+	private Components\Assets $helper;
 
 	public function onCreate() {
 		parent::onCreate();

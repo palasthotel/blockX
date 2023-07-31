@@ -12,13 +12,12 @@ use ReflectionException;
  * @version 0.1.2
  */
 abstract class Plugin {
+	private ReflectionClass $ref;
 
-	/**
-	 * @var ReflectionClass
-	 */
-	private $ref;
-
-	private $tooLateForTextdomain;
+	private bool $tooLateForTextdomain;
+	public string $path;
+	public string $url;
+	public string $basename;
 
 	/**
 	 * @throws ReflectionException

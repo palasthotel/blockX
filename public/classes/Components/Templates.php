@@ -5,7 +5,6 @@ namespace Palasthotel\WordPress\BlockX\Components;
 
 
 /**
- * @property Plugin plugin
  * @since 1.0.1
  */
 class Templates {
@@ -24,6 +23,7 @@ class Templates {
 	 * @var null|string[]
 	 */
 	private $sub_dirs = null;
+	private Plugin $plugin;
 
 	public function __construct(Plugin $plugin) {
 		$this->plugin = $plugin;
