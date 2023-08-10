@@ -17,7 +17,14 @@ class Info extends _Widget {
 
 	public function toArray(): array {
 		$arr         = parent::toArray();
-		$arr["text"] = $this->text;
+		$arr["text"] = wp_kses($this->text, [
+			"br" => [],
+			"b" => [],
+			"i" => [],
+			"strong" => [],
+			"em" => [],
+			"strike" => [],
+		]);
 		return $arr;
 	}
 
