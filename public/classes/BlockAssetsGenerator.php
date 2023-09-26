@@ -13,7 +13,7 @@ use Palasthotel\WordPress\BlockX\Model\ContainerStyles;
 
 class BlockAssetsGenerator extends Component {
 
-	private AssetGeneratorPaths $paths;
+	public AssetGeneratorPaths $paths;
 
 	public function onCreate() {
 		$this->paths = new AssetGeneratorPaths(
