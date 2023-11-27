@@ -16,15 +16,22 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
 
     const isExact = max_items === min_items && min_items > 0;
 
-    const onAdd = ()=>{
+    const onAddItem = (position = "bottom") => () =>{
         const newItem = {};
         definition.contentStructure.forEach(widget=>{
            newItem[widget.key] = definition?.defaultValues[widget.key];
         });
-        onChange([
-            ...value,
-            newItem,
-        ]);
+        if(position === "top"){
+            onChange([
+                newItem,
+                ...value,
+            ]);
+        } else {
+            onChange([
+                ...value,
+                newItem,
+            ]);
+        }
     }
 
     useEffect(() => {
@@ -72,13 +79,29 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
     }
 
     return <BaseControl
+        id="blockx-list-of-widget"
         className="blockx-list-of-widget"
         label={label}
     >
+        
+        {!isExact && value.length > 0 ?
+            <div className="blockx-list-of-widget__control">
+                <Button
+                    icon="plus"
+                    variant="secondary"
+                    isSmall
+                    disabled={max_items > 0 && value.length >= max_items}
+                    onClick={onAddItem("top")}
+                    label={`Add item ${max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : ""}`}
+                >Add item {max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : null}</Button>
+            </div>
+            : null
+        }
         <div className="blockx-list-of-widget__body">
         {value.map((instanceValue, index )=> {
             const itemSavedState = Array.isArray(savedState) && savedState.length > index ? savedState[index] : undefined;
             return <div className="blockx-list-of-widget__item" data-number-of-widgets={definition.contentStructure.length} key={index}>
+                <p className="blockx-list-of-widget__item-position">{index+1}/{value.length}</p>
                 <ContentStructure
                     items={definition.contentStructure}
                     value={instanceValue}
@@ -124,28 +147,28 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
         })}
         </div>
         {!isExact ?
-            <>
-                <div className="blockx-list-of-widget__control">
-                    <Button
-                        icon="plus"
-                        variant="secondary"
-                        isSmall
-                        disabled={max_items > 0 && value.length >= max_items}
-                        onClick={onAdd}
-                        label={`Add item ${max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : ""}`}
-                    >{max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : null}</Button>
-                    <Button
-                        icon="trash"
-                        variant="secondary"
-                        isDestructive
-                        isSmall
-                        disabled={value.length <= min_items}
-                        onClick={onClear}
-                    >
-                        All
-                    </Button>
-                </div>
-            </>
+            <div className="blockx-list-of-widget__control">
+                <Button
+                    icon="plus"
+                    variant="secondary"
+                    isSmall
+                    disabled={max_items > 0 && value.length >= max_items}
+                    onClick={onAddItem("bottom")}
+                    label={`Add item ${max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : ""}`}
+                >
+                    Add item {max_items > 0 ? `${Math.min(value.length+1, max_items)}/${max_items}` : null}
+                </Button>
+                <Button
+                    icon="trash"
+                    variant="secondary"
+                    isDestructive
+                    isSmall
+                    disabled={value.length <= min_items}
+                    onClick={onClear}
+                >
+                    All
+                </Button>
+            </div>
             : null
         }
     </BaseControl>
