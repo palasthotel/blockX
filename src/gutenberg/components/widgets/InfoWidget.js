@@ -1,6 +1,6 @@
 
 const InfoWidget = ({definition})=> {
-    return <p dangerouslySetInnerHTML={{__html: definition.text}} />
+    return <p className="description" dangerouslySetInnerHTML={{__html: definition.text}} />
 };
 
 export default InfoWidget;
