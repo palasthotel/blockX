@@ -34,6 +34,9 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 
 == Changelog ==
 
+= 1.9.3 =
+* Optimize: Added list widget controls and list position indicator
+
 = 1.9.2 =
 * Bugfix: Wrong access permission - caused an error on installation
 
