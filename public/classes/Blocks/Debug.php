@@ -193,7 +193,7 @@ class Debug extends _BlockType {
 				Number::build( "offset", "Offset", 4 ),
 				Url::build( "url", "Url" ),
 				AutoSuggest::build( "auto_suggest_page", "AutoSuggests" )
-				           ->useProvider( new PageUrlSuggestionProvider() ),
+				           ->useProvider( PostUrlSuggestionProvider::build()->postTypes(["page"]) ),
 				ListOf::build( "second_list", "Sublist", [
 					Url::build( "url", "Url" ),
 					Text::build( "title", "Title" ),
