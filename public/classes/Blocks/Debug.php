@@ -8,7 +8,6 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
-use Palasthotel\WordPress\BlockX\Utils\PageUrlSuggestionProvider;
 use Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider;
 use Palasthotel\WordPress\BlockX\Widgets\AutoSuggest;
 use Palasthotel\WordPress\BlockX\Widgets\Divider;
@@ -162,11 +161,11 @@ class Debug extends _BlockType {
 			// autosuggest
 			// ------------------------------------
 			AutoSuggest::build( "auto_suggest_post", "AutoSuggests" )
-			           ->useProvider( new PostUrlSuggestionProvider() ),
+			           ->useProvider( PostUrlSuggestionProvider()::build() ),
 
 			Url::build( "post_url", "Post Url" ),
 			Url::build( "page_url", "Page Url" )
-			   ->useProvider( new PageUrlSuggestionProvider() ),
+			   ->useProvider( PostUrlSuggestionProvider::build()->postTypes(["page"]) ),
 
 			// ------------------------------------
 			// taxonomies
