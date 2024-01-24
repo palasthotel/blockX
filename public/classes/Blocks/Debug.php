@@ -161,7 +161,7 @@ class Debug extends _BlockType {
 			// autosuggest
 			// ------------------------------------
 			AutoSuggest::build( "auto_suggest_post", "AutoSuggests" )
-			           ->useProvider( PostUrlSuggestionProvider()::build() ),
+			           ->useProvider( PostUrlSuggestionProvider::build() ),
 
 			Url::build( "post_url", "Post Url" ),
 			Url::build( "page_url", "Page Url" )
