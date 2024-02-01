@@ -80,6 +80,13 @@ class Headless extends Component {
 			$block["post"] = ( $prepared->post instanceof \WP_Post ) ? $this->buildPostTeaser( $prepared->post ) : null;
 			unset( $block["innerHTML"] );
 			unset( $block["innerContent"] );
+		} else if($blockX instanceof _BlockType){
+			$content       = $block["attrs"]["content"];
+			$prepared      = $blockX->prepare( (object) $content );
+			$block["attrs"]["content"] = array_merge(
+				$content,
+				(array)$prepared,
+			);
 		}
 
 		return $block;
