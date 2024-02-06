@@ -10,5 +10,6 @@
 .blockx-auto-suggest__suggestion{padding:12px}.blockx-auto-suggest__suggestion:hover{background:#efefef;cursor:pointer}.blockx-auto-suggest__suggestion+.blockx-auto-suggest__suggestion{border-top:1px solid #eee}.blockx-auto-suggest__suggestion .description{color:#646970}
 .blockx-url__suggestion{padding:12px}.blockx-url__suggestion:hover{background:#efefef;cursor:pointer}.blockx-url__suggestion+.blockx-url__suggestion{border-top:1px solid #eee}
 p.blockx-info-widget.description{margin-bottom:24px}
+.blockx-auto-complete__suggestion{padding:12px}.blockx-auto-complete__suggestion:hover{background:#efefef;cursor:pointer}.blockx-auto-complete__suggestion+.blockx-auto-complete__suggestion{border-top:1px solid #eee}.blockx-auto-complete__suggestion .description{color:#646970}
 .blockx--ssr__wrapper{position:relative}.blockx--ssr__wrapper .loader{position:absolute;right:0;top:0}
 .blockx__no-template{border:2px dashed #999;padding:10px}
