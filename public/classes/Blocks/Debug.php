@@ -9,6 +9,7 @@ use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
 use Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider;
+use Palasthotel\WordPress\BlockX\Widgets\AutoComplete;
 use Palasthotel\WordPress\BlockX\Widgets\AutoSuggest;
 use Palasthotel\WordPress\BlockX\Widgets\Divider;
 use Palasthotel\WordPress\BlockX\Widgets\Hidden;
@@ -162,6 +163,9 @@ class Debug extends _BlockType {
 			// ------------------------------------
 			AutoSuggest::build( "auto_suggest_post", "AutoSuggests" )
 			           ->useProvider( PostUrlSuggestionProvider::build() ),
+
+			AutoComplete::build( "auto_complete_post", "AutoCompletes" )
+				->useProvider( PostUrlSuggestionProvider::build() ),
 
 			AutoSuggest::build( "auto_complete_post", "AutoCompletes" )
 				->useProvider( PostUrlSuggestionProvider::build() ),
