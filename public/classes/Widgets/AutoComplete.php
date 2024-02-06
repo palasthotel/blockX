@@ -2,16 +2,18 @@
 
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
+use Palasthotel\WordPress\BlockX\Model\_Suggestion;
 use Palasthotel\WordPress\BlockX\Model\SimpleSuggestion;
 use Palasthotel\WordPress\BlockX\Utils\ISuggestionProvider;
 
-class AutoSuggest extends _AjaxWidget {
+class AutoComplete extends _AjaxWidget {
 
-	const TYPE = "auto_suggest";
+	const TYPE = "auto_complete";
 
 	private ISuggestionProvider|null $handler = null;
+	private bool $lockSuggestion = false;
 
-	public static function build(string $key, string $label, string $defaultValue = ""): AutoSuggest {
+	public static function build(string $key, string $label, string $defaultValue = ""): self {
 		return new static( $key, $label,static::TYPE, $defaultValue);
 	}
 
@@ -20,7 +22,7 @@ class AutoSuggest extends _AjaxWidget {
 	 *
 	 * @return $this
 	 */
-	public function useProvider(ISuggestionProvider $provider): AutoSuggest {
+	public function useProvider(ISuggestionProvider $provider): self {
 		$this->handler = $provider;
 		return $this;
 	}
@@ -28,7 +30,7 @@ class AutoSuggest extends _AjaxWidget {
 	/**
 	 * @param string $query
 	 *
-	 * @return SimpleSuggestion[]
+	 * @return _Suggestion[]
 	 */
 	public function ajax( string $query ): array {
 
@@ -38,4 +40,5 @@ class AutoSuggest extends _AjaxWidget {
 
 		return [];
 	}
+
 }

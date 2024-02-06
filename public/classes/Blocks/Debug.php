@@ -158,10 +158,13 @@ class Debug extends _BlockType {
 			Divider::build(),
 
 			// ------------------------------------
-			// autosuggest
+			// auto suggest and completes
 			// ------------------------------------
 			AutoSuggest::build( "auto_suggest_post", "AutoSuggests" )
 			           ->useProvider( PostUrlSuggestionProvider::build() ),
+
+			AutoSuggest::build( "auto_complete_post", "AutoCompletes" )
+				->useProvider( PostUrlSuggestionProvider::build() ),
 
 			Url::build( "post_url", "Post Url" ),
 			Url::build( "page_url", "Page Url" )

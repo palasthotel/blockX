@@ -2,6 +2,7 @@ import {useFetchTaxonomyTerms} from "./use-taxonomy";
 import {useFetchPosts} from "./use-posts";
 import {useFetchUsers} from "./use-users";
 import {useCallback} from "@wordpress/element";
+import {useFetchAjax} from "./use-ajax";
 
 // hooks for AutoCompletionTextControl
 
@@ -21,3 +22,8 @@ export const useUsersCompletionFactory = (roles, use_context) => useCallback((qu
     const {users, isLoading} = useFetchUsers(query, roles, use_context);
     return [users, isLoading];
 },[roles, use_context]);
+
+export const useAjaxCompletionFactory = (widgetKeyFullPath) => useCallback((query) => {
+    const {items, isLoading} = useFetchAjax(query, widgetKeyFullPath);
+    return [items, isLoading];
+}, [widgetKeyFullPath]);

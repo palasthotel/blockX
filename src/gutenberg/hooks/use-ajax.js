@@ -34,3 +34,13 @@ export const useAjax = (widgetKeyFullPath)=>{
     }
 }
 
+export const useFetchAjax = (query, widgetKeyFullPath) => {
+    const {blockId} = useBlock();
+    const debouncedQuery = useDebounce(query, 600);
+
+    const {data, error} = useSWR([ widgetKeyFullPath, blockId, debouncedQuery ], ajaxFetcher);
+    return {
+        items: data || [],
+        isLoading: !error && !data,
+    }
+}

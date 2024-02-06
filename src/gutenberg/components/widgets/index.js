@@ -15,6 +15,7 @@ import ListOfWidget from "./ListOfWidget";
 import AutoSuggestWidget from "./AutoSuggestWidget";
 import UrlWidget from "./UrlWidget";
 import InfoWidget from "./InfoWidget";
+import AutoCompleteWidget from "./AutoCompleteWidget";
 
 const widgets = {
     text: TextWidget,
@@ -33,6 +34,7 @@ const widgets = {
     media: MediaWidget,
     url: UrlWidget,
     auto_suggest: AutoSuggestWidget,
+    auto_complete: AutoCompleteWidget,
     list_of: ListOfWidget,
 }
 
