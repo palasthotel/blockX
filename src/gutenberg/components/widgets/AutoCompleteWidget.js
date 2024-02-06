@@ -11,8 +11,13 @@ const SearchResult = ({value, label, onClick}) => {
             className="blockx-auto-complete__suggestion"
             onClick={onClick}
         >
-            {label}<br/>
-            <i className="description">{value}</i>
+            {label ?
+                <>
+                    {label}<br/>
+                    <i className="description">{value}</i>
+                </>
+                : value
+            }
         </div>
     )
 }
@@ -38,7 +43,7 @@ const LockedCompletedItem = ({label, value, onUnlock, widgetKeyFullPath})=> {
 
     const {items} = useFetchAjax(value, widgetKeyFullPath);
 
-    const displayValue = items.length > 0 ? items[0].label : value;
+    const displayValue = items?.[0]?.label ?? value;
 
     return <LockedTextControl
         label={label}

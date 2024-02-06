@@ -2,7 +2,7 @@
 
 namespace Palasthotel\WordPress\BlockX\Utils;
 
-use Palasthotel\WordPress\BlockX\Model\UrlSuggestion;
+use Palasthotel\WordPress\BlockX\Model\LabelSuggestion;
 
 class PostUrlSuggestionProvider implements ISuggestionProvider {
 
@@ -29,7 +29,7 @@ class PostUrlSuggestionProvider implements ISuggestionProvider {
 	function suggest( string $query ): array {
 		$posts = get_posts($this->getArgs($query));
 		return array_map(function($post_id){
-			return UrlSuggestion::build(
+			return LabelSuggestion::build(
 				get_the_title($post_id),
 				get_permalink($post_id)
 			);

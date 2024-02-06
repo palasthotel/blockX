@@ -3,7 +3,6 @@
 namespace Palasthotel\WordPress\BlockX\Widgets;
 
 use Palasthotel\WordPress\BlockX\Model\_Suggestion;
-use Palasthotel\WordPress\BlockX\Model\SimpleSuggestion;
 use Palasthotel\WordPress\BlockX\Utils\ISuggestionProvider;
 
 class AutoComplete extends _AjaxWidget {
@@ -11,7 +10,6 @@ class AutoComplete extends _AjaxWidget {
 	const TYPE = "auto_complete";
 
 	private ISuggestionProvider|null $handler = null;
-	private bool $lockSuggestion = false;
 
 	public static function build(string $key, string $label, string $defaultValue = ""): self {
 		return new static( $key, $label,static::TYPE, $defaultValue);

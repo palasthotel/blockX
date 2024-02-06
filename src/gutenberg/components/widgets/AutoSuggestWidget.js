@@ -35,14 +35,7 @@ const AutoSuggestWidget = (
             }}
             className="blockx-auto-suggest__suggestion"
         >
-            {item.label}
-            {item.label !== item.value ?
-                <>
-                    <br/>
-                    <i className="description">{item.value}</i>
-                </>: null
-            }
-
+            {item.value}
         </div>
     }
 
