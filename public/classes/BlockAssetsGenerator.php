@@ -46,7 +46,7 @@ class BlockAssetsGenerator extends Component {
 				mkdir( $containerIdPath, 0777, true );
 			}
 		} catch (Exception $e){
-
+			error_log($e->getMessage());
 		}
 	}
 
@@ -60,6 +60,10 @@ class BlockAssetsGenerator extends Component {
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG ) {
 			if(!is_writable($this->getDirectoryPath($block->id() ))){
 				return;
+			}
+			$currentContent = "";
+			if(is_file($jsonFile)){
+				$currentContent = file_get_contents($jsonFile);
 			}
 			$contents          = file_get_contents( $this->plugin->path . "assets/block/block.json" );
 			$json              = json_decode( $contents );
@@ -94,7 +98,10 @@ class BlockAssetsGenerator extends Component {
 				$json->{$key} = $value;
 			}
 
-			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
+			$encoded = json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES );
+			if($currentContent != $encoded){
+				file_put_contents( $jsonFile, $encoded);
+			}
 		}
 	}
 
@@ -105,13 +112,23 @@ class BlockAssetsGenerator extends Component {
 			if(!is_writable($this->getDirectoryPath($container->id() ))){
 				return;
 			}
+
+			$currentContent = "";
+			if(is_file($jsonFile)){
+				$currentContent = file_get_contents($jsonFile);
+			}
+
 			$contents          = file_get_contents( $this->plugin->path . "assets/container/block.json" );
 			$json              = json_decode( $contents );
 			$json->name        = (string) $container->id();
 			$json->title       = $container->title();
 			$json->style       = $container->styles()->handles;
 			$json->editorStyle = $container->editorStyles()->handles;
-			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
+
+			$encoded = json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES );
+			if($currentContent != $encoded){
+				file_put_contents( $jsonFile, $encoded);
+			}
 		}
 	}
 
@@ -122,13 +139,23 @@ class BlockAssetsGenerator extends Component {
 			if(!is_writable($this->getDirectoryPath($composedBlock->id() ))){
 				return;
 			}
+
+			$currentContent = "";
+			if(is_file($jsonFile)){
+				$currentContent = file_get_contents($jsonFile);
+			}
+
 			$contents          = file_get_contents( $this->plugin->path . "assets/composedBlock/block.json" );
 			$json              = json_decode( $contents );
 			$json->name        = (string) $composedBlock->id();
 			$json->title       = $composedBlock->title();
 			$json->style       = $composedBlock->styles()->handles;
 			$json->editorStyle = $composedBlock->editorStyles()->handles;
-			file_put_contents( $jsonFile, json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES ) );
+
+			$encoded = json_encode( $json, JSON_PRETTY_PRINT+JSON_UNESCAPED_SLASHES );
+			if($currentContent != $encoded){
+				file_put_contents( $jsonFile, $encoded);
+			}
 		}
 	}
 
@@ -147,11 +174,20 @@ class BlockAssetsGenerator extends Component {
 			if(!is_writable($this->getDirectoryPath($container->id()))){
 				return;
 			}
+
+			$currentContent = "";
+			if(is_file($styleFile)){
+				$currentContent = file_get_contents($styleFile);
+			}
+
 			ob_start();
 			include $this->plugin->path . "/scripts/container-styles.php";
 			$css = ob_get_contents();
 			ob_end_clean();
-			file_put_contents( $styleFile, $css );
+
+			if($currentContent != $css){
+				file_put_contents( $styleFile, $css );
+			}
 		}
 	}
 

@@ -21,6 +21,10 @@ namespace Palasthotel\WordPress\BlockX;
 
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
+if(!defined('BLOCKX_DISALLOW_BLOCK_JSON_GENERATION')){
+	define('BLOCKX_DISALLOW_BLOCK_JSON_GENERATION', false);
+}
+
 class Plugin extends Components\Plugin {
 
 	const DOMAIN = "blockx";
