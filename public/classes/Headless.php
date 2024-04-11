@@ -2,6 +2,7 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Blocks\PostEmbed;
 use Palasthotel\WordPress\BlockX\Blocks\Posts;
 use Palasthotel\WordPress\BlockX\Components\Component;
