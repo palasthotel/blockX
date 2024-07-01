@@ -21,7 +21,8 @@
     "build:lib": "tsup src/lib.ts",
     "watch:plugin": "wp-scripts start src/gutenberg.js --output-path=public/assets/dist",
     "build:plugin": "wp-scripts build src/gutenberg.js --output-path=public/assets/dist",
-    "packages-update": "wp-scripts packages-update"
+    "packages-update": "wp-scripts packages-update",
+    "pack": "./bin/build-plugin.sh"
   },
   "repository": {
     "type": "git",
