@@ -3,13 +3,13 @@
 /**
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
- * Description: Experimental blocks for palasthotel
- * Version: 1.10.2
+ * Description: Elevate your Gutenberg Block development experience.
+ * Version: 1.10.3
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Edward Bock)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 6.5.2
- * Requires PHP: 8.0
+ * Tested up to: 6.5.5
+ * Requires PHP: 8.1
  * Text Domain: blockx
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @copyright Palasthotel

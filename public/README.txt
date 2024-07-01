@@ -3,17 +3,34 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.5.2
-Requires PHP: 8.0
-Stable tag: 1.10.2
+Tested up to: 6.5.5
+Requires PHP: 8.1
+Stable tag: 1.10.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
-Easy, php developer friendly way to add new gutenberg blocks to your wordpress.
+Elevate your Gutenberg Block development experience.
 
 == Description ==
 
-Easy, php developer friendly way to add new gutenberg blocks to your wordpress.
+Elevate your Gutenberg Block development experience with BlockX. This powerful plugin bridges the gap between the modern
+Gutenberg JavaScript API and the traditional PHP methods WordPress developers know and love. With BlockX,
+you can effortlessly create custom Gutenberg blocks entirely using PHP, bypassing the need for complex JavaScript coding.
+
+**Features:**
+- **Seamless Integration:** Simplifies the process of building custom Gutenberg blocks using PHP.
+- **Developer-Friendly:** Leverages familiar PHP syntax and functions to create and manage blocks.
+- **Time-Saving:** Reduces the learning curve and development time by avoiding intricate JavaScript coding.
+- **Customizable:** Provides a robust API to create highly customizable blocks tailored to your needs.
+- **Efficient Workflow:** Streamlines the block creation process, allowing you to focus on functionality and design.
+- **Comprehensive Documentation:** Includes detailed guides and examples to help you get started quickly.
+- **Compatibility:** Fully compatible with the latest WordPress versions and Gutenberg updates.
+
+**Why Choose PHP Block Builder for Gutenberg?**
+- **Enhanced Productivity:** Build and deploy custom blocks faster using familiar PHP code.
+- **Reduced Complexity:** No need to delve into JavaScript intricacies; keep your development workflow simple.
+- **Versatile:** Perfect for developers looking to extend Gutenberg without abandoning their PHP expertise.
+
 
 == Installation ==
 
@@ -33,6 +50,9 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.10.3 =
+* Security Bugfix with Breaking change for Authors block
 
 = 1.10.2 =
 * Bugfix: Add missing import in Headless.php
@@ -223,6 +243,8 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 * First release
 
 == Upgrade Notice ==
+
+With 1.10.3 there is a breaking change in the Author block content structure.
 
 With 1.8.0 there is a breaking change if used with headless plugin.
 
