@@ -65,7 +65,13 @@ class Authors extends _BlockType {
 		}
 
 		return array_map( function ( $user_id ) {
-			return get_user_by( 'ID', $user_id );
+			$author = get_user_by( 'ID', $user_id );
+			return [
+				"id" => $author->ID,
+				"displayname" => $author->display_name,
+				"nicename" => $author->user_nicename,
+				"url" => $author->user_url,
+			];
 		}, array_unique( $ids ) );
 	}
 }
