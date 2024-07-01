@@ -25,10 +25,20 @@ class PostsContent extends stdClass {
 }
 
 /**
+ * @property int $id
+ * @property string $displayname
+ * @property string $nicename
+ * @property string $url
+ */
+class AuthorContent extends stdClass{
+
+}
+
+/**
  * Class AuthorsContent
  * @property boolean $include_embedded_posts
  * @property string[] $author_ids
- * @property WP_User[] $authors
+ * @property AuthorContent[] $authors
  */
 class AuthorsContent extends stdClass {
 }

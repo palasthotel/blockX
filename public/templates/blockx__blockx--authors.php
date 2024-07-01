@@ -11,8 +11,8 @@ use Palasthotel\WordPress\BlockX\Blocks\AuthorsContent;
 
 
 echo "<p>";
-echo "<stong>Authors:</stong>";
+echo "<stong>Authors: </stong>";
 echo implode( ", ", array_map( function ( $author ) {
-	return $author->display_name;
+	return $author->displayname;
 }, $content->authors ) );
 echo "</p>";
