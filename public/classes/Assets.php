@@ -31,11 +31,11 @@ class Assets extends Components\Component {
 	 * @param _IBlockType[] $blocks
 	 * @param Dependencies $dependencies
 	 * @param _IContainerType[] $containers
+	 * @param array $composedBlocks
 	 */
 	function enqueueGutenberg( array $blocks, Dependencies $dependencies, array $containers, array $composedBlocks ) {
 
 		wp_enqueue_style( Plugin::HANDLE_CSS_GUTENBERG );
-
 		$this->helper->registerScript(
 			Plugin::HANDLE_JS_GUTENBERG,
 			"assets/dist/gutenberg.js",
