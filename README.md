@@ -451,9 +451,19 @@ The Url widget works pretty much the same like the AutoSuggest widget.
 
 If you do not provide a custom ISuggestionProvider `\Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider` will be used by default.
 
-**Important:**
 
-The ISuggestionProvider class for this widget must return `UrlSuggestion` array.
+### AutoComplete
+
+The AutoComplete widget works pretty much the same like the AutoSuggest widget 
+but the user has to choose a suggestion which will than be locked.
+
+```php
+\Palasthotel\WordPress\BlockX\Widgets\AutoComplete::build(
+    "post_url",
+    "Post url"
+)
+->useProvider(new \Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider());
+```
 
 ### Panel
 

@@ -8,3 +8,7 @@
 .blockx-auto-suggest__suggestion + .blockx-auto-suggest__suggestion {
     border-top: 1px solid #eee;
 }
+
+.blockx-auto-suggest__suggestion .description {
+    color: #646970;
+}

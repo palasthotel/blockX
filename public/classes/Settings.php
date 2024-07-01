@@ -191,9 +191,10 @@ class Settings extends Component {
 	public function render_regenerate_assets() {
 		$path = $this->plugin->bag->paths->system;
 		$url  = $this->plugin->bag->paths->url;
-		if ( defined( 'DISALLOW_FILE_MODS' ) && DISALLOW_FILE_MODS ) {
-			$info = __( "File mods are disabled via DISALLOW_FILE_MODS constant.", Plugin::DOMAIN );
+		if ( defined( 'BLOCKX_DISALLOW_BLOCK_JSON_GENERATION' ) && BLOCKX_DISALLOW_BLOCK_JSON_GENERATION ) {
+			$info = __( "Blockx block.json generation is disabled via BLOCKX_DISALLOW_BLOCK_JSON_GENERATION constant.", Plugin::DOMAIN );
 			echo '<input type="submit" disabled="disabled" class="button" value="Regenerate" title="' . $info . '" />';
+            echo "<p class='description'>$info</p>";
 		} else {
 			submit_button( "Regenerate", 'secondary', 'regenerate' );
 			$admin_ajax_url = admin_url( "admin-ajax.php?action=blockx_regenerate_containers" );

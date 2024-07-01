@@ -3,9 +3,9 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.5.2
 Requires PHP: 8.0
-Stable tag: 1.9.1
+Stable tag: 1.10.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -33,6 +33,23 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.10.2 =
+* Bugfix: Add missing import in Headless.php
+
+= 1.10.1 =
+* Bugfix: Regeneration of block.json in some cases incorrectly disabled
+
+= 1.10.0 =
+* Feature: Added AutoComplete widget
+* Bugfix: Provide default content values in headless response
+
+= 1.9.3 =
+* Bugfix: UrlSuggestion provider didn't display label properly
+* Optimize: Added list widget controls and list position indicator
+
+= 1.9.2 =
+* Bugfix: Wrong access permission - caused an error on installation
 
 = 1.9.1 =
 * Optimization: Allow some html tags in info widget

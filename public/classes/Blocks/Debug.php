@@ -8,8 +8,8 @@ use Palasthotel\WordPress\BlockX\Model\ContentStructure;
 use Palasthotel\WordPress\BlockX\Model\Option;
 use Palasthotel\WordPress\BlockX\Model\StateLabel;
 use Palasthotel\WordPress\BlockX\Plugin;
-use Palasthotel\WordPress\BlockX\Utils\PageUrlSuggestionProvider;
 use Palasthotel\WordPress\BlockX\Utils\PostUrlSuggestionProvider;
+use Palasthotel\WordPress\BlockX\Widgets\AutoComplete;
 use Palasthotel\WordPress\BlockX\Widgets\AutoSuggest;
 use Palasthotel\WordPress\BlockX\Widgets\Divider;
 use Palasthotel\WordPress\BlockX\Widgets\Hidden;
@@ -159,14 +159,17 @@ class Debug extends _BlockType {
 			Divider::build(),
 
 			// ------------------------------------
-			// autosuggest
+			// auto suggest and completes
 			// ------------------------------------
 			AutoSuggest::build( "auto_suggest_post", "AutoSuggests" )
-			           ->useProvider( new PostUrlSuggestionProvider() ),
+			           ->useProvider( PostUrlSuggestionProvider::build() ),
+
+			AutoComplete::build( "auto_complete_post", "AutoCompletes" )
+				->useProvider( PostUrlSuggestionProvider::build() ),
 
 			Url::build( "post_url", "Post Url" ),
 			Url::build( "page_url", "Page Url" )
-			   ->useProvider( new PageUrlSuggestionProvider() ),
+			   ->useProvider( PostUrlSuggestionProvider::build()->postTypes(["page"]) ),
 
 			// ------------------------------------
 			// taxonomies
@@ -193,7 +196,7 @@ class Debug extends _BlockType {
 				Number::build( "offset", "Offset", 4 ),
 				Url::build( "url", "Url" ),
 				AutoSuggest::build( "auto_suggest_page", "AutoSuggests" )
-				           ->useProvider( new PageUrlSuggestionProvider() ),
+				           ->useProvider( PostUrlSuggestionProvider::build()->postTypes(["page"]) ),
 				ListOf::build( "second_list", "Sublist", [
 					Url::build( "url", "Url" ),
 					Text::build( "title", "Title" ),
