@@ -30,6 +30,26 @@ jobs:
           find . -path ./wp-plugin/public/vendor -prune -o -path ./build -prune -o -name '*.php' -print0 \
             | xargs -0 -r -n1 php -l
 
+  lint-npm-package:
+    name: Type check the npm package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      # tsc --noEmit over npm-package/src with strict, noUnusedLocals and
+      # noUnusedParameters. This is the only type check in the repository: the
+      # plugin bundle is JavaScript, and its @wordpress imports are externalised,
+      # so webpack never checks them either.
+      - name: Lint
+        run: npm run lint --workspace @palasthotel/blockx
+
   build:
     name: Build both workspaces
     runs-on: ubuntu-latest
@@ -51,6 +71,30 @@ jobs:
 
       - name: Fail if the plugin bundle is missing
         run: test -f wp-plugin/public/assets/dist/gutenberg.js
+
+      # A published package pointing at files the build does not produce is the
+      # failure mode this guards against — it happened during the tsup to tsdown
+      # migration, where the output names changed from lib.js to lib.cjs.
+      - name: Fail if the package points at files the build did not produce
+        run: |
+          node -e '
+            const fs = require("fs");
+            const pkg = require("./npm-package/package.json");
+            const paths = new Set([pkg.main, pkg.module, pkg.types]);
+            (function walk(o) {
+              for (const v of Object.values(o)) {
+                typeof v === "string" ? paths.add(v) : walk(v);
+              }
+            })(pkg.exports);
+            const missing = [...paths].filter(
+              (p) => !fs.existsSync("npm-package/" + p.replace(/^\.\//, ""))
+            );
+            if (missing.length) {
+              console.error("missing build output: " + missing.join(", "));
+              process.exit(1);
+            }
+            console.log("all " + paths.size + " referenced files exist");
+          '
 
   pack:
     name: Pack plugin
