@@ -1,5 +1,5 @@
 === BlockX ===
-Contributors: palasthotel, edwardbock
+Contributors: palasthotel, edwardbock, janaeggebrecht
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
@@ -259,6 +259,3 @@ With 1.5.0 there is a breaking change for blocks that use Readonly widget which 
 With 1.4.0 and newer there were some _BlockType Api changes that should be applied to custom blocks. Please remove the methods $block->enqueueEditorAssets() and $block->enqueueAssets() and use editorStyles() and styles() instead.
 
 == Arbitrary section ==
-
-
-
