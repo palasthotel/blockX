@@ -3,14 +3,19 @@
   "version": "1.10.0",
   "description": "React editor views and custom editor widgets for BlockX Gutenberg blocks.",
   "license": "GPL-3.0-or-later",
-  "main": "./dist/lib.js",
+  "main": "./dist/lib.cjs",
   "module": "./dist/lib.mjs",
-  "types": "./dist/lib.d.ts",
+  "types": "./dist/lib.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/lib.d.ts",
-      "require": "./dist/lib.js",
-      "import": "./dist/lib.mjs"
+      "import": {
+        "types": "./dist/lib.d.mts",
+        "default": "./dist/lib.mjs"
+      },
+      "require": {
+        "types": "./dist/lib.d.cts",
+        "default": "./dist/lib.cjs"
+      }
     }
   },
   "files": [
@@ -18,7 +23,8 @@
     "package.json"
   ],
   "scripts": {
-    "build": "tsup src/lib.ts",
+    "build": "tsdown",
+    "lint": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -32,8 +38,9 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "react": "^18.2.0",
-    "tsup": "^8.1.0",
-    "typescript": "^6.0.3"
+    "tsdown": "^0.22.3",
+    "typescript": "^6.0.3",
+    "unrun": "^0.2.0"
   },
   "engines": {
     "node": ">=22"

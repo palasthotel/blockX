@@ -91,5 +91,17 @@ in the plugin list that this entry is never released.
 
 ## Checks
 
-Every pull request lints all PHP files against 8.1 to 8.4, builds both workspaces
-and runs `bin/build-plugin.sh`. The plugin declares `Requires PHP: 8.1`.
+Every pull request runs four jobs:
+
+- `php -l` over all PHP files on 8.1, 8.2, 8.3 and 8.4 — the plugin declares
+  `Requires PHP: 8.1`
+- `tsc --noEmit` over `npm-package/src`, under `strict`, `noUnusedLocals` and
+  `noUnusedParameters`. This is the only type check in the repository: the plugin
+  bundle is JavaScript, and its `@wordpress` imports are externalised, so webpack
+  never checks those either.
+- a build of both workspaces, which fails if the plugin bundle is missing
+  afterwards or if `npm-package/package.json` points at output the build did not
+  produce
+- `bin/build-plugin.sh`, so a broken pack surfaces in the pull request
+
+Locally: `npm run lint --workspace @palasthotel/blockx`.
