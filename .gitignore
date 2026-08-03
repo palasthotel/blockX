@@ -1,6 +1,7 @@
 .idea
 *.DS_Store
-/node_modules
-/dist
-/public/assets/dist
+node_modules
+/npm-package/dist
+/wp-plugin/public/assets/dist
+/build
 /blockx.zip

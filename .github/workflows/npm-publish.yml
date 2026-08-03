@@ -1,0 +1,53 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - "npm-v*"
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish @palasthotel/blockx
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      # Trusted publishing to npmjs uses the workflow's OIDC identity. A leftover
+      # NODE_AUTH_TOKEN would take precedence over it.
+      - name: Clear auth token for OIDC
+        run: echo "NODE_AUTH_TOKEN=" >> $GITHUB_ENV
+
+      - name: Upgrade npm for OIDC
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit check
+        run: npm audit --audit-level=critical --workspace @palasthotel/blockx
+
+      # The library is what gets published; prepublishOnly builds it. It has no
+      # dependency on the plugin workspace, so building that is not needed here.
+      - name: Publish to npmjs
+        run: npm publish
+        working-directory: npm-package
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        working-directory: npm-package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
