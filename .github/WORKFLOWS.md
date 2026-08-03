@@ -29,7 +29,7 @@ Push to main
     │
     │    On PR to main
     └──▶ [pr.yml]
-             php -l on 8.1 / 8.2 / 8.3 / 8.4 · build both workspaces · pack
+             php -l 8.1-8.4 · tsc --noEmit · build both workspaces · pack
 
 Merge a release PR  →  release-please pushes its tag and creates a GitHub Release
     │
@@ -49,9 +49,17 @@ Merge a release PR  →  release-please pushes its tag and creates a GitHub Rele
 
 **Trigger:** Any pull request targeting `main`
 
-Three jobs: `php -l` over every PHP file on 8.1 to 8.4, a build of both
-workspaces that fails if the editor bundle is missing afterwards, and a run of
-`bin/build-plugin.sh` so a broken pack surfaces in the pull request.
+Four jobs:
+
+1. `php -l` over every PHP file on 8.1 to 8.4.
+2. `tsc --noEmit` over `npm-package/src`. The plugin bundle is JavaScript and its
+   `@wordpress` imports are externalised, so this is the only place where types
+   are checked at all.
+3. A build of both workspaces. It fails if the editor bundle is missing
+   afterwards, and if `npm-package/package.json` references any file the build did
+   not produce — the failure mode that appeared during the tsup to tsdown
+   migration, where the output names changed from `lib.js` to `lib.cjs`.
+4. `bin/build-plugin.sh`, so a broken pack surfaces in the pull request.
 
 ---
 

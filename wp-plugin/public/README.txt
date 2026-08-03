@@ -3,9 +3,9 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.5.5
+Tested up to: 7.0.2
 Requires PHP: 8.1
-Stable tag: 1.10.3
+Stable tag: 1.10.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,6 +50,12 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.10.4 =
+* require a nonce for asset regeneration and escape rendered output (0a801d9)
+
+## Changelog
+
 
 = 1.10.3 =
 * Security Bugfix with Breaking change for Authors block
