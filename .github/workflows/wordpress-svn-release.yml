@@ -1,0 +1,132 @@
+---
+name: Build and release to WordPress.org
+
+on:
+  push:
+    tags:
+      - "plugin-v*"
+  # Manual re-run for a release whose deploy failed. A tag ruleset stops tags from
+  # being moved, and re-running a tag event replays the workflow file as it was at
+  # that tag - so a fix to this file can only be picked up by dispatching it from a
+  # branch. It deploys the content of the ref you select, not of the tag;
+  # bin/version-checker.sh aborts before anything is published if they disagree.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Plugin version to deploy, without the prefix (e.g. 1.10.4)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build and deploy to WordPress.org
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && format('plugin-v{0}', github.event.inputs.version) || github.ref_name }}
+    steps:
+      - name: Notify on start
+        run: |
+          echo "🤖 Starting release process for tag $RELEASE_TAG…"
+          echo "🤖 This may take a few minutes. Please wait."
+
+      - name: Normalize release tag
+        shell: bash
+        run: |
+          VERSION=${RELEASE_TAG#plugin-v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Show release version
+        run: echo "VERSION=${VERSION}"
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer
+
+      - name: Check version numbers
+        run: bash bin/version-checker.sh
+
+      - name: Install SVN
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y subversion
+
+      - name: Install dependencies
+        run: npm ci
+
+      # bin/build-plugin.sh builds both workspaces, stages the payload in
+      # build/blockx/ and zips it. The SVN step copies that staged directory
+      # rather than wp-plugin/public/, so what goes to wordpress.org is exactly
+      # what is in the zip: the built editor bundle and a --no-dev autoloader,
+      # without the composer files.
+      - name: Pack plugin
+        run: npm run pack
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        continue-on-error: true
+        with:
+          # Explicit, because on a dispatch run github.ref is a branch and the
+          # action would otherwise not find the release.
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: ./blockx.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup packaged artifact
+        if: always()
+        run: rm -f ./blockx.zip
+
+      - name: Checkout WordPress SVN repository
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: svn checkout "${{ vars.SVN_REPO_URL }}" svn --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --no-auth-cache --non-interactive --trust-server-cert
+
+      - name: Prepare SVN & commit
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          cd svn
+          VERSION=${VERSION}
+          rm -rf trunk/* tags/$VERSION || true
+          mkdir -p trunk tags/$VERSION
+          # -L resolves symlinks. cp is platform-dependent here - GNU cp keeps them
+          # while descending, BSD cp resolves them - and SVN refuses a commit that
+          # puts a symlink where it versions a regular file.
+          rsync -rL ../build/blockx/ trunk/
+          rsync -rL trunk/ tags/$VERSION/
+          # assets/ holds the media for the wordpress.org plugin page (banner,
+          # icon, screenshots). It is not part of the download, and the repository
+          # is the source of truth for it — hence --delete.
+          if [ -d ../assets ]; then
+            mkdir -p assets
+            rsync -rL --delete ../assets/ assets/
+          fi
+          svn add --force . || true
+          svn status | awk '/^!/{print $2}' | while IFS= read -r file; do
+            [ -n "$file" ] || continue
+            svn rm "$file" || true
+          done
+          svn status
+          svn commit -m "Release version $VERSION" --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --no-auth-cache --non-interactive --trust-server-cert
+
+      - name: Cleanup SVN checkout
+        if: always()
+        run: rm -rf svn
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "🤖 Plugin version ${VERSION} successfully deployed to WordPress.org! 🚀"

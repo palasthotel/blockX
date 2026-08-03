@@ -1,0 +1,57 @@
+name: Update plugin version
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  update-plugin-version:
+    # Only the release-please PR for the plugin component. The head-repo check is
+    # what keeps this safe: the job checks out the PR head and runs a script from
+    # it, so it must never do that for a fork. github.head_ref alone is no guard -
+    # a fork can name its branch anything, including release-please--*.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.head_ref, 'release-please--') &&
+      contains(github.head_ref, '--plugin')
+    runs-on: ubuntu-latest
+    steps:
+      # Pushing with the app token re-triggers the PR checks on the new head
+      # commit; a GITHUB_TOKEN push triggers nothing.
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}
+          permission-contents: write
+
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ steps.app-token.outputs.token }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - name: Sync version into Plugin.php and README.txt
+        run: bash bin/update-plugin-version.sh
+
+      - name: Commit to release PR branch
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          # The bot's numeric user id — required for verified commit attribution
+          BOT_ID=$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq .id)
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${BOT_ID}+${APP_SLUG}[bot]@users.noreply.github.com"
+          git add wp-plugin/public/Plugin.php wp-plugin/public/README.txt
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "chore(plugin): update Plugin.php and README.txt"
+          git push

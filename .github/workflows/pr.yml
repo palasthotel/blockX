@@ -1,0 +1,71 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  php-lint:
+    name: PHP syntax check (${{ matrix.php-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # README.txt declares Requires PHP: 8.1
+        php-version: ["8.1", "8.2", "8.3", "8.4"]
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Lint PHP files
+        run: |
+          find . -path ./wp-plugin/public/vendor -prune -o -path ./build -prune -o -name '*.php' -print0 \
+            | xargs -0 -r -n1 php -l
+
+  build:
+    name: Build both workspaces
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The plugin bundle imports @palasthotel/blockx, which npm resolves to the
+      # local workspace, so the library has to be built first. The root script
+      # does them in that order.
+      - name: Build
+        run: npm run build
+
+      - name: Fail if the plugin bundle is missing
+        run: test -f wp-plugin/public/assets/dist/gutenberg.js
+
+  pack:
+    name: Pack plugin
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer
+
+      - name: Pack
+        run: npm ci && npm run pack
