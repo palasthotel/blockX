@@ -3,7 +3,7 @@ Contributors: palasthotel, edwardbock
 Donate link: http://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 6.5.5
+Tested up to: 7.0.2
 Requires PHP: 8.1
 Stable tag: 1.10.3
 License: GPL-3.0-or-later
