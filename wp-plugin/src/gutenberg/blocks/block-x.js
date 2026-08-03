@@ -12,7 +12,7 @@ import {
     getEditorView,
     registerServerSideRenderQueue,
     registerUseBlock,
-} from '../../lib';
+} from '@palasthotel/blockx';
 
 registerServerSideRenderQueue(ServerSideRenderQueue);
 registerUseBlock(useBlock);

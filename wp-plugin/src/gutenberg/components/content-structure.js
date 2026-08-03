@@ -1,5 +1,5 @@
 import widgets from "./widgets";
-import {getEditorWidget} from '../../lib'
+import {getEditorWidget} from '@palasthotel/blockx'
 
 const ContentStructure = ({items, value, savedState = {}, onChange, parentPath = ""})=>{
 

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "packages": {
+    "npm-package": {
+      "release-type": "node",
+      "package-name": "@palasthotel/blockx",
+      "component": "npm",
+      "changelog-path": "CHANGELOG.md",
+      "include-component-in-tag": true,
+      "tag-separator": "-",
+      "include-v-in-tag": true,
+      "bump-minor-pre-major": false,
+      "prerelease": false,
+      "changelog-sections": [
+        { "type": "feat", "section": "Features" },
+        { "type": "feature", "section": "Features" },
+        { "type": "fix", "section": "Bug Fixes" },
+        { "type": "docs", "section": "Documentation", "hidden": true },
+        { "type": "refactor", "section": "Code Refactoring", "hidden": true },
+        { "type": "chore", "section": "Miscellaneous", "hidden": true },
+        { "type": "deps", "section": "Dependencies", "hidden": true }
+      ]
+    },
+    "wp-plugin": {
+      "release-type": "node",
+      "package-name": "@palasthotel/wp-blockx",
+      "component": "plugin",
+      "changelog-path": "CHANGELOG.md",
+      "include-component-in-tag": true,
+      "tag-separator": "-",
+      "include-v-in-tag": true,
+      "bump-minor-pre-major": false,
+      "prerelease": false,
+      "changelog-sections": [
+        { "type": "feat", "section": "Features" },
+        { "type": "feature", "section": "Features" },
+        { "type": "fix", "section": "Bug Fixes" },
+        { "type": "docs", "section": "Documentation", "hidden": true },
+        { "type": "refactor", "section": "Code Refactoring", "hidden": true },
+        { "type": "chore", "section": "Miscellaneous", "hidden": true },
+        { "type": "deps", "section": "Dependencies", "hidden": true }
+      ]
+    }
+  }
+}
