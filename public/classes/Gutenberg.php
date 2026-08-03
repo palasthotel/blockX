@@ -294,7 +294,7 @@ class Gutenberg extends Component {
 	 */
 	public static function getPostTypeOptions(): array {
 		$postTypeOptions   = [];
-		$postTypeOptions[] = Option::build( "any", __( "Any", Plugin::DOMAIN ) );
+		$postTypeOptions[] = Option::build( "any", __( "Any", 'blockx' ) );
 		foreach ( Plugin::instance()->assets->getPostTypes() as $postType ) {
 			$postTypeOptions[] = Option::build( $postType->name, $postType->label );
 		}

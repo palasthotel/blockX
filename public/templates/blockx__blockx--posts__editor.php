@@ -20,6 +20,6 @@ if ( $query->have_posts() ) {
 	echo "</ul>";
 
 } else {
-	echo "<i>" . __( "No posts found.", Plugin::DOMAIN ) . "</i>";
+	echo "<i>" . __( "No posts found.", 'blockx' ) . "</i>";
 }
 wp_reset_postdata();

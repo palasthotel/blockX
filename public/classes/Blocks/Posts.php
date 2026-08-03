@@ -20,7 +20,7 @@ class Posts extends _BlockType {
 	}
 
 	public function title(): string {
-		return __( "Posts", Plugin::DOMAIN );
+		return __( "Posts", 'blockx' );
 	}
 
 	public function category(): string {
@@ -29,7 +29,7 @@ class Posts extends _BlockType {
 
 	public function registerBlockTypeArgs(): array {
 		$args                = parent::registerBlockTypeArgs();
-		$args["description"] = __( "List of posts", Plugin::DOMAIN );
+		$args["description"] = __( "List of posts", 'blockx' );
 		$args["icon"]        = "list-view";
 		$args["supports"]    = [
 			"align"           => true,

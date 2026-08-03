@@ -9,11 +9,13 @@ use Palasthotel\WordPress\BlockX\Containers\_IContainerType;
 
 class Settings extends Component {
 
+	const REGENERATE_ACTION = 'blockx_regenerate_containers';
+
 	public function onCreate() {
 		add_filter( 'plugin_action_links_' . $this->plugin->basename, array( $this, 'add_action_links' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'custom_settings' ) );
-		add_action( 'wp_ajax_blockx_regenerate_containers', [ $this, 'regenerate_containers' ] );
+		add_action( 'wp_ajax_' . self::REGENERATE_ACTION, [ $this, 'regenerate_containers' ] );
 	}
 
 	public static function isCoreContainerEnabled( _IContainerType $container ) {
@@ -44,7 +46,7 @@ class Settings extends Component {
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
 					admin_url( 'options-general.php?page=blockx' ),
-					__( 'Settings', Plugin::DOMAIN )
+					__( 'Settings', 'blockx' )
 				)
 			)
 		);
@@ -56,8 +58,8 @@ class Settings extends Component {
 	function admin_menu() {
 		add_submenu_page(
 			'options-general.php',
-			__( "BlockX", Plugin::DOMAIN ),
-			__( "BlockX", Plugin::DOMAIN ),
+			__( "BlockX", 'blockx' ),
+			__( "BlockX", 'blockx' ),
 			"manage_options",
 			"blockx",
 			array( $this, 'render_settings_form' )
@@ -71,7 +73,7 @@ class Settings extends Component {
 
 		add_settings_section(
 			'blockx-container',
-			__('Container', Plugin::DOMAIN),
+			__('Container', 'blockx'),
 			"",
 			'blockx'
 		);
@@ -90,7 +92,7 @@ class Settings extends Component {
 
 		add_settings_field(
 			"regeneration",
-			__( 'Assets', Plugin::DOMAIN ),
+			__( 'Assets', 'blockx' ),
 			array( $this, 'render_regenerate_assets' ),
 			'blockx',
 			'blockx-container'
@@ -98,7 +100,7 @@ class Settings extends Component {
 
 		add_settings_field(
 			"types",
-			__( 'Types', Plugin::DOMAIN ),
+			__( 'Types', 'blockx' ),
 			array( $this, 'render_types' ),
 			'blockx',
 			'blockx-container'
@@ -107,7 +109,7 @@ class Settings extends Component {
 
 		add_settings_section(
 			'blockx-auto',
-			__('Auto apply changes', Plugin::DOMAIN),
+			__('Auto apply changes', 'blockx'),
 			null,
 			'blockx'
 		);
@@ -126,7 +128,7 @@ class Settings extends Component {
 		);
 		add_settings_field(
 			Plugin::OPTION_AUTO_SAVE_TIMEOUT,
-			__( 'Timeout in seconds', Plugin::DOMAIN ),
+			__( 'Timeout in seconds', 'blockx' ),
 			array( $this, 'render_auto_save_timeout' ),
 			'blockx',
 			'blockx-auto'
@@ -140,7 +142,7 @@ class Settings extends Component {
 	function render_settings_form() {
 		?>
         <div class="wrap">
-            <h2><?php _e( 'Blockx', Plugin::DOMAIN ); ?></h2>
+            <h2><?php _e( 'Blockx', 'blockx' ); ?></h2>
             <form method="post" action="options.php">
 				<?php
 				settings_fields( 'blockx' );
@@ -157,7 +159,7 @@ class Settings extends Component {
 		echo "<table>";
 		echo "<thead>";
 		echo "<tr>";
-        echo "<th style='width: 80px;'>".__("Enabled", Plugin::DOMAIN)."</th>";
+        echo "<th style='width: 80px;'>".__("Enabled", 'blockx')."</th>";
 		echo "<th style='width: 120px;'>Namespace</th>";
 		echo "<th style='width: 340px;'>Name</th>";
 		echo "</tr>";
@@ -176,10 +178,15 @@ class Settings extends Component {
 
             $inputName = Plugin::OPTION_ENABLED_CORE_CONTAINERS;
             $checked = static::isCoreContainerEnabled($container) ? "checked": "";
-            echo "<td><input type='checkbox' name='{$inputName}[]' value='$id' $checked /></td>";
+            printf(
+                "<td><input type='checkbox' name='%s[]' value='%s' %s /></td>",
+                esc_attr( $inputName ),
+                esc_attr( (string) $id ),
+                $checked
+            );
 
-			echo "<td style='vertical-align: top;'>$namespace</td>";
-			echo "<td style='vertical-align: top;'>$name</td>";
+			printf( "<td style='vertical-align: top;'>%s</td>", esc_html( $namespace ) );
+			printf( "<td style='vertical-align: top;'>%s</td>", esc_html( $name ) );
 			echo "</tr>";
 		}
 
@@ -192,19 +199,29 @@ class Settings extends Component {
 		$path = $this->plugin->bag->paths->system;
 		$url  = $this->plugin->bag->paths->url;
 		if ( defined( 'BLOCKX_DISALLOW_BLOCK_JSON_GENERATION' ) && BLOCKX_DISALLOW_BLOCK_JSON_GENERATION ) {
-			$info = __( "Blockx block.json generation is disabled via BLOCKX_DISALLOW_BLOCK_JSON_GENERATION constant.", Plugin::DOMAIN );
-			echo '<input type="submit" disabled="disabled" class="button" value="Regenerate" title="' . $info . '" />';
-            echo "<p class='description'>$info</p>";
+			$info = __( "Blockx block.json generation is disabled via BLOCKX_DISALLOW_BLOCK_JSON_GENERATION constant.", 'blockx' );
+			printf(
+				'<input type="submit" disabled="disabled" class="button" value="Regenerate" title="%s" />',
+				esc_attr( $info )
+			);
+            printf( "<p class='description'>%s</p>", esc_html( $info ) );
 		} else {
 			submit_button( "Regenerate", 'secondary', 'regenerate' );
-			$admin_ajax_url = admin_url( "admin-ajax.php?action=blockx_regenerate_containers" );
+			$admin_ajax_url = add_query_arg(
+				array(
+					'action'   => self::REGENERATE_ACTION,
+					'_wpnonce' => wp_create_nonce( self::REGENERATE_ACTION ),
+				),
+				admin_url( 'admin-ajax.php' )
+			);
 			?>
             <script>
                 jQuery(function ($) {
                     $("[name=regenerate]").click(function (e) {
                         e.preventDefault();
                         jQuery.ajax({
-                            url: "<?php echo $admin_ajax_url; ?>",
+                            url: <?php echo wp_json_encode( $admin_ajax_url ); ?>,
+                            method: "POST",
                             success: function (res) {
                                 if (res.success) {
                                     window.location.reload();
@@ -222,10 +239,10 @@ class Settings extends Component {
 		}
 
 		$description = sprintf(
-			__( "block.json and CSS-Files will be deleted and regenerated to %s{namespace}/{name}/.", Plugin::DOMAIN ),
+			__( "block.json and CSS-Files will be deleted and regenerated to %s{namespace}/{name}/.", 'blockx' ),
 			$url
 		);
-		printf( "<p class='description'>%s</p>", $description );
+		printf( "<p class='description'>%s</p>", esc_html( $description ) );
 		echo "<table>";
 		echo "<thead>";
 		echo "<tr>";
@@ -249,15 +266,19 @@ class Settings extends Component {
 				$time = "";
 				$file = $path . "/$domain/$container/block.json";
 				if ( file_exists( $file ) ) {
-					$time = date( "Y-m-d H:i:s", filemtime( $file ) );
+					// wp_date honours the site timezone, date() does not.
+					$time = wp_date( "Y-m-d H:i:s", filemtime( $file ) );
 				}
 
-				echo "<td style='vertical-align: top;'>$domain</td>";
+				printf( "<td style='vertical-align: top;'>%s</td>", esc_html( $domain ) );
 				echo "<td style='vertical-align: top;'>";
-				echo "$container<br/>";
-				echo "&nbsp;&nbsp;&nbsp;<span style='font-size: 0.7rem;'>($time)</span><br/>";
+				printf( "%s<br/>", esc_html( $container ) );
+				printf(
+					"&nbsp;&nbsp;&nbsp;<span style='font-size: 0.7rem;'>(%s)</span><br/>",
+					esc_html( $time )
+				);
 				echo "&nbsp;&nbsp;&nbsp;/block.json<br/>";
-				echo "&nbsp;&nbsp;&nbsp;/{$domain}_{$container}.css";
+				printf( "&nbsp;&nbsp;&nbsp;/%s_%s.css", esc_html( $domain ), esc_html( $container ) );
 				echo "</td>";
 				echo "</tr>";
 			}
@@ -269,11 +290,14 @@ class Settings extends Component {
 
 	public function regenerate_containers() {
 		if ( ! current_user_can( "manage_options" ) ) {
-			return;
+			wp_send_json_error( null, 403 );
 		}
+		// The capability alone is not enough: without a nonce any page could make
+		// a logged-in administrator's browser call this and delete the generated
+		// assets. check_ajax_referer dies on failure.
+		check_ajax_referer( self::REGENERATE_ACTION );
 		$this->plugin->bag->deleteAssets();
 		wp_send_json_success();
-		exit;
 	}
 
 	/**
@@ -281,12 +305,16 @@ class Settings extends Component {
 	 */
 	public function render_auto_save_timeout() {
 		$val = Settings::getAutoSaveTimeout() / 1000;
-		echo "<input type='number' min='0' value='$val' name='" . Plugin::OPTION_AUTO_SAVE_TIMEOUT . "' />";
+		printf(
+			"<input type='number' min='0' value='%s' name='%s' />",
+			esc_attr( (string) $val ),
+			esc_attr( Plugin::OPTION_AUTO_SAVE_TIMEOUT )
+		);
 		printf(
 			"<p class='description'>%s</p>",
 			__(
 				"Changes of the block settings will be automatically applied. 0 means no auto apply of changes at all.",
-				Plugin::DOMAIN
+				'blockx'
 			)
 		);
 	}

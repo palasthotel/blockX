@@ -36,7 +36,7 @@ class Debug extends _BlockType {
 	}
 
 	public function title(): string {
-		return __( "Debug", Plugin::DOMAIN );
+		return __( "Debug", 'blockx' );
 	}
 
 	public function category(): string {
@@ -45,7 +45,7 @@ class Debug extends _BlockType {
 
 	public function registerBlockTypeArgs(): array {
 		$args                = parent::registerBlockTypeArgs();
-		$args["description"] = __( "This block is just for debugging.", Plugin::DOMAIN );
+		$args["description"] = __( "This block is just for debugging.", 'blockx' );
 		$args["icon"]        = 'games';
 		$args['supports']    = [
 			"align" => true,

@@ -12,7 +12,7 @@ class Container_1D1 extends _ContainerType {
 	}
 
 	public function title(): string {
-		return __("Single column", Plugin::DOMAIN);
+		return __("Single column", 'blockx');
 	}
 
 	public function columns(): array {

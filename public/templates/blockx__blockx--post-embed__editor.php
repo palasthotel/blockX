@@ -13,9 +13,13 @@ use Palasthotel\WordPress\BlockX\Plugin;
 if ( $content->post instanceof WP_Post ) {
 	$title   = get_the_title( $content->post );
 	$excerpt = get_the_excerpt( $content->post );
-	echo "<p><strong>$title</strong><br/>$excerpt</p>";
+	printf(
+		'<p><strong>%s</strong><br/>%s</p>',
+		esc_html( $title ),
+		wp_kses_post( $excerpt )
+	);
 
 } else {
-	echo "<p>" . __( "No post found.", Plugin::DOMAIN ) . "</p>";
+	echo "<p>" . esc_html__( "No post found.", 'blockx' ) . "</p>";
 }
 

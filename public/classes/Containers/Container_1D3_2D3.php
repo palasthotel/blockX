@@ -12,7 +12,7 @@ class Container_1D3_2D3 extends _ContainerType {
 	}
 
 	public function title(): string {
-		return __("Two column 1/3 & 2/3", Plugin::DOMAIN);
+		return __("Two column 1/3 & 2/3", 'blockx');
 	}
 
 	public function columns(): array {

@@ -16,7 +16,7 @@ class Container_1D2_1D2 extends _ContainerType {
 	}
 
 	public function title(): string {
-		return __("Two column 1/2 & 1/2", Plugin::DOMAIN);
+		return __("Two column 1/2 & 1/2", 'blockx');
 	}
 
 	public function columns(): array {
