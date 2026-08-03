@@ -1,5 +1,6 @@
 {
   "name": "palasthotel/blockx",
+  "license": "GPL-3.0-or-later",
   "description": "Gutenberg block building helper plugin",
   "autoload": {
     "psr-4": {

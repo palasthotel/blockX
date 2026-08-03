@@ -1,5 +1,6 @@
 {
   "name": "@palasthotel/blockx",
+  "license": "GPL-3.0-or-later",
   "version": "1.10.0",
   "files": [
     "dist",
