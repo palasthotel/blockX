@@ -11,7 +11,8 @@
  * Tested up to: 6.5.5
  * Requires PHP: 8.1
  * Text Domain: blockx
- * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
+ * License: GPL-3.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * @copyright Palasthotel
  * @package Palasthotel\WordPress\BlockX
  *
