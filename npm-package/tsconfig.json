@@ -5,6 +5,8 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    // tsup's dts step still passes baseUrl, which TypeScript 6 flags as deprecated.
+    "ignoreDeprecations": "6.0",
     "jsx": "react",
 
     /* Bundler mode */
