@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * @var Debug $this
  * @var object $content
@@ -13,7 +15,7 @@ echo "<div>For <strong>debug</strong> purpose only. No frontend output.</div>";
 
 echo "<div><i>\$content</i></div>";
 echo "<code>";
-echo nl2br( json_encode( $content, JSON_PRETTY_PRINT ) );
+echo nl2br( esc_html( wp_json_encode( $content, JSON_PRETTY_PRINT ) ) );
 echo "</code>";
 
 $otherAttributes = [];
@@ -27,7 +29,7 @@ foreach ( $attributes as $key => $value ) {
 if ( count( $otherAttributes ) ) {
 	echo "<div><i>\$attributes !== 'content'</i></div>";
 	echo "<code>";
-	echo nl2br( json_encode( $otherAttributes, JSON_PRETTY_PRINT ) );
+	echo nl2br( esc_html( wp_json_encode( $otherAttributes, JSON_PRETTY_PRINT ) ) );
 	echo "</code>";
 }
 

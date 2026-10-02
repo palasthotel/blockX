@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use Palasthotel\WordPress\BlockX\Blocks\_BlockType;
 use Palasthotel\WordPress\BlockX\Plugin;
 
@@ -10,8 +12,10 @@ use Palasthotel\WordPress\BlockX\Plugin;
  */
 
 echo "<div class='blockx__no-template'>";
-printf( __( "No editor template found for block '%s'.", 'blockx' ), $this->id() );
-echo "<pre>";
-print_r( $content );
-echo "</pre>";
+printf(
+	esc_html__( "No editor template found for block '%s'.", 'blockx' ),
+	esc_html( (string) $this->id() )
+);
+// The SSR response is inserted into the editor as HTML, so the dump is escaped.
+echo "<pre>" . esc_html( print_r( $content, true ) ) . "</pre>";
 echo "</div>";

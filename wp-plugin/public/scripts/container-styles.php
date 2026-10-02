@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use Palasthotel\WordPress\BlockX\Containers\_ContainerType;
 use Palasthotel\WordPress\BlockX\Model\Styles;
 /**

@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use Palasthotel\WordPress\BlockX\Plugin;
 
 function blockx_plugin() {

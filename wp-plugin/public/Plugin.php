@@ -19,6 +19,8 @@
 
 namespace Palasthotel\WordPress\BlockX;
 
+defined( 'ABSPATH' ) || exit;
+
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
 if(!defined('BLOCKX_DISALLOW_BLOCK_JSON_GENERATION')){
