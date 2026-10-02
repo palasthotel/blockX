@@ -3,7 +3,7 @@
  * Plugin Name: BlockX
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Elevate your Gutenberg Block development experience.
- * Version: 1.10.4
+ * Version: 1.10.5
  * Author: Palasthotel <webmaster@palasthotel.de>
  * Author URI: https://palasthotel.de
  * Requires at least: 5.0
