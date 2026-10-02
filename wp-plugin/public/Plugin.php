@@ -4,10 +4,10 @@
  * Plugin URI: https://github.com/palasthotel/blockX
  * Description: Elevate your Gutenberg Block development experience.
  * Version: 1.10.4
- * Author: Palasthotel <rezeption@palasthotel.de> (Edward Bock)
- * Author URI: http://www.palasthotel.de
+ * Author: Palasthotel <webmaster@palasthotel.de>
+ * Author URI: https://palasthotel.de
  * Requires at least: 5.0
- * Tested up to: 7.0.2
+ * Tested up to: 7.1.2
  * Requires PHP: 8.1
  * Text Domain: blockx
  * License: GPL-3.0-or-later

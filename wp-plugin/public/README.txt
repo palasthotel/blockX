@@ -1,9 +1,9 @@
 === BlockX ===
 Contributors: palasthotel, edwardbock, janaeggebrecht
-Donate link: http://palasthotel.de/
+Donate link: https://palasthotel.de/
 Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
-Tested up to: 7.0.2
+Tested up to: 7.1.2
 Requires PHP: 8.1
 Stable tag: 1.10.4
 License: GPL-3.0-or-later
@@ -34,8 +34,7 @@ you can effortlessly create custom Gutenberg blocks entirely using PHP, bypassin
 
 == Installation ==
 
-1. Upload `blockx.zip` to the `/wp-content/plugins/` directory
-1. Extract the Plugin to a `blockx` Folder
+1. Install the plugin from the plugin directory, or upload the `blockx` folder to `/wp-content/plugins/`
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Use core block-X
 1. Create new block-x in your custom theme or plugin code
@@ -44,7 +43,7 @@ you can effortlessly create custom Gutenberg blocks entirely using PHP, bypassin
 
 = How can I add my own blockX? =
 
-You can find all you need to know in the docs: [https://github.com/palasthotel/blockX/blob/master/README.md](https://github.com/palasthotel/blockX#create-new-block-class)
+You can find all you need to know in the docs: [https://github.com/palasthotel/blockX#create-new-block-class](https://github.com/palasthotel/blockX#create-new-block-class)
 
 
 == Screenshots ==
@@ -53,9 +52,6 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 
 = 1.10.4 =
 * require a nonce for asset regeneration and escape rendered output (0a801d9)
-
-## Changelog
-
 
 = 1.10.3 =
 * Security Bugfix with Breaking change for Authors block
