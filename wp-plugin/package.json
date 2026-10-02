@@ -1,6 +1,6 @@
 {
   "name": "@palasthotel/wp-blockx",
-  "version": "1.10.4",
+  "version": "1.10.5",
   "description": "Editor assets for the BlockX WordPress plugin.",
   "private": true,
   "license": "GPL-3.0-or-later",
