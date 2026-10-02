@@ -79,8 +79,14 @@ entries alone.
 npm install          # installs both workspaces
 npm run build        # library first, then the plugin bundle
 npm run watch        # rebuilds the plugin bundle on change
-npm run pack         # → blockx.zip, exactly what the release deploys
+npm run pack         # builds, then → wp-plugin/build/blockx/ and wp-plugin/blockx.zip,
+                     # exactly what the release deploys
 ```
+
+`npm run pack` runs the shared pack script from
+[palasthotel/github-workflows](https://github.com/palasthotel/github-workflows), which
+has to be checked out next to this repository, and needs `composer` for the
+`--no-dev` autoloader.
 
 To run the plugin from a checkout, symlink or copy `wp-plugin/` into
 `wp-content/plugins/`. WordPress only discovers plugin files one directory level
@@ -91,17 +97,24 @@ in the plugin list that this entry is never released.
 
 ## Checks
 
-Every pull request runs four jobs:
+Every pull request runs two jobs:
 
-- `php -l` over all PHP files on 8.1, 8.2, 8.3 and 8.4 — the plugin declares
-  `Requires PHP: 8.1`
-- `tsc --noEmit` over `npm-package/src`, under `strict`, `noUnusedLocals` and
-  `noUnusedParameters`. This is the only type check in the repository: the plugin
-  bundle is JavaScript, and its `@wordpress` imports are externalised, so webpack
-  never checks those either.
-- a build of both workspaces, which fails if the plugin bundle is missing
-  afterwards or if `npm-package/package.json` points at output the build did not
-  produce
-- `bin/build-plugin.sh`, so a broken pack surfaces in the pull request
+- `plugin`, the shared WordPress plugin check: `php -l` over `wp-plugin/` on 8.1, 8.2,
+  8.3 and 8.4 - the plugin declares `Requires PHP: 8.1` -, a build of both
+  workspaces, a pack with assertions on the payload (the editor bundle, the
+  `block.json` templates, the autoloader, the translations and `LICENSE` must be in
+  it; composer files, symlinks and the development wrapper must not), and a check
+  that `wp-plugin/package.json`, the `Version:` header and the `Stable tag:` agree.
+- `npm-package`: `tsc --noEmit` over `npm-package/src`, under `strict`,
+  `noUnusedLocals` and `noUnusedParameters`, a build of the library, and a check that
+  `npm-package/package.json` points only at output the build produced. This is the
+  only type check in the repository: the plugin bundle is JavaScript, and its
+  `@wordpress` imports are externalised, so webpack never checks those either.
 
 Locally: `npm run lint --workspace @palasthotel/blockx`.
+
+## The main file keeps its name
+
+`wp-plugin/public/Plugin.php` must keep its name. WordPress identifies an installed
+plugin by `<directory>/<main file>` and stores that pair in `active_plugins`;
+renaming it deactivates the plugin on every site at the next update.

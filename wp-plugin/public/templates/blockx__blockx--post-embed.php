@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * @var PostEmbed $this
  * @var PostEmbedContent $content

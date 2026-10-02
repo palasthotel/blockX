@@ -173,11 +173,11 @@ class REST extends Component {
 		$blocks  = $request->get_param( "blocks" );
 		$post_id = $request->get_param( "post_id" );
 
-		// setup post context if exists
+		// setup post context if exists and readable
 		$query = new \WP_Query( [
-			"p"           => $post_id,
+			"post__in"    => [ $post_id && $this->canRead( $post_id ) ? $post_id : 0 ],
 			"post_type"   => "any",
-			"post_status" => [ "draft", "future", "publish" ],
+			"post_status" => [ "draft", "future", "publish", "private", "pending" ],
 			"suppress_filers" => false, //needed for wpml
 		] );
 		if ( $query->have_posts() ) {
@@ -232,6 +232,11 @@ class REST extends Component {
 			}
 		}
 
+		// only posts the current user may read, as in core's REST API
+		$posts = array_values( array_filter( is_array( $posts ) ? $posts : [], function ( $post ) {
+			return $post instanceof WP_Post && $this->canRead( $post );
+		} ) );
+
 		return array_map( function ( WP_Post $post ) {
 			return [
 				"ID"         => $post->ID,
@@ -244,7 +249,7 @@ class REST extends Component {
 	public function get( WP_REST_Request $request ) {
 		$id   = $request->get_param( "id" );
 		$post = get_post( $id );
-		if ( ! ( $post instanceof WP_Post ) ) {
+		if ( ! ( $post instanceof WP_Post ) || ! $this->canRead( $post ) ) {
 			return new \WP_Error( "no_post", __( "No post found.", 'blockx' ), [ "status" => 404 ] );
 		}
 
@@ -289,6 +294,25 @@ class REST extends Component {
 		}
 
 		return  new \WP_Error("Invalid widget type");
+	}
+
+	/**
+	 * Whether the current user may read this post: core's read_post capability, in
+	 * post types that have an admin screen or a public view.
+	 *
+	 * @param int|WP_Post $post
+	 */
+	public function canRead( $post ): bool {
+		$post = get_post( $post );
+		if ( ! ( $post instanceof WP_Post ) ) {
+			return false;
+		}
+		$type = get_post_type_object( $post->post_type );
+		if ( ! $type || ( ! is_post_type_viewable( $type ) && ! $type->show_ui ) ) {
+			return false;
+		}
+
+		return current_user_can( 'read_post', $post->ID );
 	}
 
 	/**

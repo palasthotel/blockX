@@ -2,6 +2,27 @@
 
 This is a npm package as well as a WordPress plugin for easier Gutenberg Block development. You can add configurable boxes and templates without any javascript code. Everything can be configured and rendered in PHP. But you can also use `@palasthotel/blockx` package to add react editor views for your blockx blocks or to provide custom editor widgets.
 
+- **WordPress.org:** https://wordpress.org/plugins/blockx/
+- **npm:** [`@palasthotel/blockx`](https://www.npmjs.com/package/@palasthotel/blockx)
+- **Changelogs:** [wp-plugin/CHANGELOG.md](wp-plugin/CHANGELOG.md) and
+  [npm-package/CHANGELOG.md](npm-package/CHANGELOG.md) - release-please owns both, so
+  do not edit them by hand
+
+## Repository layout
+
+| Path | What it is |
+|---|---|
+| `wp-plugin/public/` | exactly what ships to wordpress.org |
+| `wp-plugin/src/` | sources of the editor bundle, built to `wp-plugin/public/assets/dist/` (not in the repository) |
+| `npm-package/` | the `@palasthotel/blockx` library the editor bundle and your own editor scripts import |
+| `assets/` | media for the wordpress.org plugin page - not part of the download |
+| `.github/workflows/` | CI/CD - see [.github/WORKFLOWS.md](.github/WORKFLOWS.md) |
+
+Building, packing, the checks and the commit conventions are described in
+[CONTRIBUTING.md](CONTRIBUTING.md). Security issues: see [SECURITY.md](SECURITY.md).
+
+The documentation for developers using BlockX follows.
+
 ## Filters
 
 Some data filters to change blockx block behavoirs from outside.
@@ -755,3 +776,8 @@ Styles (frontend and editor) and scripts can be enqueued as usual.
 
 - More Widgets
 - Edit content in place and with markup
+
+## License
+
+GNU General Public License v3.0 or later - see [LICENSE](LICENSE). This applies to the
+plugin and to every published version of the npm package.

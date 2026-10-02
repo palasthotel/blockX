@@ -12,4 +12,4 @@ import './gutenberg/composedBlocks/composedBlocks-x.js'
 import './gutenberg/containers/container-x.js'
 import './gutenberg/blocks/block-x.js';
 import './gutenberg/auto/auto-ssr.js';
-import './gutenberg.scss';
+import './gutenberg.css';

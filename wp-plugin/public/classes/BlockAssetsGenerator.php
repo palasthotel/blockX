@@ -3,7 +3,6 @@
 namespace Palasthotel\WordPress\BlockX;
 
 use DirectoryIterator;
-use Exception;
 use Palasthotel\WordPress\BlockX\Blocks\_IBlockType;
 use Palasthotel\WordPress\BlockX\Components\Component;
 use Palasthotel\WordPress\BlockX\ComposedBlocks\_IComposedBlockType;
@@ -41,12 +40,10 @@ class BlockAssetsGenerator extends Component {
 
 	private function mkdir( BlockId $id ) {
 		$containerIdPath = $this->getDirectoryPath( $id );
-		try {
-			if ( ! is_dir( $containerIdPath ) ) {
-				mkdir( $containerIdPath, 0777, true );
-			}
-		} catch (Exception $e){
-			error_log($e->getMessage());
+		// wp_mkdir_p takes the permissions of the parent directory instead of 0777,
+		// which left them to the umask
+		if ( ! is_dir( $containerIdPath ) && ! wp_mkdir_p( $containerIdPath ) ) {
+			error_log( "BlockX: could not create $containerIdPath" );
 		}
 	}
 

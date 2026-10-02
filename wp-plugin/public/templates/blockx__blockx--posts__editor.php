@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * @var Posts $this
  * @var object $content
@@ -15,11 +17,11 @@ echo "<ul>";
 if ( $query->have_posts() ) {
 	while ( $query->have_posts() ) {
 		$query->the_post();
-		echo "<li>" . get_the_title() . "</li>";
+		echo "<li>" . esc_html( get_the_title() ) . "</li>";
 	}
 	echo "</ul>";
 
 } else {
-	echo "<i>" . __( "No posts found.", 'blockx' ) . "</i>";
+	echo "<i>" . esc_html__( "No posts found.", 'blockx' ) . "</i>";
 }
 wp_reset_postdata();

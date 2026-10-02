@@ -9,29 +9,34 @@ permissions:
   contents: read
 
 jobs:
-  php-lint:
-    name: PHP syntax check (${{ matrix.php-version }})
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        # README.txt declares Requires PHP: 8.1
-        php-version: ["8.1", "8.2", "8.3", "8.4"]
-    steps:
-      - uses: actions/checkout@v6
+  # The plugin: php -l, build, pack with payload assertions, version carriers.
+  plugin:
+    uses: palasthotel/github-workflows/.github/workflows/wp-plugin-pr.yml@v1
+    with:
+      slug: blockx
+      root: wp-plugin
+      dev-plugin-name: BlockX - DEV
+      # README.txt declares Requires PHP: 8.1
+      php-versions: '["8.1", "8.2", "8.3", "8.4"]'
+      # The editor bundle imports @palasthotel/blockx, which npm resolves to the
+      # npm-package workspace - so install and build from the repository root,
+      # library first. The command runs in wp-plugin/.
+      build-command: cd .. && npm ci && npm run build
+      # What Assets.php and Gutenberg.php load: a renamed build output fails here
+      # instead of as a 404 in the editor.
+      required-files: |
+        assets/dist/gutenberg.js
+        assets/dist/gutenberg.asset.php
+        assets/dist/gutenberg.css
+        assets/block/block.json
+        assets/container/block.json
+        assets/composedBlock/block.json
+        assets/slot/block.json
+        vendor/autoload.php
+        languages/blockx-de_DE.mo
 
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: none
-
-      - name: Lint PHP files
-        run: |
-          find . -path ./wp-plugin/public/vendor -prune -o -path ./build -prune -o -name '*.php' -print0 \
-            | xargs -0 -r -n1 php -l
-
-  lint-npm-package:
-    name: Type check the npm package
+  npm-package:
+    name: npm package (type check, build, exports)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -44,36 +49,16 @@ jobs:
         run: npm ci
 
       # tsc --noEmit over npm-package/src with strict, noUnusedLocals and
-      # noUnusedParameters. This is the only type check in the repository: the
-      # plugin bundle is JavaScript, and its @wordpress imports are externalised,
-      # so webpack never checks them either.
+      # noUnusedParameters. The plugin bundle is JavaScript and its @wordpress
+      # imports are externalised, so this is the only type check in the repository.
       - name: Lint
         run: npm run lint --workspace @palasthotel/blockx
 
-  build:
-    name: Build both workspaces
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
-
-      - name: Install dependencies
-        run: npm ci
-
-      # The plugin bundle imports @palasthotel/blockx, which npm resolves to the
-      # local workspace, so the library has to be built first. The root script
-      # does them in that order.
       - name: Build
-        run: npm run build
-
-      - name: Fail if the plugin bundle is missing
-        run: test -f wp-plugin/public/assets/dist/gutenberg.js
+        run: npm run build --workspace @palasthotel/blockx
 
       # A published package pointing at files the build does not produce is the
-      # failure mode this guards against — it happened during the tsup to tsdown
+      # failure mode this guards against - it happened during the tsup to tsdown
       # migration, where the output names changed from lib.js to lib.cjs.
       - name: Fail if the package points at files the build did not produce
         run: |
@@ -95,21 +80,3 @@ jobs:
             }
             console.log("all " + paths.size + " referenced files exist");
           '
-
-  pack:
-    name: Pack plugin
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
-          tools: composer
-
-      - name: Pack
-        run: npm ci && npm run pack

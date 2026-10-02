@@ -37,7 +37,11 @@ class PostEmbed extends _BlockType {
 		if ( null == $content->post_id || empty( $content->post_id ) ) {
 			$content->post = null;
 		} else {
-			$content->post = get_post( $content->post_id );
+			// published posts, anything else only for users who may read it
+			$post          = get_post( $content->post_id );
+			$content->post = ( $post instanceof \WP_Post && ( 'publish' === get_post_status( $post ) || current_user_can( 'read_post', $post->ID ) ) )
+				? $post
+				: null;
 		}
 
 		return $content;
