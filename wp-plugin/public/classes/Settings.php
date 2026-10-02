@@ -216,22 +216,28 @@ class Settings extends Component {
 			);
 			?>
             <script>
-                jQuery(function ($) {
-                    $("[name=regenerate]").click(function (e) {
+                document.querySelectorAll("[name=regenerate]").forEach(function (button) {
+                    button.addEventListener("click", function (e) {
                         e.preventDefault();
-                        jQuery.ajax({
-                            url: <?php echo wp_json_encode( $admin_ajax_url ); ?>,
+                        fetch(<?php echo wp_json_encode( $admin_ajax_url ); ?>, {
                             method: "POST",
-                            success: function (res) {
+                            credentials: "same-origin"
+                        })
+                            .then(function (response) {
+                                return response.json();
+                            })
+                            .then(function (res) {
                                 if (res.success) {
                                     window.location.reload();
                                 } else {
                                     console.debug(res);
-                                    alert("Something went wrong.")
+                                    alert("Something went wrong.");
                                 }
-
-                            }
-                        });
+                            })
+                            .catch(function (error) {
+                                console.debug(error);
+                                alert("Something went wrong.");
+                            });
                     });
                 });
             </script>
