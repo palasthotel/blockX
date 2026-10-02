@@ -1,5 +1,4 @@
 import {BaseControl, Button} from "@wordpress/components";
-import cloneDeep from 'lodash/cloneDeep'
 import ContentStructure from "../content-structure";
 import './ListOfWidget.css';
 import {useEffect} from "@wordpress/element";
@@ -54,7 +53,8 @@ const ListOfWidget = ({definition, value, savedState, onChange})=> {
     }
 
     const onChangeItem = (index, widgetKey, widgetValue)=>{
-        const newValue = cloneDeep(value);
+        // block attributes are plain JSON data, so the browser's own deep clone suffices
+        const newValue = structuredClone(value);
         newValue[index][widgetKey] = widgetValue;
         onChange(newValue);
     }
