@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.0
 Tested up to: 7.1.2
 Requires PHP: 8.1
-Stable tag: 1.10.4
+Stable tag: 1.10.5
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,10 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.10.5 =
+**Bug Fixes**
+* **plugin:** check read permissions in the editor endpoints and the post embed (735b04a)
 
 = 1.10.4 =
 * require a nonce for asset regeneration and escape rendered output (0a801d9)
