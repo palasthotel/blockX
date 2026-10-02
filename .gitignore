@@ -3,5 +3,10 @@
 node_modules
 /npm-package/dist
 /wp-plugin/public/assets/dist
-/build
-/blockx.zip
+
+# the shared pack.sh stages the payload here; the release rsyncs from it into SVN
+/wp-plugin/build
+/wp-plugin/blockx.zip
+
+# wp-env
+/.wp-env.override.json

@@ -12,7 +12,7 @@
     "build:lib": "npm run build --workspace @palasthotel/blockx",
     "build:plugin": "npm run build --workspace @palasthotel/wp-blockx",
     "watch": "npm run watch --workspace @palasthotel/wp-blockx",
-    "pack": "./bin/build-plugin.sh"
+    "pack": "npm run build && SLUG=blockx ROOT=wp-plugin bash ../github-workflows/wp-plugin/bin/pack.sh"
   },
   "repository": {
     "type": "git",
