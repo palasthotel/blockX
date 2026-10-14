@@ -75,7 +75,7 @@ class Debug extends _BlockType {
 
 			Read_Only::build( "readonly", "Read_Only", "not writable" ),
 
-			Hidden::build( "hidden", "is a hidden random value " . rand( 1, 99 ) ),
+			Hidden::build( "hidden", "is a hidden random value " . wp_rand( 1, 99 ) ),
 
 			Divider::build(),
 

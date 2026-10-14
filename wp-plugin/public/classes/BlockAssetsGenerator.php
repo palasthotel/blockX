@@ -55,7 +55,7 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $block->id() );
 		$jsonFile = $this->getBlockJSONFilePath( $block->id() );
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG ) {
-			if(!is_writable($this->getDirectoryPath($block->id() ))){
+			if(!wp_is_writable($this->getDirectoryPath($block->id() ))){
 				return;
 			}
 			$currentContent = "";
@@ -106,7 +106,7 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $container->id() );
 		$jsonFile = $this->getBlockJSONFilePath( $container->id() );
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG  ) {
-			if(!is_writable($this->getDirectoryPath($container->id() ))){
+			if(!wp_is_writable($this->getDirectoryPath($container->id() ))){
 				return;
 			}
 
@@ -133,7 +133,7 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $composedBlock->id() );
 		$jsonFile = $this->getBlockJSONFilePath( $composedBlock->id() );
 		if ( ! file_exists( $jsonFile ) || WP_DEBUG  ) {
-			if(!is_writable($this->getDirectoryPath($composedBlock->id() ))){
+			if(!wp_is_writable($this->getDirectoryPath($composedBlock->id() ))){
 				return;
 			}
 
@@ -168,7 +168,7 @@ class BlockAssetsGenerator extends Component {
 		$this->mkdir( $container->id() );
 		$styleFile = $this->getContainerStylesFilePath( $container->id(), $style );
 		if ( ! file_exists( $styleFile ) || WP_DEBUG ) {
-			if(!is_writable($this->getDirectoryPath($container->id()))){
+			if(!wp_is_writable($this->getDirectoryPath($container->id()))){
 				return;
 			}
 
@@ -198,11 +198,14 @@ class BlockAssetsGenerator extends Component {
 				continue;
 			} // skip . and ..
 			if ( $f->isFile() ) {
-				unlink( $f->getPathname() );
+				wp_delete_file( $f->getPathname() );
 			} else if ( $f->isDir() ) {
 				$this->deleteFilesThenSelf( $f->getPathname() );
 			}
 		}
-		rmdir( $folder );
+		// The generator writes these files with direct PHP calls during a request, so
+		// they are deleted the same way: WP_Filesystem could ask for FTP credentials
+		// here, which an AJAX request cannot answer.
+		rmdir( $folder ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir -- see above
 	}
 }

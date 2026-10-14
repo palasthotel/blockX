@@ -18,8 +18,11 @@ class Database extends Components\Database {
 	 * @return int[]
 	 */
 	public function getEmbeddedPostIds( $inPostId ) {
-		return $this->wpdb->get_col(
-			$this->wpdb->prepare( "SELECT post_id FROM $this->table WHERE embedded_in_post_id = %d", $inPostId )
+		$wpdb = $this->wpdb;
+		return $wpdb->get_col(
+			// The table name is $wpdb->prefix plus a constant. %i would need WordPress 6.2.
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->prepare( "SELECT post_id FROM $this->table WHERE embedded_in_post_id = %d", $inPostId )
 		);
 	}
 
@@ -31,8 +34,11 @@ class Database extends Components\Database {
 	 * @return array
 	 */
 	public function getEmbeddedInPostIds( $embeddedPostId ) {
-		return $this->wpdb->get_col(
-			$this->wpdb->prepare( "SELECT embedded_in_post_id FROM $this->table WHERE post_id = %d", $embeddedPostId )
+		$wpdb = $this->wpdb;
+		return $wpdb->get_col(
+			// The table name is $wpdb->prefix plus a constant. %i would need WordPress 6.2.
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->prepare( "SELECT embedded_in_post_id FROM $this->table WHERE post_id = %d", $embeddedPostId )
 		);
 	}
 
