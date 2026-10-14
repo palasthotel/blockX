@@ -73,6 +73,10 @@ Content changes to `wp-plugin/public/README.txt` (description, FAQ, tested-up-to
 are of course made by hand; just leave `Stable tag:` and the `== Changelog ==`
 entries alone.
 
+`Tested up to:` appears in the readme only, never in the plugin header, and only as
+major.minor - `7.1`, not `7.1.2`. wordpress.org compares no more than that, and its
+submission scan rejects a patch number.
+
 ## Local development
 
 ```sh
@@ -104,7 +108,8 @@ Every pull request runs two jobs:
   workspaces, a pack with assertions on the payload (the editor bundle, the
   `block.json` templates, the autoloader, the translations and `LICENSE` must be in
   it; composer files, symlinks and the development wrapper must not), and a check
-  that `wp-plugin/package.json`, the `Version:` header and the `Stable tag:` agree.
+  that `wp-plugin/package.json`, the `Version:` header and the `Stable tag:` agree,
+  and the wordpress.org Plugin Check on the payload - an error fails the pull request.
 - `npm-package`: `tsc --noEmit` over `npm-package/src`, under `strict`,
   `noUnusedLocals` and `noUnusedParameters`, a build of the library, and a check that
   `npm-package/package.json` points only at output the build produced. This is the
