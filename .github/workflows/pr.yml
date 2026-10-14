@@ -17,7 +17,7 @@ jobs:
       root: wp-plugin
       dev-plugin-name: BlockX - DEV
       # README.txt declares Requires PHP: 8.1
-      php-versions: '["8.1", "8.2", "8.3", "8.4"]'
+      php-versions: '["8.1", "8.2", "8.3", "8.4", "8.5"]'
       # The editor bundle imports @palasthotel/blockx, which npm resolves to the
       # npm-package workspace - so install and build from the repository root,
       # library first. The command runs in wp-plugin/.

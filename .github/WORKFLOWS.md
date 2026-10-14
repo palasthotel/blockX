@@ -50,7 +50,7 @@ Merge a release PR  →  release-please pushes its tag and creates a GitHub Rele
 
 ### `pr.yml`
 
-Two jobs. `plugin` calls the shared `wp-plugin-pr.yml`: `php -l` on PHP 8.1 to 8.4,
+Two jobs. `plugin` calls the shared `wp-plugin-pr.yml`: `php -l` on PHP 8.1 to 8.5,
 the build, a pack with assertions on the payload - the files `Assets.php` and
 `Gutenberg.php` load have to be in it, the composer files, symlinks and the
 development wrapper must not - and the version carriers. `npm-package` runs
