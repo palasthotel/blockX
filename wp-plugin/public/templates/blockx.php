@@ -11,6 +11,7 @@ use Palasthotel\WordPress\BlockX\Plugin;
  * @var array $attributes
  */
 printf(
+	/* translators: %s: block name, e.g. namespace/name */
 	esc_html__( "No template found for block '%s'.", 'blockx' ),
 	esc_html( (string) $this->id() )
 );

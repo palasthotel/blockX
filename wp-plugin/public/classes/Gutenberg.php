@@ -108,7 +108,7 @@ class Gutenberg extends Component {
 				if(method_exists($block, 'enqueueEditorAssets')){
 
 					_doing_it_wrong(
-						'${'.$block->id().'}->enqueueEditorAssets()',
+						esc_html( '${' . $block->id() . '}->enqueueEditorAssets()' ),
 						'"Please use editorStyles api instead',
 						"BlockX 1.4"
 					);
@@ -131,7 +131,7 @@ class Gutenberg extends Component {
 				if(method_exists($block, 'enqueueAssets')) {
 
 					_doing_it_wrong(
-						'${'.$block->id().'}->enqueueAssets()',
+						esc_html( '${' . $block->id() . '}->enqueueAssets()' ),
 						'"Please use styles api instead',
 						"BlockX 1.4"
 					);

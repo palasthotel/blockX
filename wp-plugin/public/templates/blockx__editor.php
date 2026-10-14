@@ -13,6 +13,7 @@ use Palasthotel\WordPress\BlockX\Plugin;
 
 echo "<div class='blockx__no-template'>";
 printf(
+	/* translators: %s: block name, e.g. namespace/name */
 	esc_html__( "No editor template found for block '%s'.", 'blockx' ),
 	esc_html( (string) $this->id() )
 );

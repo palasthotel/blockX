@@ -142,7 +142,7 @@ class Settings extends Component {
 	function render_settings_form() {
 		?>
         <div class="wrap">
-            <h2><?php _e( 'Blockx', 'blockx' ); ?></h2>
+            <h2><?php esc_html_e( 'Blockx', 'blockx' ); ?></h2>
             <form method="post" action="options.php">
 				<?php
 				settings_fields( 'blockx' );
@@ -159,7 +159,7 @@ class Settings extends Component {
 		echo "<table>";
 		echo "<thead>";
 		echo "<tr>";
-        echo "<th style='width: 80px;'>".__("Enabled", 'blockx')."</th>";
+        echo "<th style='width: 80px;'>" . esc_html__( "Enabled", 'blockx' ) . "</th>";
 		echo "<th style='width: 120px;'>Namespace</th>";
 		echo "<th style='width: 340px;'>Name</th>";
 		echo "</tr>";
@@ -177,12 +177,11 @@ class Settings extends Component {
 			echo "<tr>";
 
             $inputName = Plugin::OPTION_ENABLED_CORE_CONTAINERS;
-            $checked = static::isCoreContainerEnabled($container) ? "checked": "";
             printf(
-                "<td><input type='checkbox' name='%s[]' value='%s' %s /></td>",
+                "<td><input type='checkbox' name='%s[]' value='%s'%s /></td>",
                 esc_attr( $inputName ),
                 esc_attr( (string) $id ),
-                $checked
+                checked( static::isCoreContainerEnabled( $container ), true, false )
             );
 
 			printf( "<td style='vertical-align: top;'>%s</td>", esc_html( $namespace ) );
@@ -245,6 +244,7 @@ class Settings extends Component {
 		}
 
 		$description = sprintf(
+			/* translators: %s: URL of the directory the generated assets are written to */
 			__( "block.json and CSS-Files will be deleted and regenerated to %s{namespace}/{name}/.", 'blockx' ),
 			$url
 		);
@@ -318,7 +318,7 @@ class Settings extends Component {
 		);
 		printf(
 			"<p class='description'>%s</p>",
-			__(
+			esc_html__(
 				"Changes of the block settings will be automatically applied. 0 means no auto apply of changes at all.",
 				'blockx'
 			)
