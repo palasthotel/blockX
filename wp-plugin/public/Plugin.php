@@ -6,7 +6,7 @@
  * Version: 1.10.5
  * Author: Palasthotel <webmaster@palasthotel.de>
  * Author URI: https://palasthotel.de
- * Requires at least: 5.0
+ * Requires at least: 5.8
  * Tested up to: 7.1
  * Requires PHP: 8.1
  * Text Domain: blockx
