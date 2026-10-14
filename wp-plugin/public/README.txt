@@ -250,12 +250,16 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 
 == Upgrade Notice ==
 
-With 1.10.3 there is a breaking change in the Author block content structure.
+= 1.10.3 =
+Breaking change in the Author block content structure.
 
-With 1.8.0 there is a breaking change if used with headless plugin.
+= 1.8.0 =
+Breaking change if used with the headless plugin.
 
-With 1.5.0 there is a breaking change for blocks that use Readonly widget which was renamed to Read_Only because of php 8.1 token collisions.
+= 1.5.0 =
+Breaking change for blocks that use the Readonly widget, which was renamed to Read_Only because of PHP 8.1 token collisions.
 
-With 1.4.0 and newer there were some _BlockType Api changes that should be applied to custom blocks. Please remove the methods $block->enqueueEditorAssets() and $block->enqueueAssets() and use editorStyles() and styles() instead.
+= 1.4.0 =
+_BlockType API changes for custom blocks: remove $block->enqueueEditorAssets() and $block->enqueueAssets() and use editorStyles() and styles() instead.
 
 == Arbitrary section ==
