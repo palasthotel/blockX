@@ -13,6 +13,9 @@ jobs:
   plugin:
     uses: palasthotel/github-workflows/.github/workflows/wp-plugin-pr.yml@v1
     with:
+      # Plugin Check reports errors on this plugin - see https://github.com/palasthotel/blockX/issues/47.
+      # Remove this line once they are fixed.
+      plugin-check: false
       slug: blockx
       root: wp-plugin
       dev-plugin-name: BlockX - DEV
