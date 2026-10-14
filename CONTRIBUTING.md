@@ -99,8 +99,8 @@ in the plugin list that this entry is never released.
 
 Every pull request runs two jobs:
 
-- `plugin`, the shared WordPress plugin check: `php -l` over `wp-plugin/` on 8.1, 8.2,
-  8.3 and 8.4 - the plugin declares `Requires PHP: 8.1` -, a build of both
+- `plugin`, the shared WordPress plugin check: `php -l` over `wp-plugin/` on 8.1 to
+  8.5 - the plugin declares `Requires PHP: 8.1` -, a build of both
   workspaces, a pack with assertions on the payload (the editor bundle, the
   `block.json` templates, the autoloader, the translations and `LICENSE` must be in
   it; composer files, symlinks and the development wrapper must not), and a check
