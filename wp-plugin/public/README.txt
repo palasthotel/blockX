@@ -5,7 +5,7 @@ Tags: gutenberg, block, developer, utils
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.10.5
+Stable tag: 1.10.6
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,12 @@ You can find all you need to know in the docs: [https://github.com/palasthotel/b
 == Screenshots ==
 
 == Changelog ==
+
+= 1.10.6 =
+**Bug Fixes**
+* pass the wordpress.org Plugin Check (effd90c)
+* register the blocks with block API version 3 (f14a50f)
+* require WordPress 5.8, the oldest version the block registration works on (23d0afc)
 
 = 1.10.5 =
 **Bug Fixes**
