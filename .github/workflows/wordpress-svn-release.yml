@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   deploy:
-    uses: palasthotel/github-workflows/.github/workflows/wp-plugin-svn-deploy.yml@feat/tag-prefix
+    uses: palasthotel/github-workflows/.github/workflows/wp-plugin-svn-deploy.yml@v1
     with:
       slug: blockx
       root: wp-plugin
@@ -34,6 +34,4 @@ jobs:
       build-command: cd .. && npm ci && npm run build
       # The plugin page's media live in the repository root, next to wp-plugin/
       assets-dir: assets
-      dry-run: true
-      tools-ref: feat/tag-prefix
     secrets: inherit

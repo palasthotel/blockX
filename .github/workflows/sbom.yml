@@ -1,0 +1,42 @@
+name: SBOM
+
+on:
+  push:
+    tags:
+      - "plugin-v*"
+  # The SBOM of a version released before this workflow existed - see
+  # https://github.com/palasthotel/github-workflows/blob/main/docs/sbom.md
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Released plugin version, without the prefix (e.g. 1.0.1)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    uses: palasthotel/github-workflows/.github/workflows/wp-plugin-sbom.yml@v1
+    permissions:
+      contents: write
+    with:
+      slug: blockx
+      root: wp-plugin
+      tag-prefix: plugin-v
+      # The editor bundle imports @palasthotel/blockx, which npm resolves to the
+      # npm-package workspace - so install and build from the repository root,
+      # library first. The command runs in wp-plugin/.
+      build-command: cd .. && npm ci && npm run build
+      version: ${{ github.event.inputs.version }}
+
+  dependency-track:
+    needs: sbom
+    if: needs.sbom.outputs.sboms != ''
+    uses: palasthotel/github-workflows/.github/workflows/dependency-track-upload.yml@v1
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      version: ${{ needs.sbom.outputs.version }}
