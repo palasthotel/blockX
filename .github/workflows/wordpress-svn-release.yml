@@ -1,12 +1,9 @@
 ---
 name: Build and release to WordPress.org
 
-# The plugin's tags carry the component prefix (plugin-v1.10.4), because the npm
-# package is released from the same repository as npm-v*. The shared
-# wp-plugin-svn-deploy.yml@v1 only knows v* tags: it would read the version as
-# "plugin-v1.10.4" and, on a dispatch, attach the zip to a release "v1.10.4" that
-# does not exist. So this job stays here, but runs the shared scripts - the same
-# version check, pack and SVN preparation every other plugin uses.
+# The plugin's tags are plugin-v<version>: npm-package/ is released from the same
+# repository as npm-v<version>.
+
 on:
   push:
     tags:
@@ -25,90 +22,16 @@ permissions:
 
 jobs:
   deploy:
-    name: Build and deploy to WordPress.org
-    runs-on: ubuntu-latest
-    env:
-      # One line on purpose: a folded block scalar would keep line breaks inside ${{ }}
-      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && format('plugin-v{0}', github.event.inputs.version) || github.ref_name }}
-      SLUG: blockx
-      ROOT: wp-plugin
-      # the plugin page media live in the repository root, next to wp-plugin/
-      ASSETS_DIR: ${{ github.workspace }}/assets
-      TOOLS: ${{ github.workspace }}/.github-workflows/wp-plugin/bin
-    steps:
-      - name: Version from the tag
-        run: |
-          VERSION="${RELEASE_TAG#plugin-v}"
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-          echo "🤖 Deploying $SLUG $VERSION"
-
-      - uses: actions/checkout@v6
-
-      - name: Check out the release scripts
-        uses: actions/checkout@v6
-        with:
-          repository: palasthotel/github-workflows
-          ref: v1
-          path: .github-workflows
-
-      # Before anything is built or published: the tag has to match every carrier
-      - name: Check version numbers
-        run: bash "$TOOLS/check-version.sh"
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
-
-      # The library first: the editor bundle imports it from the workspace
-      - name: Build
-        run: npm ci && npm run build
-
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
-          tools: composer
-
-      - name: Pack
-        run: bash "$TOOLS/pack.sh"
-
-      - name: Attach the zip to the release
-        uses: softprops/action-gh-release@v2
-        continue-on-error: true
-        with:
-          # Explicit, because on a dispatch run github.ref is a branch
-          tag_name: ${{ env.RELEASE_TAG }}
-          files: wp-plugin/blockx.zip
-
-      - name: Install SVN
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y subversion
-
-      - name: Check out the WordPress.org SVN repository
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        run: >-
-          svn checkout "https://plugins.svn.wordpress.org/$SLUG/" svn
-          --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
-          --no-auth-cache --non-interactive
-
-      - name: Prepare trunk and tags/${{ env.VERSION }}
-        run: SVN_DIR="$GITHUB_WORKSPACE/svn" bash "$TOOLS/svn-prepare.sh"
-
-      - name: Commit to SVN
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-        working-directory: svn
-        run: >-
-          svn commit -m "Release version $VERSION"
-          --username "$SVN_USERNAME" --password "$SVN_PASSWORD"
-          --no-auth-cache --non-interactive
-
-      - name: Clean up the SVN checkout
-        if: always()
-        run: rm -rf svn
-
-      - name: Done
-        run: echo "🤖 $SLUG $VERSION deployed to https://wordpress.org/plugins/$SLUG/ 🚀"
+    uses: palasthotel/github-workflows/.github/workflows/wp-plugin-svn-deploy.yml@v1
+    with:
+      slug: blockx
+      root: wp-plugin
+      tag-prefix: plugin-v
+      version: ${{ github.event.inputs.version }}
+      # The editor bundle imports @palasthotel/blockx, which npm resolves to the
+      # npm-package workspace - so install and build from the repository root,
+      # library first. The command runs in wp-plugin/.
+      build-command: cd .. && npm ci && npm run build
+      # The plugin page's media live in the repository root, next to wp-plugin/
+      assets-dir: assets
+    secrets: inherit
